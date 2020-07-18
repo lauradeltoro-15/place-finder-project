@@ -23,7 +23,6 @@ router.post('/signup', (req, res, next) => {
     }
 
     typeOfUser.findOne({ username }, (err, foundUser) => {
-
         if (err) {
             res.status(500).json({ message: "Username check went bad." });
             return;
@@ -33,15 +32,12 @@ router.post('/signup', (req, res, next) => {
             res.status(400).json({ message: 'Username taken. Choose another one.' });
             return;
         }
-
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-
         const aNewUser = new typeOfUser({
             username: username,
-            password: hashPass
+            password: hashPass,
         });
-
         aNewUser.save(err => {
             if (err) {
                 res.status(400).json({ message: 'Saving user to database went wrong.' });

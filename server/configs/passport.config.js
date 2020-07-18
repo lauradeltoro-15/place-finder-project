@@ -9,7 +9,7 @@ const User = require('../models/user.model')
 module.exports = app => {
 
     app.use(session({
-        secret: "passport-app-webmad0320",
+        secret: "faindit-project",
         resave: true,
         saveUninitialized: true
     }))

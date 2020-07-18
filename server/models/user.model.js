@@ -17,13 +17,15 @@ const userSchema = new Schema({
         type: String, 
         default: ""
     },
+    // companyDetails: { type: Schema.Types.ObjectId, ref: "Company" },
+    // userDetails: { type: Schema.Types.ObjectId, ref: "Person" },
     interests: {
         type: [String],
         enum: ["sport", "music", "learning"]
     },
     events: [{ type: Schema.Types.ObjectId, ref: "Event" }],
     calendar: [Date],
-    favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Local" }]
+    favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Event" }]
 }, {
     timestamps: true
 })
