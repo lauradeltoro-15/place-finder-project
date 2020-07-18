@@ -6,6 +6,20 @@ const companySchema = new Schema({
         type: String,
         maxlength: 500
     },
+    phone: {
+        type: Number,
+    },
+    location: {
+        address: {
+            type: String,
+            required: true,
+            minLength: 8
+        },
+        coordinates: {
+            lat: { type: Number },
+            lng: { type: Number }
+        },
+    },
     local: [{ type: Schema.Types.ObjectId, ref: "Local" }]
 }, {
     timestamps: true

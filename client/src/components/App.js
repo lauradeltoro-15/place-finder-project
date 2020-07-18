@@ -8,7 +8,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import AuthForm from "./auth-form"
 import NavBar from "./ui/NavBar"
 import ProfilePage from "./profile/"
-
+import CompanyForm from "./profile/companyProfile/company-form"
+import LocalForm from "./profile/companyProfile/local-form"
 
 class App extends Component {
   constructor (){
@@ -33,13 +34,15 @@ class App extends Component {
     this.fetchUser()
     return (
       <>
-        <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser}/>
-          <Switch>
+        <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} />
+        <CompanyForm />
+        <LocalForm />
+        <hr></hr>
+        <Switch>
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage user={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
-          </Switch>
-
+        </Switch>
       </>
     )
   }

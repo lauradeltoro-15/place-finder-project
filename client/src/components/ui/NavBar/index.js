@@ -26,6 +26,7 @@ class Navigation extends Component {
     }
 
     render() {
+        console.log(this.props.loggedInUser)
         return (
             <Navbar bg="dark" variant="dark" expand="lg" sticky="top" >
                 <Navbar.Brand>
