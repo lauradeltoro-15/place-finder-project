@@ -5,7 +5,6 @@ import AuthService from "../services/AuthService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-
 import AuthForm from "./auth-form"
 import NavBar from "./ui/NavBar"
 
@@ -20,7 +19,7 @@ class App extends Component {
   }
   setTheUser = user => {
     console.log(user)
-    this.setState({ loggedInUser: user }, () => console.log("El estado de App ha cambiado:", this.state))
+    this.setState({ loggedInUser: user }, () => this.state)
   }
 
   fetchUser = () => {

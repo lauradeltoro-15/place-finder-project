@@ -17,15 +17,9 @@ const userSchema = new Schema({
         type: String, 
         default: ""
     },
-    // companyDetails: { type: Schema.Types.ObjectId, ref: "Company" },
-    // userDetails: { type: Schema.Types.ObjectId, ref: "Person" },
-    interests: {
-        type: [String],
-        enum: ["sport", "music", "learning"]
-    },
-    events: [{ type: Schema.Types.ObjectId, ref: "Event" }],
-    calendar: [Date],
-    favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Event" }]
+    companyDetails: { type: Schema.Types.ObjectId, ref: "Company" },
+    personDetails: { type: Schema.Types.ObjectId, ref: "Person" }
+
 }, {
     timestamps: true
 })

@@ -4,13 +4,21 @@ const passport = require("passport")
 
 const User = require("../../models/user.model")
 const Company = require("../../models/company.model")
+const Person = require("../../models/person.model")
 const bcrypt = require("bcrypt")
+
+const associateDetail = (Model, propertyValue) => {
+    return  Model.create({})
+        .then(response => {
+            return { [propertyValue]: response.id }
+        })
+        .catch(err => console.log(err))
+}
 
 
 
 router.post('/signup', (req, res, next) => {
     const { username, password, isCompany } = req.body
-    const typeOfUser = isCompany ? Company : User
 
     if (!username || !password) {
         res.status(400).json({ message: 'Provide username and password' });
@@ -22,7 +30,7 @@ router.post('/signup', (req, res, next) => {
         return;
     }
 
-    typeOfUser.findOne({ username }, (err, foundUser) => {
+    User.findOne({ username }, (err, foundUser) => {
         if (err) {
             res.status(500).json({ message: "Username check went bad." });
             return;
@@ -34,32 +42,42 @@ router.post('/signup', (req, res, next) => {
         }
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-        const aNewUser = new typeOfUser({
-            username: username,
-            password: hashPass,
-        });
-        aNewUser.save(err => {
-            if (err) {
-                res.status(400).json({ message: 'Saving user to database went wrong.' });
-                return;
-            }
+        const Model = isCompany ? Company : Person
+        const propertyValue = isCompany ? "companyDetails" : "personDetails"
+        console.log("iscompany",isCompany)
+        associateDetail(Model, propertyValue)
+            .then(response => {
+                console.log("this is the response of associate detail", response)
+                return new User({
+                    username: username,
+                    password: hashPass,
+                    ...response
+                });
+            })
+            .then(aNewUser => {
+                console.log("this is the new user", aNewUser)
+                aNewUser.save(err => {
+                    if (err) {
+                        res.status(400).json({ message: 'Saving user to database went wrong.' });
+                        return;
+                    }
+                    // Automatically log in user after sign up
+                    // .login() here is actually predefined passport method
+                    req.login(aNewUser, (err) => {
 
-            // Automatically log in user after sign up
-            // .login() here is actually predefined passport method
-            req.login(aNewUser, (err) => {
+                        if (err) {
+                            res.status(500).json({ message: 'Login after signup went bad.' });
+                            return;
+                        }
 
-                if (err) {
-                    res.status(500).json({ message: 'Login after signup went bad.' });
-                    return;
-                }
-
-                // Send the user's information to the frontend
-                // We can use also: res.status(200).json(req.user);
-                res.status(200).json(aNewUser);
-            });
-        });
-    });
-});
+                        // Send the user's information to the frontend
+                        // We can use also: res.status(200).json(req.user);
+                        res.status(200).json(aNewUser);
+                    })
+                })
+            }).catch(err => err)
+    })
+})
 
 
 
