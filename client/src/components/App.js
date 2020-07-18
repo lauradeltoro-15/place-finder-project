@@ -7,6 +7,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import AuthForm from "./auth-form"
 import NavBar from "./ui/NavBar"
+import PersonEdit from './editPersonProfile'
+import PersonProfile from './personProfile'
 
 
 class App extends Component {
@@ -18,14 +20,15 @@ class App extends Component {
     this.AuthService = new AuthService()
   }
   setTheUser = user => {
-    console.log(user)
     this.setState({ loggedInUser: user }, () => this.state)
   }
 
   fetchUser = () => {
     this.AuthService
       .isLoggedIn()
-      .then(response => this.state.loggedInUser === null && this.setState({ loggedInUser: response.data }))
+      .then(response => {
+        this.state.loggedInUser === null && this.setState({ loggedInUser: response.data })
+      })
       .catch(err => console.log({ err }))
   }
   render() {
@@ -36,8 +39,11 @@ class App extends Component {
           <Switch>
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
-          </Switch>
+          <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route>
+          <Route path="/person/profile/edit" render={props => <PersonEdit loggedUser={this.state.loggedInUser} />}></Route>
 
+          {/* <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route> */}
+          </Switch>
       </>
     )
   }
