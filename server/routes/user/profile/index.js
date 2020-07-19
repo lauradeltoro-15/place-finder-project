@@ -35,12 +35,10 @@ router.get('/personDetails/:id', (req, res, next) => {
         .catch(error => console.log(error))
 })
 
-
 //edit username and password
 
 router.post('/edit/:id', (req, res, next) => {
   
-
     const {username, password, } = req.body
     const salt = bcrypt.genSaltSync(bcryptSalt)
     const hashPass = bcrypt.hashSync(password, salt)
@@ -49,8 +47,6 @@ router.post('/edit/:id', (req, res, next) => {
         res.json({ message: "Please, introduce a valid username and password"})
         return
     }
-
-    // let personId
 
     User
         .findByIdAndUpdate(req.params.id, {username, password: hashPass}, { new: true })
