@@ -16,7 +16,7 @@ class CompanyForm extends Component {
             facebook: "",
             instagram: "",
             website: "",
-            username: null,
+            username: "",
             password: ""
         }
         this.userService = new UserService()

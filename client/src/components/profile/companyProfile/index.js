@@ -12,7 +12,7 @@ class CompanyProfile extends Component {
     }
     componentDidMount = () => this.updateUserProfile()
     updateUserProfile = () => {
-        console.log(this.props)
+        console.log("this are the props",this.props)
         // this.userService
         //     .getUserDetails()
         //     .then(response => this.setState({ coasters: response.data }))
@@ -22,6 +22,9 @@ class CompanyProfile extends Component {
         return (
             <>
                 <h1>This is the company profile</h1>
+                <h4>Description</h4>
+                
+                <h4>Contact</h4>
                 <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
 
             </>
