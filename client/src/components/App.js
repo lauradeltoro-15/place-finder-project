@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import AuthService from "../services/AuthService"
+import UserService from '../services/UserService'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -33,12 +34,6 @@ class App extends Component {
         this.state.loggedInUser === null && this.setState({ loggedInUser: response.data })
       })
       .catch(err => console.log({ err }))
-  }
-
-  personProfile = () => {
-    this.PersonService
-        .getPersonDetails(this.props.loggedInUser.personDetails)
-        .then()
   }
 
   render() {
