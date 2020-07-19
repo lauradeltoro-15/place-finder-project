@@ -31,7 +31,7 @@ class profilePerson extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         this.personService
-            .editPersonProfile(this.props.loggedUser._id , this.state)
+            .editPersonProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
@@ -47,7 +47,7 @@ class profilePerson extends Component {
         console.log("This is edit", this.props)
         return (
             <>
-            {!this.props.loggedUser ? <h1>cargando</h1>:
+            {!this.props.loggedInUser ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>

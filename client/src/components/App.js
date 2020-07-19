@@ -11,7 +11,7 @@ import ProfilePage from "./profile/"
 import CompanyForm from "./profile/companyProfile/company-form"
 import LocalForm from "./profile/companyProfile/local-form"
 import PersonEdit from './editPersonProfile'
-import PersonProfile from './personProfile'
+import PersonProfile from './profile/personProfile'
 
 
 class App extends Component {
@@ -52,9 +52,9 @@ class App extends Component {
         <Switch>
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
-          <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage user={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
-          <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route>
-          <Route path="/person/profile/edit" render={props => <PersonEdit loggedUser={this.state.loggedInUser} />}></Route>
+          <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+          {/* <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route> */}
+          <Route path="/person/profile/edit" render={props => <PersonEdit loggedInUser={this.state.loggedInUser} />}></Route>
         </Switch>
       </>
     )

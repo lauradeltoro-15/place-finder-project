@@ -1,11 +1,16 @@
 import React from "react"
 
-const ProfilePage = ({ user }) => {
-    console.log(user)
+import PersonProfile from "./personProfile/"
+import CompanyProfile from "./companyProfile"
+
+
+const ProfilePage = ({ loggedInUser }) => {
+    const detailedProfile = loggedInUser.companyDetails ? <CompanyProfile loggedInUser={loggedInUser}/> : <PersonProfile loggedInUser={loggedInUser}/>
     return (
         <main>
-            <h1>Welcome to your profile, {user.username}</h1>
-            <span>{user.personDetails ? "User" : "Company"}</span>
+            <h1>Welcome to your profile, {loggedInUser.username}</h1>
+            <span>{loggedInUser.personDetails ? "User" : "Company"}</span>
+            {detailedProfile}
         </main>
     )
 }
