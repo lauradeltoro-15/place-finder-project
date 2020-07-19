@@ -10,6 +10,5 @@ export default class UserService {
         })
     }
     editUserProfile = (id, updatedUser) => this.service.post(`user/profile/edit/${id}`, updatedUser)
-    // getPersonDetails = (personDet_id) => this.service.get(`person/personDetails/${personDet_id}`)
-
+    getUserDetails = id => this.service.get(`user/profile/${id}`)
 }

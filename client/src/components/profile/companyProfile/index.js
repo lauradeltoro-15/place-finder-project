@@ -1,11 +1,23 @@
 import React, {Component} from 'react'
+import UserService from "../../../services/UserService"
+
 import {Link} from "react-router-dom"
 class CompanyProfile extends Component {
-    constructor (){
-        super ()
-        this.state = {}
+    constructor (props){
+        super (props)
+        this.state = {
+            user: undefined
+        }
+        this.userService = new UserService()
     }
-
+    componentDidMount = () => this.updateUserProfile()
+    updateUserProfile = () => {
+        console.log(this.props)
+        // this.userService
+        //     .getUserDetails()
+        //     .then(response => this.setState({ coasters: response.data }))
+        //     .catch(err => console.log(err))
+    }
     render () {
         return (
             <>

@@ -15,10 +15,8 @@ const obtainDetailsUpdate = (body,model) => {
     delete elementToChange.username
     delete elementToChange.password
     if(model == User) {
-        console.log("I enter in user")
         return elementToChange
     }
-    console.log("I enter in company")
     return mapCompany(elementToChange)
 }
 const mapCompany = (modelData) => {
@@ -47,15 +45,6 @@ const updateDetails = (id, body, model) => {
 
 //Endpoints
 
-// get Persondetails
-
-router.get('/personDetails/:id', (req, res, next) => {
-
-    Person
-        .findById(req.params.id)
-        .then(personDet => res.json(personDet))
-        .catch(error => console.log(error))
-})
 
 //edit username and password
 
@@ -81,6 +70,17 @@ router.post('/edit/:id', (req, res, next) => {
         .catch(err => console.log(err))
 })
 
+// get user details
+
+router.get('/:id', (req, res, next) => {
+
+    User
+        .findById(req.params.id)
+        .populate("companyDetails")
+        .populate("personDetails")
+        .then(user => res.json(user))
+        .catch(error => console.log(error))
+})
 
 
 module.exports = router
