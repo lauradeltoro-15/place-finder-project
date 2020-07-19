@@ -12,7 +12,7 @@ import CompanyForm from "./profile/companyProfile/company-form"
 import LocalForm from "./profile/companyProfile/local-form"
 import PersonEdit from './profile/personProfile/person-form'
 import PersonProfile from './profile/personProfile'
-
+import CompanyEdit from "./profile/companyProfile/company-form"
 
 class App extends Component {
   constructor (){
@@ -53,6 +53,7 @@ class App extends Component {
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           {/* <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route> */}
+          <Route path="/profile/edit/company/:userId" render={props => this.state.loggedInUser ? <CompanyEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/signup' />}></Route>
           <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser ? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/signup' />}></Route>
           <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
         </Switch>

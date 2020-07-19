@@ -23,7 +23,7 @@ const companySchema = new Schema({
         type: [{
             name: {
                 type: String,
-                enum: ["Instagram", "Facebook", "Twitter", "Website"]
+                enum: ["instagram", "facebook", "website"]
             },
             mediaUrl: {
                 type: String
