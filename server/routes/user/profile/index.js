@@ -10,16 +10,38 @@ const Company = require('../../../models/company.model')
 
 //Helper functions 
 
-const obtainDetailsUpdate = body => {
+const obtainDetailsUpdate = (body,model) => {
     const elementToChange = { ...body }
     delete elementToChange.username
     delete elementToChange.password
-    return elementToChange
+    if(model == User) {
+        console.log("I enter in user")
+        return elementToChange
+    }
+    console.log("I enter in company")
+    return mapCompany(elementToChange)
+}
+const mapCompany = (modelData) => {
+    console.log("this is model data", modelData)
+    return {
+        description: modelData.description || null,
+        phone: modelData.phone || null,
+        location: {
+            address: modelData.address || null
+        },
+        socialMedia: [
+            {name: "instagram", mediaUrl: modelData.instagram || null},
+            {name: "facebook", mediaUrl: modelData.facebook || null},
+            {name: "website", mediaUrl: modelData.website || null}
+        ]      
+    }
 }
 
+
+
 const updateDetails = (id, body, model) => {
-    model.findByIdAndUpdate(id, obtainDetailsUpdate(body), { new: true })
-        .then(response => response)
+    model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
+        .then(response => console.log(response))
         .catch(err => console.log(err))
 }
 
@@ -39,7 +61,7 @@ router.get('/personDetails/:id', (req, res, next) => {
 
 router.post('/edit/:id', (req, res, next) => {
   
-    const {username, password, } = req.body
+    const {username, password } = req.body
     const salt = bcrypt.genSaltSync(bcryptSalt)
     const hashPass = bcrypt.hashSync(password, salt)
 
