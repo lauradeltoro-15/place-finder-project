@@ -105,7 +105,6 @@ class CompanyForm extends Component {
                 </Container>
             }
             </>
-    
         )
     } 
 }
