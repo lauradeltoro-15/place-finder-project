@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import PersonService from '../services/PersonService'
+import UserService from '../../../../services/UserService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
@@ -15,23 +15,22 @@ class profilePerson extends Component {
             password: '',
             interests: []
         }
-        this.personService = new PersonService()
+        this.userService = new UserService()
     }
 
-    handleInputChange = e => {
-        if(e.target.checked) {
-            this.state.interests.push(e.target.name)
-        } else {
-            this.state.interests = this.state.interests.filter(interest => interest != e.target.name)
-        }
-        const { name, value } = e.target
-        this.setState({ [name]: value })
-    }
+    handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
+        : this.handleCheckbox(e.target)
 
+    handleCheckbox = (target) => {
+        const stateToChange = [...this.state[target.name]]
+        const index = stateToChange.indexOf(target.value)
+        index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
+        this.setState({ [target.name]: stateToChange })
+    }
     handleFormSubmit = e => {
         e.preventDefault()
-        this.personService
-            .editPersonProfile(this.props.loggedInUser._id , this.state)
+        this.userService
+            .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
@@ -40,11 +39,7 @@ class profilePerson extends Component {
     }
 
     render () {
-      
-        // this.props.loggedUser.interests.forEach(interest => {
-        //     this.state.interests.push(interest)
-        // })
-        console.log("This is edit", this.props)
+    
         return (
             <>
             {!this.props.loggedInUser ? <h1>cargando</h1>:
@@ -61,11 +56,11 @@ class profilePerson extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Sport</Form.Label>
-                        <input type="checkbox" onChange={this.handleInputChange} name="sport" ckecked={this.state.interests.includes("sport")}/>
-                        <Form.Label>Music</Form.Label>
-                        <input type="checkbox" onChange={this.handleInputChange} name="music" ckecked={this.state.interests.includes("music")}/>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("sport")} value="sport" name="interests" type="checkbox" />
                         <Form.Label>Learning</Form.Label>
-                        <input type="checkbox" onChange={this.handleInputChange} name="learning" ckecked={this.state.interests.includes("learning")}/>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("learning")} value="learning" name="interests" type="checkbox" /> 
+                        <Form.Label>Music</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("music")} value="music" name="interests" type="checkbox" /> 
                     </Form.Group>
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>

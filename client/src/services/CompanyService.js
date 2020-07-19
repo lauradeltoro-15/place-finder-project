@@ -10,7 +10,7 @@ export default class UserService {
         })
     }
 
-    editPersonProfile = (id, updatedUser) => this.service.post(`person/profile/edit/${id}`, updatedUser)
+    editCompanyProfile = (id, updatedUser) => this.service.post(`profile/company/edit/${id}`, updatedUser)
     getPersonDetails = (personDet_id) => this.service.get(`person/personDetails/${personDet_id}`)
 
 }

@@ -51,18 +51,6 @@ const localSchema = new Schema({
     },
     calendar: [Date],
     events: [{ type: Schema.Types.ObjectId, ref: "Event" }],
-    owner: { type: Schema.Types.ObjectId, ref: "Company" },
-    socialMedia: {
-        type: [{
-            name: {
-                type: String,
-                enum: ["Instagram", "Facebook", "Twitter", "Website"]
-            },
-            mediaUrl: {
-                type: String
-            }
-        }]
-    }
 
 }, {
     timestamps: true

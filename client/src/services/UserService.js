@@ -1,15 +1,18 @@
 import axios from 'axios'
 
-export default class AuthService {
+export default class UserService {
 
     constructor() {
 
         this.service = axios.create({
-            baseURL: 'http://localhost:5000/api',
+            baseURL: 'http://localhost:5000/api/',
             withCredentials: true
         })
     }
-    findOneUser(id) {
-        
+    editUserProfile = (id, updatedUser) => {
+        console.log("this is id", id, "this is the user", updatedUser)
+        this.service.post(`user/profile/edit/${id}`, updatedUser)
     }
+    // getPersonDetails = (personDet_id) => this.service.get(`person/personDetails/${personDet_id}`)
+
 }

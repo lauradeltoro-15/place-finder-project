@@ -19,6 +19,17 @@ const companySchema = new Schema({
             lng: { type: Number }
         },
     },
+    socialMedia: {
+        type: [{
+            name: {
+                type: String,
+                enum: ["Instagram", "Facebook", "Twitter", "Website"]
+            },
+            mediaUrl: {
+                type: String
+            }
+        }]
+    },
     local: [{ type: Schema.Types.ObjectId, ref: "Local" }]
 }, {
     timestamps: true

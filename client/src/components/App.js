@@ -10,7 +10,7 @@ import NavBar from "./ui/NavBar"
 import ProfilePage from "./profile/"
 import CompanyForm from "./profile/companyProfile/company-form"
 import LocalForm from "./profile/companyProfile/local-form"
-import PersonEdit from './editPersonProfile'
+import PersonEdit from './profile/personProfile/person-form'
 import PersonProfile from './profile/personProfile'
 
 
@@ -46,15 +46,15 @@ class App extends Component {
     return (
       <>
         <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} />
-        <CompanyForm />
-        <LocalForm />
+        {/* <CompanyForm />
+        <LocalForm /> */}
         <hr></hr>
         <Switch>
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
-          <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
           {/* <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route> */}
-          <Route path="/person/profile/edit" render={props => <PersonEdit loggedInUser={this.state.loggedInUser} />}></Route>
+          <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser ? <PersonEdit  loggedInUser={this.state.loggedInUser} />: <Redirect to='/signup' />}></Route>
+          <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
         </Switch>
       </>
     )
