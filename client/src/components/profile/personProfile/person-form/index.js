@@ -13,12 +13,21 @@ class profilePerson extends Component {
         this.state = {
             username: '',
             password: '',
-            interests: []
+            interests: undefined,
         }
         this.userService = new UserService()
     }
 
-    componentDidMount = () => this.enterUsernameStateValue(this.props.loggedInUser)
+    componentDidMount = () => {
+        this.enterUsernameStateValue(this.props.loggedInUser)
+
+        const id = this.props.loggedInUser._id
+        this.userService
+            .getUserDetails(id)
+            .then((response) => { console.log('la response: ', response.data.personDetails.interests) 
+                return this.setState({ interests: response.data.personDetails.interests})})
+            .catch(err => console.log(err))
+    }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
@@ -36,7 +45,6 @@ class profilePerson extends Component {
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
-                console.log("this is the api response", response)
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
             })
@@ -44,10 +52,10 @@ class profilePerson extends Component {
     }
 
     render () {
-    
+        console.log('texto significativo', this.state)
         return (
             <>
-            {!this.props.loggedInUser ? <h1>cargando</h1>:
+            { this.state.interests == undefined ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
