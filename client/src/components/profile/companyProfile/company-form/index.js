@@ -30,7 +30,7 @@ class CompanyForm extends Component {
                 .catch(err => err)
     }
     updateStateFromApi = data => {
-        console.log("data",data.companyDetails.description)
+        console.log(this.mapSocialMediaInfo(data.companyDetails.socialMedia, "facebook"))
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
@@ -41,7 +41,7 @@ class CompanyForm extends Component {
             website: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "website"),
         })
     }
-    mapSocialMediaInfo = (socialMedia, name) => socialMedia.filter(social => social.name === name).map(social => social.mediaUrl)
+    mapSocialMediaInfo = (socialMedia, name) => socialMedia.filter(social => social.name === name).map(social => social.mediaUrl)[0]
     handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -52,9 +52,9 @@ class CompanyForm extends Component {
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
-                console.log("this is the api response", response)
+                console.log("this is the api response in user", response)
                 this.props.setTheUser(response.data)
-                this.props.history.push('/')
+                this.props.history.push('/profile')
             })
             .catch(err => console.log(err))   
 

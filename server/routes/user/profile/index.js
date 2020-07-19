@@ -38,6 +38,7 @@ const mapCompany = (modelData) => {
 
 
 const updateDetails = (id, body, model) => {
+    console.log("inside update")
     model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
         .then(response => console.log(response))
         .catch(err => console.log(err))
@@ -49,7 +50,6 @@ const updateDetails = (id, body, model) => {
 //edit username and password
 
 router.post('/edit/:id', (req, res, next) => {
-  
     const {username, password } = req.body
     const salt = bcrypt.genSaltSync(bcryptSalt)
     const hashPass = bcrypt.hashSync(password, salt)
