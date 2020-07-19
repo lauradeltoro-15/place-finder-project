@@ -15,7 +15,6 @@ const localSchema = new Schema({
             }
         }],
         default: "",
-
     },
     description: {
         type: String,

@@ -26,6 +26,7 @@ class ProfilePage extends Component {
     }
 
     render () {
+
         let detailedProfile
         if(this.state.userDetails){
             detailedProfile= this.props.loggedInUser.companyDetails ? 

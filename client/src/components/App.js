@@ -24,6 +24,8 @@ class App extends Component {
     this.AuthService = new AuthService()
   }
   setTheUser = user => {
+    console.log("This is previous user: ", this.state.loggedInUser)
+    console.log("This is new user: ", user)
     this.setState({ loggedInUser: user }, () => this.state)
   }
 
