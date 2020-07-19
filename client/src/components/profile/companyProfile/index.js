@@ -1,33 +1,33 @@
 import React, {Component} from 'react'
 import UserService from "../../../services/UserService"
 
+import Container from 'react-bootstrap/Container'
+
 import {Link} from "react-router-dom"
 class CompanyProfile extends Component {
-    constructor (props){
-        super (props)
+    constructor (){
+        super ()
         this.state = {
             user: undefined
         }
         this.userService = new UserService()
     }
-    componentDidMount = () => this.updateUserProfile()
-    updateUserProfile = () => {
-        console.log("this are the props",this.props)
-        // this.userService
-        //     .getUserDetails()
-        //     .then(response => this.setState({ coasters: response.data }))
-        //     .catch(err => console.log(err))
-    }
-    render () {
-        return (
-            <>
-                <h1>This is the company profile</h1>
-                <h4>Description</h4>
-                
-                <h4>Contact</h4>
-                <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
 
-            </>
+    render () {
+        const company = this.props.userDetails.companyDetails
+        const socialMedia = company.socialMedia.map(social => <li>{`${social.name}:  ${social.mediaUrl}`}</li>)
+        return (
+            <Container as="section">
+                <h4>Description</h4>
+                <p>{company.description}</p>
+                <h4>Contact</h4>
+                <ul>
+                    <li>phone: {company.phone}</li>
+                    {socialMedia}
+                </ul>
+                <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
+                <h4>Locals</h4>
+            </Container>
         )
     }
 }

@@ -20,10 +20,9 @@ class ProfilePage extends Component {
         const id = this.props.loggedInUser._id
 
         this.UserService
-        .getUserDetails(id)
-        .then((response) => { console.log('la response: ', response.data) 
-            this.setState({ userDetails: response.data})})
-        .catch(err => console.log(err))
+            .getUserDetails(id)
+            .then((response) =>  this.setState({ userDetails: response.data}))
+            .catch(err => console.log(err))
     }
 
     render () {

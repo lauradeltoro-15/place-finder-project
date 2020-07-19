@@ -14,7 +14,7 @@ const obtainDetailsUpdate = (body,model) => {
     const elementToChange = { ...body }
     delete elementToChange.username
     delete elementToChange.password
-    if(model == User) {
+    if(model == Person) {
         return elementToChange
     }
     return mapCompany(elementToChange)
