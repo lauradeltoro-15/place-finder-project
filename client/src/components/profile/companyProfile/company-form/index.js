@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-
-
 class CompanyForm extends Component {
     constructor() {
         super()
@@ -22,7 +20,7 @@ class CompanyForm extends Component {
     }
     render() {
         return (
-            <form >
+            <form>
                 <label>Description</label>
                 <textarea onChange={this.handleInputChange} value={this.state.description} name="description"></textarea>
                 <label>Phone number</label>
