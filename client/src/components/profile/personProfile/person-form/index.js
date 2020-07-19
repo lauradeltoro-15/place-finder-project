@@ -18,6 +18,10 @@ class profilePerson extends Component {
         this.userService = new UserService()
     }
 
+    componentDidMount = () => this.enterUsernameStateValue(this.props.loggedInUser)
+
+    enterUsernameStateValue = user => this.setState({ username: user.username })
+
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
         : this.handleCheckbox(e.target)
 
@@ -48,7 +52,7 @@ class profilePerson extends Component {
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.username} name="username" type="text" />
+                        <Form.Control readOnly={true} onChange={this.handleInputChange} value={this.state.username} name="username" type="text" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
