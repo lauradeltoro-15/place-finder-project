@@ -32,10 +32,11 @@ class profilePerson extends Component {
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
+                console.log("this is the api response", response)
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
             })
-            .catch(err => console.log(err.response.data.message))   
+            .catch(err => console.log(err))   
     }
 
     render () {

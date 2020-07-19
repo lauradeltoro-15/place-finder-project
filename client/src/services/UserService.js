@@ -9,10 +9,7 @@ export default class UserService {
             withCredentials: true
         })
     }
-    editUserProfile = (id, updatedUser) => {
-        console.log("this is id", id, "this is the user", updatedUser)
-        this.service.post(`user/profile/edit/${id}`, updatedUser)
-    }
+    editUserProfile = (id, updatedUser) => this.service.post(`user/profile/edit/${id}`, updatedUser)
     // getPersonDetails = (personDet_id) => this.service.get(`person/personDetails/${personDet_id}`)
 
 }

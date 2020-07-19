@@ -16,6 +16,13 @@ const obtainDetailsUpdate = body => {
     delete elementToChange.password
     return elementToChange
 }
+
+const updateDetails = (id, body, model) => {
+    model.findByIdAndUpdate(id, obtainDetailsUpdate(body), { new: true })
+        .then(response => response)
+        .catch(err => console.log(err))
+}
+
 //Endpoints
 
 // get Persondetails
@@ -46,14 +53,14 @@ router.post('/edit/:id', (req, res, next) => {
     // let personId
 
     User
-        .findByIdAndUpdate(req.params.id, {username, password: hashPass})
-        .then(user => user.companyDetails ? { model: Company, id: user.companyDetails } : { model: Person, id: user.personDetails })
-        .then(details => details.model.findByIdAndUpdate(details.id, obtainDetailsUpdate(req.body), { new: true }))
-        .then(finalUserDetails => {
-            console.log("user updated", finalUserDetails)
-            res.json(finalUserDetails)})
+        .findByIdAndUpdate(req.params.id, {username, password: hashPass}, { new: true })
+        .then(user => user.companyDetails ? { user, model: Company, id: user.companyDetails } : {user, model: Person, id: user.personDetails })
+        .then(details => {
+            updateDetails(details.id, req.body, details.model)
+            return details.user
+        })
+        .then(user => res.json(user))
         .catch(err => console.log(err))
-
 })
 
 
