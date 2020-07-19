@@ -14,6 +14,8 @@ class profilePerson extends Component {
             username: '',
             password: '',
             interests: undefined,
+            genre: undefined,
+            age: undefined,
         }
         this.userService = new UserService()
     }
@@ -24,8 +26,7 @@ class profilePerson extends Component {
         const id = this.props.loggedInUser._id
         this.userService
             .getUserDetails(id)
-            .then((response) => { console.log('la response: ', response.data.personDetails.interests) 
-                return this.setState({ interests: response.data.personDetails.interests})})
+            .then((response) => this.setState({ interests: response.data.personDetails.interests, age: response.data.personDetails.age, genre: response.data.personDetails.genre}))
             .catch(err => console.log(err))
     }
 
@@ -52,7 +53,7 @@ class profilePerson extends Component {
     }
 
     render () {
-        console.log('texto significativo', this.state)
+
         return (
             <>
             { this.state.interests == undefined ? <h1>cargando</h1>:
@@ -67,6 +68,21 @@ class profilePerson extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                         <Form.Text className="text-muted">At least three characters</Form.Text>
                     </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control onChange={this.handleInputChange} value={this.state.age} name="age" type="number" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <label>Male</label>
+                        <input onChange={this.handleInputChange} checked={this.state.genre === "Male"} value="Male" name="genre" type="radio" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Female</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.genre === "Female"} value="Female" name="genre" type="radio" />
+                    </Form.Group>
+
                     <Form.Group>
                         <Form.Label>Sport</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("sport")} value="sport" name="interests" type="checkbox" />

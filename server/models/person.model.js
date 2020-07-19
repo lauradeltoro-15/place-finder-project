@@ -2,6 +2,14 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const personSchema = new Schema({
+    age: {
+        type: Number,
+        min: 0
+    },
+    genre: {
+        type: String,
+        enum: ['Male', 'Female']
+    },
     interests: {
         type: [String],
         enum: ["sport", "music", "learning"]
