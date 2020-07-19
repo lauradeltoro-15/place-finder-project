@@ -31,6 +31,13 @@ class App extends Component {
       })
       .catch(err => console.log({ err }))
   }
+
+  personProfile = () => {
+    this.PersonService
+        .getPersonDetails(this.props.loggedInUser.personDetails)
+        .then()
+  }
+
   render() {
     this.fetchUser()
     return (

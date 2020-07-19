@@ -10,6 +10,17 @@ const Person = require('../../../models/person.model')
 
 //Endpoints
 
+// get Persondetails
+
+router.get('/personDetails/:id', (req, res, next) => {
+
+    Person
+        .findById(req.params.id)
+        .then(personDet => res.json(personDet))
+        .catch(error => console.log(error))
+})
+
+
 //edit username and password
 
 router.post('/edit/:id', (req, res, next) => {

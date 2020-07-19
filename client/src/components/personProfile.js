@@ -14,7 +14,7 @@ class Profile extends Component {
     }
 
     render () {
-        console.log('hhhhhhhhhhhhhhhh',this.props)
+        
         return (
             <>
 
