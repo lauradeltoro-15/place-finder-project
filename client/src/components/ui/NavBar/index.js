@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 
 import AuthService from '../../../services/AuthService'
 
+
 import { Link, NavLink } from 'react-router-dom'
 
 class Navigation extends Component {
@@ -12,6 +13,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props)
         this.AuthService = new AuthService()
+        
     }
 
     logout = () => {
@@ -24,6 +26,7 @@ class Navigation extends Component {
             })
             .catch(err => console.log(err))
     }
+
 
     render() {
         console.log(this.props.loggedInUser)
