@@ -30,7 +30,6 @@ class CompanyForm extends Component {
                 .catch(err => err)
     }
     updateStateFromApi = data => {
-        console.log(this.mapSocialMediaInfo(data.companyDetails.socialMedia, "facebook"))
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
@@ -52,7 +51,6 @@ class CompanyForm extends Component {
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
-                console.log("this is the api response in user", response)
                 this.props.setTheUser(response.data)
                 this.props.history.push('/profile')
             })

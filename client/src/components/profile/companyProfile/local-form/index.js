@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 
+import LocalService from "../../../../services/LocalService"
+
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 class LocalForm extends Component {
     constructor() {
@@ -10,15 +13,13 @@ class LocalForm extends Component {
             name: "",
             pictures: "",
             description: "",
-            address: "",
+            location: "",
             capacity: "",
             localType: "",
             services: [],
             facilities: [],
-            events: "",
-
-
         }
+        this.localService = new LocalService()
     }
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
         : this.handleCheckbox(e.target)
@@ -29,11 +30,17 @@ class LocalForm extends Component {
         index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
         this.setState({ [target.name]: stateToChange })
     }
+
     handleFormSubmit = e => {
         e.preventDefault()
-
+        const id = this.props.match.params.id
+        this.localService.createNewLocal(id, this.state)
+            .then(() => this.props.history.push('/profile'))
+            .catch(err => console.log(err))
     }
+
     render() {
+        
         return (
             <Container as="section">
                 <Form onSubmit={this.handleFormSubmit}>
@@ -47,7 +54,7 @@ class LocalForm extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Address</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.address} name="address" type="text" />
+                        <Form.Control onChange={this.handleInputChange} value={this.state.location} name="location" type="text" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Capacity</Form.Label>
@@ -119,6 +126,7 @@ class LocalForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("other")} value="other" name="facilities" type="checkbox" />
                     </Form.Group>
                     <hr></hr>
+                    <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
         )

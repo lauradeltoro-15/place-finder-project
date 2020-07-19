@@ -20,7 +20,7 @@ const obtainDetailsUpdate = (body,model) => {
     return mapCompany(elementToChange)
 }
 const mapCompany = (modelData) => {
-    console.log("this is model data", modelData)
+
     return {
         description: modelData.description || null,
         phone: modelData.phone || null,
@@ -73,7 +73,7 @@ router.post('/edit/:id', (req, res, next) => {
 // get user details
 
 router.get('/:id', (req, res, next) => {
-
+    console.log("Request to return details received")
     User
         .findById(req.params.id)
         .populate("companyDetails")

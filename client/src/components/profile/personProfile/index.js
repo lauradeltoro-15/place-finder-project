@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
 //Boostrap
-import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/esm/Container'
 
 class Profile extends Component {
     constructor (props){
@@ -12,24 +12,31 @@ class Profile extends Component {
     }
 
     render () {
+        console.log('los detalles' , this.props.userDetails.personDetails)
         
         return (
             <>
 
-        {!this.props.loggedInUser ? <h1>Cargando</h1>:
+            {!this.props.loggedInUser ? <h1>Cargando</h1>:
+            <Container>
 
-                    
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                    <Card.Title>{this.props.loggedInUser.username}</Card.Title>
-                    <Card.Text>
-                    
-                    </Card.Text>
-                    <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
-                </Card.Body>
- 
-            </Card>}
+                <h1>Username: {this.props.loggedInUser.username}</h1>
+                <hr></hr>
+                <h5>Age</h5>
+                {this.props.userDetails.personDetails.age}
+                <hr></hr>
+                <h5>Genre</h5>
+                {this.props.userDetails.personDetails.genre}
+                <hr></hr>
+                <h5>Interests:</h5>
+
+                {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
+            
+                <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
+
+            </Container>
+
+            }
             </>
         )
     }

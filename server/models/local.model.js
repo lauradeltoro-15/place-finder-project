@@ -6,17 +6,19 @@ const localSchema = new Schema({
         type: String,
         required: true,
     },
-    pictures: {
-        type: [{
-            imageUrl: String,
-            isMain: {
-                type: Boolean,
-                default: false,
-            }
-        }],
-        default: "",
+    owner: { type: Schema.Types.ObjectId, ref: "Company" },
+    pictures: String,
+    // pictures: {
+    //     type: [{
+    //         imageUrl: String,
+    //         isMain: {
+    //             type: Boolean,
+    //             default: false,
+    //         }
+    //     }],
+    //     default: "",
 
-    },
+    // },
     description: {
         type: String,
         maxlength: 500

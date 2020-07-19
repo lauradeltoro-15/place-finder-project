@@ -13,12 +13,22 @@ class profilePerson extends Component {
         this.state = {
             username: '',
             password: '',
-            interests: []
+            interests: undefined,
+            genre: undefined,
+            age: undefined,
         }
         this.userService = new UserService()
     }
 
-    componentDidMount = () => this.enterUsernameStateValue(this.props.loggedInUser)
+    componentDidMount = () => {
+        this.enterUsernameStateValue(this.props.loggedInUser)
+
+        const id = this.props.loggedInUser._id
+        this.userService
+            .getUserDetails(id)
+            .then((response) => this.setState({ interests: response.data.personDetails.interests, age: response.data.personDetails.age, genre: response.data.personDetails.genre}))
+            .catch(err => console.log(err))
+    }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
@@ -36,7 +46,6 @@ class profilePerson extends Component {
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
-                console.log("this is the api response", response)
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
             })
@@ -44,10 +53,10 @@ class profilePerson extends Component {
     }
 
     render () {
-    
+
         return (
             <>
-            {!this.props.loggedInUser ? <h1>cargando</h1>:
+            { this.state.interests == undefined ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
@@ -59,6 +68,21 @@ class profilePerson extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                         <Form.Text className="text-muted">At least three characters</Form.Text>
                     </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control onChange={this.handleInputChange} value={this.state.age} name="age" type="number" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <label>Male</label>
+                        <input onChange={this.handleInputChange} checked={this.state.genre === "Male"} value="Male" name="genre" type="radio" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Female</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.genre === "Female"} value="Female" name="genre" type="radio" />
+                    </Form.Group>
+
                     <Form.Group>
                         <Form.Label>Sport</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("sport")} value="sport" name="interests" type="checkbox" />

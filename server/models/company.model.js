@@ -30,7 +30,6 @@ const companySchema = new Schema({
             }
         }]
     },
-    local: [{ type: Schema.Types.ObjectId, ref: "Local" }]
 }, {
     timestamps: true
 })
