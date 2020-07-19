@@ -18,10 +18,14 @@ const mapLocal = (local,companyId) => {
 
 //Routes
 router.post('/add', (req, res, next) => {
-    console.log(mapLocal(req.body.newLocal))
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))
         .catch(err=> console.log(err))
+})
+router.get('/:companyId', (req,res,next) => {
+    Local.find({owner: req.params.companyId})
+        .then(locals => res.json(locals))
+        .catch(err => console.log(err))
 })
 
 module.exports = router

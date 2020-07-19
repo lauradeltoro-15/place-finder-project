@@ -11,5 +11,6 @@ export default class AuthService {
     }
 
     createNewLocal = (id,newLocal) => this.service.post('/local/add', {id, newLocal})
+    getCompanyLocals = id => this.service.get(`/local/${id}`)
 
 }

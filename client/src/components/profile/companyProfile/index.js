@@ -3,6 +3,8 @@ import UserService from "../../../services/UserService"
 
 import Container from 'react-bootstrap/Container'
 
+import LocalList from "./local-list"
+
 import {Link} from "react-router-dom"
 class CompanyProfile extends Component {
     constructor (){
@@ -28,7 +30,7 @@ class CompanyProfile extends Component {
                 <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
                 <h4>Locals</h4>
                 <Link to={`company/${company._id}/local/add`}>Add new local</Link>
-
+                <LocalList company={company._id}/>
             </Container>
         )
     }
