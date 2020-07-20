@@ -32,7 +32,6 @@ class profilePerson extends Component {
             .catch(err => console.log(err))
     }
 
-
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -98,7 +97,6 @@ class profilePerson extends Component {
                     </Form.Group>
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
-                <Button variant="dark" type="submit">Create a new ee</Button>
             </Container>
             }
             </>

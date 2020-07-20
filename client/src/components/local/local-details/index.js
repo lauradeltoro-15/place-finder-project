@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import LocalService from "../../../../services/LocalService"
+import LocalService from "../../../services/LocalService"
 import { Link } from 'react-router-dom'
 
 import Container from 'react-bootstrap/Container'
@@ -40,7 +40,7 @@ class LocalDetail extends Component {
                         </ul>
                         <h5>Location</h5>
                         <p>{this.state.local.location.address}</p>
-                        <Link to={`/local/edit/${this.state.owner}`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
 
                     </Container>
                  }

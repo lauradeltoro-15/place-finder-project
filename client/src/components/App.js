@@ -8,10 +8,10 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import AuthForm from "./auth-form"
 import NavBar from "./ui/NavBar"
 import ProfilePage from "./profile/"
-import LocalForm from "./profile/companyProfile/local-form/"
+import LocalForm from "./local/local-form"
 import PersonEdit from './profile/personProfile/person-form'
 import CompanyEdit from "./profile/companyProfile/company-form"
-import LocalDetails from "./profile/companyProfile/local-details"
+import LocalDetails from "./local/local-details"
 import EventCreateForm from "./event/event-create-form"
 import EventEditForm from './event/event-edit-form'
 
@@ -25,8 +25,6 @@ class App extends Component {
   }
 
   setTheUser = user => {
-    console.log("This is previous user: ", this.state.loggedInUser)
-    console.log("This is new user: ", user)
     this.setState({ loggedInUser: user }, () => this.state)
   }
 

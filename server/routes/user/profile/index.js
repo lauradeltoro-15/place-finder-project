@@ -46,13 +46,11 @@ router.post('/edit/:id', (req, res, next) => {
         res.json({ message: "Please, introduce a valid username"})
         return
     }
-
     User
         .findById(req.params.id)
         .then(user => {
             user.username = username
             if(password !== ""){
-                console.log("Changing password")
                 const salt = bcrypt.genSaltSync(bcryptSalt)
                 user.password = bcrypt.hashSync(password, salt)
             }
@@ -64,15 +62,12 @@ router.post('/edit/:id', (req, res, next) => {
             updateDetails(details.id, req.body, details.model)
             return details.user
         })
-        .then(user => {
-            res.json(user)
-        })
+        .then(user => res.json(user))
         .catch(err => console.log(err))
 })
 
 // get user details
 router.get('/:id', (req, res, next) => {
-    console.log("Request to return details received")
     User
         .findById(req.params.id)
         .populate("companyDetails")
@@ -80,6 +75,5 @@ router.get('/:id', (req, res, next) => {
         .then(user => res.json(user))
         .catch(error => console.log(error))
 })
-
 
 module.exports = router

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import LocalService from "../../../../services/LocalService"
+import LocalService from "../../../services/LocalService"
 
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
@@ -28,7 +28,6 @@ class LocalForm extends Component {
             .catch(err => console.log(err))
     }
     updateLocalState = data => {
-        console.log(data)
         this.setState({
             name: data.name || "",
             pictures: data.pictures || "",

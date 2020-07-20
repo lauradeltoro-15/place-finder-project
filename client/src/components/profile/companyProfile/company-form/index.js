@@ -19,6 +19,7 @@ class CompanyForm extends Component {
             username: "",
             password: "",
             username: "",
+            errorMsg: null,
         }
         this.userService = new UserService()
     }
@@ -48,6 +49,10 @@ class CompanyForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
+        if (this.state.password.length < 2) {
+            this.setState({ errorMsg: "Write a longer password" })
+            return 
+        }   
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
@@ -71,7 +76,8 @@ class CompanyForm extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
+                                <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
+                                {this.state.errorMsg && <small>{this.state.errorMsg}</small>}
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Phone number</Form.Label>
