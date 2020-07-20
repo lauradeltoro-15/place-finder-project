@@ -2,18 +2,16 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import AuthService from "../services/AuthService"
-import UserService from '../services/UserService'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import AuthForm from "./auth-form"
 import NavBar from "./ui/NavBar"
 import ProfilePage from "./profile/"
-import CompanyForm from "./profile/companyProfile/company-form"
 import LocalForm from "./profile/companyProfile/local-form/"
 import PersonEdit from './profile/personProfile/person-form'
-import PersonProfile from './profile/personProfile'
 import CompanyEdit from "./profile/companyProfile/company-form"
+import LocalDetails from "./profile/companyProfile/local-details"
 
 class App extends Component {
   constructor (){
@@ -23,6 +21,7 @@ class App extends Component {
     }
     this.AuthService = new AuthService()
   }
+
   setTheUser = user => {
     this.setState({ loggedInUser: user }, () => this.state)
   }
@@ -40,22 +39,22 @@ class App extends Component {
     this.fetchUser()
     return (
       <>
+        
         <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} />
-        {/* <CompanyForm />
-        <LocalForm /> */}
-        <hr></hr>
-        <Switch>
+
+        <Switch>       
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
-          {/* <Route exact path="/person/profile" render={props => <PersonProfile loggedUser={this.state.loggedInUser} />}></Route> */}
           
           <Route path="/profile/edit/company/:userId" render={props => this.state.loggedInUser ? <CompanyEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/signup' />}></Route>
           <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser ? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/signup' />}></Route>
           <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
         
           <Route path="/company/:id/local/add" render={props => this.state.loggedInUser ? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/signup' />} />
+          <Route path="/local/:id" render={props => this.state.loggedInUser ? <LocalDetails {...props} /> : <Redirect to='/signup' />} />
 
         </Switch>
+
       </>
     )
   }

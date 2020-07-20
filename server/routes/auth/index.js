@@ -1,12 +1,13 @@
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
+const bcrypt = require("bcrypt")
 
 const User = require("../../models/user.model")
 const Company = require("../../models/company.model")
 const Person = require("../../models/person.model")
-const bcrypt = require("bcrypt")
 
+//Helper functions
 const associateDetail = (Model, propertyValue) => {
     return  Model.create({})
         .then(response => {
@@ -14,8 +15,6 @@ const associateDetail = (Model, propertyValue) => {
         })
         .catch(err => console.log(err))
 }
-
-
 
 router.post('/signup', (req, res, next) => {
     const { username, password, isCompany } = req.body
@@ -44,44 +43,32 @@ router.post('/signup', (req, res, next) => {
         const hashPass = bcrypt.hashSync(password, salt);
         const Model = isCompany ? Company : Person
         const propertyValue = isCompany ? "companyDetails" : "personDetails"
-        console.log("iscompany",isCompany)
         associateDetail(Model, propertyValue)
-            .then(response => {
-                console.log("this is the response of associate detail", response)
+            .then(details => {
                 return new User({
                     username: username,
                     password: hashPass,
-                    ...response
+                    ...details
                 });
             })
             .then(aNewUser => {
-                console.log("this is the new user", aNewUser)
                 aNewUser.save(err => {
                     if (err) {
                         res.status(400).json({ message: 'Saving user to database went wrong.' });
                         return;
                     }
-                    // Automatically log in user after sign up
-                    // .login() here is actually predefined passport method
                     req.login(aNewUser, (err) => {
-
                         if (err) {
                             res.status(500).json({ message: 'Login after signup went bad.' });
                             return;
                         }
-
-                        // Send the user's information to the frontend
-                        // We can use also: res.status(200).json(req.user);
                         res.status(200).json(aNewUser);
                     })
                 })
-            }).catch(err => err)
+            })
+            .catch(err => err)
     })
 })
-
-
-
-
 
 
 router.post('/login', (req, res, next) => {
@@ -92,33 +79,24 @@ router.post('/login', (req, res, next) => {
         }
 
         if (!theUser) {
-            // "failureDetails" contains the error messages
-            // from our logic in "LocalStrategy" { message: '...' }.
             res.status(401).json(failureDetails);
             return;
         }
 
-        // save user in session
         req.login(theUser, (err) => {
             if (err) {
                 res.status(500).json({ message: 'Session save went bad.' });
                 return;
             }
-
-            // We are now logged in (that's why we can also send req.user)
             res.status(200).json(theUser);
         });
     })(req, res, next);
 });
 
-
-
 router.post('/logout', (req, res, next) => {
-    // req.logout() is defined by passport
     req.logout();
     res.status(200).json({ message: 'Log out success!' });
 });
-
 
 router.get('/loggedin', (req, res, next) => {
     if (req.isAuthenticated()) {

@@ -15,8 +15,7 @@ class ProfilePage extends Component {
 
         this.UserService = new UserService()
     }
-    componentDidMount = () =>{
-
+    componentDidMount = () => {
         const id = this.props.loggedInUser._id
 
         this.UserService

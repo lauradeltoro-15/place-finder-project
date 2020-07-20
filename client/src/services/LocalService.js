@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default class AuthService {
+export default class LocalService {
 
     constructor() {
 
@@ -12,5 +12,6 @@ export default class AuthService {
 
     createNewLocal = (id,newLocal) => this.service.post('/local/add', {id, newLocal})
     getCompanyLocals = id => this.service.get(`/local/${id}`)
+    deleteLocal = id => this.service.delete(`/local/delete/${id}`)
 
 }

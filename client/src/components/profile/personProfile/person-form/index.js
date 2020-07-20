@@ -41,13 +41,14 @@ class profilePerson extends Component {
         index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
         this.setState({ [target.name]: stateToChange })
     }
+
     handleFormSubmit = e => {
         e.preventDefault()
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
-                this.props.history.push('/')
+                this.props.history.push('/profile')
             })
             .catch(err => console.log(err))   
     }

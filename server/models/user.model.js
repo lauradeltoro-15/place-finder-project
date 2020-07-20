@@ -19,7 +19,6 @@ const userSchema = new Schema({
     },
     companyDetails: { type: Schema.Types.ObjectId, ref: "Company" },
     personDetails: { type: Schema.Types.ObjectId, ref: "Person" }
-
 }, {
     timestamps: true
 })

@@ -9,18 +9,14 @@ const Person = require('../../../models/person.model')
 const Company = require('../../../models/company.model')
 
 //Helper functions 
-
 const obtainDetailsUpdate = (body,model) => {
     const elementToChange = { ...body }
     delete elementToChange.username
     delete elementToChange.password
-    if(model == Person) {
-        return elementToChange
-    }
-    return mapCompany(elementToChange)
+    return model == Person ? elementToChange : mapCompany(elementToChange)
 }
-const mapCompany = (modelData) => {
 
+const mapCompany = (modelData) => {
     return {
         description: modelData.description || null,
         phone: modelData.phone || null,
@@ -35,20 +31,14 @@ const mapCompany = (modelData) => {
     }
 }
 
-
-
 const updateDetails = (id, body, model) => {
-    console.log("inside update")
     model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
         .then(response => console.log(response))
         .catch(err => console.log(err))
 }
 
 //Endpoints
-
-
 //edit username and password
-
 router.post('/edit/:id', (req, res, next) => {
     const {username, password } = req.body
     const salt = bcrypt.genSaltSync(bcryptSalt)
@@ -71,7 +61,6 @@ router.post('/edit/:id', (req, res, next) => {
 })
 
 // get user details
-
 router.get('/:id', (req, res, next) => {
     console.log("Request to return details received")
     User

@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
 
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+
+import LocalCard from "./local-card"
+
 import LocalService from "../../../../services/LocalService"
 
 class LocalList extends Component {
@@ -12,7 +17,7 @@ class LocalList extends Component {
     }
     componentDidMount = () => this.updateLocalList()
 
-    updateLocalList = id => {
+    updateLocalList = () => {
         this.localService.getCompanyLocals(this.props.company)
             .then(response => this.setState({locals: response.data}))
             .catch(err => console.log(err))
@@ -21,8 +26,11 @@ class LocalList extends Component {
     render () {
         return (
             <>
-                {!this.state.locals ? <h1>Cargando</h1>:
-                <h1>Cargados los locales</h1>}
+                {!this.state.locals ? <h1>Cargando</h1> :
+                    <Row>
+                        {this.state.locals.map(local => <LocalCard key={local._id} {...local} updateLocalList={this.updateLocalList}/>)}  
+                    </Row>
+                }
             </>
         )
     }
