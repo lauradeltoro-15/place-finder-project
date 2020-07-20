@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 
 const EventCard = ({name,city, description, typeOfLocal, date, _id}) => {
-
+    
     return (
         <Col md={4}>
         <Card style={{ width: '18rem' }}>
@@ -19,7 +19,7 @@ const EventCard = ({name,city, description, typeOfLocal, date, _id}) => {
                 <Card.Text>Type of Local: {typeOfLocal}</Card.Text>
                 <Card.Text>Description: {description}</Card.Text>
 
-                <Link to={`/event/edit/${_id}`} ><Button variant="promary">Edit</Button></Link>
+                <Link to={`/event/edit/${_id}`} ><Button variant="primary">Edit</Button></Link>
                 <Button variant="danger">Delete</Button>
             </Card.Body>
         </Card>

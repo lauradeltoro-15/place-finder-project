@@ -14,7 +14,7 @@ class EventDetails extends Component {
 
     componentDidMount = () => {
 
-        const id = this.props.personDetails
+        const id = this.props.loggedInUser._id
 
         this.userService
             .getPersonEvents(id)

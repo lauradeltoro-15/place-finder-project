@@ -12,22 +12,51 @@ class EditEvent extends Component {
     constructor (props){
         super (props)
         this.state = {
-            owner: this.props.personDetails,
+            owner: this.props.loggedInUser._id,
             name: '',
             description: '',
             date: undefined,
             city: undefined,
             typeOfLocal: undefined,
+            previousLoggedUser: undefined
         }
         this.userService = new UserService()
     }
+    componentDidMount = () => {
+
+        const id = this.props.match.params.eventId
+
+        this.userService
+            .getOneEvent(id)
+            .then(response => this.setState({name: response.data.name, description: response.data.description, date: response.data.date, city: response.data.city, typeOfLocal: response.data.typeOfLocal,}))
+            .catch(err => console.log(err))
+    }
+
+    enterUsernameStateValue = user => this.setState({ username: user.username })
+
+    handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
+        : this.handleCheckbox(e.target)
+
+    handleCheckbox = (target) => {
+        const stateToChange = [...this.state[target.name]]
+        const index = stateToChange.indexOf(target.value)
+        index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
+        this.setState({ [target.name]: stateToChange })
+    }
+    handleFormSubmit = e => {
+        e.preventDefault()
+        this.setState({previousLoggedUser: this.props.loggedInUser})
+        console.log('MEOW')
+    }
 
     render () {
+        console.log('estas son las props: ', this.props)
         return (
             <>
+            { this.state.name == undefined ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
-                <h1>Create Event</h1>
+                <h1>Edit Event</h1>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control  onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
@@ -70,6 +99,7 @@ class EditEvent extends Component {
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
+            }
             </>
         )
     }

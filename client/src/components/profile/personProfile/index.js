@@ -14,7 +14,6 @@ class Profile extends Component {
     }
 
     render () {
-        console.log('los detalles' , this.props.userDetails.personDetails)
         
         return (
             <>
@@ -35,7 +34,7 @@ class Profile extends Component {
                 {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
                 <hr></hr>
                 <h5>Your events</h5>
-                <Events personDetails={this.props.loggedInUser.personDetails}/>
+                <Events loggedInUser={this.props.loggedInUser}/>
             
                 <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
                 <Link to={`/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
