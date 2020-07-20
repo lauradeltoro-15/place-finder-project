@@ -38,10 +38,12 @@ router.get('/event/:userId', (req, res, next) => {
 })
 
 router.post('/event/:userId', (req, res, next) => {
+    console.log('estoy entrando al post')
+    console.log(req.body)
 
     Event
-        .findByIdAndUpdate(req.params.userId, req.body)
-        .then(response => res.json(response))
+        .findByIdAndUpdate(req.params.userId, req.body, {new: true})
+        .then(response => console.log('evento editado: ', response))
         .catch(err => next(err))
 
 })

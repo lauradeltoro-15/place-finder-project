@@ -45,12 +45,18 @@ class EditEvent extends Component {
     }
     handleFormSubmit = e => {
         e.preventDefault()
-        this.setState({previousLoggedUser: this.props.loggedInUser})
-        console.log('MEOW')
+        this.userService
+            .editEvent(this.props.match.params.eventId, this.state)
+            .then(response => {
+                this.props.setTheUser(response.data)
+                this.props.history.push("/profile")
+            })
+            .catch(err => console.log(err))   
+
     }
 
     render () {
-        console.log('estas son las props: ', this.props)
+
         return (
             <>
             { this.state.name == undefined ? <h1>cargando</h1>:
