@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 class profilePerson extends Component {
+
     constructor (props){
         super (props)
         this.state = {
@@ -16,6 +17,7 @@ class profilePerson extends Component {
             interests: undefined,
             genre: undefined,
             age: undefined,
+            previousLoggedUser: undefined
         }
         this.userService = new UserService()
     }
@@ -29,6 +31,7 @@ class profilePerson extends Component {
             .then((response) => this.setState({ interests: response.data.personDetails.interests, age: response.data.personDetails.age, genre: response.data.personDetails.genre}))
             .catch(err => console.log(err))
     }
+
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
@@ -44,6 +47,7 @@ class profilePerson extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
+        this.setState({previousLoggedUser: this.props.loggedInUser})
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
@@ -94,6 +98,7 @@ class profilePerson extends Component {
                     </Form.Group>
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
+                <Button variant="dark" type="submit">Create a new ee</Button>
             </Container>
             }
             </>

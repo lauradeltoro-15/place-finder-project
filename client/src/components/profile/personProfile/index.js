@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
+import Events from '../../event/event-details'
+
 //Boostrap
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/esm/Container'
@@ -12,7 +14,6 @@ class Profile extends Component {
     }
 
     render () {
-        console.log('los detalles' , this.props.userDetails.personDetails)
         
         return (
             <>
@@ -31,8 +32,12 @@ class Profile extends Component {
                 <h5>Interests:</h5>
 
                 {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
+                <hr></hr>
+                <h5>Your events</h5>
+                <Events loggedInUser={this.props.loggedInUser}/>
             
                 <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
+                <Link to={`/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
 
             </Container>
 

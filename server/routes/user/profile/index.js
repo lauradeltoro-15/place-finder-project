@@ -41,22 +41,32 @@ const updateDetails = (id, body, model) => {
 //edit username and password
 router.post('/edit/:id', (req, res, next) => {
     const {username, password } = req.body
-    const salt = bcrypt.genSaltSync(bcryptSalt)
-    const hashPass = bcrypt.hashSync(password, salt)
 
-    if (!username || !password) {
-        res.json({ message: "Please, introduce a valid username and password"})
+    if (!username) {
+        res.json({ message: "Please, introduce a valid username"})
         return
     }
 
     User
-        .findByIdAndUpdate(req.params.id, {username, password: hashPass}, { new: true })
+        .findById(req.params.id)
+        .then(user => {
+            user.username = username
+            if(password !== ""){
+                console.log("Changing password")
+                const salt = bcrypt.genSaltSync(bcryptSalt)
+                user.password = bcrypt.hashSync(password, salt)
+            }
+            user.save()
+            return user
+        }) 
         .then(user => user.companyDetails ? { user, model: Company, id: user.companyDetails } : {user, model: Person, id: user.personDetails })
         .then(details => {
             updateDetails(details.id, req.body, details.model)
             return details.user
         })
-        .then(user => res.json(user))
+        .then(user => {
+            res.json(user)
+        })
         .catch(err => console.log(err))
 })
 
