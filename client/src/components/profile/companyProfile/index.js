@@ -3,7 +3,7 @@ import UserService from "../../../services/UserService"
 
 import Container from 'react-bootstrap/Container'
 
-import LocalList from "./local-list"
+import LocalList from "../../local/local-list"
 
 import { Link } from "react-router-dom"
 

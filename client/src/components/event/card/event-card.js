@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import UserService from '../../services/UserService'
+import UserService from '../../../services/UserService'
 
 import React, {Component} from 'react'
 

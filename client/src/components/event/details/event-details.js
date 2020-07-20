@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import UserService from '../../services/UserService'
-import EventCard from './event-card'
+import UserService from '../../../services/UserService'
+import EventCard from '../card/event-card'
 
 class EventDetails extends Component {
     constructor (props){

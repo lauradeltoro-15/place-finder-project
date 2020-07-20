@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-import UserService from '../../services/UserService'
+import UserService from '../../../services/UserService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
@@ -28,8 +28,19 @@ class EditEvent extends Component {
 
         this.userService
             .getOneEvent(id)
-            .then(response => this.setState({name: response.data.name, description: response.data.description, date: response.data.date, city: response.data.city, typeOfLocal: response.data.typeOfLocal,}))
+            .then(response => this.updateEventState(response.data))
             .catch(err => console.log(err))
+    }
+    updateEventState = data => {
+        this.setState({
+            name: data.name || "",
+            description: data.description || "",
+            date: data.date || "",
+            city: data.city || "",
+            typeOfLocal: data.typeOfLocal || "",
+
+        })
+
     }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
@@ -43,14 +54,27 @@ class EditEvent extends Component {
         index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
         this.setState({ [target.name]: stateToChange })
     }
+
     handleFormSubmit = e => {
         e.preventDefault()
+        const id = this.props.match.params.eventId
+        this.props.location.pathname.includes("edit") ? this.editEvent(id, this.state) : this.createEvent()
+    }
+
+    createEvent = () => {
         this.userService
-            .editEvent(this.props.match.params.eventId, this.state)
+        .createEvent(this.state)
+        .then(() => this.props.history.push("/profile"))
+        .catch(err => console.log(err))
+    }
+  
+    editEvent = (id, newEvent) => {
+        this.userService
+            .editEvent(id, newEvent)
             .then(() => this.props.history.push("/profile"))
             .catch(err => console.log(err))   
-
     }
+
 
     render () {
 
@@ -59,7 +83,7 @@ class EditEvent extends Component {
             { this.state.name == undefined ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
-                <h1>Edit Event</h1>
+                {this.props.location.pathname.includes("edit") ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control  onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />

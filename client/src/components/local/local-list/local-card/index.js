@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import LocalService from "../../../../../services/LocalService"
+import LocalService from "../../../../services/LocalService"
 
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'

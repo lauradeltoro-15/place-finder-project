@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 
 import LocalCard from "./local-card"
 
-import LocalService from "../../../../services/LocalService"
+import LocalService from "../../../services/LocalService"
 
 class LocalList extends Component {
     constructor (){
