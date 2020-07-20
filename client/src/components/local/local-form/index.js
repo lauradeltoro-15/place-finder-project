@@ -60,19 +60,20 @@ class LocalForm extends Component {
             
         
     }
+
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
             .then(() => this.props.history.push('/profile'))
-            .catch(err => console.log(err))
+            .catch(err => this.setErrorMessage(err.response.data.message))
     }
+    setErrorMessage = errorMsg => this.setState({ errorMsg })
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push('/profile'))
-            .catch(err => console.log(err))
+            .catch(err => this.setErrorMessage(err.response.data.message))
     }
 
     render() {
-        
         return (
             <Container as="section">
                 <Form onSubmit={this.handleFormSubmit}>
@@ -158,6 +159,7 @@ class LocalForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("other")} value="other" name="facilities" type="checkbox" />
                     </Form.Group>
                     <hr></hr>
+                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg }</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>

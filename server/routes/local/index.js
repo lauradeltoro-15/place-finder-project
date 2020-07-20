@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const Local = require("../../models/local.model")
-
+const ValidationHandler = require("../../validationHandler")
+const validationHandler = new ValidationHandler()
 //Helper functions
 const mapLocal = (local,companyId) => {
     return {
@@ -14,6 +15,13 @@ const mapLocal = (local,companyId) => {
     }
 }
 
+const isFormValidated = (local, res) => {
+    return validationHandler.areRequiredFieldsFilled(local, res, "name", "location", "capacity", "localType") &&
+    validationHandler.isFieldLongEnough(local.name, res, 2, "name") &&
+    validationHandler.isFieldTooLong(local.description, res, 500, "description") &&
+    validationHandler.isFieldValueTooSmall(Number(local.capacity), res, 10, "capacity")
+}
+
 //Routes
 router.delete("/delete/:localId", (req, res, next) => {
     Local.findByIdAndDelete(req.params.localId)
@@ -22,6 +30,7 @@ router.delete("/delete/:localId", (req, res, next) => {
 })
 
 router.put("/edit/:localId", (req, res, next) => {
+    isFormValidated(req.body.updatedLocal, res) &&
     Local.findByIdAndUpdate(req.params.localId, mapLocal(req.body.updatedLocal, req.body.id), {new:true})
         .then(localUpdated => res.json(localUpdated))
         .catch(err => console.log(err))
@@ -35,6 +44,7 @@ router.get("/details/:localId", (req, res, next) => {
 })
 
 router.post('/add', (req, res, next) => {   
+    isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))
         .catch(err=> console.log(err))

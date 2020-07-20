@@ -43,9 +43,9 @@ class EventForm extends Component {
         this.userService
             .createEvent(this.state)
             .then(() => this.props.history.push("/profile"))
-            .catch(err => console.log(err))
+            .catch( err => this.setErrorMessage(err.response.data.message))
     }
-
+    setErrorMessage = errorMsg => this.setState({ errorMsg })
     render () {
 
         return (
@@ -92,6 +92,7 @@ class EventForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "other"} value="other" name="typeOfLocal" type="radio" />
                     </Form.Group>
                     </Form.Group>
+                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>

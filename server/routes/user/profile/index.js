@@ -31,6 +31,12 @@ const mapCompany = (modelData) => {
     }
 }
 
+const areRequiredFieldsFilled = (body, ...fields) => {
+    console.log(body, fields)
+    return fields.every(field => body[field] && body[field].length > 0 || body[field] > 0)
+
+}
+
 const updateDetails = (id, body, model) => {
     model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
         .then(response => console.log(response))
@@ -42,10 +48,6 @@ const updateDetails = (id, body, model) => {
 router.post('/edit/:id', (req, res, next) => {
     const {username, password } = req.body
 
-    if (!username) {
-        res.json({ message: "Please, introduce a valid username"})
-        return
-    }
     User
         .findById(req.params.id)
         .then(user => {

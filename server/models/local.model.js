@@ -5,6 +5,7 @@ const localSchema = new Schema({
     name: {
         type: String,
         required: true,
+        minlength: 2
     },
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     pictures: String,
@@ -35,7 +36,7 @@ const localSchema = new Schema({
     },
     capacity: {
         type: Number,
-        min: 2
+        min: 10
     },
     localType: {
         type: String,
