@@ -48,10 +48,10 @@ router.get('/event/:userId', (req, res, next) => {
 
 })
 
-router.post('/event/:userId', (req, res, next) => {
+router.post('/event/:eventId', (req, res, next) => {
 
     Event
-        .findByIdAndUpdate(req.params.userId, req.body, {new: true})
+        .findByIdAndUpdate(req.params.eventId, req.body, {new: true})
         .then(() => res.json(''))
         .catch(err => next(err))
 

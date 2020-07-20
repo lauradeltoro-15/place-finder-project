@@ -12,7 +12,7 @@ import LocalForm from "./local/local-form"
 import PersonEdit from './profile/personProfile/person-form'
 import CompanyEdit from "./profile/companyProfile/company-form"
 import LocalDetails from "./local/local-details"
-import EventForm from './event/form/event-edit-form'
+import EventForm from './event/form'
 
 class App extends Component {
   constructor (){
