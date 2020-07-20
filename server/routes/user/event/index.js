@@ -21,7 +21,18 @@ router.post('/create', (req, res, next) => {
 
     Event
         .create(req.body)
-        .then(response => console.log(response.data))
+        .then(() => res.json(''))
+        .catch(err => next(err))
+
+})
+
+//delete event
+
+router.get('/delete/:id', (req, res, next) => {
+
+    Event
+        .findByIdAndRemove(req.params.id)
+        .then(() => res.json(''))
         .catch(err => next(err))
 
 })
@@ -38,12 +49,10 @@ router.get('/event/:userId', (req, res, next) => {
 })
 
 router.post('/event/:userId', (req, res, next) => {
-    console.log('estoy entrando al post')
-    console.log(req.body)
 
     Event
         .findByIdAndUpdate(req.params.userId, req.body, {new: true})
-        .then(response => console.log('evento editado: ', response))
+        .then(() => res.json(''))
         .catch(err => next(err))
 
 })

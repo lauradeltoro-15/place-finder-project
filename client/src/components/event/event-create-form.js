@@ -42,7 +42,7 @@ class EventForm extends Component {
         e.preventDefault()
         this.userService
             .createEvent(this.state)
-            .then(() => this.props.history.push('/profile'))
+            .then(() => this.props.history.push("/profile"))
             .catch(err => console.log(err))
     }
 
