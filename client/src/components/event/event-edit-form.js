@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
-import UserService from '../../../src/services/UserService'
+import UserService from '../../services/UserService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-class EventForm extends Component {
-
+class EditEvent extends Component {
     constructor (props){
         super (props)
         this.state = {
-            owner: this.props.loggedInUser,
+            owner: this.props.personDetails,
             name: '',
             description: '',
             date: undefined,
@@ -22,54 +22,9 @@ class EventForm extends Component {
         this.userService = new UserService()
     }
 
-
-    // componentDidMount = () => {
-    //     this.enterUsernameStateValue(this.props.loggedInUser)
-
-    //     const id = this.props.loggedInUser._id
-    //     this.userService
-    //         .createEvent(id)
-    //         .then((response) => this.setState({ interests: response.data.personDetails.interests, age: response.data.personDetails.age, genre: response.data.personDetails.genre}))
-    //         .catch(err => console.log(err))
-    // }
-
-
-    handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
-        : this.handleCheckbox(e.target)
-
-    handleCheckbox = (target) => {
-        const stateToChange = [...this.state[target.name]]
-        const index = stateToChange.indexOf(target.value)
-        index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
-        this.setState({ [target.name]: stateToChange })
-    }
-    // handleFormSubmit = e => {
-    //     e.preventDefault()
-    //     this.userService
-    //         .createEvent(this.props.personDetails. this.state)
-    //         .then(response => {
-    //             this.props.setTheUser(response.data)
-    //             this.props.history.push("/profile")
-    //         })
-    //         .catch(err => console.log(err))   
-    // }
-    handleInputChange = e => {
-        const { name, value } = e.target
-        this.setState({ [name]: value })
-    }
-
-    handleFormSubmit = e => {
-        e.preventDefault()
-        this.userService
-            .createEvent(this.state)
-            .then(() => this.props.history.push('/profile'))
-            .catch(err => console.log(err))
-    }
-
     render () {
-
         return (
-            
+            <>
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
                 <h1>Create Event</h1>
@@ -115,9 +70,9 @@ class EventForm extends Component {
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
-            
+            </>
         )
     }
 }
 
-export default EventForm
+export default EditEvent
