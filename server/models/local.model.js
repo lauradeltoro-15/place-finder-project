@@ -6,7 +6,7 @@ const localSchema = new Schema({
         type: String,
         required: true,
     },
-    owner: { type: Schema.Types.ObjectId, ref: "Company" },
+    owner: { type: Schema.Types.ObjectId, ref: "User" },
     pictures: String,
     // pictures: {
     //     type: [{
@@ -16,8 +16,7 @@ const localSchema = new Schema({
     //             default: false,
     //         }
     //     }],
-    //     default: "",
-
+    //     default: ""
     // },
     description: {
         type: String,

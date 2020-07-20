@@ -7,8 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 
 class LocalForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             name: "",
             pictures: "",
@@ -21,6 +21,28 @@ class LocalForm extends Component {
         }
         this.localService = new LocalService()
     }
+    componentDidMount = () => {
+        const id = this.props.match.params.localId
+        this.localService.getOneLocal(id)
+            .then(response => this.updateLocalState(response.data))
+            .catch(err => console.log(err))
+    }
+    updateLocalState = data => {
+        console.log(data)
+        this.setState({
+            name: data.name || "",
+            pictures: data.pictures || "",
+            description: data.description || "",
+            location: data.location.address || "",
+            localType: data.localType || "",
+            capacity: data.capacity || "",
+            services: data.services || [],
+            facilities: data.facilities || []
+
+        })
+
+    }
+
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
         : this.handleCheckbox(e.target)
 
@@ -33,8 +55,19 @@ class LocalForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        const id = this.props.match.params.id
-        this.localService.createNewLocal(id, this.state)
+        const userIid = this.props.match.params.id
+        const localId = this.props.match.params.localId
+        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
+            
+        
+    }
+    createNewLocal = (id, state) => {
+        this.localService.createNewLocal(id, state)
+            .then(() => this.props.history.push('/profile'))
+            .catch(err => console.log(err))
+    }
+    editLocal = (id, state, localId) => {
+        this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push('/profile'))
             .catch(err => console.log(err))
     }

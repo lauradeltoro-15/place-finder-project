@@ -18,7 +18,7 @@ class LocalList extends Component {
     componentDidMount = () => this.updateLocalList()
 
     updateLocalList = () => {
-        this.localService.getCompanyLocals(this.props.company)
+        this.localService.getUserLocals(this.props.user)
             .then(response => this.setState({locals: response.data}))
             .catch(err => console.log(err))
     }

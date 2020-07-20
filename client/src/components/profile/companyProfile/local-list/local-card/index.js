@@ -41,7 +41,7 @@ class LocalCard extends Component {
                     </Card.Body>
                     <Button variant="dark" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
                     <Link to={`/local/${this.props._id}`} className="btn btn-dark btn-block btn-sm">See details</Link>
-
+                    <Link to={`user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
                 </Card>
             </Col>
         )

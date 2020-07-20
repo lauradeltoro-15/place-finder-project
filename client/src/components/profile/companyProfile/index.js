@@ -30,8 +30,8 @@ class CompanyProfile extends Component {
                 </ul>
                 <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
                 <h4>Locals</h4>
-                <Link to={`company/${company._id}/local/add`}>Add new local</Link>
-                <LocalList company={company._id}/>
+                <Link to={`user/${this.props.userDetails._id}/local/add`}>Add new local</Link>
+                <LocalList user={this.props.userDetails._id}/>
             </Container>
         )
     }

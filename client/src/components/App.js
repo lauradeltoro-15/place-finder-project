@@ -50,9 +50,10 @@ class App extends Component {
           <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser ? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/signup' />}></Route>
           <Route path="/profile" render={() => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
         
-          <Route path="/company/:id/local/add" render={props => this.state.loggedInUser ? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/signup' />} />
-          <Route path="/local/:id" render={props => this.state.loggedInUser ? <LocalDetails {...props} /> : <Redirect to='/signup' />} />
+          <Route path="/user/:id/local/add" render={props => this.state.loggedInUser ? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/signup' />} />
+          <Route path="/user/:id/local/:localId/edit/" render={props => this.state.loggedInUser ? <LocalForm {...props} /> : <Redirect to='/signup' />} />
 
+          <Route path="/local/:id" render={props => this.state.loggedInUser ? <LocalDetails {...props} /> : <Redirect to='/signup' />} />
         </Switch>
 
       </>
