@@ -33,6 +33,7 @@ class Profile extends Component {
                 {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
             
                 <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
+                <Link to={`/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
 
             </Container>
 

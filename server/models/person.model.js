@@ -14,7 +14,6 @@ const personSchema = new Schema({
         type: [String],
         enum: ["sport", "music", "learning"]
     },
-    events: [{ type: Schema.Types.ObjectId, ref: "Event" }],
     calendar: [Date],
     favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Event" }]
 }, {

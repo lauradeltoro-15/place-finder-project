@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
 import UserService from '../../../../services/UserService'
 
@@ -6,6 +7,7 @@ import UserService from '../../../../services/UserService'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+
 
 class profilePerson extends Component {
 
@@ -97,6 +99,7 @@ class profilePerson extends Component {
                     </Form.Group>
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
+               
             </Container>
             }
             </>

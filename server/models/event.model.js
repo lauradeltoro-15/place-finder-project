@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
 
+    owner: {type: Schema.Types.ObjectId, ref: "Person"},
     name: {
         type: String,
         required: true,
