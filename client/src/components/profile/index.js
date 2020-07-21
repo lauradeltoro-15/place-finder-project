@@ -23,12 +23,12 @@ class ProfilePage extends Component {
             .catch(err => console.log(err))
     }
 
-    render () {
+    render() {
         let detailedProfile
         if(this.state.userDetails){
             detailedProfile = this.state.userDetails.companyDetails ? 
-                <CompanyProfile userDetails={this.state.userDetails} loggedInUser={this.state.userDetails}/>
-                : <PersonProfile userDetails={this.state.userDetails} loggedInUser={this.state.userDetails}/>
+                <CompanyProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
+                : <PersonProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
         }
         
         return (
