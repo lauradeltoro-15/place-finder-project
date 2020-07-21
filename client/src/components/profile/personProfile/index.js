@@ -24,7 +24,7 @@ class Profile extends Component {
             {!this.props.loggedInUser ? <h1>Cargando</h1>:
             <Container>
 
-                <h1>Username: {this.props.loggedInUser.username}</h1>
+                        <h1>Username: {this.props.userDetails.username}</h1>
                 <hr></hr>
                 <h5>Age</h5>
                 {this.props.userDetails.personDetails.age}
