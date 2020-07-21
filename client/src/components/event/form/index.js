@@ -61,19 +61,20 @@ class EditEvent extends Component {
         const id = this.props.match.params.eventId
         this.props.location.pathname.includes("edit") ? this.editEvent(id, this.state) : this.createEvent()
     }
+    setErrorMessage = errorMsg => this.setState({ errorMsg })
 
     createEvent = () => {
         this.eventService
         .createEvent(this.state)
         .then(() => this.props.history.push("/profile"))
-        .catch(err => console.log(err))
+            .catch(err => this.setErrorMessage(err.response.data.message))
     }
   
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent)
             .then(() => this.props.history.push("/profile"))
-            .catch(err => console.log(err))   
+            .catch(err => this.setErrorMessage(err.response.data.message))   
     }
 
 
@@ -106,24 +107,25 @@ class EditEvent extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                    <Form.Label><h2>Type of local</h2></Form.Label>
-                    <Form.Group>
-                        <label>Restaurant</label>
-                        <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "restaurant"} value="restaurant" name="typeOfLocal" type="radio" />
+                        <Form.Label><h2>Type of local</h2></Form.Label>
+                        <Form.Group>
+                            <label>Restaurant</label>
+                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "restaurant"} value="restaurant" name="typeOfLocal" type="radio" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Gym</Form.Label>
+                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "gym"} value="gym" name="typeOfLocal" type="radio" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Hotel</Form.Label>
+                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "hotel"} value="hotel" name="typeOfLocal" type="radio" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Other</Form.Label>
+                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "other"} value="other" name="typeOfLocal" type="radio" />
+                        </Form.Group>
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Gym</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "gym"} value="gym" name="typeOfLocal" type="radio" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Hotel</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "hotel"} value="hotel" name="typeOfLocal" type="radio" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Other</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "other"} value="other" name="typeOfLocal" type="radio" />
-                    </Form.Group>
-                    </Form.Group>
+                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
