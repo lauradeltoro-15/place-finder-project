@@ -77,8 +77,6 @@ class Calendar extends Component {
                     </Modal.Body>
                 </Modal>
             </>
-
-
         )
     }
 }
