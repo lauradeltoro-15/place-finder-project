@@ -36,7 +36,7 @@ isFormValidated(req.body, res) &&
 
 //delete event
 
-router.get('/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', (req, res, next) => {
 
     Event
         .findByIdAndRemove(req.params.id)
@@ -56,7 +56,7 @@ router.get('/event/:userId', (req, res, next) => {
 
 })
 
-router.post('/event/:userId', (req, res, next) => {
+router.put('/event/:userId', (req, res, next) => {
     isFormValidated(req.body, res) &&
     Event
         .findByIdAndUpdate(req.params.eventId, req.body, {new: true})
