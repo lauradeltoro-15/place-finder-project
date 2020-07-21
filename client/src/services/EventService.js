@@ -12,9 +12,13 @@ export default class EventService {
 
     //events
     createEvent = event => this.service.post(`/create`, event)
-    getPersonEvents = id => this.service.get(`/${id}`)
+    getOwnedEvents = userId => this.service.get(`/${userId}/owned`)
+    getParticipantEvents = userId => this.service.get(`/${userId}/participant`)
     getOneEvent = eventId => this.service.get(`/event/${eventId}`)
     editEvent = (eventId, newEvent) => this.service.put(`/event/${eventId}`, newEvent)
     deleteEvent = (eventId) => this.service.delete(`/delete/${eventId}`)
     getAllEvents = () => this.service.get('/getAllEvents')
+    getEventOwner = eventId => this.service.get(`/getOwner/${eventId}`)
+    joinEvent = (eventId, userId) => this.service.put(`/join/${eventId}/${userId}`)
+    leaveEvent = (eventId, userId) => this.service.put(`/leave/${eventId}/${userId}`)
 }

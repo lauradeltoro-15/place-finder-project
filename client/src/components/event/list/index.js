@@ -6,27 +6,62 @@ import Container from 'react-bootstrap/esm/Container'
 
 
 class  EventList extends Component {
-    constructor (){
-        super ()
+    constructor (props){
+        super (props)
         this.state = {
-            events: undefined
+            events: undefined,
+            loggedUserEvents: []
         }
         this.eventService = new EventService()
     }
 
-    componentDidMount = () => this.updateEventList()
+    componentDidMount = () => {
+        this.updateEventList()
+    }
+
     updateEventList = () => {
+        
+        this.setLoggedUserEvents(this.props.loggedInUser._id)
+
         this.eventService
             .getAllEvents()
-            .then(response => this.setState({ events: response.data }))
+            .then(response => {
+                console.log("ACTUALIZANDO EVENTOS")
+                this.setState({ events: response.data })
+                console.log("EVENTOS: ",this.state.events)
+            })
             .catch(err => console.log(err))
+    
     }
+
+    setLoggedUserEvents = userId => {
+        let loggedUserEventsCopy = []
+        this.eventService
+            .getOwnedEvents(userId)
+            .then(response => loggedUserEventsCopy.push(...response.data)) //Gestionar que siempre sea un array
+            .then(() => this.eventService.getParticipantEvents(userId))
+            .then(response => loggedUserEventsCopy.push(...response.data))
+            .then(() => this.setState({loggedUserEvents: loggedUserEventsCopy}))
+            .catch(err => console.log(err))
+
+
+        // this.eventService
+        //     .getParticipantEvents(userId)
+        //     .then((response) => {
+        //         console.log("ACTUALIZANDO EVENTOS DE USUARIO -> PARTICIPANT")
+        //         response.data.forEach(event => this.state.loggedUserEvents.push(event))
+        //         console.log("PARTICIPANT: ", this.state.loggedUserEvents)
+        //     })
+        //     .catch(err => console.log(err))
+        
+    }
+
     render () {
         return (
             <>
                 {!this.state.events ? <h1>cargando</h1>: 
                     <Container as='div'>
-                        {this.state.events.map(event => <EventCard key={event._id} {...event}/>)}
+                        {this.state.events.map(event => <EventCard loggedUserEvents={this.state.loggedUserEvents} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event}/>)}
                     </Container>
                 }
 
