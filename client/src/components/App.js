@@ -27,7 +27,10 @@ class App extends Component {
   setTheUser = user => {
     this.setState({ loggedInUser: user }, () => this.state)
   }
-  isUserAllowed = (currentUserId, userAllowedId) => currentUserId === userAllowedId
+  isUserAllowed = (currentUserId, userAllowedId) => {
+    console.log({ userAllowedId } )
+    return currentUserId === userAllowedId
+  }
 
   fetchUser = () => {
     this.AuthService

@@ -32,7 +32,6 @@ class AuthForm extends Component {
         e.preventDefault()
         this.authService[authMethod](this.state)
             .then(response => {
-                console.log("User created",response.data)
                 this.props.setTheUser(response.data)
                 //this.props.handleToast(true, 'Sesión inciada')
                 this.props.history.push('/')
