@@ -27,7 +27,6 @@ class EventDetails extends Component {
 
 
     render() {
-        console.log(this.state.events)
         return (
             <>
             {this.state.events.length == 0 ? <h4 style={{'color' : 'white', 'padding' : '10%'}}>Nothing here yet</h4> : 

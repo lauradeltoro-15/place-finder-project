@@ -22,12 +22,10 @@ class EventCard extends Component {
     }
     
     isUserTheProfileOwner = () => {
-        console.log(this.props.loggedInUser._id, "logged", "param", this.props.paramId)
         return this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
     }
 
     render() {
-        console.log("en el card", this.props)
         return (
             <>
             <Col md={4}>
@@ -41,7 +39,7 @@ class EventCard extends Component {
                     <Card.Text>Description: {this.props.description}</Card.Text>
                     {this.isUserTheProfileOwner() &&
                         <>
-                            <Link to={`/user/${this.props.loggedInUser}/event/edit/${this.props._id}`} ><Button variant="primary">Edit</Button></Link>
+                            <Link to={`/user/${this.props.loggedInUser._id}/event/edit/${this.props._id}`} ><Button variant="primary">Edit</Button></Link>
                             <Button variant="primary" onClick={() => this.deleteEvent(this.props._id) && <Redirect to='/profile' />}>Delete</Button>
                         </>
                     }  

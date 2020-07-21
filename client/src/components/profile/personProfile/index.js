@@ -17,7 +17,6 @@ class Profile extends Component {
     isUserTheProfileOwner = () =>  this.props.loggedInUser._id === this.props.paramId
 
     render () {
-        console.log(this.props.loggedInUser, "logged in user en person  profile", this.props.paramId, "logged in user en person  profile" )
         return (
             <>
 
