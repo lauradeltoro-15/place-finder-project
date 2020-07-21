@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import UserService from '../../services/UserService'
-import EventCard from './event-card'
+import EventService from '../../../services/EventService'
+import EventCard from '../card'
 
 class EventDetails extends Component {
     constructor (props){
@@ -9,7 +9,7 @@ class EventDetails extends Component {
         this.state = {
             events : []
         }
-        this.userService = new UserService()
+        this.eventService = new EventService()
     }
 
     componentDidMount = () => this.updateEventList()
@@ -17,7 +17,7 @@ class EventDetails extends Component {
     updateEventList = () => {
         const id = this.props.loggedInUser._id
 
-        this.userService
+        this.eventService
             .getPersonEvents(id)
             .then(response => this.setState({events: response.data}))
             .catch(err => console.log(err))

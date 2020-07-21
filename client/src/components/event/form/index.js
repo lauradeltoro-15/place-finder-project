@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
-import UserService from '../../services/UserService'
+import EventService from '../../../services/EventService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-class EventForm extends Component {
-
+class EditEvent extends Component {
     constructor (props){
         super (props)
         this.state = {
@@ -18,10 +18,33 @@ class EventForm extends Component {
             date: undefined,
             city: undefined,
             typeOfLocal: undefined,
+            previousLoggedUser: undefined
         }
-        this.userService = new UserService()
+        this.eventService = new EventService()
+    }
+    componentDidMount = () => {
+
+        const id = this.props.match.params.eventId
+
+        this.eventService
+            .getOneEvent(id)
+            .then(response => this.updateEventState(response.data))
+            .catch(err => console.log(err))
+    }
+    
+    updateEventState = data => {
+        this.setState({
+            name: data.name || "",
+            description: data.description || "",
+            date: data.date || "",
+            city: data.city || "",
+            typeOfLocal: data.typeOfLocal || "",
+
+        })
+
     }
 
+    enterUsernameStateValue = user => this.setState({ username: user.username })
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
         : this.handleCheckbox(e.target)
@@ -33,26 +56,35 @@ class EventForm extends Component {
         this.setState({ [target.name]: stateToChange })
     }
 
-    handleInputChange = e => {
-        const { name, value } = e.target
-        this.setState({ [name]: value })
-    }
-
     handleFormSubmit = e => {
         e.preventDefault()
-        this.userService
-            .createEvent(this.state)
-            .then(() => this.props.history.push("/profile"))
-            .catch( err => this.setErrorMessage(err.response.data.message))
+        const id = this.props.match.params.eventId
+        this.props.location.pathname.includes("edit") ? this.editEvent(id, this.state) : this.createEvent()
     }
-    setErrorMessage = errorMsg => this.setState({ errorMsg })
+
+    createEvent = () => {
+        this.eventService
+        .createEvent(this.state)
+        .then(() => this.props.history.push("/profile"))
+        .catch(err => console.log(err))
+    }
+  
+    editEvent = (id, newEvent) => {
+        this.eventService
+            .editEvent(id, newEvent)
+            .then(() => this.props.history.push("/profile"))
+            .catch(err => console.log(err))   
+    }
+
+
     render () {
 
         return (
-            
+            <>
+            { this.state.name == undefined ? <h1>cargando</h1>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
-                <h1>Create Event</h1>
+                {this.props.location.pathname.includes("edit") ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control  onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
@@ -60,7 +92,7 @@ class EventForm extends Component {
                     <Form.Group>
                         <Form.Label>Description</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="text" />
-                        <Form.Text className="text-muted">No mira than 500 characters</Form.Text>
+                        <Form.Text className="text-muted">No more than 500 characters</Form.Text>
                     </Form.Group>
 
                     <Form.Group>
@@ -92,13 +124,13 @@ class EventForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "other"} value="other" name="typeOfLocal" type="radio" />
                     </Form.Group>
                     </Form.Group>
-                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
-            
+            }
+            </>
         )
     }
 }
 
-export default EventForm
+export default EditEvent

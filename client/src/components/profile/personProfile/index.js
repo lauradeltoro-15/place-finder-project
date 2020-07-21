@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-import Events from '../../event/event-details'
+import Events from '../../event/details/'
 
 //Boostrap
 import Button from 'react-bootstrap/Button'
