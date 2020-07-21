@@ -22,6 +22,16 @@ const isFormValidated = (event, res) => {
 
 //Endpoints
 
+//get all events
+router.get('/getAllEvents', (req, res, next) => {
+
+    Event
+        .find()
+        .then(response => res.json(response))
+        .catch(err => next(err))
+
+})
+
 
 //Create event
 

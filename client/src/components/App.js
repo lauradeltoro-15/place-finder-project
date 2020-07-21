@@ -13,6 +13,7 @@ import PersonEdit from './profile/personProfile/person-form'
 import CompanyEdit from "./profile/companyProfile/company-form"
 import LocalDetails from "./local/local-details"
 import EventForm from './event/form'
+import EventList from './event/list'
 
 class App extends Component {
   constructor (){
@@ -53,6 +54,8 @@ class App extends Component {
           
           <Route exact path="/user/:id/event/create" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} /> : <Redirect to='/login' />} />
           <Route exact path="/user/:id/event/edit/:eventId" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} /> : <Redirect to='/login' />} />
+          <Route exact path="/events"  render={props => <EventList loggedInUser={this.state.loggedInUser} {...props}  />} />
+
           <Route path="/profile/edit/company/:userId" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.userId)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
           <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.userId)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
           <Route path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <h1>{this.state.loggedInUser}</h1>} />
