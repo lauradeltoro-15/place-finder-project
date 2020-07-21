@@ -14,7 +14,8 @@ class LocalDetail extends Component {
         this.localService = new LocalService()
     }
     componentDidMount = () => {
-        const id = this.props.match.params.id
+        const id = this.props.match.params.localId
+        console.log(id)
         this.getLocalDetails(id)
     }
     getLocalDetails = id => {
@@ -22,8 +23,9 @@ class LocalDetail extends Component {
             .then(response => this.setState({ local: response.data }))
             .catch(err => console.log(err))
     }
+    isUserOwner = () => this.props.match.params.id === this.props.loggedInUser._id 
     render() {
-
+        console.log(this.props)
         return (
             <>
                 {!this.state.local ? <h1>Cargando</h1> :
@@ -40,7 +42,9 @@ class LocalDetail extends Component {
                         </ul>
                         <h5>Location</h5>
                         <p>{this.state.local.location.address}</p>
-                        <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        {this.isUserOwner() && 
+                            <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        }
 
                     </Container>
                  }
