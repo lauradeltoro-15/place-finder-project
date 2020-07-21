@@ -16,7 +16,9 @@ const personSchema = new Schema({
         minlength: 1,
     },
     calendar: [Date],
-    favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Event" }]
+
+    favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Local" }],
+
 }, {
     timestamps: true
 })

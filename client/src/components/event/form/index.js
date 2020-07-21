@@ -33,10 +33,15 @@ class EditEvent extends Component {
     }
     
     updateEventState = data => {
+        const date = new Date(data.date)
+        let dd = String(date.getDate()).padStart(2, '0')
+        let mm = String(date.getMonth() + 1).padStart(2, '0')
+        let yyyy = date.getFullYear()
+     
         this.setState({
             name: data.name || "",
             description: data.description || "",
-            date: data.date || "",
+            date: `${yyyy}-${mm}-${dd}` || "",
             city: data.city || "",
             typeOfLocal: data.typeOfLocal || "",
 
@@ -92,13 +97,13 @@ class EditEvent extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Description</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="text" />
+                        <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
                         <Form.Text className="text-muted">No more than 500 characters</Form.Text>
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.date} name="date" type="date" />
+                        <Form.Control onChange={this.handleInputChange}  value={this.state.date} name="date" type="date" />
                     </Form.Group>
 
                     <Form.Group>

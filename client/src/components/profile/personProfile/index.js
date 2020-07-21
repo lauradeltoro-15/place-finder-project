@@ -5,7 +5,9 @@ import Events from '../../event/details/'
 
 //Boostrap
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/esm/Container'
+import Row from 'react-bootstrap/esm/Row'
 
 class Profile extends Component {
     constructor (props){
@@ -35,7 +37,7 @@ class Profile extends Component {
                 <hr></hr>
                 <h5>Your events</h5>
                 <Events loggedInUser={this.props.loggedInUser}/>
-                {this.isUserTheProfileOwner && 
+                {this.isUserTheProfileOwner() && 
                     <>
                         <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
                         <Link to={`/user/${this.props.loggedInUser._id}/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>

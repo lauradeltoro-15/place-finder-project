@@ -14,6 +14,6 @@ export default class EventService {
     createEvent = event => this.service.post(`/create`, event)
     getPersonEvents = id => this.service.get(`/${id}`)
     getOneEvent = eventId => this.service.get(`/event/${eventId}`)
-    editEvent = (eventId, newEvent) => this.service.post(`/event/${eventId}`, newEvent)
-    deleteEvent = (eventId) => this.service.get(`/delete/${eventId}`)
+    editEvent = (eventId, newEvent) => this.service.put(`/event/${eventId}`, newEvent)
+    deleteEvent = (eventId) => this.service.delete(`/delete/${eventId}`)
 }

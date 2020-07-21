@@ -54,7 +54,7 @@ const updateDetails = (id, body, model) => {
 
 //Endpoints
 //edit username and password
-router.post('/edit/:id', (req, res, next) => {
+router.put('/edit/:id', (req, res, next) => {
     const { username, password } = req.body
 
     User

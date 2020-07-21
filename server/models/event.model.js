@@ -19,12 +19,6 @@ const eventSchema = new Schema({
             type: Date,
             required: true
     },
-    // capacity: {
-    //     type: Number,
-    //     required: true,
-    //     min: 2
-    // },
-    //location || ciudad?
     city: {
         type: String,
         required: true
@@ -36,7 +30,9 @@ const eventSchema = new Schema({
 
     offers: [{ type: Schema.Types.ObjectId, ref: "Offer" }],
 
-    local: {type: Schema.Types.ObjectId, ref: "Local"}
+    acceptedOffer: {type: Schema.Types.ObjectId, ref: "Offer"},
+
+    participants: [{ type: Schema.Types.ObjectId, ref: "User" }]
 
 }, {
     timestamps: true
