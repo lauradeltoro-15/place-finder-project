@@ -2,13 +2,16 @@ class ValidationHandler {
 
     areRequiredFieldsFilled = (body, res, ...fields) => {
         console.log(body)
-        if (!fields.every(field => body[field] && body[field].length > 0 || body[field] > 0 )) {
-            res.status(400).json({ message: `The following fields are required: ${fields.join(', ')}.` })
+        const pendingFields = fields.filter(field => !body[field] && body[field].length == 0 || body[field] == 0)
+        if (pendingFields.length > 0) {
+            res.status(400).json({ message: `The following fields are required: ${pendingFields.join(', ')}.` })
             return false
         }
         return true
     }
+
     isFieldLongEnough = (field, res, length, fieldName) => {
+        console.log("this is the field",field, "this is the length",length)
         if (field.length < length) {
             res.status(400).json({ message: `The ${fieldName} should be at least ${length} characters long.` })
             return false

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const personSchema = new Schema({
     age: {
         type: Number,
-        min: 0
+        min: 16
     },
     genre: {
         type: String,
@@ -12,7 +12,8 @@ const personSchema = new Schema({
     },
     interests: {
         type: [String],
-        enum: ["sport", "music", "learning"]
+        enum: ["sport", "music", "learning"],
+        minlength: 1,
     },
     calendar: [Date],
     favouriteLocals: [{ type: Schema.Types.ObjectId, ref: "Event" }]

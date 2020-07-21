@@ -48,18 +48,14 @@ class CompanyForm extends Component {
     }
 
     handleFormSubmit = e => {
-        e.preventDefault()
-        if (this.state.password.length < 2) {
-            this.setState({ errorMsg: "Write a longer password" })
-            return 
-        }   
+        e.preventDefault() 
         this.userService
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
                 this.props.history.push('/profile')
             })
-            .catch(err => console.log(err))   
+            .catch(err => this.setState({errorMsg: err.response.data.message}))   
 
     }
     enterUsernameStateValue = user => this.setState({ username: user.username })
@@ -103,7 +99,8 @@ class CompanyForm extends Component {
                         <Form.Group>
                             <Form.Label>Website</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.website} name="website" type="text" />
-                        </Form.Group>
+                            </Form.Group>
+                            {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                         <Button variant="dark" type="submit">Submit</Button>
                     </Form>
                 </Container>

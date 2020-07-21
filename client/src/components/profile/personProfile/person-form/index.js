@@ -53,7 +53,7 @@ class profilePerson extends Component {
                 this.props.setTheUser(response.data)
                 this.props.history.push('/profile')
             })
-            .catch(err => console.log(err))   
+            .catch(err => this.setState({ errorMsg: err.response.data.message }))   
     }
 
     render () {
@@ -94,7 +94,8 @@ class profilePerson extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("learning")} value="learning" name="interests" type="checkbox" /> 
                         <Form.Label>Music</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("music")} value="music" name="interests" type="checkbox" /> 
-                    </Form.Group>
+                            </Form.Group>
+                            {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>
