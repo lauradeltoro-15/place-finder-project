@@ -22,13 +22,12 @@ class LocalList extends Component {
             .then(response => this.setState({locals: response.data}))
             .catch(err => console.log(err))
     }
-
     render () {
         return (
             <>
                 {!this.state.locals ? <h1>Cargando</h1> :
                     <Row>
-                        {this.state.locals.map(local => <LocalCard key={local._id} {...local} updateLocalList={this.updateLocalList}/>)}  
+                        {this.state.locals.map(local => <LocalCard key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} updateLocalList={this.updateLocalList}/>)}  
                     </Row>
                 }
             </>

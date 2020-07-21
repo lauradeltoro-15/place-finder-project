@@ -15,7 +15,7 @@ class CompanyProfile extends Component {
         }
         this.userService = new UserService()
     }
-
+    isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId
     render () {
         const company = this.props.userDetails.companyDetails
         const socialMedia = company.socialMedia.map(social => <li>{`${social.name}:  ${social.mediaUrl}`}</li>)
@@ -28,10 +28,14 @@ class CompanyProfile extends Component {
                     <li>phone: {company.phone}</li>
                     {socialMedia}
                 </ul>
-                <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
+                {this.isUserTheProfileOwner() &&
+                    <>
+                        <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
+                        <Link to={`user/${this.props.userDetails._id}/local/add`}>Add new local</Link>
+                    </>
+                }
                 <h4>Locals</h4>
-                <Link to={`user/${this.props.userDetails._id}/local/add`}>Add new local</Link>
-                <LocalList user={this.props.userDetails._id}/>
+                <LocalList user={this.props.userDetails._id} loggedInUser={this.props.loggedInUser} />
             </Container>
         )
     }

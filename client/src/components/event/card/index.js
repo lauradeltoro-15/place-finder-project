@@ -21,9 +21,7 @@ class EventCard extends Component {
             .catch(err => console.log(err))
     }
     
-    isUserTheProfileOwner = () => {
-        return this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
-    }
+    isUserTheProfileOwner = () =>  this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
 
     render() {
         return (

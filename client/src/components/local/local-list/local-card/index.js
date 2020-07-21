@@ -21,6 +21,7 @@ class LocalCard extends Component {
             .then(() => this.props.updateLocalList())
             .catch(err => console.log(err))
     }
+    isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
     render() {
         const facilities = this.props.facilities.map((facility, i) => <li key={i}>{facility}</li>)
         const services = this.props.services.map((service, i) => <li key={i}>{service}</li>)
@@ -39,9 +40,13 @@ class LocalCard extends Component {
                         </ul>
                         <Card.Text>{this.props.location.address}</Card.Text>
                     </Card.Body>
-                    <Button variant="dark" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
+                    {this.isUserTheProfileOwner() &&
+                        <>
+                        <Button variant="dark" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
+                        <Link to={`user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        </>
+                    }
                     <Link to={`/local/${this.props._id}`} className="btn btn-dark btn-block btn-sm">See details</Link>
-                    <Link to={`user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
                 </Card>
             </Col>
         )
