@@ -35,14 +35,12 @@ class ProfilePage extends Component {
             <>
                 {!this.state.userDetails ? <h1>cargando</h1>:
                 <main>
-                        <h1>{this.state.userDetails.username} profile</h1>
-                        <span>{this.state.userDetails.personDetails ? "User" : "Company"}</span>
+                    <h1>{this.state.userDetails.username} profile</h1>
+                    <span>{this.state.userDetails.personDetails ? "User" : "Company"}</span>
                     { detailedProfile }
                 </main>
             }
-            </>
-
-            
+            </>     
         )
     }
 }
