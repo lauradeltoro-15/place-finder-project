@@ -7,14 +7,10 @@ const offerSchema = new Schema({
         required: true
     },
     local: { type: Schema.Types.ObjectId, ref: "Local", required: true},
-    calendar: {
-        type: [Date]
-    },
-    city: {
-        type: String,
-        required: true
-    },
-
+    event: {type: Schema.Types.ObjectId, ref: "Event", required: true},
+    description: {
+        type: String
+    }
 }, {
     timestamps: true
 })
