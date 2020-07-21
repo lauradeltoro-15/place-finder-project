@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require("passport")
 
 const Local = require("../../models/local.model")
 const ValidationHandler = require("../../validationHandler")
@@ -24,6 +25,9 @@ const isFormValidated = (local, res) => {
 
 //Routes
 router.delete("/delete/:localId", (req, res, next) => {
+    console.log(req.isAuthenticated(), "authenticate")
+    console.log(req.user, "user")
+
     Local.findByIdAndDelete(req.params.localId)
         .then(localDeleted => res.json(localDeleted))
         .catch(err => console.log(err))

@@ -71,14 +71,17 @@ class EditEvent extends Component {
     createEvent = () => {
         this.eventService
         .createEvent(this.state)
-            .then(() => this.props.history.push("/profile"))
+            .then(() => {
+                this.props.handleModal ? this.props.handleModal() :
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
+            })
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
   
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent)
-            .then(() => this.props.history.push("/profile"))
+            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
             .catch(err => this.setErrorMessage(err.response.data.message))   
     }
 

@@ -32,7 +32,6 @@ class ProfilePage extends Component {
                 <CompanyProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
                 : <PersonProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
         }
-        console.log(this.state.userDetails)
         return (
             <>
                 {!this.state.userDetails ? <h1>cargando</h1>:
