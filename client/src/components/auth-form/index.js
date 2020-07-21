@@ -37,7 +37,7 @@ class AuthForm extends Component {
                 //this.props.handleToast(true, 'Sesión inciada')
                 this.props.history.push('/')
             })
-            .catch(err => console.log(err.response.data.message))   // Error handling yay!
+            .catch(err => this.setState({ errorMsg: err.response.data.message }))   // Error handling yay!
     }
 
     render() {
@@ -57,12 +57,14 @@ class AuthForm extends Component {
                             <Form.Group>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
-                                <Form.Text className="text-muted">At least three characters</Form.Text>
                             </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Are you a company? </Form.Label>
-                                <input type="checkbox" onChange={this.handleInputChange} name="isCompany" ckecked={this.state.isCompany}/>
-                            </Form.Group>
+                            {isSignup && 
+                                <Form.Group>
+                                    <Form.Label>Are you a company? </Form.Label>
+                                    <input type="checkbox" onChange={this.handleInputChange} name="isCompany" ckecked={this.state.isCompany} />
+                                </Form.Group>
+                            }
+                            {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                             <Button variant="dark" type="submit">{isSignup ? "Sign up" : "Log in"}</Button>
                         </Form>
                     </Col>

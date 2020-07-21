@@ -32,7 +32,7 @@ class EventDetails extends Component {
             {this.state.events.length == 0 ? <h1>Cargando</h1>:
             <>
                 <h1>Evento</h1>  
-                {this.state.events.map(event => <EventCard updateEvents={this.updateEventList} key={event._id} {...event}/>)}
+                        {this.state.events.map(event => <EventCard loggedInUser={this.props.loggedInUser._id} updateEvents={this.updateEventList} key={event._id} {...event}/>)}
             </>
             }
 

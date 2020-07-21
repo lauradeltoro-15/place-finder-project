@@ -66,7 +66,7 @@ class EditEvent extends Component {
     createEvent = () => {
         this.eventService
         .createEvent(this.state)
-        .then(() => this.props.history.push("/profile"))
+            .then(() => this.props.history.push("/profile"))
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
   

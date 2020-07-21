@@ -12,7 +12,7 @@ class Profile extends Component {
         super (props)
         this.state = {}
     }
-
+    isUserTheProfileOwner = () => this.props.loggedInUser.id === this.props.params.match.userId
     render () {
         
         return (
@@ -35,10 +35,13 @@ class Profile extends Component {
                 <hr></hr>
                 <h5>Your events</h5>
                 <Events loggedInUser={this.props.loggedInUser}/>
-            
-                <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
-                <Link to={`/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
-
+                {this.isUserTheProfileOwner && 
+                    <>
+                        <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
+                        <Link to={`/user/${this.props.loggedInUser._id}/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
+                    </>
+                }
+           
             </Container>
 
             }

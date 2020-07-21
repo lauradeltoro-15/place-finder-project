@@ -24,8 +24,8 @@ router.post('/signup', (req, res, next) => {
         return;
     }
 
-    if (password.length < 2) {
-        res.status(400).json({ message: 'Please make your password at least 8 characters long for security purposes.' });
+    if (password.length < 3) {
+        res.status(400).json({ message: 'Please make your password at least 3 characters long for security purposes.' });
         return;
     }
 

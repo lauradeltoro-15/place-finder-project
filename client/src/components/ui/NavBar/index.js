@@ -57,7 +57,10 @@ class Navigation extends Component {
                             )
                         }
                         <Nav.Link as="span">
-                            <NavLink to="/profile" activeStyle={{ color: 'white' }}>Hi, {this.props.loggedInUser ? this.props.loggedInUser.username : 'friend'}</NavLink>
+                            {this.props.loggedInUser ? 
+                                <NavLink to={`/profile/${this.props.loggedInUser._id}`} activeStyle={{ color: 'white' }}>Hi, {this.props.loggedInUser.username}</NavLink> :
+                                <NavLink to={`/login`} activeStyle={{ color: 'white' }}>Hi, friend</NavLink> 
+                            }
                         </Nav.Link>
                     </Nav>
 
