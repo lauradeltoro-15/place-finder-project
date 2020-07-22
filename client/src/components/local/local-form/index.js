@@ -154,8 +154,8 @@ class LocalForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pool")} value="pool" name="facilities" type="checkbox" />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Sound & Music equipment</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("sound and music equipment")} value="sound and music equipment" name="facilities" type="checkbox" />
+                        <Form.Label>Audio equipment</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("audio equipment")} value="audio equipment" name="facilities" type="checkbox" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Sport equipment</Form.Label>
@@ -178,8 +178,8 @@ class LocalForm extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pit")} value="pit" name="facilities" type="checkbox" />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Video & Audio equipment</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("video and audio equipment")} value="video and audio equipment" name="facilities" type="checkbox" />
+                        <Form.Label>Video equipment</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("video equipment")} value="video equipment" name="facilities" type="checkbox" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Others</Form.Label>
