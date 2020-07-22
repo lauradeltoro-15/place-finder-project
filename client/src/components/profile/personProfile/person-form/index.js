@@ -51,7 +51,7 @@ class profilePerson extends Component {
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
-                this.props.history.push('/profile')
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
             .catch(err => this.setState({ errorMsg: err.response.data.message }))   
     }

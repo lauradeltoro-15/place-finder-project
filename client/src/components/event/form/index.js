@@ -40,7 +40,7 @@ class EditEvent extends Component {
         let dd = String(date.getDate()).padStart(2, '0')
         let mm = String(date.getMonth() + 1).padStart(2, '0')
         let yyyy = date.getFullYear()
-     
+        console.log(`${yyyy}-${mm}-${dd}`, "esta es la fecha")
         this.setState({
             name: data.name || "",
             description: data.description || "",
@@ -87,7 +87,11 @@ class EditEvent extends Component {
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent)
-            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
+            .then(response => {
+                console.log("response.data", response.data)
+                this.updateEventState(response.data)
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
+            })
             .catch(err => this.setErrorMessage(err.response.data.message))   
     }
     

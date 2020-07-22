@@ -139,11 +139,12 @@ router.get('/event/:userId', (req, res, next) => {
 
 
 //update event
-router.put('/event/:userId', (req, res, next) => {
+router.put('/event/:eventId', (req, res, next) => {
     isFormValidated(req.body, res) &&
+    
     Event
         .findByIdAndUpdate(req.params.eventId, req.body, {new: true})
-        .then(() => res.json(''))
+        .then(response =>  res.json(response))
         .catch(err => next(err))
 
 })
@@ -151,7 +152,6 @@ router.put('/event/:userId', (req, res, next) => {
 //get all events of a person
 
 router.get('/:userId', (req, res, next)=> {
-
     Event
         .find( {owner: req.params.userId})
         .then(response => res.json(response))
