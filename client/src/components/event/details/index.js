@@ -51,10 +51,10 @@ class EventDetails extends Component {
                         <p>City: {this.state.eventDetails.city}</p>
                         <p>Type of local: {this.state.eventDetails.typeOfLocal}</p>
                         <p>Number of participants:{this.state.eventDetails.participants.length} </p>
+                        <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
                         </Col>
                     </Row>
                 </Container>
-
                 
                 </>
             }

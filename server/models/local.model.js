@@ -65,7 +65,7 @@ const localSchema = new Schema({
     },
     facilities: {
         type: [String],
-        enum: ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", "others"]
+        enum: ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", 'audio equipment', 'sport equipment', 'conference room', 'dance floor', 'stage', 'pit', 'video equipment', "others"]
     },
     calendar: [Date],
     events: [{ type: Schema.Types.ObjectId, ref: "Event" }],

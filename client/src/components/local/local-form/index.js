@@ -111,7 +111,7 @@ class LocalForm extends Component {
                     </Form.Group>
                     <hr></hr>
                     <Form.Group>
-                        <Form.Label>Services</Form.Label>
+                        <Form.Label><h2>Services</h2></Form.Label>
                         <Form.Label>Staff</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.services.includes("staff")} value="staff" name="services" type="checkbox" />
                     </Form.Group>
@@ -129,7 +129,7 @@ class LocalForm extends Component {
                     </Form.Group>
                     <hr></hr>
                     <Form.Group>
-                        <Form.Label>Facilities</Form.Label>
+                        <Form.Label><h2>Facilities</h2></Form.Label>
                         <Form.Label>Kitchen</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("kitchen")} value="kitchen" name="facilities" type="checkbox" />
                     </Form.Group>
@@ -152,6 +152,34 @@ class LocalForm extends Component {
                     <Form.Group>
                         <Form.Label>Pool</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pool")} value="pool" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Audio equipment</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("audio equipment")} value="audio equipment" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Sport equipment</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("sport equipment")} value="sport equipment" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Conference Room</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("conference room")} value="conference room" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Dance Floor</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("dance floor")} value="dance floor" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Stage</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("stage")} value="stage" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Pit</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pit")} value="pit" name="facilities" type="checkbox" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Video equipment</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("video equipment")} value="video equipment" name="facilities" type="checkbox" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Others</Form.Label>

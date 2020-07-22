@@ -8,15 +8,16 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-class EditEvent extends Component {
-    constructor(props) {
-        super(props)
+class EventForm extends Component {
+    constructor (props){
+        super (props)
         this.state = {
             owner: this.props.loggedInUser._id,
             name: '',
             description: '',
             city: "",
             typeOfLocal: "",
+            theme: [],
             participants: [this.props.loggedInUser._id],
             previousLoggedUser: undefined,
             startTime: "",
@@ -32,7 +33,7 @@ class EditEvent extends Component {
                 .then(response => this.updateEventState(response.data))
                 .catch(err => console.log(err))
         }
-        this.props.calendarDate && this.setState({ startTime: this.props.calendarDate, endTime: this.props.calendarDate})
+        this.props.calendarDate && this.setState({ startTime: this.props.calendarDate, endTime: this.props.calendarDate })
     }
     formatDate = date => {
         const newDate = new Date(date)
@@ -52,6 +53,8 @@ class EditEvent extends Component {
             endTime: this.formatDate(data.endTime) || "",
             city: data.city || "",
             typeOfLocal: data.typeOfLocal || "",
+            theme: data.theme || [],
+
         })
 
     }
@@ -147,6 +150,45 @@ class EditEvent extends Component {
                                     <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "others"} value="others" name="typeOfLocal" type="radio" />
                                 </Form.Group>
                             </Form.Group>
+                            <Form.Group>
+                                <Form.Label><h2>Theme of the event</h2></Form.Label>
+                                <Form.Group>
+                                    <Form.Label>Sport</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("sport")} value="sport" name="theme" type="checkbox" />
+                                    <Form.Label>Learning</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("learning")} value="learning" name="theme" type="checkbox" />
+                                    <Form.Label>Music</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("music")} value="music" name="theme" type="checkbox" />
+                                    <Form.Label>Technology</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("technology")} value="technology" name="theme" type="checkbox" />
+                                    <Form.Label>Health & Wellness</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("health and wellness")} value="health and wellness" name="theme" type="checkbox" />
+                                    <Form.Label>Kids</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("kids")} value="kids" name="theme" type="checkbox" />
+                                    <Form.Label>Adults</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("adults")} value="adults" name="theme" type="checkbox" />
+                                    <Form.Label>Photography</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("photography")} value="photography" name="theme" type="checkbox" />
+                                    <Form.Label>Art</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("art")} value="art" name="theme" type="checkbox" />
+                                    <Form.Label>Food</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("food")} value="food" name="theme" type="checkbox" />
+                                    <Form.Label>Languajes</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("languajes")} value="languajes" name="theme" type="checkbox" />
+                                    <Form.Label>Culture</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("culture")} value="culture" name="theme" type="checkbox" />
+                                    <Form.Label>Cinema</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("cinema")} value="cinema" name="theme" type="checkbox" />
+                                    <Form.Label>Games</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("games")} value="games" name="theme" type="checkbox" />
+                                    <Form.Label>Fashion</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("fashion")} value="fashion" name="theme" type="checkbox" />
+                                    <Form.Label>Dance</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("bussiness")} value="bussiness" name="theme" type="checkbox" />
+                                    <Form.Label>Bussiness</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.theme.includes("games")} value="games" name="theme" type="checkbox" />
+                                </Form.Group>
+                            </Form.Group>
                             {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                             <Button variant="dark" type="submit">Submit</Button>
                         </Form>
@@ -157,4 +199,4 @@ class EditEvent extends Component {
     }
 }
 
-export default EditEvent
+export default EventForm
