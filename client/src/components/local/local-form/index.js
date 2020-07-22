@@ -18,6 +18,29 @@ class LocalForm extends Component {
             localType: "",
             services: [],
             facilities: [],
+            availability: {
+                Monday: {
+                    available: false,
+                },
+                Tuesday: {
+                    available: false,
+                },
+                Wednesday: {
+                    available: false,
+                },
+                Thursday: {
+                    available: false,
+                },
+                Friday: {
+                    available: false,
+                },
+                Saturday: {
+                    available: false,
+                },
+                Sunday: {
+                    available: false,
+                }
+            }
         }
         this.localService = new LocalService()
     }
@@ -36,10 +59,8 @@ class LocalForm extends Component {
             localType: data.localType || "",
             capacity: data.capacity || "",
             services: data.services || [],
-            facilities: data.facilities || []
-
+            facilities: data.facilities || [],
         })
-
     }
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -51,7 +72,30 @@ class LocalForm extends Component {
         index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
         this.setState({ [target.name]: stateToChange })
     }
-
+    handleAvailability = e => {
+        this.setState({
+            availability: {
+                ...this.state.availability,
+                [e.target.name]: {
+                    available: !this.state.availability[e.target.name].available,
+                    startTime: "00:00",
+                    endTime: "23:59"
+                }
+            }
+        })
+    }
+    handleAvailabilityHours = e => {
+        const day = e.target.getAttribute("data-day")
+        this.setState({
+            availability: {
+                ...this.state.availability,
+                [day]: {
+                    ...this.state.availability[day],
+                    [e.target.name]: e.target.value
+                }
+            }
+        })
+    }
     handleFormSubmit = e => {
         e.preventDefault()
         const userIid = this.props.match.params.id
@@ -64,15 +108,60 @@ class LocalForm extends Component {
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
+
     setErrorMessage = errorMsg => this.setState({ errorMsg })
 
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
-            //.catch(err => this.setErrorMessage(err.response.data.message))
+        //.catch(err => this.setErrorMessage(err.response.data.message))
     }
 
+    getAvailableForm = () => {
+        const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        return weekDays.map(day =>
+            <Form.Group>
+                <Form.Label>{day}</Form.Label>
+                <input onChange={this.handleAvailability} checked={this.state.availability[day].available} value="1" name={`${day}`} type="checkbox" />
+                {this.state.availability[day].available &&
+                    <>
+                        <Form.Label>Start time</Form.Label>
+                        <Form.Control type="time" onChange={this.handleAvailabilityHours} value={this.state.availability[day].startTime} data-day={day} name="startTime" />
+                        <Form.Label>End time</Form.Label>
+                        <Form.Control type="time" onChange={this.handleAvailabilityHours} value={this.state.availability[day].endTime} data-day={day} name="endTime" min={this.state.availability[day].startTime} />
+                    </>}
+            </Form.Group>)
+    }
+    getLocalTypes = () => {
+        const localTypes = ["restaurant", "gym", "hotel", "others"]
+        return localTypes.map(local =>
+            <Form.Group>
+                <label>{local}</label>
+                <input onChange={this.handleInputChange} checked={this.state.localType === local} value={local} name="localType" type="radio" />
+            </Form.Group>)
+    }
+    getServices = () => {
+        const services = ["staff", "food-service", "music", "others",]
+        return services.map(service =>
+            <Form.Group>
+                <label>{service}</label>
+                <input onChange={this.handleInputChange} checked={this.state.services.includes(service)} value={service} name="services" type="checkbox" />
+            </Form.Group>)
+    }
+    getFacilities = () => {
+        const facilities = ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", "audio equipment", "sport equipment", "conference room", "dance floor", "stage", "pit", "video equipment", "others"]
+        return facilities.map(facility =>
+            <Form.Group>
+                <label>{facility}</label>
+                <input onChange={this.handleInputChange} checked={this.state.facilities.includes(facility)} value={facility} name="facilities" type="checkbox" />
+            </Form.Group>)
+    }
     render() {
+        const availableForm = this.getAvailableForm()
+        const localTypes = this.getLocalTypes()
+        const services = this.getServices()
+        const facilities = this.getFacilities()
+
         return (
             <Container as="section">
                 <Form onSubmit={this.handleFormSubmit}>
@@ -93,98 +182,17 @@ class LocalForm extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.capacity} name="capacity" type="number" />
                     </Form.Group>
                     <hr></hr>
-                    <Form.Group>
-                        <label>Restaurant</label>
-                        <input onChange={this.handleInputChange} checked={this.state.localType === "restaurant"} value="restaurant" name="localType" type="radio" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Gym</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.localType === "gym"} value="gym" name="localType" type="radio" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Hotel</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.localType === "hotel"} value="hotel" name="localType" type="radio" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Others</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.localType === "others"} value="others" name="localType" type="radio" />
-                    </Form.Group>
+                    <Form.Label><h2>LocalType</h2></Form.Label>
+                    {localTypes}
                     <hr></hr>
-                    <Form.Group>
-                        <Form.Label><h2>Services</h2></Form.Label>
-                        <Form.Label>Staff</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.services.includes("staff")} value="staff" name="services" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Food Service</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.services.includes("food-service")} value="food-service" name="services" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Music</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.services.includes("music")} value="music" name="services" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Others</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.services.includes("others")} value="others" name="services" type="checkbox" />
-                    </Form.Group>
+                    <Form.Label><h2>Services</h2></Form.Label>
+                    {services}
                     <hr></hr>
-                    <Form.Group>
-                        <Form.Label><h2>Facilities</h2></Form.Label>
-                        <Form.Label>Kitchen</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("kitchen")} value="kitchen" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Bathrooms</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("bathrooms")} value="bathrooms" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Dinning hall</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("dinning-hall")} value="dinning-hall" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Terrace</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("terrace")} value="terrace" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Garden</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("garden")} value="garden" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Pool</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pool")} value="pool" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Audio equipment</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("audio equipment")} value="audio equipment" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Sport equipment</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("sport equipment")} value="sport equipment" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Conference Room</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("conference room")} value="conference room" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Dance Floor</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("dance floor")} value="dance floor" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Stage</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("stage")} value="stage" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Pit</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("pit")} value="pit" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Video equipment</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("video equipment")} value="video equipment" name="facilities" type="checkbox" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Others</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("others")} value="others" name="facilities" type="checkbox" />
-                    </Form.Group>
+                    <Form.Label><h2>Facilities</h2></Form.Label>
+                    {facilities}
+                    <hr></hr>
+                    <Form.Label><h2>Availability</h2></Form.Label>
+                    {availableForm}
                     <hr></hr>
                     {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
