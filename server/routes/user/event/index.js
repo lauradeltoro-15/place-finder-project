@@ -13,12 +13,13 @@ const Event = require('../../../models/event.model')
 
 //Helper functions 
 const isFormValidated = (event, res) => {
-    return validationHandler.areRequiredFieldsFilled(event, res, "name", "description", "date", "city") &&
+    return validationHandler.areRequiredFieldsFilled(event, res, "name", "description", "startTime", "endTime", "city") &&
         validationHandler.isFieldLongEnough(event.name, res, 2, "name") &&
         validationHandler.isFieldTooLong(event.name, res, 40, "name") &&
         validationHandler.isFieldLongEnough(event.description, res, 20, "description") &&
         validationHandler.isFieldTooLong(event.description, res, 500, "description") &&
-        validationHandler.isFutureDate(event.date, res)
+        validationHandler.isFutureDate(event.startTime, res) &&
+        validationHandler.isFutureDate(event.endTime, res)
 }
 
 //Endpoints
@@ -94,7 +95,6 @@ router.get('/:userId/all', (req, res, next) => {
 
 // get events where user is participant
 router.get('/:userId/participant', (req, res, next) => {
-    
     Event
         .find()
         .then(response => {
@@ -108,6 +108,7 @@ router.get('/:userId/participant', (req, res, next) => {
 //Create event
 
 router.post('/create', (req, res, next) => {
+    console.log("req.body.starttime", req.body)
     isFormValidated(req.body, res) &&
     Event
         .create(req.body)

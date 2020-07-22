@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import EventService from '../../../services/EventService'
@@ -9,13 +9,12 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 class EditEvent extends Component {
-    constructor (props){
-        super (props)
+    constructor(props) {
+        super(props)
         this.state = {
             owner: this.props.loggedInUser._id,
             name: '',
             description: '',
-            date: "",
             city: "",
             typeOfLocal: "",
             participants: [this.props.loggedInUser._id],
@@ -36,7 +35,7 @@ class EditEvent extends Component {
     }
 
     updateEventState = data => {
-        const date = new Date(data.date)
+        const date = new Date(data.startTime)
         let dd = String(date.getDate()).padStart(2, '0')
         let mm = String(date.getMonth() + 1).padStart(2, '0')
         let yyyy = date.getFullYear()
@@ -76,14 +75,14 @@ class EditEvent extends Component {
 
     createEvent = () => {
         this.eventService
-        .createEvent(this.state)
+            .createEvent(this.state)
             .then(() => {
                 this.props.handleModal ? this.props.handleModal() :
-                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
+                    this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
-  
+
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent)
@@ -92,71 +91,62 @@ class EditEvent extends Component {
                 this.updateEventState(response.data)
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
-            .catch(err => this.setErrorMessage(err.response.data.message))   
+            .catch(err => this.setErrorMessage(err.response.data.message))
     }
-    
-    render () {
+
+    render() {
 
         return (
             <>
-            { this.state.name == undefined ? <h1>cargando</h1>:
-            <Container as='main'>
-                <Form onSubmit={this.handleFormSubmit}>
-                {this.props.location.pathname.includes("edit") ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
-                    <Form.Group>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control  onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
-                        <Form.Text className="text-muted">No more than 500 characters</Form.Text>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Date</Form.Label>
-                        <Form.Control onChange={this.handleInputChange}  value={this.state.date} name="date" type="date" />
-                    </Form.Group>
-                    <Form.Group>
+                {this.state.name == undefined ? <h1>cargando</h1> :
+                    <Container as='main'>
+                        <Form onSubmit={this.handleFormSubmit}>
+                            {this.props.location.pathname.includes("edit") ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
+                            <Form.Group>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
+                                <Form.Text className="text-muted">No more than 500 characters</Form.Text>
+                            </Form.Group>
+                            <Form.Group>
                                 <Form.Label>Start time</Form.Label>
-                                <input onChange={this.handleInputChange} type="datetime-local" name="startDate" value={this.state.startDate}  />
-                        <Form.Control onChange={this.handleInputChange} value={this.state.startTime} name="startTime" type="time" />
-                    </Form.Group>
-                    <Form.Group>
+                                <Form.Control onChange={this.handleInputChange} type="datetime-local" name="startTime" value={this.state.startTime} />
+                            </Form.Group>
+                            <Form.Group>
                                 <Form.Label>End time</Form.Label>
-                                <input onChange={this.handleInputChange} type="datetime-local" name="enDate" value={this.state.endDate} min={this.state.startdDate} />
-
-                                <Form.Control onChange={this.handleInputChange} value={this.state.endTime} name="endTime" type="time" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>City</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.city} name="city" type="text" />
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label><h2>Type of local</h2></Form.Label>
-                        <Form.Group>
-                            <label>Restaurant</label>
-                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "restaurant"} value="restaurant" name="typeOfLocal" type="radio" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Gym</Form.Label>
-                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "gym"} value="gym" name="typeOfLocal" type="radio" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Hotel</Form.Label>
-                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "hotel"} value="hotel" name="typeOfLocal" type="radio" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Others</Form.Label>
+                                <Form.Control onChange={this.handleInputChange} type="datetime-local" name="endTime" value={this.state.endTime} min={this.state.startTime} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>City</Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.city} name="city" type="text" />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label><h2>Type of local</h2></Form.Label>
+                                <Form.Group>
+                                    <label>Restaurant</label>
+                                    <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "restaurant"} value="restaurant" name="typeOfLocal" type="radio" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Gym</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "gym"} value="gym" name="typeOfLocal" type="radio" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Hotel</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "hotel"} value="hotel" name="typeOfLocal" type="radio" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Others</Form.Label>
                                     <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "others"} value="others" name="typeOfLocal" type="radio" />
-                        </Form.Group>
-                    </Form.Group>
-                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
-                    <Button variant="dark" type="submit">Submit</Button>
-                </Form>
-            </Container>
-            }
+                                </Form.Group>
+                            </Form.Group>
+                            {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
+                            <Button variant="dark" type="submit">Submit</Button>
+                        </Form>
+                    </Container>
+                }
             </>
         )
     }

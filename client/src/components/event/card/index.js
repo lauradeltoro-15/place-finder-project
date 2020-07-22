@@ -49,10 +49,23 @@ class EventCard extends Component {
             .then(() => this.props.updateEventList())
             .catch(err => console.log(err))
     }
-
-
+    formatDate = date => {
+        const newDate = new Date(date)
+        const dd = String(newDate.getDate()).padStart(2, '0')
+        const mm = String(newDate.getMonth() + 1).padStart(2, '0')
+        const yyyy = newDate.getFullYear()
+        return `${dd}-${mm}-${yyyy}`
+    }
+    formatHour = date => {
+        const newDate = new Date(date)
+        const hh = String(newDate.getHours()).padStart(2, '0')
+        const min = String(newDate.getMinutes()).padStart(2, '0')
+        return `${hh}:${min}h`
+    }
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
     render() {
+        this.props.startTime && console.log(this.formatDate(this.props.startTime))
+
         return (
             <>
                 <Col md={4}>
@@ -63,7 +76,9 @@ class EventCard extends Component {
                             <Card.Subtitle>Creator: {this.state.owner}</Card.Subtitle>
                             <Card.Text>Participants:{this.props.participants.length}</Card.Text>
                             <Card.Text>City:{this.props.city}</Card.Text>
-                            <Card.Text>Date: {this.props.date}</Card.Text>
+                            <Card.Text>Date: {this.formatDate(this.props.startTime)}</Card.Text>
+                            <Card.Text>Start time: {this.formatHour(this.props.startTime)}</Card.Text>
+                            <Card.Text>End time: {this.formatHour(this.props.endTime)}</Card.Text>
                             <Card.Text>Type of Local: {this.props.typeOfLocal}</Card.Text>
                             <Card.Text>Description: {this.props.description}</Card.Text>
                             {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner &&
