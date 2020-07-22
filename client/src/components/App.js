@@ -16,6 +16,7 @@ import EventForm from './event/form'
 import EventDetails from './event/details'
 import Calendar from "./profile-calendar/calendar"
 import EventList from './event/list'
+import OfferForm from './offer/form'
 
 class App extends Component {
   constructor (){
@@ -66,6 +67,7 @@ class App extends Component {
           <Route path="/profile/:userId/calendar" render={props => <Calendar loggedInUser={this.state.loggedInUser} {...props} /> } />
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
 
+          <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />}/>
         </Switch>
       </>
     )
