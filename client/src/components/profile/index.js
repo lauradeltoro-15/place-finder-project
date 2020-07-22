@@ -5,7 +5,6 @@ import CompanyProfile from "./companyProfile"
 
 import UserService from '../../services/UserService'
 
-
 class ProfilePage extends Component {
     constructor (props){
         super (props)
@@ -16,9 +15,7 @@ class ProfilePage extends Component {
         this.UserService = new UserService()
     }
     componentDidMount = () => {
-
         const id = this.props.match.params.userId
-        console.log(id)
         this.UserService
             .getUserDetails(id)
             .then((response) =>  this.setState({ userDetails: response.data}))

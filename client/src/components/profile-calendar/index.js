@@ -29,10 +29,7 @@ class CalendarPage extends Component {
         return newDate
     }
     render() {
-        console.log(this.state.events)
         const formattedEvents = this.state.events.length > 0 && this.state.events.map(event => { return { title: event.name, date: this.obtainDateInFormat(event.date) } })
-        console.log(formattedEvents)
-
         
         return (
             <>

@@ -4,7 +4,6 @@ import EventService from '../../../services/EventService'
 import EventCard from '../card'
 import Container from 'react-bootstrap/esm/Container'
 
-
 class  EventList extends Component {
     constructor (props){
         super (props)
@@ -19,19 +18,13 @@ class  EventList extends Component {
         this.updateEventList()
     }
 
-    updateEventList = () => {
-        
+    updateEventList = () => {  
         this.setLoggedUserEvents(this.props.loggedInUser._id)
 
         this.eventService
             .getAllEvents()
-            .then(response => {
-                console.log("ACTUALIZANDO EVENTOS")
-                this.setState({ events: response.data })
-                console.log("EVENTOS: ",this.state.events)
-            })
-            .catch(err => console.log(err))
-    
+            .then(response => this.setState({ events: response.data }))
+            .catch(err => console.log(err)) 
     }
 
     setLoggedUserEvents = userId => {

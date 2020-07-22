@@ -29,7 +29,6 @@ class App extends Component {
     this.setState({ loggedInUser: user }, () => this.state)
   }
   isUserAllowed = (currentUserId, userAllowedId) => {
-    console.log({ userAllowedId } )
     return currentUserId === userAllowedId
   }
 

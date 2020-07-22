@@ -22,8 +22,7 @@ class Profile extends Component {
 
             {!this.props.loggedInUser ? <h1>Cargando</h1>:
             <Container>
-
-                        <h1>Username: {this.props.userDetails.username}</h1>
+                <h1>Username: {this.props.userDetails.username}</h1>
                 <hr></hr>
                 <h5>Age</h5>
                 {this.props.userDetails.personDetails.age}
@@ -33,7 +32,7 @@ class Profile extends Component {
                 <hr></hr>
                 <h5>Interests:</h5>
 
-                {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
+                        {this.props.userDetails.personDetails.interests.map((hobbie,i) => <h6 key={i}>{hobbie}</h6>)}
                 <hr></hr>
               
                 <Events loggedInUser={this.props.loggedInUser} paramId={this.props.paramId}/>
@@ -42,10 +41,8 @@ class Profile extends Component {
                         <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
                         <Link to={`/user/${this.props.loggedInUser._id}/event/create`} ><Button variant="dark" type="submit">Create a new event!</Button></Link>
                     </>
-                }
-           
+                }  
             </Container>
-
             }
             </>
         )

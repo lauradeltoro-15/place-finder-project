@@ -56,9 +56,7 @@ class LocalForm extends Component {
         e.preventDefault()
         const userIid = this.props.match.params.id
         const localId = this.props.match.params.localId
-        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
-            
-        
+        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)     
     }
 
     createNewLocal = (id, state) => {
@@ -67,6 +65,7 @@ class LocalForm extends Component {
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
     setErrorMessage = errorMsg => this.setState({ errorMsg })
+    
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push('/profile'))

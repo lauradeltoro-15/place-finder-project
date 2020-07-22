@@ -20,7 +20,6 @@ class AuthForm extends Component {
         this.authService = new AuthService()
     }
 
-
     handleInputChange = e => {
         const name = e.target.name
         const value = name === "isCompany" ? e.target.checked : e.target.value
@@ -36,11 +35,11 @@ class AuthForm extends Component {
                 //this.props.handleToast(true, 'Sesión inciada')
                 this.props.history.push('/')
             })
-            .catch(err => this.setState({ errorMsg: err.response.data.message }))   // Error handling yay!
+            .catch(err => this.setState({ errorMsg: err.response.data.message }))
     }
 
     render() {
-   
+
         const isSignup = this.props.location.pathname === "/signup"
         return (
             <Container as="main">
@@ -57,7 +56,7 @@ class AuthForm extends Component {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                             </Form.Group>
-                            {isSignup && 
+                            {isSignup &&
                                 <Form.Group>
                                     <Form.Label>Are you a company? </Form.Label>
                                     <input type="checkbox" onChange={this.handleInputChange} name="isCompany" ckecked={this.state.isCompany} />

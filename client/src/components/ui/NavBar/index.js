@@ -13,7 +13,6 @@ class Navigation extends Component {
     constructor(props) {
         super(props)
         this.AuthService = new AuthService()
-        
     }
 
     logout = () => {
@@ -25,7 +24,6 @@ class Navigation extends Component {
             })
             .catch(err => console.log(err))
     }
-
 
     render() {
         return (
@@ -40,9 +38,9 @@ class Navigation extends Component {
                             <NavLink to="/" exact activeStyle={{ color: 'white' }}>Home</NavLink>
                         </Nav.Link>
                         <Nav.Link as="span">
-                             <NavLink to={`/events`} activeStyle={{ color: 'white' }}>Events</NavLink>
+                            <NavLink to={`/events`} activeStyle={{ color: 'white' }}>Events</NavLink>
                         </Nav.Link>
-  
+
                         {this.props.loggedInUser ?
                             (
                                 <Nav.Link as="span">
@@ -60,9 +58,9 @@ class Navigation extends Component {
                             )
                         }
                         <Nav.Link as="span">
-                            {this.props.loggedInUser ? 
+                            {this.props.loggedInUser ?
                                 <NavLink to={`/profile/${this.props.loggedInUser._id}`} activeStyle={{ color: 'white' }}>Hi, {this.props.loggedInUser.username}</NavLink> :
-                                <NavLink to={`/login`} activeStyle={{ color: 'white' }}>Hi, friend</NavLink> 
+                                <NavLink to={`/login`} activeStyle={{ color: 'white' }}>Hi, friend</NavLink>
                             }
                         </Nav.Link>
                     </Nav>

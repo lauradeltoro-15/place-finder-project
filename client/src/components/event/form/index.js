@@ -19,7 +19,9 @@ class EditEvent extends Component {
             city: "",
             typeOfLocal: "",
             participants: [this.props.loggedInUser._id],
-            previousLoggedUser: undefined
+            previousLoggedUser: undefined,
+            startTime: "",
+            endTime: "",
         }
         this.eventService = new EventService()
     }
@@ -52,8 +54,11 @@ class EditEvent extends Component {
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
-    handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
-        : this.handleCheckbox(e.target)
+    handleInputChange = e => {
+        console.log(e.target.value, e.target.name)
+        e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
+            : this.handleCheckbox(e.target)
+    }
 
     handleCheckbox = (target) => {
         const stateToChange = [...this.state[target.name]]
@@ -85,8 +90,7 @@ class EditEvent extends Component {
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
             .catch(err => this.setErrorMessage(err.response.data.message))   
     }
-
-
+    
     render () {
 
         return (
@@ -109,7 +113,17 @@ class EditEvent extends Component {
                         <Form.Label>Date</Form.Label>
                         <Form.Control onChange={this.handleInputChange}  value={this.state.date} name="date" type="date" />
                     </Form.Group>
+                    <Form.Group>
+                                <Form.Label>Start time</Form.Label>
+                                <input onChange={this.handleInputChange} type="datetime-local" name="startDate" value={this.state.startDate}  />
+                        <Form.Control onChange={this.handleInputChange} value={this.state.startTime} name="startTime" type="time" />
+                    </Form.Group>
+                    <Form.Group>
+                                <Form.Label>End time</Form.Label>
+                                <input onChange={this.handleInputChange} type="datetime-local" name="enDate" value={this.state.endDate} min={this.state.startdDate} />
 
+                                <Form.Control onChange={this.handleInputChange} value={this.state.endTime} name="endTime" type="time" />
+                    </Form.Group>
                     <Form.Group>
                         <Form.Label>City</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.city} name="city" type="text" />
@@ -130,8 +144,8 @@ class EditEvent extends Component {
                             <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "hotel"} value="hotel" name="typeOfLocal" type="radio" />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Other</Form.Label>
-                            <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "other"} value="other" name="typeOfLocal" type="radio" />
+                            <Form.Label>Others</Form.Label>
+                                    <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "others"} value="others" name="typeOfLocal" type="radio" />
                         </Form.Group>
                     </Form.Group>
                     {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}

@@ -34,17 +34,16 @@ class Calendar extends Component {
     }
     componentDidMount = () => this.updateEvents()
     updateEvents = () => {
-        const id = this.props.match.params.userId
-        this.eventService.getPersonEvents(id)
-            .then(response => this.setState({ events: response.data }))
-            .catch(err => console.log(err))
+        // const id = this.props.match.params.userId
+        // this.eventService.getPersonEvents(id)
+        //     .then(response => this.setState({ events: response.data }))
+        //     .catch(err => console.log(err))
     }
     handleModal = status => this.setState({ showModal: status })
 
     handleEventSubmit = () => {
         this.handleModal(false)
         this.updateEvents()
-        console.log("updated")
     }
 
     obtainDateInFormat = date => {
