@@ -56,7 +56,7 @@ class LocalForm extends Component {
         e.preventDefault()
         const userIid = this.props.match.params.id
         const localId = this.props.match.params.localId
-        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)     
+        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
     }
 
     createNewLocal = (id, state) => {
@@ -65,7 +65,7 @@ class LocalForm extends Component {
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
     setErrorMessage = errorMsg => this.setState({ errorMsg })
-    
+
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
@@ -122,7 +122,7 @@ class LocalForm extends Component {
                     <Form.Group>
                         <Form.Label>Music</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.services.includes("music")} value="music" name="services" type="checkbox" />
-                        </Form.Group>
+                    </Form.Group>
                     <Form.Group>
                         <Form.Label>Others</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.services.includes("others")} value="others" name="services" type="checkbox" />
@@ -155,10 +155,10 @@ class LocalForm extends Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Others</Form.Label>
-                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("other")} value="other" name="facilities" type="checkbox" />
+                        <input onChange={this.handleInputChange} checked={this.state.facilities.includes("others")} value="others" name="facilities" type="checkbox" />
                     </Form.Group>
                     <hr></hr>
-                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg }</p>}
+                    {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>
             </Container>

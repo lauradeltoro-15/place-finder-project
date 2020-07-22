@@ -19,6 +19,22 @@ const localSchema = new Schema({
     //     }],
     //     default: ""
     // },
+    availableHours: [ // specify an array instead
+        {
+            daysOfWeek: {
+                type: [Number],
+                enum: [1, 2, 3, 4, 5, 6, 7]
+            }, 
+            startTime: {
+                type: String,
+                match: / ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+            },
+            startTime: {
+                type: String,
+                match: / ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+            }     
+        },
+    ],
     description: {
         type: String,
         maxlength: 500
