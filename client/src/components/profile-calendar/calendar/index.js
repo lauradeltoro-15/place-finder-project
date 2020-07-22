@@ -39,7 +39,8 @@ class Calendar extends Component {
             .then(response => this.setState({ events: response.data }))
             .catch(err => console.log(err))
     }
-    handleModal = status => this.setState({ showModal: status })
+
+    handleModal = (status, e) => this.setState({ showModal: status, calendarDate: e.dateStr })
 
     handleEventSubmit = () => {
         this.handleModal(false)
@@ -65,14 +66,14 @@ class Calendar extends Component {
                         initialView="dayGridMonth"
                         selectable={true}
                         events={formattedEvents}
-                        dateClick={() => this.handleModal(true)}
+                        dateClick={(e) => this.handleModal(true,e)}
                         eventClick={() => alert("tocando evento")}
                         headerToolbar={{ start: "dayGridMonth,timeGridWeek" }}
                     />
                 </Container>
                 <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <EventForm loggedInUser={this.props.loggedInUser} handleModal={this.handleEventSubmit} {...this.props}/>
+                        <EventForm calendarDate={this.state.calendarDate} loggedInUser={this.props.loggedInUser} handleModal={this.handleEventSubmit} {...this.props}/>
                     </Modal.Body>
                 </Modal>
             </>
