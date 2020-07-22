@@ -55,7 +55,6 @@ class EventDetails extends Component {
                         </Col>
                     </Row>
                 </Container>
-
                 
                 </>
             }
