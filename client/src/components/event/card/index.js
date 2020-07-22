@@ -40,17 +40,25 @@ class EventCard extends Component {
     joinEvent = (eventId, userId) => {
         this.eventService
             .joinEvent(eventId, userId)
-            .then(()=> this.props.updateEventList())
+            .then(()=> this.redirectOrUpdate())
             .catch(err => console.log(err))
     }
 
     leaveEvent = (eventId, userId) => {
         this.eventService
             .leaveEvent(eventId, userId)
-            .then(()=> this.props.updateEventList())
+            .then(()=> this.redirectOrUpdate())
             .catch(err => console.log(err))
     }
 
+    redirectOrUpdate = () => {
+        console.log(this.props)
+        console.log('boolean', this.props.location.pathname.includes("profile"))
+        let path = '/profile/'+ this.props.loggedInUser._id
+        console.log(path)
+        return this.props.location.pathname.includes("profile") ? this.props.history.push(path) : this.props.updateEventList()
+    }
+    
     setButtons = () => {
         if (!this.props.loggedInUser) return
 
@@ -62,13 +70,12 @@ class EventCard extends Component {
             </>;
         } else if(this.props.loggedUserEvents.map(event => event._id).includes(this.props._id)){
             this.state.buttons = 
-            <Button variant="danger" onClick={() => {this.leaveEvent(this.props._id, this.props.loggedInUser._id) && this.props.updateEventList()}}>Leave Event</Button>
+            <Button variant="danger" onClick={() => {this.leaveEvent(this.props._id, this.props.loggedInUser._id) && this.redirectOrUpdate()}}>Leave Event </Button>
         } else {
             this.state.buttons = 
-            <Button variant="primary" onClick={() => {this.joinEvent(this.props._id, this.props.loggedInUser._id) && this.props.updateEventList()}}>Join Event</Button>
+            <Button variant="primary" onClick={() => {this.joinEvent(this.props._id, this.props.loggedInUser._id) && this.redirectOrUpdate()}}>Join Event</Button>
         }
     }
-
 
     render() {
         this.setButtons()
@@ -78,7 +85,7 @@ class EventCard extends Component {
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                    <Card.Title>{this.props.city}</Card.Title>
+                    <Card.Title>{this.props.name}</Card.Title>
                     <Card.Subtitle>Creator: {this.state.owner}</Card.Subtitle>
                     <Card.Text>Participants:{this.props.participants.length}</Card.Text>
                     <Card.Text>City:{this.props.city}</Card.Text>
@@ -89,6 +96,7 @@ class EventCard extends Component {
                     :
                     this.state.buttons 
                     }
+                    <Link to={`/events/${this.props._id}`} ><Button variant="primary">See details</Button></Link>
                     
                 </Card.Body>
             </Card>

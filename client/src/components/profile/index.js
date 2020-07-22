@@ -30,7 +30,7 @@ class ProfilePage extends Component {
         if(this.state.userDetails){
             detailedProfile = this.state.userDetails.companyDetails ? 
                 <CompanyProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
-                : <PersonProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
+                : <PersonProfile userDetails={this.state.userDetails} {...this.props} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId}/>
         }
         return (
             <>

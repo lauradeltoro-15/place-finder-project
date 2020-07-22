@@ -11,6 +11,8 @@ export default class EventService {
     }
 
     //events
+
+    getAllEventsUser = userId => this.service.get(`/${userId}/all`)
     createEvent = event => this.service.post(`/create`, event)
     getOwnedEvents = userId => this.service.get(`/${userId}/owned`)
     getParticipantEvents = userId => this.service.get(`/${userId}/participant`)

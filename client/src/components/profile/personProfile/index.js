@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-import Events from '../../event/details/'
+import Events from '../../event/events-profile'
 
 //Boostrap
 import Button from 'react-bootstrap/Button'
@@ -36,7 +36,7 @@ class Profile extends Component {
                 {this.props.userDetails.personDetails.interests.map(hobbie => <h6>{hobbie}</h6>)}
                 <hr></hr>
               
-                <Events loggedInUser={this.props.loggedInUser} paramId={this.props.paramId}/>
+                <Events loggedInUser={this.props.loggedInUser} {...this.props}  paramId={this.props.paramId}/>
                 {this.isUserTheProfileOwner() && 
                     <>
                         <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>

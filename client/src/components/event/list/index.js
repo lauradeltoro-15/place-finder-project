@@ -51,7 +51,7 @@ class  EventList extends Component {
             <>
                 {!this.state.events ? <h1>cargando</h1>: 
                     <Container as='div'>
-                        {this.state.events.map(event => <EventCard loggedUserEvents={this.state.loggedUserEvents} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event}/>)}
+                        {this.state.events.map(event => <EventCard {...this.props} loggedUserEvents={this.state.loggedUserEvents} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event}/>)}
                     </Container>
                 }
 
