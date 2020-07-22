@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-import Events from '../../event/events-profile'
+import Events from '../../event/list'
 
 //Boostrap
 import Button from 'react-bootstrap/Button'
@@ -23,7 +23,7 @@ class Profile extends Component {
             {!this.props.loggedInUser ? <h1>Cargando</h1>:
             <Container>
 
-                        <h1>Username: {this.props.userDetails.username}</h1>
+                <h1>Username: {this.props.userDetails.username}</h1>
                 <hr></hr>
                 <h5>Age</h5>
                 {this.props.userDetails.personDetails.age}

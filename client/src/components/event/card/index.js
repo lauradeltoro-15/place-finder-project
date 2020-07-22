@@ -12,6 +12,7 @@ class EventCard extends Component {
         super (props)
         this.state = {
             owner: undefined,
+            ownerId: undefined,
             buttons: undefined
         }
         this.eventService = new EventService()
@@ -33,7 +34,7 @@ class EventCard extends Component {
     setOwner = eventId => {
         this.eventService
             .getEventOwner(eventId)
-            .then((response) => this.setState({owner: response.data.owner.username}))
+            .then((response) => this.setState({owner: response.data.owner.username, ownerId: response.data._id}))
             .catch(err => console.log(err))
     }
 
@@ -96,7 +97,7 @@ class EventCard extends Component {
                     :
                     this.state.buttons 
                     }
-                    <Link to={`/events/${this.props._id}`} ><Button variant="primary">See details</Button></Link>
+                    <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">See details</Button></Link>
                     
                 </Card.Body>
             </Card>
