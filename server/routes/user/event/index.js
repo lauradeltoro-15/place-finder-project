@@ -150,6 +150,23 @@ router.put('/event/:eventId', (req, res, next) => {
 
 })
 
+// add offer to an event
+router.put('/:eventId/offer/add/:offerId', (req, res, next) => {    
+    console.log('ENTRO')
+
+    Event
+        .findById(req.params.eventId)
+        .then(event => {
+            console.log('el evento es:', event)
+            event.offers.push(req.params.offerId)
+            console.log('el evento tiene estas offers: ', event.offers)
+            event.save()
+        })
+        .then(response =>  res.json(response))
+        .catch(err => next(err))
+
+})
+
 //get all events of a person
 
 router.get('/:userId', (req, res, next)=> {

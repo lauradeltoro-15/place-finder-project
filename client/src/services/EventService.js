@@ -23,4 +23,7 @@ export default class EventService {
     getEventOwner = eventId => this.service.get(`/getOwner/${eventId}`)
     joinEvent = (eventId, userId) =>  this.service.put(`/join/${eventId}/${userId}`)
     leaveEvent = (eventId, userId) => this.service.put(`/leave/${eventId}/${userId}`)
+
+    //offer-event interaction
+    addOffer = (eventId, offerId) => this.service.put(`/${eventId}/offer/add/${offerId}`)
 }

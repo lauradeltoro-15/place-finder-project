@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import LocalService from '../../../services/LocalService'
 import OfferService from '../../../services/OfferService'
+import EventService from '../../../services/EventService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
@@ -16,10 +17,12 @@ class OfferForm extends Component {
             local: undefined,
             event: this.props.match.params.eventId,
             description: '',
-            userLocals: []
+            userLocals: [],
+            offerId: ''
         }
         this.localService = new LocalService()
         this.offerService = new OfferService()
+        this.eventService = new EventService()
 
     }
     componentDidMount = () => this.setUserLocals(this.props.loggedInUser._id)
@@ -30,17 +33,17 @@ class OfferForm extends Component {
         e.preventDefault()
         this.offerService
             .createOffer(this.state)
-            .then(response => {console.log('el server devuelve', response)            })
-            .catch(err => this.setState({ errorMsg: err.response.data.message }))   
+            .then(response => this.setState({offerId: response.data._id}))
+            .then(()=> {this.eventService.addOffer(this.props.match.params.eventId, this.state.offerId)})
+            .then((response) => console.log('la respuesta del serves es:', response))
+            .catch(err => this.setState({ errorMsg: err.response.data.message }))
+
     }
 
     setUserLocals = (userId) => {
         this.localService
             .getUserLocals(userId)
-            .then((response) => {
-                this.setState({userLocals: response.data})
-                    console.log('el estado es', this.state.userLocals)
-            })
+            .then((response) => this.setState({userLocals: response.data}))
             .catch(err => console.log(err))
 
     }
