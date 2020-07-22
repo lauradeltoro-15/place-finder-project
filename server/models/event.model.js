@@ -28,6 +28,12 @@ const eventSchema = new Schema({
         enum: ["restaurant", "gym", "hotel", "others"]
     },
 
+    typeOfEvent: {
+        type: [String],
+        enum: ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness'],
+        minlength: 1
+    },
+
     offers: [{ type: Schema.Types.ObjectId, ref: "Offer" }],
 
     acceptedOffer: {type: Schema.Types.ObjectId, ref: "Offer"},
