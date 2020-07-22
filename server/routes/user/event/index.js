@@ -133,6 +133,13 @@ router.get('/event/:userId', (req, res, next) => {
 
     Event
         .findById(req.params.userId)
+        .populate({
+            path:'offers',
+            populate:{
+                path:"local",
+                populate: 'owner'
+            }
+        })
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -152,20 +159,31 @@ router.put('/event/:eventId', (req, res, next) => {
 
 // add offer to an event
 router.put('/:eventId/offer/add/:offerId', (req, res, next) => {    
-    console.log('ENTRO')
 
     Event
         .findById(req.params.eventId)
         .then(event => {
-            console.log('el evento es:', event)
             event.offers.push(req.params.offerId)
-            console.log('el evento tiene estas offers: ', event.offers)
             event.save()
         })
         .then(response =>  res.json(response))
         .catch(err => next(err))
 
 })
+
+// mark offer as accepted
+// router.put('/:eventId/offer/add/:offerId', (req, res, next) => {    
+
+//     Event
+//         .findById(req.params.eventId)
+//         .then(event => {
+//             event.offers.push(req.params.offerId)
+//             event.save()
+//         })
+//         .then(response =>  res.json(response))
+//         .catch(err => next(err))
+
+// })
 
 //get all events of a person
 

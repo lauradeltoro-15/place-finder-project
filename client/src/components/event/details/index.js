@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 
+import OfferCard from '../../offer/card'
+
 class EventDetails extends Component {
 
     constructor (props){
@@ -54,6 +56,8 @@ class EventDetails extends Component {
                         <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
                     
                         </Col>
+
+                        {this.state.eventDetails.offers.map(offer => <OfferCard loggedInUser={this.props.loggedInUser} offer={offer}/>)}
                     </Row>
                 </Container>
                 

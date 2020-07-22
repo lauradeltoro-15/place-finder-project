@@ -64,7 +64,6 @@ class EventCard extends Component {
     }
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
     render() {
-        this.props.startTime && console.log(this.formatDate(this.props.startTime))
 
         return (
             <>
