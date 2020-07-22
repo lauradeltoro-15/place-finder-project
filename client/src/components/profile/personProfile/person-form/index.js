@@ -94,7 +94,37 @@ class profilePerson extends Component {
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("learning")} value="learning" name="interests" type="checkbox" /> 
                         <Form.Label>Music</Form.Label>
                         <input onChange={this.handleInputChange} checked={this.state.interests.includes("music")} value="music" name="interests" type="checkbox" /> 
-                            </Form.Group>
+                        <Form.Label>Technology</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("technology")} value="technology" name="interests" type="checkbox" /> 
+                        <Form.Label>Health & Wellness</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("health and wellness")} value="health and wellness" name="interests" type="checkbox" /> 
+                        <Form.Label>Kids</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("kids")} value="kids" name="interests" type="checkbox" /> 
+                        <Form.Label>Adults</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("adults")} value="adults" name="interests" type="checkbox" /> 
+                        <Form.Label>Photography</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("photography")} value="photography" name="interests" type="checkbox" /> 
+                        <Form.Label>Art</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("art")} value="art" name="interests" type="checkbox" /> 
+                        <Form.Label>Food</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("food")} value="food" name="interests" type="checkbox" /> 
+                        <Form.Label>Languajes</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("languajes")} value="languajes" name="interests" type="checkbox" /> 
+                        <Form.Label>Culture</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("culture")} value="culture" name="interests" type="checkbox" /> 
+                        <Form.Label>Cinema</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("cinema")} value="cinema" name="interests" type="checkbox" /> 
+                        <Form.Label>Games</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("games")} value="games" name="interests" type="checkbox" /> 
+                        <Form.Label>Fashion</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("fashion")} value="fashion" name="interests" type="checkbox" /> 
+                        <Form.Label>Dance</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("bussiness")} value="bussiness" name="interests" type="checkbox" /> 
+                        <Form.Label>Bussiness</Form.Label>
+                        <input onChange={this.handleInputChange} checked={this.state.interests.includes("games")} value="games" name="interests" type="checkbox" /> 
+                    
+
+                    </Form.Group>
                             {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                     <Button variant="dark" type="submit">Submit</Button>
                 </Form>

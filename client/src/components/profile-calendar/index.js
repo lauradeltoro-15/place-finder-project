@@ -16,7 +16,7 @@ class CalendarPage extends Component {
     componentDidMount = () => {
         const id = this.props.match.params.userId
     
-        this.eventService.getPersonEvents(id)
+        this.eventService.getAllEventsUser(id)
             .then(response => this.setState({ events: response.data }))
             .catch(err => console.log(err))
     }

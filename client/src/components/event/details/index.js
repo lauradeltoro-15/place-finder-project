@@ -1,57 +1,63 @@
 import React, {Component} from 'react'
-
 import EventService from '../../../services/EventService'
-import EventCard from '../card'
+
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
 
 class EventDetails extends Component {
+
     constructor (props){
         super (props)
         this.state = {
-            ownedEvents: [],
-            participantEvents: []
+            eventDetails: undefined,
+            owner: undefined
         }
         this.eventService = new EventService()
     }
 
     componentDidMount = () => {
-        this.updateEventList()
-        this.setEvents(this.props.loggedInUser._id)
+        
+        this.updateState(this.props.match.params.eventId, this.props.match.params.userId )
     }
 
-    updateEventList = () => {
-        const id = this.props.paramId
+    updateState = (eventId, userId) => {
 
         this.eventService
-            .getAllEvents()
-            .then(response => this.setState({events: response.data}))
-            .catch(err => console.log(err))
-
-    }
-
-    setEvents = userId => {
-        this.eventService
-            .getOwnedEvents(userId)
-            .then((response) => this.setState({ownedEvents: response.data}))
-            .catch(err => console.log(err))
+            .getOneEvent(eventId)
+            .then(response => this.setState({eventDetails: response.data}))
+            .catch(error => console.log(error))
 
         this.eventService
-            .getParticipantEvents(userId)
-            .then((response) => this.setState({participantEvents: response.data}))
+            .getEventOwner(userId)
+            .then((response) => this.setState({owner: response.data.owner.username}))
             .catch(err => console.log(err))
     }
 
 
-    render() {
+    render () {
 
         return (
             <>
-            <h3>Your events</h3>
-            {this.state.ownedEvents.length == 0 ? <h5 style={{'color' : 'white', 'padding' : '10%'}}>Nothing here yet</h5> : 
-            this.state.ownedEvents.map(event => <EventCard loggedUserEvents={this.state.ownedEvents} paramId={this.props.paramId} loggedInUser={this.props.loggedInUser} updateEvents={this.updateEventList} key={event._id} {...event}/>)}
-            <h3>Joined events</h3>
-            {this.state.participantEvents.length == 0 ? <h5 style={{'color' : 'white', 'padding' : '10%'}}>Nothing here yet</h5> :
-            this.state.events.map(event => <EventCard loggedUserEvents={this.state.participantEvents} paramId={this.props.paramId} loggedInUser={this.props.loggedInUser} updateEvents={this.updateEventList} key={event._id} {...event}/>)}
-     
+            {!this.state.eventDetails ? <h1>cargando</h1> : 
+                <>
+                <Container>
+                    <Row>
+                        <Col>
+                        <h1>{this.state.eventDetails.name}</h1>
+                        <p>Creator: {this.state.owner}</p>
+                        <p>Description: {this.state.eventDetails.name}</p>
+                        <p>Date: {this.state.eventDetails.date}</p>
+                        <p>City: {this.state.eventDetails.city}</p>
+                        <p>Type of local: {this.state.eventDetails.typeOfLocal}</p>
+                        <p>Number of participants:{this.state.eventDetails.participants.length} </p>
+                        </Col>
+                    </Row>
+                </Container>
+
+                
+                </>
+            }
             </>
         )
     }

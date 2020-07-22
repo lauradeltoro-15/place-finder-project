@@ -26,7 +26,6 @@ const isFormValidated = (event, res) => {
 //join event
 
 router.put('/join/:eventId/:userId', (req, res, next) => {
-
     Event
         .findById(req.params.eventId, {participants: 1})
         .then(event => {
@@ -84,6 +83,14 @@ router.get('/:userId/owned', (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+// get all events of a user
+router.get('/:userId/all', (req, res, next) => {
+    Event
+        .find()
+        .then(response => res.json(response.filter(event => event.participants.includes(req.params.userId))))
+        .catch(err => next(err))
+})
+
 
 // get events where user is participant
 router.get('/:userId/participant', (req, res, next) => {
