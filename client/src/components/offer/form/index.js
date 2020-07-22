@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import LocalService from '../../../services/LocalService'
+import OfferService from '../../../services/OfferService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
@@ -15,9 +16,10 @@ class OfferForm extends Component {
             local: undefined,
             event: this.props.match.params.eventId,
             description: '',
-            userLocals: undefined
+            userLocals: []
         }
         this.localService = new LocalService()
+        this.offerService = new OfferService()
 
     }
     componentDidMount = () => this.setUserLocals(this.props.loggedInUser._id)
@@ -26,20 +28,19 @@ class OfferForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        this.setState({previousLoggedUser: this.props.loggedInUser})
-        this.userService
-            .editUserProfile(this.props.loggedInUser._id , this.state)
-            .then(response => {
-                this.props.setTheUser(response.data)
-                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
-            })
+        this.offerService
+            .createOffer(this.state)
+            .then(response => {console.log('el server devuelve', response)            })
             .catch(err => this.setState({ errorMsg: err.response.data.message }))   
     }
 
     setUserLocals = (userId) => {
         this.localService
             .getUserLocals(userId)
-            .then((response) => this.setState({userLocals: response.data}))
+            .then((response) => {
+                this.setState({userLocals: response.data})
+                    console.log('el estado es', this.state.userLocals)
+            })
             .catch(err => console.log(err))
 
     }
@@ -59,9 +60,15 @@ class OfferForm extends Component {
 
                     <Form.Group>
                         <Form.Label>Local</Form.Label>
-                        <Form.Control as="select" onChange={this.handleInputChange} value={this.state.local} name="local" multiple>
-                        {!this.state.userLocalsthis? <h2>cargando</h2> : this.state.userLocals.map(local => <option>{local.name}</option>)}
-                        </Form.Control>
+                        
+                        {!this.state.userLocals? <h2>cargando</h2> : this.state.userLocals.map(local => 
+                        
+                        <Form.Group>
+                                    <label>{local.name}</label>
+                                    <input onChange={this.handleInputChange}  value={local._id} name="local" type="radio" />
+                        </Form.Group>
+                        
+                        )}
                         
                     </Form.Group>
 
@@ -69,6 +76,7 @@ class OfferForm extends Component {
                         <Form.Label>Description</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
                     </Form.Group>
+
 
                     {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                     
