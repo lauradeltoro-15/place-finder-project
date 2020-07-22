@@ -43,7 +43,7 @@ class LocalCard extends Component {
                     {this.isUserTheProfileOwner() &&
                         <>
                         <Button variant="dark" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
-                        <Link to={`user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        <Link to={`/user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
                         </>
                     }
                     <Link to={`/user/${this.props.owner}/local/${this.props._id}`} className="btn btn-dark btn-block btn-sm">See details</Link>

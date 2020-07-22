@@ -31,7 +31,7 @@ class CompanyProfile extends Component {
                 {this.isUserTheProfileOwner() &&
                     <>
                         <Link to={`/profile/edit/company/${this.props.loggedInUser._id}`}>Edit profile</Link>
-                        <Link to={`user/${this.props.userDetails._id}/local/add`}>Add new local</Link>
+                        <Link to={`/user/${this.props.userDetails._id}/local/add`}>Add new local</Link>
                     </>
                 }
                 <h4>Locals</h4>

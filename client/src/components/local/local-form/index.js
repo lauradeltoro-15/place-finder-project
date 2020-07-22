@@ -61,15 +61,15 @@ class LocalForm extends Component {
 
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
-            .then(() => this.props.history.push('/profile'))
+            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
     setErrorMessage = errorMsg => this.setState({ errorMsg })
     
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
-            .then(() => this.props.history.push('/profile'))
-            .catch(err => this.setErrorMessage(err.response.data.message))
+            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
+            //.catch(err => this.setErrorMessage(err.response.data.message))
     }
 
     render() {

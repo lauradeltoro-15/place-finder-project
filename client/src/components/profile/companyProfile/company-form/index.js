@@ -73,7 +73,6 @@ class CompanyForm extends Component {
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
-                                {this.state.errorMsg && <small>{this.state.errorMsg}</small>}
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Phone number</Form.Label>
