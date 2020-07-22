@@ -23,7 +23,7 @@ class EventCard extends Component {
     deleteEvent = eventId => {
         this.eventService
             .deleteEvent(eventId)
-            .then(() => this.props.updateEvents())
+            .then(() => this.props.updateEventList())
             .catch(err => console.log(err))
     }
 
