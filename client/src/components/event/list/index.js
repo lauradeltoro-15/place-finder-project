@@ -25,11 +25,7 @@ class  EventList extends Component {
 
         this.eventService
             .getAllEvents()
-            .then(response => {
-                console.log("ACTUALIZANDO EVENTOS")
-                this.setState({ events: response.data })
-                console.log("EVENTOS: ",this.state.events)
-            })
+            .then(response => this.setState({ events: response.data }))
             .catch(err => console.log(err))
     
     }
