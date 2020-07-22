@@ -19,7 +19,7 @@ const localSchema = new Schema({
     //     }],
     //     default: ""
     // },
-    availableHours: [ // specify an array instead
+    availability: [
         {
             daysOfWeek: {
                 type: [Number],
@@ -27,11 +27,11 @@ const localSchema = new Schema({
             }, 
             startTime: {
                 type: String,
-                match: / ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+                match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
             },
-            startTime: {
+            endTime: {
                 type: String,
-                match: / ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+                match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
             }     
         },
     ],

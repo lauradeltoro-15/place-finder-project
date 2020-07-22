@@ -6,12 +6,23 @@ const Local = require("../../models/local.model")
 const ValidationHandler = require("../../validationHandler")
 const validationHandler = new ValidationHandler()
 //Helper functions
-const mapLocal = (local,companyId) => {
+const mapLocal = (local, companyId) => {
+    const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    const mapAvailability = weekDays.filter(day => local.availability[day].available).map((day,i) => {
+        return {
+            daysOfWeek: [weekDays.indexOf(day) + 1],
+            startTime: local.availability[day].startTime,
+            endTime: local.availability[day].endTime,
+        }
+    })
+    console.log(mapAvailability, "map availability", local, "local")
     return {
         ...local,
         location: {
-            address: local.location
+            address: local.location,
+            
         },
+        availability: mapAvailability,
         owner: companyId
     }
 }
@@ -47,7 +58,8 @@ router.get("/details/:localId", (req, res, next) => {
         .catch(err => console.log(err))
 })
 
-router.post('/add', (req, res, next) => {   
+router.post('/add', (req, res, next) => {  
+    console.log("este es el local", req.body)
     isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))
