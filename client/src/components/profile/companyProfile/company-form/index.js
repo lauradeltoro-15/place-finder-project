@@ -24,7 +24,7 @@ class CompanyForm extends Component {
         this.userService = new UserService()
     }
     componentDidMount = () => {
-        const id = this.props.match.params.userId
+        const id = this.props.match.params.id
         this.userService
             .getUserDetails(id)
                 .then(response => this.updateStateFromApi(response.data))

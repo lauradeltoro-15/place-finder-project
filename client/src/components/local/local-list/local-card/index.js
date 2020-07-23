@@ -46,6 +46,7 @@ class LocalCard extends Component {
                         <Link to={`/user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
                         </>
                     }
+                    <Link to={`/profile/local/${this.props._id}/calendar`} ><Button variant="dark" type="submit">See your calendar!</Button></Link>
                     <Link to={`/user/${this.props.owner}/local/${this.props._id}`} className="btn btn-dark btn-block btn-sm">See details</Link>
                 </Card>
             </Col>
