@@ -87,8 +87,7 @@ class EventForm extends Component {
                 console.log("handle llega:", this.props.handleEventSubmit)
 
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
-                    this.props.history.push(`/`)
-                    // this.props.history.push(`/profile/${this.props.loggedInUser._id}`) TO-DO
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
             })
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
@@ -96,8 +95,8 @@ class EventForm extends Component {
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent)
-            .then(response => this.props.history.push(`/`))
-            // this.props.history.push(`/profile/${this.props.loggedInUser._id}`) TO-DO
+            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`) )
+            
 
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
