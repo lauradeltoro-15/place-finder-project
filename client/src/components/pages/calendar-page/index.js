@@ -14,6 +14,7 @@ class CalendarPage extends Component {
         this.eventService = new EventService()
     }
     componentDidMount = () => {
+        console.log(this.props)
         const id = this.props.match.params.userId
         this.eventService.getAllEventsUser(id)
             .then(response => this.setState({ events: response.data }))
@@ -25,7 +26,7 @@ class CalendarPage extends Component {
             <>
                 { this.state.events.length > 0 &&
                     <Container as="main">
-                        <Calendar events={this.state.events} />
+                        <Calendar events={this.state.events} {...this.props}/>
                     </Container>
                 }
             </> 

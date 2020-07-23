@@ -7,11 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import EventService from "../../../../services/EventService"
 import OfferService from "../../../../services/OfferService"
 
-import Container from 'react-bootstrap/esm/Container'
-
-import EventForm from "../../../event/form"
-
-import Modal from "../../ui/Modal"
+import Modal from "../../../ui/Modal"
 
 class Calendar extends Component {
     constructor() {
@@ -40,6 +36,7 @@ class Calendar extends Component {
         this.getAllLocalOffers(this.props.match.params.localId)
 
     getAllUserEvents = (id) => {
+        console.log("vuelve aqui")
         this.eventService.getAllEventsUser(id)
             .then(response => this.setState({ events: response.data }))
             .catch(err => console.log(err))
@@ -81,7 +78,7 @@ class Calendar extends Component {
                         eventClick={() => alert("tocando evento")}
                         headerToolbar={{ start: "dayGridMonth,timeGridWeek" }}
                     />
-                    <Modal /> 
+                <Modal handleEventSubmit={this.handleEventSubmit} handleModal={this.handleModal} {...this.props} calendarDate={this.state.calendarDate} show={this.state.showModal} loggedInUser={this.props.loggedInUser}/> 
                 </>
         )
     }

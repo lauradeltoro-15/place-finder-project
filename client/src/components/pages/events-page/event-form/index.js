@@ -84,7 +84,9 @@ class EventForm extends Component {
         this.eventService
             .createEvent(this.state)
             .then(() => {
-                this.props.handleModal ? this.props.handleModal() :
+                console.log("handle llega:", this.props.handleEventSubmit)
+
+                this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                     this.props.history.push(`/`)
                     // this.props.history.push(`/profile/${this.props.loggedInUser._id}`) TO-DO
             })

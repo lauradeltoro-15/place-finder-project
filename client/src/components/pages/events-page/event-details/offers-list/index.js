@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import OfferService from "../../../../../services/OfferService"
 
 import OfferCard from './card'
+import Row from 'react-bootstrap/Row'
 
 
 class OfferList extends Component {
@@ -23,8 +24,10 @@ class OfferList extends Component {
     render() {
         return (
             <section>
-                {this.state.offers.map(offer => <OfferCard loggedInUser={this.props.loggedInUser}
-                    offer={offer} />)}
+                <Row>
+                    {this.state.offers.map(offer => <OfferCard loggedInUser={this.props.loggedInUser}
+                        offer={offer} />)}
+                </Row>
             </section>
         )
     }
