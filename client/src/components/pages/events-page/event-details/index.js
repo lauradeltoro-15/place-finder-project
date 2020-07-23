@@ -53,7 +53,10 @@ class EventDetails extends Component {
                                     <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
                                 </Col>
                             </Row>
-                            <OffersList eventId={this.props.match.params.eventId}/>
+                            {this.props.loggedInUser._id == this.state.eventDetails.owner &&
+                                <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId}/>
+                            }
+                            
                         </Container>
                     </>
                 }

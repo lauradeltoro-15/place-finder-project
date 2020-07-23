@@ -18,7 +18,12 @@ class OfferCard extends Component {
         
     }
 
+    deleteOffer = offerId => {
+
+    }
+
     render () {
+ 
         return (
             <>
                 <Col md={4}>
@@ -34,7 +39,15 @@ class OfferCard extends Component {
                             <Card.Text>Services: <ul>{this.props.offer.local.services.map(services => <li>{services}</li>)}</ul></Card.Text>
                             <Card.Text>Address: {this.props.offer.local.localType}</Card.Text>
                             <Card.Text>Comments: {this.props.offer.description}</Card.Text>
-                            <Button variant="primary" onClick={() => this.acceptOffer(this.props.offer._id)}>Accept Offer</Button>
+
+                            {!this.props.loggedInUser.companyDetails && this.props.event.owner == this.props.loggedInUser._id &&
+                                <Button variant="primary" onClick={() => this.acceptOffer(this.props.offer._id)}>Accept Offer</Button>
+                            }
+                            {this.props.loggedInUser._id === this.props.offer.local.owner._id &&
+                            
+                                <Button variant="danger" onClick={() => this.deleteOffer(this.props.offer._id)}>Delete Offer</Button>
+                            }
+                            
                         </Card.Body>
                     </Card>
                 </Col>

@@ -25,7 +25,7 @@ class OfferList extends Component {
         return (
             <section>
                 <Row>
-                    {this.state.offers.map(offer => <OfferCard loggedInUser={this.props.loggedInUser}
+                    {this.state.offers.map(offer => <OfferCard event={this.props.event} loggedInUser={this.props.loggedInUser}
                         offer={offer} />)}
                 </Row>
             </section>

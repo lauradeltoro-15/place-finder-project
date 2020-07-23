@@ -63,6 +63,7 @@ class EventCard extends Component {
         return `${hh}:${min}h`
     }
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
+    
     render() {
 
         return (
@@ -89,7 +90,11 @@ class EventCard extends Component {
                             <Button variant={this.isParticipating() ? "danger" : "primary"} onClick={() => { this.isParticipating() ? this.leaveEvent(this.props._id, this.props.loggedInUser._id) : this.joinEvent(this.props._id, this.props.loggedInUser._id) }}>{this.isParticipating() ? "Leave event" : "Join event"} </Button>
                         }
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">See details</Button></Link>
-                        <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
+                        
+                        {this.props.loggedInUser.companyDetails &&
+                            <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
+                        }
+                        
 
                     </Card.Body>
                 </Card>
