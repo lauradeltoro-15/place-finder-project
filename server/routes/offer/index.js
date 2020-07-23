@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Offer = require("../../models/offer.model")
+const Event = require("../../models/event.model")
 const ValidationHandler = require("../../validationHandler")
 const validationHandler = new ValidationHandler()
 
@@ -42,6 +43,24 @@ router.delete('/delete/:offerId', (req, res, next) => {
     Offer
         .findByIdAndDelete(req.params.offerId)
         .then(response => res.json(response))
+        .catch(err => next(err))
+})
+
+router.put('/accept/:offerId/event/:eventId', (req, res, next) => {
+
+    console.log('offerid', req.params.offerId, ' y eventId ', req.params.eventId)
+    Offer
+        .find({event: req.params.eventId})
+        .then(offers => { console.log('todas las ofertas', offers)
+            offers.forEach(offer => {
+                offer._id == req.params.offerId ? offer.status = "accepted" : offer.status = "rejected"
+                offer.save()
+                console.log('la oferta', offer.status)
+                
+            })
+        })
+        .then(() => { Event.findByIdAndUpdate(req.params.eventId, {acceptedOffer: req.params.offerId}, {new: true})})
+        .then(response => console.log('el evento actualizado, ' , response))
         .catch(err => next(err))
 })
 
