@@ -64,7 +64,7 @@ class App extends Component {
           <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
           <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
           <Route path="/profile/local/:localId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
-          <Route path="/profile/:userId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
+          <Route path="/profile/:userId/calendar" render={props => this.isTheUserAllowed(props.match.params.userId) ? <CalendarPage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />}/>

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 
 import Modal from 'react-bootstrap/Modal'
-import EventForm from '../../pages/events-page/event-form'
 
 class UiModal extends Component {
     constructor (){

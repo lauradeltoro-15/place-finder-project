@@ -40,6 +40,17 @@ class ValidationHandler {
         }
         return true
     }
+    isNameUnique = (model, name, res) => {
+        return model.findOne({ name })
+            .then(response => {
+                if (response) {
+                    res.status(400).json({ message: `The name you choose is already taken.` })
+                    return false
+                }
+                return true 
+            } )
+            .catch(err => console.log(err))
+    }
 
 }
 
