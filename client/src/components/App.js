@@ -5,7 +5,7 @@ import AuthService from "../services/AuthService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import AuthForm from "./pages/auth-page/auth-form"
+import AuthPage from "./pages/auth-page/"
 import NavBar from "./ui/NavBar"
 import ProfilePage from './pages/profile-page'
 import LocalForm from "./pages/profile-page/companyProfile/local/local-form"
@@ -49,8 +49,8 @@ class App extends Component {
         <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} />
 
         <Switch>       
-          <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
-          <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
+          <Route path="/signup" render={props => <AuthPage setTheUser={this.setTheUser} {...props} />}></Route>
+          <Route path="/login" render={props => <AuthPage setTheUser={this.setTheUser} {...props} />}></Route>
                   
           <Route exact path="/user/:id/local/add" render={props => this.isTheUserAllowed(props.match.params.id)? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId/edit/" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser}/> : <Redirect to='/login' />} />
@@ -63,8 +63,8 @@ class App extends Component {
 
           <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
           <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
-          <Route path="/profile/:userId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
           <Route path="/profile/local/:localId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
+          <Route path="/profile/:userId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />}/>

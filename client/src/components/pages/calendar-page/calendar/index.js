@@ -31,23 +31,10 @@ class Calendar extends Component {
         this.eventService = new EventService()
         this.offerService = new OfferService()
     }
-    componentDidMount = () => this.updateEvents()
-    updateEvents = () => this.props.match.params.userId ? this.getAllUserEvents(this.props.match.params.userId) :
-        this.getAllLocalOffers(this.props.match.params.localId)
 
-    getAllUserEvents = (id) => {
-        console.log("vuelve aqui")
-        this.eventService.getAllEventsUser(id)
-            .then(response => this.setState({ events: response.data }))
-            .catch(err => console.log(err))
-    }
-    getAllLocalOffers = (id) => {
-        this.offerService.getAllLocalOffers(id)
-            .then(response => console.log("esta es la respuesta", response.data))
-            .catch(err => console.log(err))
-    }
-    handleModal = (status, e) => e ? this.setState({ showModal: status, calendarDate: `${e.dateStr}T00:00` })
-        : this.setState({ showModal: status })
+    handleModal = (status, e) => !this.props.events ? null :
+        e ? this.setState({ showModal: status, calendarDate: `${e.dateStr}T00:00` }) :
+        this.setState({ showModal: status })
 
     handleEventSubmit = () => {
         this.handleModal(false)
@@ -63,17 +50,21 @@ class Calendar extends Component {
         let yyyy = newDate.getFullYear()
         return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`
     }
+    getEventsToRender = () =>  this.props.events ?
+        this.props.events.length > 0 && this.props.events.map(event => { return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) } })
+        : this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
     render() {
-
-        const formattedEvents = this.state.events.length > 0 && this.state.events.map(event => { return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) } })
+        console.log("estas son las props", this.props)
+        const formattedInfo = this.getEventsToRender()
+       
         return (
-                <>
+            <>
                     <FullCalendar
                         businessHours={this.state.businessHours}
                         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                         initialView="dayGridMonth"
                         selectable={true}
-                        events={formattedEvents}
+                        events={formattedInfo}
                         dateClick={(e) => this.handleModal(true, e)}
                         eventClick={() => alert("tocando evento")}
                         headerToolbar={{ start: "dayGridMonth,timeGridWeek" }}

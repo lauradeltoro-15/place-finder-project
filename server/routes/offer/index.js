@@ -19,6 +19,8 @@ router.post('/create', (req, res, next) => {
 
 router.get('/getAllLocalOffers/:localId', (req, res, next) => {
     Offer.find({ local: req.params.localId })
+        .populate("event")
+        .populate("local")
         .then(offers => res.json(offers))
         .catch(err => next(err))   
 })

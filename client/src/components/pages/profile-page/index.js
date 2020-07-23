@@ -33,7 +33,6 @@ class ProfilePage extends Component {
     }
     render() {
         const detailedProfile = this.getProfile()
-        console.log("Estoy aquí")
         return (
             <>
                 {!this.state.userDetails ? <h1>cargando</h1>:
