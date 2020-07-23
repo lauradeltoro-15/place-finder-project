@@ -38,8 +38,6 @@ const eventSchema = new Schema({
         minlength: 1
     },
 
-    offers: [{ type: Schema.Types.ObjectId, ref: "Offer" }],
-
     acceptedOffer: { type: Schema.Types.ObjectId, ref: "Offer" },
 
     participants: [{ type: Schema.Types.ObjectId, ref: "User" }]
