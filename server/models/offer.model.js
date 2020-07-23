@@ -10,6 +10,10 @@ const offerSchema = new Schema({
     event: {type: Schema.Types.ObjectId, ref: "Event", required: true},
     description: {
         type: String
+    },
+    isAccepted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
