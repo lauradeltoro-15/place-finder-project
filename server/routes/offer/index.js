@@ -12,8 +12,14 @@ const validationHandler = new ValidationHandler()
 //create
 
 router.post('/create', (req, res, next) => {
-    Offer.create(req.body)
-        .then(offer => res.json(offer))
+    const{event, local} = req.body
+    
+    let exists = false
+
+    Offer.find()
+        .then(offers => {if (offers.filter(offer => offer.event == event && offer.local == local).length) exists = true})
+        .then(() => {if(!exists) return Offer.create(req.body)})
+        .then(offer => {if(offer) res.json(offer)})
         .catch(err => next(err))
 })
 
@@ -24,6 +30,7 @@ router.get('/getAllLocalOffers/:localId', (req, res, next) => {
         .then(offers => res.json(offers))
         .catch(err => next(err))   
 })
+
 router.get('/getAllEventsOffers/:eventId', (req, res, next) => {
     Offer.find({ event: req.params.eventId })
         .populate({ path: 'local',populate: { path: "owner" } })
