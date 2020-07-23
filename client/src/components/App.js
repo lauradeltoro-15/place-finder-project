@@ -5,18 +5,18 @@ import AuthService from "../services/AuthService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import AuthForm from "./auth-form"
+import AuthForm from "./pages/auth-page/auth-form"
 import NavBar from "./ui/NavBar"
-import ProfilePage from "./profile/"
-import LocalForm from "./local/local-form"
-import PersonEdit from './profile/personProfile/person-form'
-import CompanyEdit from "./profile/companyProfile/company-form"
-import LocalDetails from "./local/local-details"
-import EventForm from './event/form'
-import EventDetails from './event/details'
-import Calendar from "./profile-calendar/calendar"
-import EventList from './event/list'
-import OfferForm from './offer/form'
+import ProfilePage from './pages/profile-page'
+import LocalForm from "./pages/profile-page/companyProfile/local/local-form"
+import PersonEdit from './pages/profile-page/personProfile/person-form'
+import CompanyEdit from "./pages/profile-page/companyProfile/company-form"
+import LocalDetails from "./pages/profile-page/companyProfile/local/local-details"
+import EventForm from './pages/events-page/event-form'
+import EventDetails from './pages/events-page/event-details'
+//import Calendar from "./profile-calendar/calendar"
+import EventsPage from './pages/events-page'
+import OfferForm from './pages/events-page/event-details/offers-list/form'
 
 class App extends Component {
   constructor (){
@@ -58,12 +58,13 @@ class App extends Component {
           
           <Route exact path="/user/:id/event/create" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} /> : <Redirect to='/login' />} />
           <Route exact path="/user/:id/event/edit/:eventId" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} /> : <Redirect to='/login' />} />
-          <Route exact path="/events"  render={props => <EventList loggedInUser={this.state.loggedInUser} {...props}  />} />
+          <Route exact path="/events" render={props => <EventsPage loggedInUser={this.state.loggedInUser} {...props}  />} />
           <Route exact path="/user/:userId/events/:eventId"  render={props => <EventDetails loggedInUser={this.state.loggedInUser} {...props}  />} />
 
           <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
           <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
-          <Route path="/profile/:userId/calendar" render={props => <Calendar loggedInUser={this.state.loggedInUser} {...props} /> } />
+          {/* <Route path="/profile/:userId/calendar" render={props => <Calendar loggedInUser={this.state.loggedInUser} {...props} />} /> */}
+          {/* <Route path="/profile/local/:localId/calendar" render={props => <Calendar loggedInUser={this.state.loggedInUser} {...props} />} /> */}
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />}/>
