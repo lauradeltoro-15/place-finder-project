@@ -30,9 +30,8 @@ class App extends Component {
   setTheUser = user => {
     this.setState({ loggedInUser: user }, () => this.state)
   }
-  isUserAllowed = (currentUserId, userAllowedId) => {
-    return currentUserId === userAllowedId
-  }
+
+  isTheUserAllowed = (userAllowedId) => this.state.loggedInUser && this.state.loggedInUser._id === userAllowedId
 
   fetchUser = () => {
     this.AuthService
@@ -53,8 +52,8 @@ class App extends Component {
           <Route path="/signup" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
           <Route path="/login" render={props => <AuthForm setTheUser={this.setTheUser} {...props} />}></Route>
                   
-          <Route exact path="/user/:id/local/add" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.id)? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />} />
-          <Route path="/user/:id/local/:localId/edit/" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser}/> : <Redirect to='/login' />} />
+          <Route exact path="/user/:id/local/add" render={props => this.isTheUserAllowed(props.match.params.id)? <LocalForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />} />
+          <Route path="/user/:id/local/:localId/edit/" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId" render={props => this.state.loggedInUser ? <LocalDetails {...props} loggedInUser={this.state.loggedInUser} /> : <Redirect to='/login' />} />
           
           <Route exact path="/user/:id/event/create" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} /> : <Redirect to='/login' />} />
@@ -62,8 +61,8 @@ class App extends Component {
           <Route exact path="/events"  render={props => <EventList loggedInUser={this.state.loggedInUser} {...props}  />} />
           <Route exact path="/user/:userId/events/:eventId"  render={props => <EventDetails loggedInUser={this.state.loggedInUser} {...props}  />} />
 
-          <Route path="/profile/edit/company/:userId" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.userId)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
-          <Route path="/profile/edit/:userId" render={props => this.state.loggedInUser && this.isUserAllowed(this.state.loggedInUser._id, props.match.params.userId)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
+          <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />}></Route>
+          <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id)? <PersonEdit  setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} />: <Redirect to='/login' />}></Route>
           <Route path="/profile/:userId/calendar" render={props => <Calendar loggedInUser={this.state.loggedInUser} {...props} /> } />
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} /> : <Redirect to='/login' />} />
 

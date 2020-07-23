@@ -54,8 +54,7 @@ class EventDetails extends Component {
                         <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
                         </Col>
                     </Row>
-                </Container>
-                
+                </Container>     
                 </>
             }
             </>

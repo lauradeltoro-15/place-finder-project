@@ -15,7 +15,6 @@ const mapLocal = (local, companyId) => {
             endTime: local.availability[day].endTime,
         }
     })
-    console.log(mapAvailability, "map availability", local, "local")
     return {
         ...local,
         location: {

@@ -19,7 +19,6 @@ class EventForm extends Component {
             typeOfLocal: "",
             theme: [],
             participants: [this.props.loggedInUser._id],
-            previousLoggedUser: undefined,
             startTime: "",
             endTime: "",
         }

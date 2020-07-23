@@ -72,6 +72,12 @@ class LocalForm extends Component {
         index === -1 ? stateToChange.push(target.value) : stateToChange.splice(index, 1)
         this.setState({ [target.name]: stateToChange })
     }
+    handleFormSubmit = e => {
+        e.preventDefault()
+        const userIid = this.props.match.params.id
+        const localId = this.props.match.params.localId
+        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
+    }
     handleAvailability = e => {
         this.setState({
             availability: {
@@ -96,13 +102,6 @@ class LocalForm extends Component {
             }
         })
     }
-    handleFormSubmit = e => {
-        e.preventDefault()
-        const userIid = this.props.match.params.id
-        const localId = this.props.match.params.localId
-        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
-    }
-
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
