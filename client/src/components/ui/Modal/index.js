@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/esm/Button'
 
 class UiModal extends Component {
     constructor (){
@@ -10,11 +11,13 @@ class UiModal extends Component {
         }
     }
 
-    render () {
+    render() {
+        console.log(this.props)
         return (
             <Modal size="lg" show={this.props.show} onHide={() => this.props.handleModal(false)}>
-            <Modal.Body>
-                    <EventForm calendarDate={this.state.calendarDate} {...this.props} loggedInUser={this.props.loggedInUser} handleEventSubmit={this.handleEventSubmit} {...this.props} />
+                <Modal.Body>
+                    {this.props.children}
+                    <Button onClick={() => this.props.handleEventDetailModal(false)}>Close</Button>
             </Modal.Body>
         </Modal>
         )

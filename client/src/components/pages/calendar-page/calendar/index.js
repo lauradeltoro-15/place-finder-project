@@ -8,7 +8,7 @@ import EventService from "../../../../services/EventService"
 import OfferService from "../../../../services/OfferService"
 
 import EventForm from '../../events-page/event-form'
-
+import EventCard from "../../events-page/event-list/card"
 import Modal from "../../../ui/Modal"
 
 class Calendar extends Component {
@@ -21,15 +21,19 @@ class Calendar extends Component {
         this.offerService = new OfferService()
     }
 
-    handleModal = (status, e) => !this.props.events ? null :
+    handleFormModal = (status, e) => !this.props.events ? null :
         e ? this.setState({ showModal: status, calendarDate: `${e.dateStr}T00:00` }) :
             this.setState({ showModal: status })
-
-    handleEventSubmit = () => {
-        this.handleModal(false)
-        this.updateEvents()
+    
+    handleEventDetailModal = status => {
+        this.setState({ showModal: status , calendarDate: undefined})
     }
 
+    handleEventSubmit = () => {
+        this.handleFormModal(false)
+        this.updateEvents()
+    }
+    
     obtainDateInFormat = date => {
         const newDate = new Date(date)
         const hh = String(newDate.getHours()).padStart(2, '0')
@@ -39,20 +43,25 @@ class Calendar extends Component {
         let yyyy = newDate.getFullYear()
         return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`
     }
-    getEventDetails = e => {
-        this.eventService.getEventByName(e.event._def.title)
-            .then(response => this.setState({ eventDetail: response.data }))
+    showDetailsModal = e => {
+        this.eventService
+            .getEventByName(e.event._def.title)
+            .then(response => {
+                this.handleEventDetailModal(true)
+                this.setState({ eventDetail: response.data })
+            })
             .catch(err => console.log(err))
     }
+
     getEventsToRender = () => this.props.events ?
-        this.props.events.length > 0 && this.props.events.map(event => { return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) } })
-        : this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
+        this.props.events.length > 0 && this.props.events.map(event => {
+            return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) }})
+        :
+        this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
 
     render() {
         const formattedInfo = this.getEventsToRender()
-        console.log(this.state.eventDetail, "event detail")
         return (
-
             <>
                 <FullCalendar
                     businessHours={this.props.offers ? this.props.offers[0].local.availability : ""}
@@ -60,11 +69,16 @@ class Calendar extends Component {
                     initialView="dayGridMonth"
                     selectable={true}
                     events={formattedInfo}
-                    dateClick={e => this.handleModal(true, e)}
-                    eventClick={e => this.getEventDetails(e)}
-                    headerToolbar={{ start: "dayGridMonth,timeGridWeek" }}
+                    dateClick={e => this.handleFormModal(true, e)}
+                    eventClick={e => this.showDetailsModal(e)}
+                    headerToolbar={{ start: "dayGridMonth, timeGridWeek" }}
                 />
-                <Modal handleEventSubmit={this.handleEventSubmit} handleModal={this.handleModal} {...this.props} calendarDate={this.state.calendarDate} show={this.state.showModal} loggedInUser={this.props.loggedInUser}> </Modal>
+                <Modal handleModal={this.handleFormModal} handleEventDetailModal={this.handleEventDetailModal} show={this.state.showModal} >
+                    {this.state.calendarDate ?
+                        <EventForm calendarDate={this.state.calendarDate} {...this.props} loggedInUser={this.props.loggedInUser} handleEventSubmit={this.handleEventSubmit} /> : 
+                        this.state.eventDetail ? 
+                        <EventCard {...this.state.eventDetail} /> : null}       
+                </Modal>
             </>
         )
     }
