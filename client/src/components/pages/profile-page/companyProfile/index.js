@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UserService from "../../../../services/UserService"
 
 import Container from 'react-bootstrap/Container'
+import './profile.css'
 
 import LocalList from "./local/local-list"
 
@@ -20,10 +21,11 @@ class CompanyProfile extends Component {
         const company = this.props.userDetails.companyDetails
         const socialMedia = company.socialMedia.map(social => <li>{`${social.name}:  ${social.mediaUrl}`}</li>)
         return (
-            <Container as="section">
-                <h4>Description</h4>
+            <section className="general-info">
+            
+                <h5>Description</h5>
                 <p>{company.description}</p>
-                <h4>Contact</h4>
+                <h5>Contact</h5>
                 <ul>
                     <li>phone: {company.phone}</li>
                     {socialMedia}
@@ -36,7 +38,7 @@ class CompanyProfile extends Component {
                 }
                 <h4>Locals</h4>
                 <LocalList user={this.props.userDetails._id} loggedInUser={this.props.loggedInUser} />
-            </Container>
+            </section>
         )
     }
 }

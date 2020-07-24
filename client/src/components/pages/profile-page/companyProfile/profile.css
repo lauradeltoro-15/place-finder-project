@@ -1,0 +1,17 @@
+.general-info {
+    text-align: center;
+    margin-top: 100px;
+}
+.age-genre-cont {
+    display: flex;
+    justify-content: center;
+}
+.profile-data {
+    margin: 10px 10px
+}
+.event-section h3{
+    margin: 80px 50px 20px
+}
+.main-button-container {
+    margin: 70px 0;
+}

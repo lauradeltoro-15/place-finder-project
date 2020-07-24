@@ -21,30 +21,38 @@ class CompanyForm extends Component {
             password: "",
             username: "",
             avatar: '',
-            errorMsg: null,
+            errorMsg: '',
         }
         this.userService = new UserService()
         this.filesService = new FileService() 
     }
+
     componentDidMount = () => {
+        
         const id = this.props.match.params.id
         this.userService
             .getUserDetails(id)
-                .then(response => this.updateStateFromApi(response.data))
-                .catch(err => err)
+            .then(response => this.updateStateFromApi(response.data))
+            .catch(err => err)
     }
+
     updateStateFromApi = data => {
+        console.log(data)
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
             phone: data.companyDetails.phone,
-            address: data.companyDetails.location.address,
+            address: data.companyDetails.location ? data.companyDetails.location.address : '',
             facebook: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "facebook"),
             instagram: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "instagram"),
             website: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "website"),
+            avatar: data.avatar
         })
     }
+
     mapSocialMediaInfo = (socialMedia, name) => socialMedia.filter(social => social.name === name).map(social => social.mediaUrl)[0]
+    
+    
     handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -59,8 +67,8 @@ class CompanyForm extends Component {
                 this.props.history.push('/profile')
             })
             .catch(err => this.setState({errorMsg: err.response.data.message}))   
-
     }
+
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
     handleFileUpload = e => {
