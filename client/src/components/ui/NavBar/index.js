@@ -30,7 +30,7 @@ class Navigation extends Component {
         return (
             <Navbar bg="light" variant="light" expand="lg" sticky="top" >
                 <Navbar.Brand>
-                    <Link to="/">Findit</Link>
+                    <Link to="/">Fainder</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -38,9 +38,7 @@ class Navigation extends Component {
                         <Nav.Link as="span">
                             <NavLink to="/" exact activeStyle={{ color: 'black', fontWeight: 300 }}>Home</NavLink>
                         </Nav.Link>
-                        <Nav.Link as="span">
-                            <NavLink to={`/events`} activeStyle={{ color: 'black', fontWeight: 300 }}>Events</NavLink>
-                        </Nav.Link>
+                
 
                         {this.props.loggedInUser ?
                             (
@@ -63,6 +61,9 @@ class Navigation extends Component {
                                 <NavLink to={`/profile/${this.props.loggedInUser._id}`} activeStyle={{ color: 'black', fontWeight: 300 }}> Hi, {this.props.loggedInUser.username}</NavLink> :
                                 <NavLink to={`/login`} >Hi, friend</NavLink>
                             }
+                        </Nav.Link>
+                        <Nav.Link as="span" className="green-bg-btn">
+                            <NavLink to={`/events`}  activeStyle={{ color: 'white', fontWeight: 400 }}>Events</NavLink>
                         </Nav.Link>
                     </Nav>
 

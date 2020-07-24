@@ -11,6 +11,10 @@ const eventSchema = new Schema({
         minlength: 2,
         unique: true, 
     },
+    image: {
+        type: String,
+        default: "./images/calendar icon.jpg"
+    },
     description: {
         type: String,
         required: true,

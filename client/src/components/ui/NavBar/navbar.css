@@ -1,0 +1,40 @@
+.bg-light {
+    background-color: #fff!important;
+}
+.green-bg-btn {
+    background-color: #49C5B6!important;
+}
+.navbar .green-bg-btn a{
+    color:white
+}
+.navbar {
+    padding: 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-link a {
+    color: #aaa
+}
+@media (min-width: 992px) {
+.navbar-expand-lg .navbar-nav .nav-link.green-bg-btn{
+    padding: 1.8rem 3.5rem;
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+     padding: 1.8rem 2rem;
+}
+}
+#basic-navbar-nav, #basic-navbar-nav .navbar-brand {
+    height: 100%;
+}
+.navbar-brand {
+    display: inline;
+    padding: 0 3rem;
+    font-family: 'Oleo Script', cursive;
+    text-transform: lowercase;
+    font-size: 30px;
+
+}
+.navbar-brand a {
+    color:#111
+}

@@ -5,7 +5,7 @@ export default class LocalService {
     constructor() {
 
         this.service = axios.create({
-            baseURL: `${process.env.REACT_APP_API_URL}/local`,
+            baseURL: process.env.REACT_APP_API_URL,
             withCredentials: true
         })
     }
