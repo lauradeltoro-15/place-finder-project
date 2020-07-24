@@ -7,7 +7,7 @@ import EventService from "../../../../services/EventService"
 //Boostrap
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/esm/Row'
-
+import "./profile.css"
 class Profile extends Component {
     constructor(props) {
         super(props)
@@ -38,30 +38,35 @@ class Profile extends Component {
         return (
             <>
                 {!this.state.events ? <h1>Cargando</h1> :
-                    <section>
-                        <h1>Username: {this.props.userDetails.username}</h1>
-                        <hr></hr>
-                        <h5>Age</h5>
-                        {this.props.userDetails.personDetails.age}
-                        <hr></hr>
-                        <h5>Genre</h5>
-                        {this.props.userDetails.personDetails.genre}
-                        <hr></hr>
-                        <h5>Interests:</h5>
-                        {this.props.userDetails.personDetails.interests.map((hobbie, i) => <h6 key={i}>{hobbie}</h6>)}
-                        <hr></hr>
-                        <h1>Created events</h1>
-                        <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("owner")} paramId={this.props.paramId} />
-                        <h1>Joined events</h1>
-                        <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("participant")} paramId={this.props.paramId} />
+                    <section className="general-info">
+                        <div className="age-genre-cont">
+                            <p className="profile-data"><span className="color-text">Age: </span>{this.props.userDetails.personDetails.age || "?"}</p>
+    
+                            <p className="profile-data" ><span className="color-text">Genre: </span>{this.props.userDetails.personDetails.genre || "?"}</p>
+                        
+                            
+                        </div>
 
-                        {this.isUserTheProfileOwner() &&
-                            <>
-                                <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
-                                <Link to={`/user/${this.props.loggedInUser._id}/event/create`} ><Button variant="dark" type="submit">Create a new event</Button></Link>
-                                <Link to={`/profile/${this.props.loggedInUser._id}/calendar`} ><Button variant="dark" type="submit">See your calendar</Button></Link>
-                            </>
-                        }
+                        <hr></hr>
+                        <p className="color-text">Interests: </p>
+                        {this.props.userDetails.personDetails.interests.length > 0 ? this.props.userDetails.personDetails.interests.map((hobbie, i) => <h6 className="btn btn-grey" key={i}>{hobbie}</h6>) : "No interests declared"}
+                        <hr></hr>
+                        <article className="event-section">
+                            <h3>Created events</h3>
+                            <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("owner")} paramId={this.props.paramId} />
+                            <h3>Joined events</h3>
+                            <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("participant")} paramId={this.props.paramId} />
+                        </article>
+                        <article className="main-button-container">
+                            {this.isUserTheProfileOwner() &&
+                                <>
+                                    <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
+                                    <Link to={`/user/${this.props.loggedInUser._id}/event/create`} ><Button variant="dark" type="submit">Create a new event</Button></Link>
+                                    <Link to={`/profile/${this.props.loggedInUser._id}/calendar`} ><Button variant="dark" type="submit">See your calendar</Button></Link>
+                                </>
+                            }
+                        </article>
+
                     </section>
                 }
             </>
