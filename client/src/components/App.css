@@ -2,3 +2,7 @@ body {
     font-family: "Lato", sans-serif;
     font-weight: 300;
 }
+.btn.btn-primary {
+    background-color: #49C5B6;
+    border-color: #49C5B6;
+}
