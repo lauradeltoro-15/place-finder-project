@@ -4,6 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from "@fullcalendar/timegrid"
 import interactionPlugin from '@fullcalendar/interaction'
 
+import "./calendar.css"
+
 import EventService from "../../../../services/EventService"
 import OfferService from "../../../../services/OfferService"
 
@@ -61,10 +63,11 @@ class Calendar extends Component {
 
     render() {
         const formattedInfo = this.getEventsToRender()
+        console.log(this.props)
         return (
             <>
                 <FullCalendar
-                    businessHours={this.props.offers ? this.props.offers[0].local.availability : ""}
+                    businessHours={this.props.offers && this.props.offers.length > 0 ? this.props.offers[0].local.availability : ""}
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     selectable={true}

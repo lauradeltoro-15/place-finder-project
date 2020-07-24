@@ -19,6 +19,8 @@ import CalendarPage from "./pages/calendar-page"
 import EventsPage from './pages/events-page'
 import OfferForm from './pages/events-page/event-details/offers-list/form'
 import HomePage from './pages/home-page'
+import Footer from "./ui/Footer"
+
 class App extends Component {
   constructor (){
     super ()
@@ -71,6 +73,7 @@ class App extends Component {
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to='/login' />}/>
         </Switch>
+        <Footer />
       </>
     )
   }
