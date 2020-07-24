@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
 import UserService from '../../../../../services/UserService'
+import FilesService from '../../../../../services/FilesService'
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+
 
 class profilePerson extends Component {
 
@@ -17,9 +19,11 @@ class profilePerson extends Component {
             interests: undefined,
             genre: undefined,
             age: undefined,
-            previousLoggedUser: undefined
+            previousLoggedUser: undefined,
+            avatar: '',
         }
         this.userService = new UserService()
+        this.filesService = new FilesService()
     }
 
     componentDidMount = () => {
@@ -56,6 +60,19 @@ class profilePerson extends Component {
             .catch(err => this.setState({ errorMsg: err.response.data.message }))   
     }
 
+
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("avatar", e.target.files[0])
+
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                this.setState({ avatar: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
+    }
+
     render () {
 
         return (
@@ -72,6 +89,11 @@ class profilePerson extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                         <Form.Text className="text-muted">At least three characters</Form.Text>
                     </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Avatar (URL)</Form.Label>
+                        <Form.Control onChange={this.handleFileUpload}  name="avatar" type="file" />
+                    </Form.Group>
+                    
 
                     <Form.Group>
                         <Form.Label>Age</Form.Label>
