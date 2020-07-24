@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import UserService from "../../../../../services/UserService"
+import FileService from '../../../../../services/FilesService'
 
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -19,9 +20,11 @@ class CompanyForm extends Component {
             username: "",
             password: "",
             username: "",
+            avatar: '',
             errorMsg: null,
         }
         this.userService = new UserService()
+        this.filesService = new FileService() 
     }
     componentDidMount = () => {
         const id = this.props.match.params.id
@@ -60,6 +63,18 @@ class CompanyForm extends Component {
     }
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("avatar", e.target.files[0])
+
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                this.setState({ avatar: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
         return (
             <>
@@ -73,6 +88,10 @@ class CompanyForm extends Component {
                         <Form.Group>
                             <Form.Label>Password</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Avatar (URL)</Form.Label>
+                            <Form.Control onChange={this.handleFileUpload}  name="avatar" type="file" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Phone number</Form.Label>
