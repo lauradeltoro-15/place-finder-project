@@ -11,9 +11,10 @@ const offerSchema = new Schema({
     description: {
         type: String
     },
-    isAccepted: {
-        type: Boolean,
-        default: false
+    status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending"
     }
 }, {
     timestamps: true

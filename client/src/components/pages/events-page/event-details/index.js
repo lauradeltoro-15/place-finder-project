@@ -35,8 +35,10 @@ class EventDetails extends Component {
         
     }
     render() {
+        console.log('los detalles', this.state.eventDetails)
 
         return (
+           
             <>
                 {!this.state.eventDetails ? <h1>cargando</h1> :
                     <>
@@ -51,9 +53,34 @@ class EventDetails extends Component {
                                     <p>Type of local: {this.state.eventDetails.typeOfLocal}</p>
                                     <p>Number of participants:{this.state.eventDetails.participants.length} </p>
                                     <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
+                               
+                                    {this.state.eventDetails.acceptedOffer ? 
+                                    <>
+                                        <p>Price per person: {this.state.eventDetails.acceptedOffer.price}</p>
+                                        <hr></hr>
+                                        <h4>Local details</h4>
+                                        <p>Local: {this.state.eventDetails.acceptedOffer.local.name}</p>
+                                        <p>Owner: {this.state.eventDetails.acceptedOffer.local.owner.username}</p>
+                                        <p>Address: {this.state.eventDetails.acceptedOffer.local.location.address}</p>
+                                        <p>Capacity: {this.state.eventDetails.acceptedOffer.local.capacity}</p>
+                                        <p>Facilities: </p>
+                                        <ul>
+                                        {this.state.eventDetails.acceptedOffer.local.facilities.map(facility => <li>{facility}</li>)}
+                                        </ul>
+                                        <p>Services: </p>
+                                        <ul>
+                                        {this.state.eventDetails.acceptedOffer.local.services.map(service => <li>{service}</li>)}
+                                        </ul>
+                                    </>
+                                    :
+                                    <p>This event has no local yet</p>
+                                    }
                                 </Col>
                             </Row>
-                            <OffersList eventId={this.props.match.params.eventId}/>
+            
+                                <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId}/>
+                        
+                            
                         </Container>
                     </>
                 }

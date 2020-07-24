@@ -29,11 +29,10 @@ class OfferForm extends Component {
     handleFormSubmit = e => {
         const stateCopy = { ...this.state }
         delete stateCopy.userLocals;
-        console.log(stateCopy, "esta es la copia")
         e.preventDefault()
         this.offerService
             .createOffer(stateCopy)
-            .then((response) => console.log('la respuesta del serves es:', response))
+            .then(() => this.props.history.push('/events'))
             .catch(err => this.setState({ errorMsg: err.response.data.message }))
 
     }
