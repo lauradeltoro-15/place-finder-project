@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import AuthService from '../../../../services/AuthService'
+import '../auth-page.css'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -46,13 +47,13 @@ class AuthForm extends Component {
                     <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                 </Form.Group>
                 {this.props.isSignup &&
-                    <Form.Group>
+                    <Form.Group className='check'>
                         <Form.Label>Are you a company? </Form.Label>
                         <input type="checkbox" onChange={this.handleInputChange} name="isCompany" ckecked={this.state.isCompany} />
                     </Form.Group>
                 }
                 {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
-                <Button variant="dark" type="submit">{this.props.isSignup ? "Sign up" : "Log in"}</Button>
+                <Button className='button' size="lg"  variant="dark" type="submit">{this.props.isSignup ? "Sign up" : "Log in"}</Button>
             </Form>
         )
     }

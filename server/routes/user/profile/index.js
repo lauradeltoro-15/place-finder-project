@@ -55,7 +55,7 @@ const updateDetails = (id, body, model) => {
 //Endpoints
 //edit username and password
 router.put('/edit/:id', (req, res, next) => {
-    const { username, password } = req.body
+    const { username, password, avatar } = req.body
 
     User
         .findById(req.params.id)
@@ -64,6 +64,7 @@ router.put('/edit/:id', (req, res, next) => {
             if(password !== ""){
                 const salt = bcrypt.genSaltSync(bcryptSalt)
                 user.password = bcrypt.hashSync(password, salt)
+                user.avatar = avatar
             }
             user.save()
             return user
