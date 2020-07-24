@@ -192,20 +192,6 @@ router.put('/:eventId/offer/add/:offerId', (req, res, next) => {
 
 })
 
-// mark offer as accepted
-// router.put('/:eventId/offer/add/:offerId', (req, res, next) => {    
-
-//     Event
-//         .findById(req.params.eventId)
-//         .then(event => {
-//             event.offers.push(req.params.offerId)
-//             event.save()
-//         })
-//         .then(response =>  res.json(response))
-//         .catch(err => next(err))
-
-// })
-
 //get all events of a person
 
 router.get('/:userId', (req, res, next) => {
