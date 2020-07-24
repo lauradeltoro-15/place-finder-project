@@ -47,7 +47,6 @@ router.delete('/delete/:offerId', (req, res, next) => {
 
 router.put('/accept/:offerId/event/:eventId', (req, res, next) => {
 
-    console.log('offerid', req.params.offerId, ' y eventId ', req.params.eventId)
     Offer
         .find({event: req.params.eventId})
         .then(offers => offers.forEach(offer => {
@@ -56,7 +55,7 @@ router.put('/accept/:offerId/event/:eventId', (req, res, next) => {
             })
         )
         .then(() =>  Event.findByIdAndUpdate(req.params.eventId, {acceptedOffer: req.params.offerId}, {new: true}))
-        .then(response => console.log('el evento actualizado, ' , response))
+        .then(response => res.json(response))
         .catch(err => next(err))
 })
 
