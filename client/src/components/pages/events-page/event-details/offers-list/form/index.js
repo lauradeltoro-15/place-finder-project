@@ -32,7 +32,10 @@ class OfferForm extends Component {
         e.preventDefault()
         this.offerService
             .createOffer(stateCopy)
-            .then(() => this.props.history.push('/events'))
+            .then(response => {
+                console.log(response.data)
+                this.props.history.push('/events')
+            })
             .catch(err => this.setState({ errorMsg: err.response.data.message }))
 
     }

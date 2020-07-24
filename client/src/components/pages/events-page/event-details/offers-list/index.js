@@ -23,12 +23,10 @@ class OfferList extends Component {
     }
 
     render() {
-        console.log('las props', this.props)
-        console.log((this.props.loggedInUser._id == this.props.event.owner))
         return (
             <section>
                 <Row>
-                    {this.state.offers.map(offer => 
+                    {this.props.loggedInUser && this.state.offers.map(offer => 
                         this.props.loggedInUser._id == this.props.event.owner || 
                         this.props.loggedInUser._id == offer.local.owner._id ?
                         <OfferCard event={this.props.event} updateEventOffers={this.updateEventOffers} loggedInUser={this.props.loggedInUser} offer={offer}/>

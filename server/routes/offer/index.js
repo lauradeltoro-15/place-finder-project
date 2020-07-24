@@ -13,13 +13,12 @@ const validationHandler = new ValidationHandler()
 //create
 
 router.post('/create', (req, res, next) => {
-    const{event, local} = req.body
-    let exists = false
+    const {event, local} = req.body
     Offer.find()
-        .then(offers => {if (offers.filter(offer => offer.event == event && offer.local == local).length) exists = true})
-        .then(() => {if(!exists) return Offer.create(req.body)})
-        .then(offer => {if(offer) res.json(offer)})
-        .catch(err => next(err))
+        .then(offers => offers.filter(offer => offer.event == event && offer.local == local).length === 0)
+        .then(hasOffer =>  hasOffer && Offer.create(req.body))
+        .then(offer => offer && res.json(offer))
+        .catch(err => console.log(err))
 })
 
 

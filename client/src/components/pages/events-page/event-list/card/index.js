@@ -91,7 +91,7 @@ class EventCard extends Component {
                         }
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">See details</Button></Link>
                         
-                        {this.props.loggedInUser.companyDetails &&
+                        {this.props.loggedInUser && this.props.loggedInUser.companyDetails &&
                             <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
                         }
 

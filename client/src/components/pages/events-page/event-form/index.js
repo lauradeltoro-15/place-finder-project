@@ -53,9 +53,7 @@ class EventForm extends Component {
             city: data.city || "",
             typeOfLocal: data.typeOfLocal || "",
             theme: data.theme || [],
-
         })
-
     }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
@@ -84,8 +82,6 @@ class EventForm extends Component {
         this.eventService
             .createEvent(this.state)
             .then(() => {
-                console.log("handle llega:", this.props.handleEventSubmit)
-
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
             })

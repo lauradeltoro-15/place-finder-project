@@ -114,7 +114,6 @@ router.get('/:userId/participant', (req, res, next) => {
 //Create event
 
 router.post('/create', (req, res, next) => {
-    console.log("req.body.starttime", req.body)
     isFormValidated(req.body, res)
         .then(validated => validated &&
             Event
