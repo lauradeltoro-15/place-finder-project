@@ -1,7 +1,7 @@
 .hero {
-    background-image: url("./background-2.jpeg");
+    background-image: url("./backgroud-1.jpg");
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     background-position: bottom;
     min-height: 100vh;
     display: flex;
@@ -9,6 +9,7 @@
     align-items: center;
 }
 h1 {
+    padding-top: 350px;
     font-family: "Lato", sans-serif;
     font-weight: 700;
     color: white;
