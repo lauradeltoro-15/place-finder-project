@@ -63,7 +63,7 @@ class Navigation extends Component {
                             }
                         </Nav.Link>
                         <Nav.Link as="span" className="green-bg-btn">
-                            <NavLink to={`/events`}  activeStyle={{ color: 'black', fontWeight: 300 }}>Events</NavLink>
+                            <NavLink to={`/events`}  activeStyle={{ color: 'white', fontWeight: 400 }}>Events</NavLink>
                         </Nav.Link>
                     </Nav>
 
