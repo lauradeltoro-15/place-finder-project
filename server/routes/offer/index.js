@@ -54,12 +54,10 @@ router.put('/accept/:offerId/event/:eventId', (req, res, next) => {
         .then(offers => { console.log('todas las ofertas', offers)
             offers.forEach(offer => {
                 offer._id == req.params.offerId ? offer.status = "accepted" : offer.status = "rejected"
-                offer.save()
-                console.log('la oferta', offer.status)
-                
+                offer.save()                
             })
         })
-        .then(() => { Event.findByIdAndUpdate(req.params.eventId, {acceptedOffer: req.params.offerId}, {new: true})})
+        .then(() =>  Event.findByIdAndUpdate(req.params.eventId, {acceptedOffer: req.params.offerId}, {new: true}))
         .then(response => console.log('el evento actualizado, ' , response))
         .catch(err => next(err))
 })

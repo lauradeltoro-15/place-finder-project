@@ -134,7 +134,7 @@ router.get('/event/:userId', (req, res, next) => {
     Event
         .findById(req.params.userId)
         .populate({
-            path:'offers',
+            path:'acceptedOffer',
             populate:{
                 path:"local",
                 populate: 'owner'
