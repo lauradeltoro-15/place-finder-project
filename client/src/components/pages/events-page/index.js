@@ -4,6 +4,8 @@ import EventService from '../../../services/EventService'
 import Container from 'react-bootstrap/esm/Container'
 import EventList from "./event-list/"
 
+import "./main-page-event.css"
+
 class EventPage extends Component {
     constructor(props) {
         super(props)
@@ -31,10 +33,12 @@ class EventPage extends Component {
             <>
                 {
                     !this.state.events ? <h1>Cargando</h1> :
-                        <Container as="main">
-                            {/* {Aquí la searchbar TO-DO}  */}
-                            <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser}/>
-                        </Container>
+                        <main className="main-bg">
+                            <Container as="main" >
+                                {/* {Aquí la searchbar TO-DO}  */}
+                                <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} />
+                            </Container>
+                        </main>
                 }
             </>
 

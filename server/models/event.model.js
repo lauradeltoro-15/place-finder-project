@@ -11,9 +11,9 @@ const eventSchema = new Schema({
         minlength: 2,
         unique: true, 
     },
-    image: {
+    avatar: {
         type: String,
-        default: "./images/calendar icon.jpg"
+        default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595615463/avatar/calendar_icon_hrzahj.png"
     },
     description: {
         type: String,

@@ -3,6 +3,8 @@ import React, {Component} from 'react'
 import PersonProfile from "./personProfile"
 import CompanyProfile from "./companyProfile"
 
+import "./profile.css"
+
 import Container from 'react-bootstrap/esm/Container'
 
 import UserService from '../../../services/UserService'
@@ -35,12 +37,15 @@ class ProfilePage extends Component {
         const detailedProfile = this.getProfile()
         return (
             <>
-                {!this.state.userDetails ? <h1>cargando</h1>:
-                <Container as ="main">
-                    <h1>{this.state.userDetails.username} profile</h1>
-                    <span>{this.state.userDetails.personDetails ? "User" : "Company"}</span>
-                    { detailedProfile }
-                </Container>
+                {!this.state.userDetails ? <h1>cargando</h1> :
+                    <main className="main-bg">
+                        <Container className="profile-container">
+                            <h1 className="big-title">{this.state.userDetails.username}'s profile</h1>
+                            <small className="subtitle">{this.state.userDetails.personDetails ? "Event-lover" : "Company"}</small>
+                            {detailedProfile}
+                        </Container>
+                </main>
+   
             }
             </>     
         )
