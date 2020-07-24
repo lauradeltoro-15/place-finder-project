@@ -9,16 +9,9 @@ const localSchema = new Schema({
     },
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     pictures: String,
-    // pictures: {
-    //     type: [{
-    //         imageUrl: String,
-    //         isMain: {
-    //             type: Boolean,
-    //             default: false,
-    //         }
-    //     }],
-    //     default: ""
-    // },
+    avatar: {
+        type: [String], 
+    },
     availability: [
         {
             daysOfWeek: {

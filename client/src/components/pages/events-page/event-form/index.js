@@ -87,7 +87,7 @@ class EventForm extends Component {
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
             })
-            //.catch(err => this.setErrorMessage(err.response.data.message))
+            .catch(err => this.setErrorMessage(err.response.data.message))
     }
 
     editEvent = (id, newEvent) => {
