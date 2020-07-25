@@ -35,10 +35,19 @@ class LocalDetail extends Component {
                             
                             <Col md={{ span: 5, offset: 1 }} className='content'>
                             <h1 className='color-text'>{this.state.local.name}</h1>
-                            <hr></hr>
+                            
                             <span className="color-text-black">Owner: </span> {this.state.local.owner.username}
-                            <hr></hr>
+                            <br></br>
+                            <br></br>
                             <span className="color-text-black">Description: </span> {this.state.local.description}
+                            <br></br>
+                            <br></br>
+                            <span className="color-text-black">Capacity: </span> {this.state.local.capacity}
+                            <br></br>
+                            <br></br>
+                            <span className="color-text-black">Location: </span> {this.state.local.location.address}
+                            <br></br>
+                          
                             <hr></hr>
                             <h5>Facilities</h5>
                             
@@ -47,18 +56,11 @@ class LocalDetail extends Component {
                             <h5 className='color-text-black'>Services</h5>
                             
                                 {this.state.local.services.map((service, i) => <small className="btn btn-grey" key={i}>{service}</small>)}
-                            <hr></hr>
-                            <h5 className='color-text-black'>Location</h5>
-                            <p>{this.state.local.location.address}</p>
-                            <hr></hr>
-
-
 
                             </Col>
 
-                            <Col md={3}>
-                            <h1>aqui foto</h1>
-
+                            <Col md={{span: 5, offset: 1}}>
+                            <div className='img-local align-self-center'><img src={this.state.local.avatar}></img></div>
                             </Col>
                             
                         </Row>

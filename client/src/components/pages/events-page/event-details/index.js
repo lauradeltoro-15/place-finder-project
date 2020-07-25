@@ -35,7 +35,6 @@ class EventDetails extends Component {
         
     }
     render() {
-        console.log('los detalles', this.state.eventDetails)
 
         return (
            
