@@ -8,12 +8,14 @@ const Company = require("../../models/company.model")
 const Person = require("../../models/person.model")
 
 //Helper functions
+const handleErrors = (err, req, res, next) => res.status(500).json({ status: error, message: "Oops, something went wrong..." })
+
 const associateDetail = (Model, propertyValue) => {
     return  Model.create({})
         .then(response => {
             return { [propertyValue]: response.id }
         })
-        .catch(err => console.log(err))
+        .catch(err => next(err))
 }
 
 router.post('/signup', (req, res, next) => {
@@ -66,7 +68,7 @@ router.post('/signup', (req, res, next) => {
                     })
                 })
             })
-            .catch(err => err)
+            .catch(err => next(err))
     })
 })
 
@@ -91,12 +93,12 @@ router.post('/login', (req, res, next) => {
             res.status(200).json(theUser);
         });
     })(req, res, next);
-});
+})
 
 router.post('/logout', (req, res, next) => {
     req.logout();
     res.status(200).json({ message: 'Log out success!' });
-});
+})
 
 router.get('/loggedin', (req, res, next) => {
     console.log("req.isAut", req.isAuthenticated())
@@ -105,7 +107,9 @@ router.get('/loggedin', (req, res, next) => {
         return;
     }
     res.status(403).json({ message: 'Unauthorized' });
-});
+})
+router.use(handleErrors)
+
 
 module.exports = router
 

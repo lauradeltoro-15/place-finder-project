@@ -18,6 +18,7 @@ const Event = require('../../../models/event.model')
 
 const isLoggedIn = (req, res, next) =>  req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
+const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later :" })
 
 const isFormValidated = (event, res) => {
     return validationHandler.isNameUnique(Event, event.name, res)
@@ -31,8 +32,6 @@ const isFormValidated = (event, res) => {
                 validationHandler.isFutureDate(new Date(), event.startTime, res) &&
                 validationHandler.isFutureDate(new Date(event.startTime), event.endTime, res)
         })
-
-
 }
 
 //Endpoints
@@ -204,5 +203,6 @@ router.get('/:userId', (req, res, next) => {
 
 })
 
+router.use(handleErrors)
 
 module.exports = router

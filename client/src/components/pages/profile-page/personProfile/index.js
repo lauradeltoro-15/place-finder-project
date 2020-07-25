@@ -24,7 +24,7 @@ class Profile extends Component {
         this.eventService.
             getAllEventsUser(userId)
             .then(response => this.setState({ events: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId

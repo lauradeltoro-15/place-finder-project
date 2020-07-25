@@ -52,7 +52,7 @@ class Calendar extends Component {
                 this.handleEventDetailModal(true)
                 this.setState({ eventDetail: response.data })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     getEventsToRender = () => this.props.events ?

@@ -23,13 +23,13 @@ class ProfilePage extends Component {
         this.UserService
             .getUserDetails(id)
             .then((response) =>  this.setState({ userDetails: response.data}))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     getProfile = () => {
         if (this.state.userDetails) {
             return this.state.userDetails.companyDetails ?
-                <CompanyProfile userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
-                : <PersonProfile userDetails={this.state.userDetails} {...this.props} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
+                <CompanyProfile handleToast={this.props.handleToast} userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
+                : <PersonProfile handleToast={this.props.handleToast} userDetails={this.state.userDetails} {...this.props} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
         }
 
     }

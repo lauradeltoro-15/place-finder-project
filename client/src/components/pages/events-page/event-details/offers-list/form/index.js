@@ -32,11 +32,9 @@ class OfferForm extends Component {
         e.preventDefault()
         this.offerService
             .createOffer(stateCopy, this.props.loggedInUser._id)
-            .then(response => {
-                console.log(response.data)
-                this.props.history.push('/events')
-            })
-            .catch(err => this.setState({ errorMsg: err.response.data.message }))
+            .then(() => this.props.history.push('/events'))
+            .catch(err => err.response && err.response.status === 400  ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message)) 
 
     }
 
@@ -44,7 +42,7 @@ class OfferForm extends Component {
         this.localService
             .getUserLocals(userId)
             .then((response) => this.setState({ userLocals: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
 
     }
 

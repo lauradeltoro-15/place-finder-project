@@ -49,9 +49,10 @@ class LocalForm extends Component {
     }
     componentDidMount = () => {
         const id = this.props.match.params.localId
+        id &&
         this.localService.getOneLocal(id)
             .then(response => this.updateLocalState(response.data))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     updateLocalState = data => {
         this.setState({
@@ -73,7 +74,7 @@ class LocalForm extends Component {
                 console.log(response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -120,7 +121,8 @@ class LocalForm extends Component {
                 console.log(response)
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
-            .catch(err => this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message))
     }
 
     setErrorMessage = errorMsg => this.setState({ errorMsg })
@@ -128,7 +130,8 @@ class LocalForm extends Component {
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
-        //.catch(err => this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message))
     }
 
     getAvailableForm = () => {

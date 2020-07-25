@@ -33,7 +33,7 @@ class profilePerson extends Component {
         this.userService
             .getUserDetails(id)
             .then((response) => this.setState({ interests: response.data.personDetails.interests, age: response.data.personDetails.age, genre: response.data.personDetails.genre}))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
@@ -57,7 +57,8 @@ class profilePerson extends Component {
                 this.props.setTheUser(response.data)
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
-            .catch(err => this.setState({ errorMsg: err.response.data.message }))   
+            .catch(err => err.response && err.response.status === 400 || err.response.status === 401 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message))    
     }
 
 
@@ -69,7 +70,7 @@ class profilePerson extends Component {
                 console.log(response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     render () {

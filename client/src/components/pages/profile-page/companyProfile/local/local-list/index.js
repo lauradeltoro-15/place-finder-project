@@ -19,14 +19,14 @@ class LocalList extends Component {
     updateLocalList = () => {
         this.localService.getUserLocals(this.props.user)
             .then(response => this.setState({locals: response.data}))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
     render () {
         return (
             <>
                 {!this.state.locals ? <h1>Cargando</h1> :
                     <Row>
-                        {this.state.locals.map(local => <LocalCard key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} updateLocalList={this.updateLocalList}/>)}  
+                        {this.state.locals.map(local => <LocalCard key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} handleToast={this.props.handleToast} updateLocalList={this.updateLocalList}/>)}  
                     </Row>
                 }
             </>

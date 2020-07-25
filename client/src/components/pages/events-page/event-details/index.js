@@ -26,21 +26,19 @@ class EventDetails extends Component {
         this.eventService
             .getOneEvent(eventId)
             .then(response => this.setState({ eventDetails: response.data }))
-            .catch(error => console.log(error))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
 
         this.eventService
             .getEventOwner(userId)
             .then((response) => this.setState({ owner: response.data.owner.username }))
-            .catch(err => console.log(err))      
-        
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))     
     }
     render() {
-        console.log('los detalles', this.state.eventDetails)
-
         return (
            
             <>
                 {!this.state.eventDetails ? <h1>cargando</h1> :
+        
                     <>
                         <Container>
                             <Row>
@@ -54,7 +52,7 @@ class EventDetails extends Component {
                                     <p>Number of participants:{this.state.eventDetails.participants.length} </p>
                                     <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
                                
-                                    {this.state.eventDetails.acceptedOffer ? 
+                                    {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local? 
                                     <>
                                         <p>Price per person: {this.state.eventDetails.acceptedOffer.price}</p>
                                         <hr></hr>
@@ -78,7 +76,7 @@ class EventDetails extends Component {
                                 </Col>
                             </Row>
             
-                                <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId}/>
+                            <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast}/>
                         
                             
                         </Container>

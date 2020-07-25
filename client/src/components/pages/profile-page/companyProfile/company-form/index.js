@@ -33,7 +33,7 @@ class CompanyForm extends Component {
         this.userService
             .getUserDetails(id)
             .then(response => this.updateStateFromApi(response.data))
-            .catch(err => err)
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     updateStateFromApi = data => {
@@ -65,7 +65,8 @@ class CompanyForm extends Component {
                 this.props.setTheUser(response.data)
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
-            .catch(err => this.setState({errorMsg: err.response.data.message}))   
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message))
     }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
@@ -79,7 +80,7 @@ class CompanyForm extends Component {
                 console.log('File upload: ', response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {

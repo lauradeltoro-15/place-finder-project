@@ -28,14 +28,14 @@ class CalendarPage extends Component {
                 console.log(response.data)
                 this.setState({ events: response.data })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     getAllLocalOffers = (id) => {
         
         this.offerService.getAllLocalOffers(id)
             .then(response => this.setState({ offers: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {
@@ -44,7 +44,7 @@ class CalendarPage extends Component {
             <>
                 {(this.state.events || this.state.offers) &&
                     <Container as="main">
-                        <Calendar events={this.state.events} offers={this.state.offers} {...this.props} />
+                    <Calendar events={this.state.events} handleToast={this.props.handleToast} offers={this.state.offers} {...this.props} />
                     </Container>
                 }
             </>

@@ -16,6 +16,7 @@ const validationHandler = new ValidationHandler()
 
 const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
+const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later :" })
 
 const obtainDetailsUpdate = (body,model) => {
     const elementToChange = { ...body }
@@ -54,7 +55,7 @@ const mapCompany = (modelData) => {
 const updateDetails = (id, body, model) => {
     model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
         .then(response => response)
-        .catch(err => console.log(err))
+        .catch(err => next(err))
 }
 
 //Endpoints
@@ -83,7 +84,7 @@ router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
             }
         })
         .then(user => res.json(user))
-        .catch(err => console.log(err))
+        .catch(err => next(err))
 })
 
 // get user details
@@ -93,7 +94,9 @@ router.get('/:id', (req, res, next) => {
         .populate("companyDetails")
         .populate("personDetails")
         .then(user => res.json(user))
-        .catch(error => console.log(error))
+        .catch(err => next(err))
 })
+
+router.use(handleErrors)
 
 module.exports = router

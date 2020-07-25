@@ -19,18 +19,20 @@ class OfferList extends Component {
     updateEventOffers = eventId => {
         this.offerService.getAllEventsOffers(eventId)
             .then(response => this.setState({ offers: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {
-        console.log("las ofertas", this.state.offers)
+        console.log(this.state.offers, "Las state")
+        this.state.offers.length > 0 &&
+        this.state.offers.forEach(offer => console.log("here",offer))
         return (
             <section>
                 <Row>
-                    {this.props.loggedInUser && this.state.offers && this.state.offers.map(offer => 
-                        this.props.loggedInUser._id == this.props.event.owner || 
-                        this.props.loggedInUser._id == offer.local.owner._id ?
-                        <OfferCard event={this.props.event} updateEventOffers={this.updateEventOffers} loggedInUser={this.props.loggedInUser} offer={offer}/>
+                    {this.props.loggedInUser && this.state.offers.length > 0 && this.state.offers.map(offer =>
+                        (this.props.loggedInUser._id == this.props.event.owner || 
+                        this.props.loggedInUser._id == offer.local.owner._id) ?
+                            <OfferCard event={this.props.event} updateEventOffers={this.updateEventOffers} loggedInUser={this.props.loggedInUser} offer={offer} handleToast={this.props.handleToast}/>
                         :
                         null)
                    }

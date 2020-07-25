@@ -35,7 +35,7 @@ class EventForm extends Component {
             this.eventService
                 .getOneEvent(id)
                 .then(response => this.updateEventState(response.data))
-                .catch(err => console.log(err))
+                .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
         }
         this.props.calendarDate && this.setState({ startTime: this.props.calendarDate, endTime: this.props.calendarDate })
     }
@@ -69,7 +69,7 @@ class EventForm extends Component {
                 console.log(response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
@@ -100,16 +100,16 @@ class EventForm extends Component {
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
             })
-            .catch(err => err.response && this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message)) 
     }
 
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent, this.props.loggedInUser._id)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`) )
-            
-
-            .catch(err => err.response && this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
+                : this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {

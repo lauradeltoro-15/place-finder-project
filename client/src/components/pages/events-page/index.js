@@ -20,11 +20,10 @@ class EventPage extends Component {
     updateEventList = () => this.getAllEvents()
 
     getAllEvents = () => {
-
         this.eventService
             .getAllEvents()
             .then(response => this.setState({ events: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {
@@ -36,7 +35,7 @@ class EventPage extends Component {
                         <main className="main-bg">
                             <Container as="main" >
                                 {/* {Aquí la searchbar TO-DO}  */}
-                                <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} />
+                                <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast}/>
                             </Container>
                         </main>
                 }

@@ -166,3 +166,17 @@ img {
     justify-content: center;
     align-items: center;
 }
+.toast {
+    border-radius: 0;
+
+}
+.mr-auto {
+    padding-top: 10px;
+}
+.toast-header p{
+    color:black;
+    font-size: 1.3em
+}
+.toast-header {
+    border-radius: 0;
+}

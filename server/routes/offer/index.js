@@ -11,8 +11,11 @@ const validationHandler = new ValidationHandler()
 
 const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
+const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later"})
+
 
 //Endpoints
+
 
 //create
 
@@ -22,7 +25,7 @@ router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
         .then(offers => offers.filter(offer => offer.event == event && offer.local == local).length === 0)
         .then(hasOffer =>  hasOffer && Offer.create(req.body))
         .then(offer => offer && res.json(offer))
-        .catch(err => console.log(err))
+        .catch(err => next(err))
 })
 
 router.get('/getAllLocalOffers/:localId', (req, res, next) => {
@@ -62,5 +65,7 @@ router.put('/accept/:offerId/event/:eventId/:id', isLoggedIn, isTheUserAllowed, 
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+
+router.use(handleErrors)
 
 module.exports = router

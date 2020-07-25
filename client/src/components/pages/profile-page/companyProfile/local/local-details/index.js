@@ -23,7 +23,7 @@ class LocalDetail extends Component {
     getLocalDetails = id => {
         this.localService.getOneLocal(id)
             .then(response => this.setState({ local: response.data }))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     isUserOwner = () => this.props.match.params.id === this.props.loggedInUser._id
     render() {

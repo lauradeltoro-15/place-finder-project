@@ -18,14 +18,14 @@ class OfferCard extends Component {
         this.offerService
             .acceptOffer(offerId, eventId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventOffers(this.props.event._id))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     deleteOffer = offerId => {
         this.offerService
             .deleteOffer(offerId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventOffers(this.props.event._id))
-            .catch(err => console.log(err))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render () {
