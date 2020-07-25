@@ -1,0 +1,39 @@
+/* .offer-Card img {
+    width: 150px;
+    border-radius: 50%;
+    margin-left: 40px;
+} */
+.offer-row{
+    padding: 15px;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    min-height: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF
+}
+
+.offer-det{
+    text-align: center
+}
+
+.offer-Card{
+    display: flex;
+    align-items: center;
+}
+
+.avatar{
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.avatar img{
+   height: 100%;
+
+}

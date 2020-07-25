@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import EventService from '../../../../services/EventService'
 import OfferService from '../../../../services/OfferService'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 import './event-det.css'
 
@@ -71,6 +73,7 @@ class EventDetails extends Component {
                                         {this.state.eventDetails.theme.map((theme, i) => <small className="btn btn-grey" key={i}>{theme}</small>)}
 
                                 </Col>
+                                
 
                                 <Col className='img-event' md={{span: 5, offset: 1}}>
                                     <img src={this.state.eventDetails.avatar} />
@@ -79,10 +82,11 @@ class EventDetails extends Component {
                             </Row>
 
                             <Row>
-                            <Col md={{ span: 10, offset: 1 }} class>
+                            <Col md={{ span: 10, offset: 1 }} className='local'>
                             {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local? 
                                     <>
-                                        <h2 className='color-text'>Local details</h2>
+                                        <h2 className='color-text'>Local: {this.state.eventDetails.acceptedOffer.local.name}</h2>
+                                        <br></br>
                                         <span className="color-text-black">Owner: </span> {this.state.eventDetails.acceptedOffer.local.owner.username}  |   
                                         <span className="color-text-black"> City: </span> {this.state.eventDetails.city}
                                         <br></br>
@@ -91,11 +95,12 @@ class EventDetails extends Component {
                                         <span className="color-text-black">Description: </span> {this.state.eventDetails.name}
                                         <br></br>
                                         <br></br>
-                                        <p>Price per person: {this.state.eventDetails.acceptedOffer.price}</p>
-                                        <p>Local: {this.state.eventDetails.acceptedOffer.local.name}</p>
-
-                                        <p>Address: {this.state.eventDetails.acceptedOffer.local.location.address}</p>
-                                        <p>Capacity: {this.state.eventDetails.acceptedOffer.local.capacity}</p>
+                                        <span className="color-text-black">Price per person: </span>{this.state.eventDetails.acceptedOffer.price}  |  
+                                        <span className="color-text-black">  Capacity: </span>{this.state.eventDetails.acceptedOffer.local.capacity}
+                                        <br></br>
+                                        <br></br>
+                                        {/* <span className="color-text-black">Address: </span>{this.state.eventDetails.acceptedOffer.local.location.address}
+                             
                                         <p>Facilities: </p>
                                         <ul>
                                         {this.state.eventDetails.acceptedOffer.local.facilities.map(facility => <li>{facility}</li>)}
@@ -103,15 +108,15 @@ class EventDetails extends Component {
                                         <p>Services: </p>
                                         <ul>
                                         {this.state.eventDetails.acceptedOffer.local.services.map(service => <li>{service}</li>)}
-                                        </ul>
+                                        </ul> */}
+                                        <Link to={`/user/${this.state.eventDetails.acceptedOffer.local.owner._id}/local/${this.state.eventDetails.acceptedOffer.local._id}`} ><Button className="btn btn-yellow" type="submit">See more</Button></Link>
                                     </>
                                     :
-                                    <p>This event has no local yet</p>
+                                    <h2>This event has no local confirmed yet</h2>
                                     }
                             </Col>
                             </Row>
                             
-            
                             <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast}/>
                         
                             
