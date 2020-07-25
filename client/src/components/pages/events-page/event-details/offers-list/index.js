@@ -23,11 +23,10 @@ class OfferList extends Component {
     }
 
     render() {
-        console.log(this.state.offers, "Las state")
-        this.state.offers.length > 0 &&
-        this.state.offers.forEach(offer => console.log("here",offer))
+       
         return (
             <section>
+           
                 <Row>
                     {this.props.loggedInUser && this.state.offers.length > 0 && this.state.offers.map(offer =>
                         (this.props.loggedInUser._id == this.props.event.owner || 
