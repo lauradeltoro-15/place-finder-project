@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import "./form.css"
 
 import EventService from '../../../../services/EventService'
+import FilesService from "../../../../services/FilesService"
 
 //Bootstrap
 import Container from 'react-bootstrap/Container'
@@ -25,6 +26,8 @@ class EventForm extends Component {
             endTime: "",
         }
         this.eventService = new EventService()
+        this.filesService = new FilesService()
+
     }
     componentDidMount = () => {
         const id = this.props.match.params.eventId
@@ -58,6 +61,16 @@ class EventForm extends Component {
         })
     }
 
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("avatar", e.target.files[0])
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log(response.data.secure_url)
+                this.setState({ avatar: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
+    }
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
     handleInputChange = e => {
@@ -115,6 +128,10 @@ class EventForm extends Component {
                                 <Form.Group>
                                     <Form.Label className="color-text-black">Description</Form.Label>
                                     <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Main image</Form.Label>
+                                    <Form.Control onChange={this.handleFileUpload} name="avatar" type="file" />
                                 </Form.Group>
                                 <div class="small-input-container">
                                     <Form.Group>

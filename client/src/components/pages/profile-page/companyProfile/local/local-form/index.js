@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import LocalService from "../../../../../../services/LocalService"
+import FilesService from "../../../../../../services/FilesService"
 
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
@@ -43,6 +44,8 @@ class LocalForm extends Component {
             }
         }
         this.localService = new LocalService()
+        this.filesService = new FilesService()
+
     }
     componentDidMount = () => {
         const id = this.props.match.params.localId
@@ -61,6 +64,16 @@ class LocalForm extends Component {
             services: data.services || [],
             facilities: data.facilities || [],
         })
+    }
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("avatar", e.target.files[0])
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log(response.data.secure_url)
+                this.setState({ avatar: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
     }
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -173,6 +186,10 @@ class LocalForm extends Component {
                     <Form.Group>
                         <Form.Label>Description</Form.Label>
                         <Form.Control type="textarea" onChange={this.handleInputChange} value={this.state.description} name="description" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Main image</Form.Label>
+                        <Form.Control onChange={this.handleFileUpload} name="avatar" type="file" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Address</Form.Label>

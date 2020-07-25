@@ -64,7 +64,6 @@ class profilePerson extends Component {
     handleFileUpload = e => {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
-
         this.filesService.handleUpload(uploadData)
             .then(response => {
                 console.log(response.data.secure_url)
@@ -90,7 +89,7 @@ class profilePerson extends Component {
                         <Form.Text className="text-muted">At least three characters</Form.Text>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Avatar (URL)</Form.Label>
+                        <Form.Label>Avatar</Form.Label>
                         <Form.Control onChange={this.handleFileUpload}  name="avatar" type="file" />
                     </Form.Group>
                     
