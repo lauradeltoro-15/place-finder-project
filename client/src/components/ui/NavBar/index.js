@@ -28,7 +28,7 @@ class Navigation extends Component {
 
     render() {
         return (
-            <Navbar bg="light" variant="light" expand="lg" sticky="top" >
+            <Navbar className='nav' bg="light" variant="light" expand="lg" sticky="top" >
                 <Navbar.Brand>
                     <Link to="/">Fainder</Link>
                 </Navbar.Brand>

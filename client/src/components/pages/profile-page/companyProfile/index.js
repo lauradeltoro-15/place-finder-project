@@ -4,6 +4,7 @@ import UserService from "../../../../services/UserService"
 import './profile.css'
 
 import instagram from './instagram-bosquejado.svg'
+
 import Button from 'react-bootstrap/Button'
 
 import LocalList from "./local/local-list"
