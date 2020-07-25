@@ -82,7 +82,7 @@ class EventForm extends Component {
 
     createEvent = () => {
         this.eventService
-            .createEvent(this.state, this.props.match.params.id)
+            .createEvent(this.state, this.props.loggedInUser._id)
             .then(() => {
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
@@ -92,7 +92,7 @@ class EventForm extends Component {
 
     editEvent = (id, newEvent) => {
         this.eventService
-            .editEvent(id, newEvent)
+            .editEvent(id, newEvent, this.props.loggedInUser._id)
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`) )
             
 
@@ -186,9 +186,9 @@ class EventForm extends Component {
                                         <Form.Label>Fashion</Form.Label>
                                         <input onChange={this.handleInputChange} checked={this.state.theme.includes("fashion")} value="fashion" name="theme" type="checkbox" />
                                         <Form.Label>Dance</Form.Label>
-                                        <input onChange={this.handleInputChange} checked={this.state.theme.includes("bussiness")} value="bussiness" name="theme" type="checkbox" />
+                                        <input onChange={this.handleInputChange} checked={this.state.theme.includes("dance")} value="dance" name="theme" type="checkbox" />
                                         <Form.Label>Bussiness</Form.Label>
-                                        <input onChange={this.handleInputChange} checked={this.state.theme.includes("games")} value="games" name="theme" type="checkbox" />
+                                        <input onChange={this.handleInputChange} checked={this.state.theme.includes("bussiness")} value="bussiness" name="theme" type="checkbox" />
                                     </div>
 
                                 </Form.Group>

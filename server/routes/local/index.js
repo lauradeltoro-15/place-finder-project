@@ -5,7 +5,11 @@ const passport = require("passport")
 const Local = require("../../models/local.model")
 const ValidationHandler = require("../../validationHandler")
 const validationHandler = new ValidationHandler()
+
 //Helper functions
+const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
+const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
+
 const mapLocal = (local, companyId) => {
     const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const mapAvailability = weekDays.filter(day => local.availability[day].available).map((day,i) => {
@@ -34,16 +38,13 @@ const isFormValidated = (local, res) => {
 }
 
 //Routes
-router.delete("/delete/:localId", (req, res, next) => {
-    console.log(req.isAuthenticated(), "authenticate")
-    console.log(req.user, "user")
-
+router.delete("/delete/:localId/:id", isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Local.findByIdAndDelete(req.params.localId)
         .then(localDeleted => res.json(localDeleted))
         .catch(err => console.log(err))
 })
 
-router.put("/edit/:localId", (req, res, next) => {
+router.put("/edit/:localId/:id", isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body.updatedLocal, res) &&
     Local.findByIdAndUpdate(req.params.localId, mapLocal(req.body.updatedLocal, req.body.id), {new:true})
         .then(localUpdated => res.json(localUpdated))
@@ -59,6 +60,7 @@ router.get("/details/:localId", (req, res, next) => {
 
 router.post('/add', (req, res, next) => {  
     console.log("este es el local", req.body)
+    console.log(req.body.id, "este es el req.body.id")
     isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))

@@ -3,7 +3,6 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const passport = require("passport")
 
-const {ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 
 const ValidationHandler = require("../../../validationHandler")
 const validationHandler = new ValidationHandler()
@@ -18,9 +17,7 @@ const Event = require('../../../models/event.model')
 //Helper functions 
 
 const isLoggedIn = (req, res, next) =>  req.isAuthenticated() ? next() : null
-
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
-
 
 const isFormValidated = (event, res) => {
     return validationHandler.isNameUnique(Event, event.name, res)
@@ -42,24 +39,23 @@ const isFormValidated = (event, res) => {
 
 //join event
 
-router.put('/join/:eventId/:userId', (req, res, next) => {
+router.put('/join/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Event
         .findById(req.params.eventId, { participants: 1 })
         .then(event => {
-            const idx = event.participants.indexOf(req.params.userId)
+            const idx = event.participants.indexOf(req.params.id)
             if (idx == -1) {
-                event.participants.push(req.params.userId)
+                event.participants.push(req.params.id)
                 event.save()
             }
         })
-        .then(() => res.json(req.params.userId))
+        .then(() => res.json(req.params.id))
         .catch(err => next(err))
 })
 
 //leave event
 
-router.put('/leave/:eventId/:id', (req, res, next) => {
-    console.log("leave event")
+router.put('/leave/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Event
         .findById(req.params.eventId, { participants: 1 })
         .then(event => {
@@ -125,8 +121,6 @@ router.get('/:userId/participant', (req, res, next) => {
 //Create event
 
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-    console.log(req.user, "este es el user")
-    console.log("este es el user del params", req.params.id)
     console.log(req.isAuthenticated(), "esta es la sesion")
     isFormValidated(req.body, res)
         .then(validated => validated &&
@@ -141,18 +135,16 @@ router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
 })
 
 //delete event
-
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/delete/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
 
     Event
-        .findByIdAndRemove(req.params.id)
+        .findByIdAndRemove(req.params.eventId)
         .then(() => res.json(''))
         .catch(err => next(err))
 
 })
 
 //get one event
-
 router.get('/event/:userId', (req, res, next) => {
 
     Event
@@ -168,7 +160,7 @@ router.get('/event/:userId', (req, res, next) => {
         .catch(err => next(err))
 
 })
-
+//get event by name
 router.get('/event/name/:eventName', (req, res, next) => {
     Event
         .findOne({ name: req.params.eventName })
@@ -177,7 +169,7 @@ router.get('/event/name/:eventName', (req, res, next) => {
 })
 
 //update event
-router.put('/event/:eventId', (req, res, next) => {
+router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body, res)
         .then(validated => validated && 
             Event
@@ -186,14 +178,10 @@ router.put('/event/:eventId', (req, res, next) => {
                 .catch(err => next(err))       
         )
         .catch(err => next(err))
-
-
-       
-
 })
 
 // add offer to an event
-router.put('/:eventId/offer/add/:offerId', (req, res, next) => {
+router.put('/:eventId/offer/add/:offerId',isLoggedIn, (req, res, next) => {
 
     Event
         .findById(req.params.eventId)

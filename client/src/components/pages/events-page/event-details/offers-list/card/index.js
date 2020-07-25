@@ -23,7 +23,7 @@ class OfferCard extends Component {
 
     deleteOffer = offerId => {
         this.offerService
-            .deleteOffer(offerId)
+            .deleteOffer(offerId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventOffers(this.props.event._id))
             .catch(err => console.log(err))
     }
