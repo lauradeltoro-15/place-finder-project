@@ -12,7 +12,12 @@ const validationHandler = new ValidationHandler()
 const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
 const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later"})
-
+const isAnOfferWithThisLocal = (offers, event, local) =>  offers.some(offer => offer.event == event && offer.local == local)
+const createAnOffer = (res, offer) => {
+    return Offer.create(offer)
+        .then(offer => res.json(offer))
+        .catch(err => next(err))
+}
 
 //Endpoints
 
@@ -22,9 +27,9 @@ const handleErrors = (err, req, res, next) => res.status(500).json({ message: "O
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const {event, local} = req.body
     Offer.find()
-        .then(offers => offers.filter(offer => offer.event == event && offer.local == local).length === 0)
-        .then(hasOffer =>  hasOffer && Offer.create(req.body))
-        .then(offer => offer && res.json(offer))
+        .then(offers => isAnOfferWithThisLocal(offers, event, local))
+        .then(isAnOffer => isAnOffer ? res.status(400).json("You already has an offer in this local")
+            : createAnOffer(res, req.body))
         .catch(err => next(err))
 })
 

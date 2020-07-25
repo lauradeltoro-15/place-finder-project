@@ -109,7 +109,7 @@ router.get('/:userId/owned', (req, res, next) => {
 router.get('/:userId/all/future', (req, res, next) => {
     Event
         .find({ startTime: { "$gt": new Date() }, participants: { $in: [req.params.userId] } })
-        .then(response => res.json(response.filter(event => event.participants.includes(req.params.userId))))
+        .then(response => res.json(response))
         .catch(err => next(err))
 })
 
@@ -124,12 +124,8 @@ router.get('/:userId/all', (req, res, next) => {
 // get events where user is participant
 router.get('/:userId/participant', (req, res, next) => {
     Event
-        .find()
-        .then(response => {
-            res.json(response.filter(event =>
-                event.participants.includes(req.params.userId)
-                && event.owner != req.params.userId))
-        })
+        .find({ participants: { $in: [req.params.userId] }, owner: { $ne: req.params.userId } })
+        .then(response => res.json(response))
         .catch(err => next(err))
 })
 
