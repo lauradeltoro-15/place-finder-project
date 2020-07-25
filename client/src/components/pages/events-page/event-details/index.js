@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 
+import './event-det.css'
+
 import OffersList from "./offers-list"
 
 class EventDetails extends Component {
@@ -40,25 +42,58 @@ class EventDetails extends Component {
                 {!this.state.eventDetails ? <h1>cargando</h1> :
         
                     <>
-                        <Container>
+                        <Container fluid className='main-cont'>
                             <Row>
-                                <Col>
-                                    <h1>{this.state.eventDetails.name}</h1>
-                                    <p>Creator: {this.state.owner}</p>
-                                    <p>Description: {this.state.eventDetails.name}</p>
-                                    <p>Date: {this.state.eventDetails.date}</p>
-                                    <p>City: {this.state.eventDetails.city}</p>
-                                    <p>Type of local: {this.state.eventDetails.typeOfLocal}</p>
-                                    <p>Number of participants:{this.state.eventDetails.participants.length} </p>
-                                    <ul>Theme: {this.state.eventDetails.theme.map(theme => <li>{theme}</li>)} </ul>
-                               
-                                    {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local? 
+                                <Col md={{ span: 5, offset: 1 }} className='content'>
+                                    <h1 className='color-text'>{this.state.eventDetails.name}</h1>
+
+                                    <span className="color-text-black">Creator: </span> {this.state.owner}
+                                    <br></br>
+                                    <br></br>
+                                    <span className="color-text-black">Start Time: </span> {this.state.eventDetails.startTime}  |   
+                                    <span className="color-text-black">  End Time: </span> {this.state.eventDetails.endTime}
+                                    <br></br>
+                                    <br></br>
+                                    <span className="color-text-black">Description: </span> {this.state.eventDetails.name}
+                                    <br></br>
+                                    <br></br>
+                                    <span className="color-text-black">City: </span> {this.state.eventDetails.city}
+                                    <br></br>
+                                    <br></br>
+                                    <span className="color-text-black">Type of local: </span> {this.state.eventDetails.typeOfLocal}
+                                    <br></br>
+                                    <br></br>
+                                    <span className="color-text-black">Participants: </span> {this.state.eventDetails.participants.length}
+                                    <br></br>
+                                    <hr></hr>
+                                    <h5>Theme</h5>
+                            
+                                        {this.state.eventDetails.theme.map((theme, i) => <small className="btn btn-grey" key={i}>{theme}</small>)}
+
+                                </Col>
+
+                                <Col className='img-event' md={{span: 5, offset: 1}}>
+                                    <img src={this.state.eventDetails.avatar} />
+                                </Col>
+
+                            </Row>
+
+                            <Row>
+                            <Col md={{ span: 10, offset: 1 }} class>
+                            {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local? 
                                     <>
+                                        <h2 className='color-text'>Local details</h2>
+                                        <span className="color-text-black">Owner: </span> {this.state.eventDetails.acceptedOffer.local.owner.username}  |   
+                                        <span className="color-text-black"> City: </span> {this.state.eventDetails.city}
+                                        <br></br>
+                                        <br></br>
+
+                                        <span className="color-text-black">Description: </span> {this.state.eventDetails.name}
+                                        <br></br>
+                                        <br></br>
                                         <p>Price per person: {this.state.eventDetails.acceptedOffer.price}</p>
-                                        <hr></hr>
-                                        <h4>Local details</h4>
                                         <p>Local: {this.state.eventDetails.acceptedOffer.local.name}</p>
-                                        <p>Owner: {this.state.eventDetails.acceptedOffer.local.owner.username}</p>
+
                                         <p>Address: {this.state.eventDetails.acceptedOffer.local.location.address}</p>
                                         <p>Capacity: {this.state.eventDetails.acceptedOffer.local.capacity}</p>
                                         <p>Facilities: </p>
@@ -73,8 +108,9 @@ class EventDetails extends Component {
                                     :
                                     <p>This event has no local yet</p>
                                     }
-                                </Col>
+                            </Col>
                             </Row>
+                            
             
                             <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast}/>
                         
