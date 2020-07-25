@@ -31,7 +31,7 @@ class OfferForm extends Component {
         delete stateCopy.userLocals;
         e.preventDefault()
         this.offerService
-            .createOffer(stateCopy)
+            .createOffer(stateCopy, this.props.loggedInUser._id)
             .then(response => {
                 console.log(response.data)
                 this.props.history.push('/events')

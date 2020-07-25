@@ -10,7 +10,7 @@ export default class EventService {
         })
     }
 
-    createOffer = offer => this.service.post(`/create`, offer)
+    createOffer = (offer,id) => this.service.post(`/create/${id}`, offer)
     getAllLocalOffers = localId => this.service.get(`/getAllLocalOffers/${localId}`)
     getAllEventsOffers = eventId => this.service.get(`/getAllEventsOffers/${eventId}`)
     deleteOffer = (offerId,id) => this.service.delete(`/delete/${offerId}/${id}`)
