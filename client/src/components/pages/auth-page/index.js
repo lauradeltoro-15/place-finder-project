@@ -12,15 +12,15 @@ const AuthPage = props => {
     const isSignup = props.location.pathname === "/signup"
     console.log(isSignup)
     return (
-        <Container className='container' as="main">
+        <main className='auth-container' as="main">
             <Row>
-                <Col md={{ offset: 3, span: 6 }}>
+                <Col className='auth-form' md={{ offset: 4, span: 4 }}>
                     <h3>{isSignup ? "Sign up" : "Log in"}</h3>
                     <hr></hr>
                     <AuthForm setTheUser={props.setTheUser} {...props} isSignup={isSignup} />
                 </Col>
             </Row>
-        </Container>
+        </main>
     )
 }
 

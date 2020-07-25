@@ -1,6 +1,15 @@
-.container {
-    /* margin-top: 100px; */
-    min-height: 81.7vh;
+.auth-container {
+    min-height: 80.2vh;
+    background-color:#F4F7F6;
+}
+
+.auth-form {
+    background-color: white;
+    text-align: center;
+    padding: 3%;
+    margin-top: 5%;
+
+    
 }
 
 .container h3 {

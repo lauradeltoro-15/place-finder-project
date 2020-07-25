@@ -14,9 +14,9 @@
     margin-bottom: 35px;
     text-align: center;
     background-color: white;
-    -webkit-box-shadow: -40px -40px 0px 0px rgba(0,0,0,1);
-    -moz-box-shadow: -40px -40px 0px 0px rgba(0,0,0,1);
-    box-shadow: -40px -40px 0px 0px rgba(0,0,0,1);
+    -webkit-box-shadow: -40px -40px 0px 0px #434343;
+    -moz-box-shadow: -40px -40px 0px 0px #434343;
+    box-shadow: -40px -40px 0px 0px #434343;
     padding: 50px;
 
 }
@@ -38,10 +38,10 @@
 }
 
 .img-local img{
+    -webkit-box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
+-moz-box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
+box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
     width: 80%;
-    -webkit-box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
-    -moz-box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
-    box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
 }
 .local-btn{
     padding: 30px;
