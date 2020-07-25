@@ -72,6 +72,7 @@ class EventCard extends Component {
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
+        console.log("estasson las props", this.props)
         const themes = this.props.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)
         return (
             <Col md={4}>
@@ -99,9 +100,10 @@ class EventCard extends Component {
                         }
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">More</Button></Link>
 
-                        {this.props.loggedInUser && this.props.loggedInUser.companyDetails &&
+                        {this.props.loggedInUser && this.props.loggedInUser.companyDetails && !this.props.acceptedOffer &&
                             <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
                         }
+                        {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
 
                     </Card.Body>
                 </Card>
