@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 
 import LocalService from "../../../../../../services/LocalService"
 import { Link } from 'react-router-dom'
+import './local-det.css'
 
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/esm/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class LocalDetail extends Component {
     constructor(props) {
@@ -27,22 +30,36 @@ class LocalDetail extends Component {
         return (
             <>
                 {!this.state.local ? <h1>Cargando</h1> :
-                    <Container as="main">
-                        <h1>{this.state.local.name}</h1>
-                        <p>{this.state.local.description}</p>
-                        <h5>Facilities</h5>
-                        <ul>
-                            {this.state.local.facilities.map((facility, i) => <li key={i}>{facility}</li>)}
-                        </ul>
-                        <h5>Services</h5>
-                        <ul>
-                            {this.state.local.services.map((service, i) => <li key={i}>{service}</li>)}
-                        </ul>
-                        <h5>Location</h5>
-                        <p>{this.state.local.location.address}</p>
-                        {this.isUserOwner() &&
+                    <Container  as="main" className='main-cont' >
+                        <Row>
+                            <Col md={{ span: 5, offset: 1 }} className='content'>
+                            <h1 className='color-text'>{this.state.local.name}</h1>
+                            <p></p>
+                            <span className="color-text-black">Description: </span> {this.state.local.description}
+                            <hr></hr>
+                            <h5>Facilities</h5>
+                            
+                                {this.state.local.facilities.map((facility, i) => <small className="btn btn-grey" key={i}>{facility}</small>)}
+                            <hr></hr>
+                            <h5 className='color-text-black'>Services</h5>
+                            
+                                {this.state.local.services.map((service, i) => <small className="btn btn-green" key={i}>{service}</small>)}
+                            
+                            <h5 className='color-text-black'>Location</h5>
+                            <p>{this.state.local.location.address}</p>
+
+                            </Col>
+
+                            <Col md={3}>
+                            <h1>aqui foto</h1>
+
+                            </Col>
+                            {this.isUserOwner() &&
                             <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
                         }
+                        </Row>
+                        
+                        
 
                     </Container>
                 }
