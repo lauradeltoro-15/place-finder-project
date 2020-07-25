@@ -125,3 +125,13 @@ main {
 img {
     max-width: 100%;
 }
+.profile-image {
+    border-radius: 50%;
+    max-width: 250px;
+}
+.sub-profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
