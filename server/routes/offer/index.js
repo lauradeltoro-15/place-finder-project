@@ -36,7 +36,8 @@ router.get('/getAllLocalOffers/:localId', (req, res, next) => {
 router.get('/getAllEventsOffers/:eventId', (req, res, next) => {
     Offer
         .find({ event: req.params.eventId })
-        .populate({ path: 'local',populate: { path: "owner" } })
+        .populate({ path: 'local', populate: { path: "owner" } })
+        .populate("event")
         .then(offers => res.json(offers))
         .catch(err => next(err))   
 })

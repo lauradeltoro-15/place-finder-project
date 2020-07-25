@@ -52,7 +52,6 @@ class CompanyForm extends Component {
 
     mapSocialMediaInfo = (socialMedia, name) => socialMedia.filter(social => social.name === name).map(social => social.mediaUrl)[0]
     
-    
     handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -64,7 +63,7 @@ class CompanyForm extends Component {
             .editUserProfile(this.props.loggedInUser._id , this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
-                this.props.history.push('/profile')
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
             .catch(err => this.setState({errorMsg: err.response.data.message}))   
     }
@@ -77,7 +76,7 @@ class CompanyForm extends Component {
 
         this.filesService.handleUpload(uploadData)
             .then(response => {
-                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                console.log('File upload: ', response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
             .catch(err => console.log(err))

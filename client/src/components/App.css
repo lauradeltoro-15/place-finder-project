@@ -122,3 +122,6 @@ main {
 .form-control {
     border-radius: 0;
 }
+img {
+    max-width: 100%;
+}
