@@ -14,7 +14,8 @@ const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? nex
 
 const deleteLocal = (req, res, next) => {
     return Local.findByIdAndDelete(req.params.localId)
-        .then(localDeleted => res.json(localDeleted))
+        .then(() => Offer.deleteMany({ local: req.params.localId }))
+        .then(deleteDetails => res.json(deleteDetails))
         .catch(err => next(err))
 }
     
@@ -55,6 +56,7 @@ router.delete("/delete/:localId/:id", isLoggedIn, isTheUserAllowed, (req, res, n
     .populate("event")
         .then(offers => offers.length > 0 && isAnyAcceptedOfferFuture(offers))
         .then(hasAcceptedOffers => hasAcceptedOffers ? res.status(400).json({ message: "You cannot delete a local that has pending events" }) : deleteLocal(req, res, next)
+        
     )
 })
 
