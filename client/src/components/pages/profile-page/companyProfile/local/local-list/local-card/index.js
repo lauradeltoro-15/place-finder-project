@@ -36,16 +36,17 @@ class LocalCard extends Component {
                         <Card.Text><span className="color-text-black">Description: </span> {this.props.description}</Card.Text>
                         <Card.Text><span className="local color-text-black">Type: </span>{this.props.localType} </Card.Text>
                         <Card.Text><span className="fac-sev color-text-black">Address:  </span>{this.props.location.address}</Card.Text>
+                            <hr></hr>
                             <h6 className="fac-sev color-text-black">Facilities </h6>
                             {facilities}
+                            <hr></hr>
                         
                             <h6 className="fac-sev color-text-black">Services </h6>
                             {services}
-                            <br></br>
-                            <br></br>
+                            <hr></hr>
                             
                     </Card.Body>
-                    <div>
+                    <div className='local-btn'>
                         { this.isUserTheProfileOwner() &&
                         <>
                         <Button variant="danger" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
