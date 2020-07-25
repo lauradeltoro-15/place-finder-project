@@ -24,7 +24,11 @@ class EventCard extends Component {
         this.eventService
             .deleteEvent(eventId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventList())
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => {
+                console.log(err.response)
+                err.response && this.props.handleToast(true, err.response.data.message)
+            }
+            ) 
     }
 
     isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false

@@ -33,7 +33,7 @@ class OfferForm extends Component {
         this.offerService
             .createOffer(stateCopy, this.props.loggedInUser._id)
             .then(() => this.props.history.push('/events'))
-            .catch(err => err.response && err.response.status === 400  ? this.setState({ errorMsg: err.response.data.message })
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message)) 
 
     }

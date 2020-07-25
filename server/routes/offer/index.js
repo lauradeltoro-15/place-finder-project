@@ -28,7 +28,7 @@ router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const {event, local} = req.body
     Offer.find()
         .then(offers => isAnOfferWithThisLocal(offers, event, local))
-        .then(isAnOffer => isAnOffer ? res.status(400).json("You already has an offer in this local")
+        .then(isAnOffer => isAnOffer ? res.status(400).json({ message: "You already have an offer with this local in this event" })
             : createAnOffer(res, req.body))
         .catch(err => next(err))
 })

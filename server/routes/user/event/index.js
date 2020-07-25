@@ -11,7 +11,7 @@ const validationHandler = new ValidationHandler()
 const User = require('../../../models/user.model')
 const Person = require('../../../models/person.model')
 const Event = require('../../../models/event.model')
-
+const Offer = require("../../../models/offer.model")
 
 
 //Helper functions 
@@ -33,6 +33,13 @@ const isFormValidated = (event, res) => {
                 validationHandler.isFutureDate(new Date(event.startTime), event.endTime, res)
         })
 }
+
+const deleteDetailsAndAssociatedOffers = (res, eventId) => {
+    Event.findByIdAndRemove(eventId)
+        .then(() => Offer.deleteMany({ event: eventId }))
+        .then(deleteDetails => res.json(deleteDetails))
+        .catch(err => next(err))
+} 
 
 //Endpoints
 
@@ -132,7 +139,6 @@ router.get('/:userId/participant', (req, res, next) => {
 //Create event
 
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-    console.log(req.body, "el body en create event", req.body)
     isFormValidated(req.body, res)
         .then(validated => validated &&
             Event
@@ -147,12 +153,9 @@ router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
 
 //delete event
 router.delete('/delete/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-
-    Event
-        .findByIdAndRemove(req.params.eventId)
-        .then(() => res.json(''))
+    Event.findById(req.params.eventId)
+        .then(event => event.acceptedOffer ? res.status(400).json({ message: "This event is already confirmed, you can't delete it" }) : deleteDetailsAndAssociatedOffers(res, req.params.eventId))
         .catch(err => next(err))
-
 })
 
 //get one event
