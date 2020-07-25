@@ -26,7 +26,7 @@ class LocalList extends Component {
             <>
                 {!this.state.locals ? <h1>Cargando</h1> :
                     <Row>
-                        {this.state.locals.map(local => <LocalCard key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} handleToast={this.props.handleToast} updateLocalList={this.updateLocalList}/>)}  
+                        {this.state.locals.map(local => <LocalCard handleToast={this.props.handleToast} key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} handleToast={this.props.handleToast} updateLocalList={this.updateLocalList}/>)}  
                     </Row>
                 }
             </>
