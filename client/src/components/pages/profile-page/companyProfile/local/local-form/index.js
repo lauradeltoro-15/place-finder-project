@@ -74,9 +74,9 @@ class LocalForm extends Component {
     }
     handleFormSubmit = e => {
         e.preventDefault()
-        const userIid = this.props.match.params.id
-        const localId = this.props.match.params.localId
-        this.props.location.pathname.includes("edit") ? this.editLocal(userIid, this.state, localId) : this.createNewLocal(userIid, this.state)
+        const { id, localId } = this.props.match.params
+        console.log(id, "este es el userId")
+        this.props.location.pathname.includes("edit") ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
     }
     handleAvailability = e => {
         this.setState({
@@ -104,7 +104,10 @@ class LocalForm extends Component {
     }
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
-            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
+            .then(response => {
+                console.log(response)
+                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
+            })
             .catch(err => this.setErrorMessage(err.response.data.message))
     }
 

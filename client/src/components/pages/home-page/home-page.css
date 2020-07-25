@@ -5,15 +5,30 @@
     background-position: bottom;
     min-height: 100vh;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
-h1 {
-    padding-top: 350px;
+.title {
+    padding-top: 150px;
     font-family: "Lato", sans-serif;
     font-weight: 700;
     color: white;
     font-size: 5em;
     width: 30%;
 
+}
+.footer-text {
+    color: #fff;
+    margin-bottom: 0;
+}
+.bottom-message {
+    position: absolute;
+    margin-right: 30px;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }

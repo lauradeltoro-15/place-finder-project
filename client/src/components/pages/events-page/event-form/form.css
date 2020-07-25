@@ -1,0 +1,18 @@
+
+.small-input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+}
+.small-input-container.check {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.check input {
+    margin: 10px 30px 10px 8px;
+}

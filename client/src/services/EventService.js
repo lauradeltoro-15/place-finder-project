@@ -13,15 +13,15 @@ export default class EventService {
     //events
 
     getAllEventsUser = userId => this.service.get(`/${userId}/all`)
-    createEvent = event => this.service.post(`/create`, event)
+    createEvent = (event,id) => this.service.post(`/create/${id}`, event)
     getOwnedEvents = userId => this.service.get(`/${userId}/owned`)
     getParticipantEvents = userId => this.service.get(`/${userId}/participant`)
     getOneEvent = eventId => this.service.get(`/event/${eventId}`)
     getEventByName = eventName => this.service.get(`/event/name/${eventName}`)
-    editEvent = (eventId, newEvent) => this.service.put(`/event/${eventId}`, newEvent)
-    deleteEvent = (eventId) => this.service.delete(`/delete/${eventId}`)
+    editEvent = (eventId, newEvent, id) => this.service.put(`/event/${eventId}/${id}`, newEvent)
+    deleteEvent = (eventId, id) => this.service.delete(`/delete/${eventId}/${id}`)
     getAllEvents = () => this.service.get('/getAllEvents')
     getEventOwner = eventId => this.service.get(`/getOwner/${eventId}`)
-    joinEvent = (eventId, userId) =>  this.service.put(`/join/${eventId}/${userId}`)
-    leaveEvent = (eventId, userId) => this.service.put(`/leave/${eventId}/${userId}`)
+    joinEvent = (eventId, id) =>  this.service.put(`/join/${eventId}/${id}`)
+    leaveEvent = (eventId, id) => this.service.put(`/leave/${eventId}/${id}`)
 }
