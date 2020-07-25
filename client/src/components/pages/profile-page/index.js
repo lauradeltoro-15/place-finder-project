@@ -26,6 +26,7 @@ class ProfilePage extends Component {
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     getProfile = () => {
+        console.log(this.props, "En main prof")
         if (this.state.userDetails) {
             return this.state.userDetails.companyDetails ?
                 <CompanyProfile handleToast={this.props.handleToast} userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />

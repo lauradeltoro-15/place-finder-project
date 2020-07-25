@@ -55,7 +55,7 @@ class CompanyProfile extends Component {
             </section>
             <section className='local-section'>
             <h3>Locals</h3>
-                <LocalList user={this.props.userDetails._id} loggedInUser={this.props.loggedInUser} />
+                    <LocalList handleToast={this.props.handleToast} user={this.props.userDetails._id} loggedInUser={this.props.loggedInUser} />
             </section>
             </>
         )

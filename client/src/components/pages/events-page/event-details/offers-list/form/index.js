@@ -43,7 +43,6 @@ class OfferForm extends Component {
             .getUserLocals(userId)
             .then((response) => this.setState({ userLocals: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
-
     }
 
     render() {

@@ -22,7 +22,7 @@ class Profile extends Component {
 
     getProfileUserEvents = userId => {
         this.eventService.
-            getAllEventsUser(userId)
+            getAllFutureUserEvents(userId)
             .then(response => this.setState({ events: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }

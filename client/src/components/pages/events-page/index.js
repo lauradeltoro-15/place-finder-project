@@ -17,11 +17,11 @@ class EventPage extends Component {
 
     componentDidMount = () => this.updateEventList()
 
-    updateEventList = () => this.getAllEvents()
+    updateEventList = () => this.getAllFutureEvents()
 
-    getAllEvents = () => {
+    getAllFutureEvents = () => {
         this.eventService
-            .getAllEvents()
+            .getAllFutureEvents()
             .then(response => this.setState({ events: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
