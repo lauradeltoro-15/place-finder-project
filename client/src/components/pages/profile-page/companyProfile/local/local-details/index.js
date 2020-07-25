@@ -59,8 +59,8 @@ class LocalDetail extends Component {
 
                             </Col>
 
-                            <Col md={{span: 5, offset: 1}}>
-                            <div className='img-local align-self-center'><img src={this.state.local.avatar}></img></div>
+                            <Col className='img-local' md={{span: 5, offset: 1}}>
+                                <img src={this.state.local.avatar} />
                             </Col>
                             
                         </Row>

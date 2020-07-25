@@ -30,9 +30,18 @@
 }
 
 .img-local{
-    width: 75%;
     display: flex;  
-    align-items: center
+    align-items: center;
+    justify-content: left;
+    margin-top: 50px;
+
+}
+
+.img-local img{
+    width: 80%;
+    -webkit-box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
+    -moz-box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
+    box-shadow: 43px 37px 0px 3px rgba(73,197,182,1);
 }
 .local-btn{
     padding: 30px;
