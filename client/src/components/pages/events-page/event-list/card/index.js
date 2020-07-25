@@ -46,7 +46,10 @@ class EventCard extends Component {
     leaveEvent = (eventId, userId) => {
         this.eventService
             .leaveEvent(eventId, userId)
-            .then(() => this.props.updateEventList())
+            .then(response => {
+                console.log("response", response)
+                this.props.updateEventList()
+            })
             .catch(err => console.log(err))
     }
     formatDate = date => {

@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const passport = require("passport")
+
+const {ensureLoggedIn, ensureLoggedOut} = require("connect-ensure-login")
 
 const ValidationHandler = require("../../../validationHandler")
 const validationHandler = new ValidationHandler()
@@ -11,7 +14,14 @@ const Person = require('../../../models/person.model')
 const Event = require('../../../models/event.model')
 
 
+
 //Helper functions 
+
+const isLoggedIn = (req, res, next) =>  req.isAuthenticated() ? next() : null
+
+const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
+
+
 const isFormValidated = (event, res) => {
     return validationHandler.isNameUnique(Event, event.name, res)
         .then(isNameUnique => {
@@ -48,18 +58,18 @@ router.put('/join/:eventId/:userId', (req, res, next) => {
 
 //leave event
 
-router.put('/leave/:eventId/:userId', (req, res, next) => {
-
+router.put('/leave/:eventId/:id', (req, res, next) => {
+    console.log("leave event")
     Event
         .findById(req.params.eventId, { participants: 1 })
         .then(event => {
-            const idx = event.participants.indexOf(req.params.userId)
+            const idx = event.participants.indexOf(req.params.id)
             if (idx >= 0) {
                 event.participants.splice(idx, 1)
                 event.save()
             }
         })
-        .then(() => res.json(req.params.userId))
+        .then(() => res.json(req.params.id))
         .catch(err => next(err))
 })
 
@@ -90,6 +100,7 @@ router.get('/:userId/owned', (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+
 // get all events of a user
 router.get('/:userId/all', (req, res, next) => {
     Event
@@ -113,7 +124,10 @@ router.get('/:userId/participant', (req, res, next) => {
 
 //Create event
 
-router.post('/create', (req, res, next) => {
+router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
+    console.log(req.user, "este es el user")
+    console.log("este es el user del params", req.params.id)
+    console.log(req.isAuthenticated(), "esta es la sesion")
     isFormValidated(req.body, res)
         .then(validated => validated &&
             Event

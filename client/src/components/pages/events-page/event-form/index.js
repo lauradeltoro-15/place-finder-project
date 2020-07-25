@@ -82,12 +82,12 @@ class EventForm extends Component {
 
     createEvent = () => {
         this.eventService
-            .createEvent(this.state)
+            .createEvent(this.state, this.props.match.params.id)
             .then(() => {
                 this.props.handleEventSubmit ? this.props.handleEventSubmit() :
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
             })
-            .catch(err => this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && this.setErrorMessage(err.response.data.message))
     }
 
     editEvent = (id, newEvent) => {
@@ -96,7 +96,7 @@ class EventForm extends Component {
             .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`) )
             
 
-            .catch(err => this.setErrorMessage(err.response.data.message))
+            .catch(err => err.response && this.setErrorMessage(err.response.data.message))
     }
 
     render() {
