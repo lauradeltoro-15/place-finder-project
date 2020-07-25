@@ -8,6 +8,7 @@ const validationHandler = new ValidationHandler()
 
 //Helper functions
 const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
+
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
 
 const mapLocal = (local, companyId) => {
@@ -58,9 +59,8 @@ router.get("/details/:localId", (req, res, next) => {
         .catch(err => console.log(err))
 })
 
-router.post('/add', (req, res, next) => {  
-    console.log("este es el local", req.body)
-    console.log(req.body.id, "este es el req.body.id")
+router.post('/add/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {  
+
     isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))
