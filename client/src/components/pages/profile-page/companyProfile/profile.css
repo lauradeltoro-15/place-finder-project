@@ -2,16 +2,41 @@
     text-align: center;
     margin-top: 100px;
 }
-.age-genre-cont {
+
+.contact {
+    list-style: none;
     display: flex;
     justify-content: center;
 }
-.profile-data {
-    margin: 10px 10px
+
+.cont{
+    margin-top: 25px;
 }
-.event-section h3{
+
+.button{
+    font-size: 1.2em,
+}
+
+.contact li{
+    margin-right: 10px;
+}
+
+.desc-cont {
+    margin: 50px 0;
+}
+
+.local-section h3{
     margin: 80px 50px 20px
 }
-.main-button-container {
-    margin: 70px 0;
+
+.fac-sev{
+    margin: 20px 0 15px 0
+}
+
+.local{
+    margin-bottom: 15px
+}
+
+.local-btn{
+    margin-bottom: 25px;
 }

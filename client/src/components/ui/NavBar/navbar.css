@@ -38,3 +38,7 @@
 .navbar-brand a {
     color:#111
 }
+
+.nav{
+    max-height: 87px;
+}

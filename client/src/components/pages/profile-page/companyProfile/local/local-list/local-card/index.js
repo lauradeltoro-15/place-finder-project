@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 import LocalService from "../../../../../../../services/LocalService"
 
+import './local-card.css'
+import '../../../../../../App.css'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -23,32 +25,38 @@ class LocalCard extends Component {
     }
     isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
     render() {
-        const facilities = this.props.facilities.map((facility, i) => <li key={i}>{facility}</li>)
-        const services = this.props.services.map((service, i) => <li key={i}>{service}</li>)
+        const facilities = this.props.facilities.map((facility, i) => <small className="btn btn-grey" key={i}>{facility}</small>)
+        const services = this.props.services.map((service, i) => <small className="btn btn-green" key={i}>{service}</small>)
         return (
             <Col md={4}>
                 <Card className="local-card">
-                    <Card.Img variant="top" src={this.props.avatar} alt={this.props.name} />
-                    <Card.Body>     
-                        <Card.Title>{this.props.name}</Card.Title>
-                        <Card.Text>{this.props.description}</Card.Text>
-                        <Card.Text>{this.props.localType}</Card.Text>
-                        <ul>
+                    <Card.Img variant="top" src={this.props.avatar} />
+                    <Card.Body>
+                        <Card.Title className="local color-text">{this.props.name}</Card.Title>
+                        <Card.Text><span className="color-text-black">Description: </span> {this.props.description}</Card.Text>
+                        <Card.Text><span className="local color-text-black">Type: </span>{this.props.localType} </Card.Text>
+                        <Card.Text><span className="fac-sev color-text-black">Address:  </span>{this.props.location.address}</Card.Text>
+                            <hr></hr>
+                            <h6 className="fac-sev color-text-black">Facilities </h6>
                             {facilities}
-                        </ul>
-                        <ul>
+                            <hr></hr>
+                        
+                            <h6 className="fac-sev color-text-black">Services </h6>
                             {services}
-                        </ul>
-                        <Card.Text>{this.props.location.address}</Card.Text>
+                            <hr></hr>
+                            
                     </Card.Body>
-                    {this.isUserTheProfileOwner() &&
+                    <div className='local-btn'>
+                        { this.isUserTheProfileOwner() &&
                         <>
-                        <Button variant="dark" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
-                        <Link to={`/user/${this.props.owner}/local/${this.props._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
+                        <Button variant="danger" type="button" onClick={() => this.deleteCard(this.props._id)}>Delete local</Button>
+                        <Link to={`/user/${this.props.owner}/local/${this.props._id}/edit`} ><Button variant="primary" type="button">Edit local</Button></Link>
                         </>
-                    }
-                    <Link to={`/profile/local/${this.props._id}/calendar`} ><Button variant="dark" type="submit">See your calendar!</Button></Link>
-                    <Link to={`/user/${this.props.owner}/local/${this.props._id}`} className="btn btn-dark btn-block btn-sm">See details</Link>
+                        }
+                        <Link to={`/profile/local/${this.props._id}/calendar`} ><Button variant="primary" type="submit">See your calendar!</Button></Link>
+                        <Link to={`/user/${this.props.owner}/local/${this.props._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
+                    </div>
+
                 </Card>
             </Col>
         )
