@@ -41,7 +41,11 @@ class ProfilePage extends Component {
                     <main className="main-bg">
                         <Container className="profile-container">
                             <h1 className="big-title">{this.state.userDetails.username}'s profile</h1>
-                            <small className="subtitle">{this.state.userDetails.personDetails ? "Event-lover" : "Event-maker"}</small>
+                            <div class="sub-profile-container">
+                                <small className="subtitle">{this.state.userDetails.personDetails ? "Event-lover" : "Event-maker"}</small>
+                                <img className="profile-image" alt={this.state.userDetails.username} src={this.state.userDetails.avatar} />
+                            </div>
+                          
                             {detailedProfile}
                         </Container>
                 </main>

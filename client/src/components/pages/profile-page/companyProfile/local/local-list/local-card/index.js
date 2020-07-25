@@ -25,8 +25,8 @@ class LocalCard extends Component {
     }
     isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
     render() {
-        const facilities = this.props.facilities.map((facility, i) => <small className="btn btn-grey" key={i}>{facility}</small>)
-        const services = this.props.services.map((service, i) => <small className="btn btn-green" key={i}>{service}</small>)
+        // const facilities = this.props.facilities.map((facility, i) => <small className="btn btn-grey" key={i}>{facility}</small>)
+        // const services = this.props.services.map((service, i) => <small className="btn btn-green" key={i}>{service}</small>)
         return (
             <Col md={4}>
                 <Card className="local-card">
@@ -36,14 +36,16 @@ class LocalCard extends Component {
                         <Card.Text><span className="color-text-black">Description: </span> {this.props.description}</Card.Text>
                         <Card.Text><span className="local color-text-black">Type: </span>{this.props.localType} </Card.Text>
                         <Card.Text><span className="fac-sev color-text-black">Address:  </span>{this.props.location.address}</Card.Text>
-                            <hr></hr>
+                        <Card.Text><span className="fac-sev color-text-black">Capacity:  </span>{this.props.capacity}</Card.Text>
+
+                            {/* <hr></hr>
                             <h6 className="fac-sev color-text-black">Facilities </h6>
                             {facilities}
                             <hr></hr>
                         
                             <h6 className="fac-sev color-text-black">Services </h6>
                             {services}
-                            <hr></hr>
+                            <hr></hr> */}
                             
                     </Card.Body>
                     <div className='local-btn'>

@@ -75,7 +75,6 @@ class LocalForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         const { id, localId } = this.props.match.params
-        console.log(id, "este es el userId")
         this.props.location.pathname.includes("edit") ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
     }
     handleAvailability = e => {

@@ -30,11 +30,14 @@ class LocalDetail extends Component {
         return (
             <>
                 {!this.state.local ? <h1>Cargando</h1> :
-                    <Container  as="main" className='main-cont' >
+                    <Container fluid  as="main" className='main-cont' >
                         <Row>
+                            
                             <Col md={{ span: 5, offset: 1 }} className='content'>
                             <h1 className='color-text'>{this.state.local.name}</h1>
-                            <p></p>
+                            <hr></hr>
+                            <span className="color-text-black">Owner: </span> {this.state.local.owner.username}
+                            <hr></hr>
                             <span className="color-text-black">Description: </span> {this.state.local.description}
                             <hr></hr>
                             <h5>Facilities</h5>
@@ -43,10 +46,13 @@ class LocalDetail extends Component {
                             <hr></hr>
                             <h5 className='color-text-black'>Services</h5>
                             
-                                {this.state.local.services.map((service, i) => <small className="btn btn-green" key={i}>{service}</small>)}
-                            
+                                {this.state.local.services.map((service, i) => <small className="btn btn-grey" key={i}>{service}</small>)}
+                            <hr></hr>
                             <h5 className='color-text-black'>Location</h5>
                             <p>{this.state.local.location.address}</p>
+                            <hr></hr>
+
+
 
                             </Col>
 
@@ -54,12 +60,16 @@ class LocalDetail extends Component {
                             <h1>aqui foto</h1>
 
                             </Col>
-                            {this.isUserOwner() &&
-                            <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm">Edit local</Link>
-                        }
+                            
                         </Row>
-                        
-                        
+                        <Row>
+                            <Col md={{span: 2, offset: 5}}>
+                            {this.isUserOwner() &&
+                            <Link to={`/user/${this.state.local.owner._id}/local/${this.state.local._id}/edit`} className="btn btn-dark btn-block btn-sm local-btn">Edit local</Link>
+                            }
+                            </Col>
+                        </Row>
+
 
                     </Container>
                 }

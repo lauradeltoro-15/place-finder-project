@@ -10,7 +10,8 @@ const localSchema = new Schema({
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     pictures: String,
     avatar: {
-        type: [String], 
+        type: String,
+        default: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595677113/avatar/local-icon.png.png'
     },
     availability: [
         {

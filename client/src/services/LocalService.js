@@ -10,7 +10,7 @@ export default class LocalService {
         })
     }
 
-    createNewLocal = (id,newLocal) => this.service.post('/add', {id, newLocal})
+    createNewLocal = (id,newLocal) => this.service.post(`/add/${id}`, {id, newLocal})
     getUserLocals = id => this.service.get(`/${id}`)
     getOneLocal = id => this.service.get(`/details/${id}`)
     deleteLocal = (localId,id) => this.service.delete(`/delete/${localId}/${id}`)

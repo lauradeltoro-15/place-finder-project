@@ -121,7 +121,7 @@ router.get('/:userId/participant', (req, res, next) => {
 //Create event
 
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-    console.log(req.isAuthenticated(), "esta es la sesion")
+    console.log(req.body, "el body en create event", req.body)
     isFormValidated(req.body, res)
         .then(validated => validated &&
             Event

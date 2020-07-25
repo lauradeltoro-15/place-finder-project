@@ -67,7 +67,7 @@ class profilePerson extends Component {
 
         this.filesService.handleUpload(uploadData)
             .then(response => {
-                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                console.log(response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
             .catch(err => console.log(err))

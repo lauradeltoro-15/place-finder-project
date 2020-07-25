@@ -36,10 +36,6 @@ const eventSchema = new Schema({
         type: String,
         enum: ["restaurant", "gym", "hotel", "others"]
     },
-    avatar: {
-        type: String, 
-        default: ""
-    },
     theme: {
         type: [String],
         enum: ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness'],

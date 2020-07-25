@@ -16,7 +16,7 @@ class OfferCard extends Component {
 
     acceptOffer = (offerId, eventId) => {
         this.offerService
-            .acceptOffer(offerId, eventId)
+            .acceptOffer(offerId, eventId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventOffers(this.props.event._id))
             .catch(err => console.log(err))
     }
