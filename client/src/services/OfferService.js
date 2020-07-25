@@ -14,6 +14,6 @@ export default class EventService {
     getAllLocalOffers = localId => this.service.get(`/getAllLocalOffers/${localId}`)
     getAllEventsOffers = eventId => this.service.get(`/getAllEventsOffers/${eventId}`)
     deleteOffer = (offerId,id) => this.service.delete(`/delete/${offerId}/${id}`)
-    acceptOffer = (offerId, eventId) => this.service.put(`/accept/${offerId}/event/${eventId}`)
+    acceptOffer = (offerId, eventId,id) => this.service.put(`/accept/${offerId}/event/${eventId}/${id}`)
     
 }

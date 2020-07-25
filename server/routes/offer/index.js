@@ -48,7 +48,7 @@ router.delete('/delete/:offerId/:id', isLoggedIn, isTheUserAllowed, (req, res, n
         .catch(err => next(err))
 })
 
-router.put('/accept/:offerId/event/:eventId', (req, res, next) => {
+router.put('/accept/:offerId/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
 
     Offer
         .find({event: req.params.eventId})
