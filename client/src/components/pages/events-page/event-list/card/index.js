@@ -81,6 +81,7 @@ class EventCard extends Component {
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
+        console.log(this.props.loggedInUser._id, this.props.owner)
         const themes = this.props.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)
         return (
             <Col md={4}>
@@ -94,13 +95,13 @@ class EventCard extends Component {
                         <Card.Text> {this.formatDate(this.props.startTime)} from {this.formatHour(this.props.startTime)} to {this.formatHour(this.props.endTime)}</Card.Text>
                         <Card.Text>{themes}</Card.Text>
                         <hr></hr>
-                        {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner &&
+                        {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner._id &&
                             <>
                                 <Button variant="danger" onClick={() => this.deleteEvent(this.props._id) && <Redirect to='/profile' />}>Delete</Button>
                                 <Button variant="primary" onClick={() => this.handleFormModal(true)}>Edit</Button>
                             </>
                         }
-                        {this.props.loggedInUser && this.props.loggedInUser._id !== this.props.owner && this.props.loggedInUser.personDetails &&
+                        {this.props.loggedInUser && this.props.loggedInUser._id !== this.props.owner._id && this.props.loggedInUser.personDetails &&
                             <Button variant={this.isParticipating() ? "danger" : "primary"} onClick={() => { this.isParticipating() ? this.leaveEvent(this.props._id, this.props.loggedInUser._id) : this.joinEvent(this.props._id, this.props.loggedInUser._id) }}>{this.isParticipating() ? "Leave event" : "Join event"} </Button>
                         }
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">More</Button></Link>
@@ -110,7 +111,8 @@ class EventCard extends Component {
                         }
                         {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
-                            {this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} /> : <OfferForm event={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
+                            {this.props.loggedInUser && this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
+                            : <OfferForm event={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
                             }
                         </UiModal>
                     </Card.Body>
