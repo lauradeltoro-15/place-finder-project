@@ -27,8 +27,8 @@ class OfferList extends Component {
     render() {
        
         return (
-            <section>
-                <Row>
+            <section >
+                <Row >
                     {this.props.loggedInUser && this.state.offers.length > 1 && !this.isAnOfferAccepted() &&<Col className='offer-title'><h2>Offer</h2></Col>}
                     {this.props.loggedInUser && this.state.offers.length > 0 && !this.isAnOfferAccepted() && this.state.offers.map(offer =>
 

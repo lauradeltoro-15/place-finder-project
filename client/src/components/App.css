@@ -247,8 +247,6 @@ img {
     padding: 4rem;
     margin: 6rem auto;
     background-color: white;
-
-    
 }
 
 .check{
@@ -274,7 +272,35 @@ img {
 
 .submit-btn{
     display: block;
-    
 }
 
+.local-form-col{
+    background-color: #F4F7F6;
+    padding: 10%
+
+}
+
+.local-form-col h1{
+    text-align:center
+}
+
+
+
+.checked label{
+    margin-right: 0.2rem
+}
+
+
+.profile-container{
+    margin-top: 7rem;
+    margin-bottom: 7rem
+}
+
+.sub-profile-container{
+    margin-top: 2rem
+}
+
+.profile-image{
+    margin-top: 2rem
+}
 

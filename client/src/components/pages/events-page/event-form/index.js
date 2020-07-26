@@ -113,8 +113,8 @@ class EventForm extends Component {
             <>
                 {this.state.name == undefined ? null :
                     <main className="main-bg">
-                        <Form className="white-form" onSubmit={this.handleFormSubmit}>
-                            {this.props.eventToEdit ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
+                        <Form className="local-form-col" onSubmit={this.handleFormSubmit}>
+                            {this.props.eventToEdit ? <h1 className='color-text'>Edit Event</h1> : <h1 className='color-text'>Create Event</h1>}
                             <Form.Group>
                                 <Form.Label className="color-text-black">Name</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
