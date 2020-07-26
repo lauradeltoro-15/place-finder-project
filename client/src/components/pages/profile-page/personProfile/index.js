@@ -21,7 +21,6 @@ class Profile extends Component {
     }
     componentDidMount = () => this.updateEventList()
 
-
     updateEventList = () => this.getProfileUserEvents(this.props.paramId)
     
     handleFormModal = status => this.setState({ showModal: status })

@@ -54,7 +54,7 @@ class LocalForm extends Component {
 
     }
     componentDidMount = () => {
-        const id = this.props.match.params.localId
+        const id = this.props.localToEdit
         id &&
         this.localService.getOneLocal(id)
             .then(response => this.updateLocalState(response.data))
@@ -94,8 +94,9 @@ class LocalForm extends Component {
     }
     handleFormSubmit = e => {
         e.preventDefault()
-        const { id, localId } = this.props.match.params
-        this.props.location.pathname.includes("edit") ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
+        const id = this.props.loggedInUser._id
+        const localId = this.props.localToEdit
+        this.props.localToEdit ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
     }
     handleAvailability = e => {
         this.setState({
@@ -123,7 +124,7 @@ class LocalForm extends Component {
     }
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
-            .then(response => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
+            .then(() => this.props.handleFormSubmit())
             .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message))
     }
@@ -132,7 +133,7 @@ class LocalForm extends Component {
 
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
-            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
+            .then(() => this.props.handleFormSubmit())
             .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message))
     }

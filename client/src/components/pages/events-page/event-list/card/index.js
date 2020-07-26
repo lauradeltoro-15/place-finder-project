@@ -97,7 +97,7 @@ class EventCard extends Component {
                         {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner &&
                             <>
                                 <Button variant="danger" onClick={() => this.deleteEvent(this.props._id) && <Redirect to='/profile' />}>Delete</Button>
-                            <Button variant="primary" onClick={() => this.handleFormModal(true)}>Edit</Button>
+                                <Button variant="primary" onClick={() => this.handleFormModal(true)}>Edit</Button>
                             </>
                         }
                         {this.props.loggedInUser && this.props.loggedInUser._id !== this.props.owner && this.props.loggedInUser.personDetails &&
