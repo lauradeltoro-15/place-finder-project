@@ -7,6 +7,8 @@ import EventService from "../../../services/EventService"
 import OfferService from "../../../services/OfferService"
 import LocalService from "../../../services/LocalService"
 
+import SpinnerContainer from "../../ui/Spinner"
+
 class CalendarPage extends Component {
     constructor(props) {
         super(props)
@@ -46,10 +48,11 @@ class CalendarPage extends Component {
     render() {
         return (
             <>
-                {(this.state.events || (this.state.offers && this.state.local)) &&
+                {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container as="main">
                         <Calendar events={this.state.events} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
-                    </Container>
+                    </Container> : <SpinnerContainer />
+                 
                 }
             </>
         )

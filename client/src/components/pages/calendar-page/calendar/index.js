@@ -61,7 +61,7 @@ class Calendar extends Component {
         this.props.events.length > 0 && this.props.events.map(event => {
             return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) }})
         :
-        this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
+        this.props.offers && this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
 
     render() {
         const formattedInfo = this.getEventsToRender()

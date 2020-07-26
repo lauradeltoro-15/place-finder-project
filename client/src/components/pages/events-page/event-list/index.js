@@ -12,8 +12,6 @@ class  EventList extends Component {
         }
         this.eventService = new EventService()
     }
-
-
     render() {
 
         return (

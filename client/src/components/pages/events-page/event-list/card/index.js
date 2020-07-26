@@ -112,7 +112,6 @@ class EventCard extends Component {
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
                             {this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} /> : <OfferForm event={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
                             }
-
                         </UiModal>
                     </Card.Body>
                 </Card>

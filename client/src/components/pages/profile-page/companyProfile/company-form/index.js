@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-
+import SpinnerContainer from "../../../../ui/Spinner"
 
 class CompanyForm extends Component {
     constructor() {
@@ -21,7 +21,6 @@ class CompanyForm extends Component {
             website: "",
             username: "",
             password: "",
-            username: "",
             avatar: '',
             errorMsg: '',
         }
@@ -84,7 +83,7 @@ class CompanyForm extends Component {
     render() {
         return (
             <>
-            { this.state.username.length < 1 ? <h1>Cargando</h1> :
+                {this.state.username.length < 1 ? <SpinnerContainer/> :
                 <Container as="section">
                     <Form onSubmit={this.handleFormSubmit}>
                         <Form.Group>

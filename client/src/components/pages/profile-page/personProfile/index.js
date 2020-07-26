@@ -6,6 +6,8 @@ import EventService from "../../../../services/EventService"
 import UiModal from "../../../ui/Modal" 
 import EventForm from "../../events-page/event-form"
 
+import SpinnerContainer from "../../../ui/Spinner"
+
 //Boostrap
 import Button from 'react-bootstrap/Button'
 
@@ -30,8 +32,8 @@ class Profile extends Component {
     }
 
     getProfileUserEvents = userId => {
-        this.eventService.
-            getAllFutureUserEvents(userId)
+        this.eventService
+            .getAllFutureUserEvents(userId)
             .then(response => this.setState({ events: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
@@ -47,13 +49,12 @@ class Profile extends Component {
         console.log(this.props)
         return (
             <>
-                {!this.state.events ? <h1>Cargando</h1> :
+                {!this.state.events ? <SpinnerContainer/> :
                     <section className="general-info">
                         <div className="age-genre-cont">
                             <p className="profile-data"><span className="color-text">Age: </span>{this.props.userDetails.personDetails.age || "?"}</p>
                             <p className="profile-data" ><span className="color-text">Genre: </span>{this.props.userDetails.personDetails.genre || "?"}</p>
                         </div>
-
                         <hr></hr>
                         <p className="color-text">Interests: </p>
                         {this.props.userDetails.personDetails.interests.length > 0 ? this.props.userDetails.personDetails.interests.map((hobbie, i) => <h6 className="btn btn-grey" key={i}>{hobbie}</h6>) : "No interests declared"}
@@ -82,7 +83,6 @@ class Profile extends Component {
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
                             <EventForm loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit}/>
                         </UiModal>
-
                     </section>
                 }
             </>

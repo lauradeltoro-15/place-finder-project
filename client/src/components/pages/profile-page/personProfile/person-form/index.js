@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import SpinnerContainer from "../../../../ui/Spinner"
 
 class profilePerson extends Component {
 
@@ -74,7 +75,7 @@ class profilePerson extends Component {
 
         return (
             <>
-            { this.state.interests == undefined ? <h1>cargando</h1>:
+                {this.state.interests == undefined ? <SpinnerContainer/>:
             <Container as='main'>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>

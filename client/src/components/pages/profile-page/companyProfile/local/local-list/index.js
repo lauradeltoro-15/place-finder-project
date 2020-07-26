@@ -8,6 +8,8 @@ import LocalService from "../../../../../../services/LocalService"
 
 import { Link } from "react-router-dom"
 
+import SpinnerContainer from "../../../../../ui/Spinner"
+
 class LocalList extends Component {
     constructor (){
         super ()
@@ -26,7 +28,7 @@ class LocalList extends Component {
     render () {
         return (
             <>
-                {!this.state.locals ? <h1>Cargando</h1> :
+                {!this.state.locals ? <SpinnerContainer/> :
                     <Row>
                         {this.state.locals.map(local => <LocalCard handleToast={this.props.handleToast} key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} handleToast={this.props.handleToast} updateLocalList={this.updateLocalList}/>)}  
                     </Row>

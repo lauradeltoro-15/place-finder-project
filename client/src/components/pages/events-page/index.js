@@ -4,6 +4,8 @@ import EventService from '../../../services/EventService'
 import Container from 'react-bootstrap/esm/Container'
 import EventList from "./event-list/"
 
+import SpinnerContainer from "../../ui/Spinner"
+
 import "./main-page-event.css"
 
 class EventPage extends Component {
@@ -31,7 +33,7 @@ class EventPage extends Component {
         return (
             <>
                 {
-                    !this.state.events ? <h1>Cargando</h1> :
+                    !this.state.events ? <SpinnerContainer/> :
                         <main className="main-bg">
                             <Container as="main" >
                                 {/* {Aquí la searchbar TO-DO}  */}
@@ -40,7 +42,6 @@ class EventPage extends Component {
                         </main>
                 }
             </>
-
         )
     }
 }
