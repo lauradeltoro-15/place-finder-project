@@ -1,0 +1,19 @@
+.maps{
+    height: 600px;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+}
+
+
+.map-container {
+    padding: 0px;
+}
+
+.event-page-container{
+    padding-bottom: 6rem;
+}
+
+/* .maps col{
+    width: 700px
+} */

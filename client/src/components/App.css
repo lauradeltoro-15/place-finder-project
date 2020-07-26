@@ -110,11 +110,11 @@ body {
 }
 }
 .card {
-    max-width: 95%;
     text-align: center;
     align-items: center;
     word-wrap: break-word;
     border: none;
+    height:100%;
 }
 .color-text {
     color: #49C5B6;
@@ -222,4 +222,11 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.row-card-container {
+    margin-top: 1.5rem;
+}
+
+.row-login-container{
+    margin: 0px !important;
 }
