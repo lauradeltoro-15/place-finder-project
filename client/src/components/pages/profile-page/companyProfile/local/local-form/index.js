@@ -6,6 +6,7 @@ import FilesService from "../../../../../../services/FilesService"
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+import LocationSearchInput from "./map"
 
 class LocalForm extends Component {
     constructor(props) {
@@ -197,6 +198,9 @@ class LocalForm extends Component {
                     <Form.Group>
                         <Form.Label>Address</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.location} name="location" type="text" />
+                    </Form.Group>
+                    <Form.Group>
+                        <LocationSearchInput />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Capacity</Form.Label>
