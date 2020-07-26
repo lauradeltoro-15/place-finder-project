@@ -1,0 +1,17 @@
+.maps{
+    height: 600px;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+
+#map-container div:first-child {
+    position: relative;
+    height: 60vh;
+    /* margin-top: 20px; */
+    /* background-color: yellow; */
+}
+
+/* .maps col{
+    width: 700px
+} */

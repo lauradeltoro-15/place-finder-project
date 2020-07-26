@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import EventService from '../../../services/EventService'
 import Container from 'react-bootstrap/esm/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import EventList from "./event-list/"
 
 import Map from './map'
@@ -41,13 +43,18 @@ class EventPage extends Component {
             <>
                 {
                     !this.state.events ? <h1>Cargando</h1> :
-                        <main className="main-bg">
-                            <Container as="main" >
+                        <main className="main-bg" style={{ height: this.state.height }}>
+                            <Container>
                                 {/* {Aquí la searchbar TO-DO}  */}
-
-                                <div style={{height: '400px'}}>
-                                <Map events={this.state.confirmedEvents}/>
+                                <div>
+                                    <Row className="maps">
+                                        <Col id="map-container">
+                                            <Map events={this.state.confirmedEvents}/>
+                                        </Col>
+                                    
+                                    </Row>
                                 </div>
+
 
                                 <div>
                                 <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast}/>

@@ -17,7 +17,7 @@ class  EventList extends Component {
     render() {
 
         return (
-            <Row as="section">
+            <Row as="section" className="row-card-container">
                     {this.props.events.map(event => <EventCard {...this.props} updateEventList={this.props.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event} />)}
             </Row>
         )

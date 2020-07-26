@@ -72,7 +72,7 @@ class EventCard extends Component {
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
-        
+        console.log("estasson las props", this.props)
         const themes = this.props.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)
         return (
             <Col md={4}>

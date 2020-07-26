@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button'
 import { Link, Redirect } from 'react-router-dom'
 
 
+import googleMapStyles from "./maps-style"
+
+
 export class MapContainer extends Component {
 
     constructor (props){
@@ -33,16 +36,12 @@ export class MapContainer extends Component {
     }
 
     render() {
-        const style = {
-            position: 'relative',  
-            width: '1000px',
-            height: '400px'
-            }
+
       return (
         <Map 
             google={this.props.google} 
             zoom={14}
-            style={style}
+            styles={this.props.mapStyle}
             initialCenter={{lat: 40.416775, lng: -3.703790}}
             >
             {this.props.events.map(event => 
@@ -53,12 +52,16 @@ export class MapContainer extends Component {
                         lat: event.acceptedOffer.local.location.coordinates.lat,
                         lng: event.acceptedOffer.local.location.coordinates.lng
                     }}
+                    // icon={{
+                    //     url: './marker-1.png',
+                        
+                    // }}
                     name={event.acceptedOffer.local.name} />
             )}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
                 {this.state.activeEvent.owner ? 
                 <div className='maps-card'>
-                
+
                     <div><img src={this.state.activeEvent.avatar}></img></div>
                     <h4>{this.state.activeEvent.name}</h4>
                     <span className="color-text-black">Creator:</span>  {this.state.activeEvent.owner.username}  |   <span className="color-text-black">Participants:</span>  {this.state.activeEvent.participants.length}<br></br><br></br>
@@ -74,7 +77,9 @@ export class MapContainer extends Component {
       );
     }
   }
- 
+
+MapContainer.defaultProps = googleMapStyles
+
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDY0ca9uUtMtAtYBETgl9AYh-slo_gl9eg"
 })(MapContainer)
