@@ -29,8 +29,9 @@ class EventForm extends Component {
         this.filesService = new FilesService()
 
     }
+
     componentDidMount = () => {
-        const id = this.props.match.params.eventId
+        const id = this.props.eventToEdit
         if (id) {
             this.eventService
                 .getOneEvent(id)
@@ -39,6 +40,7 @@ class EventForm extends Component {
         }
         this.props.calendarDate && this.setState({ startTime: this.props.calendarDate, endTime: this.props.calendarDate })
     }
+
     formatDate = date => {
         const newDate = new Date(date)
         const hh = String(newDate.getHours()).padStart(2, '0')
@@ -68,6 +70,7 @@ class EventForm extends Component {
             .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
+
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -83,28 +86,28 @@ class EventForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        const id = this.props.match.params.eventId
-        this.props.location.pathname.includes("edit") ? this.editEvent(id, this.state) : this.createEvent()
+        const id = this.props.eventToEdit
+        this.props.eventToEdit ? this.editEvent(id, this.state) : this.createEvent()
     }
+
     setErrorMessage = errorMsg => this.setState({ errorMsg })
 
     createEvent = () => {
         this.eventService
             .createEvent(this.state, this.props.loggedInUser._id)
             .then(() => {
-                this.props.handleEventSubmit ? this.props.handleEventSubmit() :
-                this.props.history.push(`/profile/${this.props.loggedInUser._id}`) 
+                debugger
+                this.props.handleEventSubmit()
+                debugger
             })
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) : this.props.handleToast(true, err.response.data.message)) 
     }
 
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent, this.props.loggedInUser._id)
-            .then(() => this.props.history.push(`/profile/${this.props.loggedInUser._id}`) )
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message)) 
+            .then(() => this.props.handleEventSubmit())
+            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) : this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {
@@ -114,7 +117,7 @@ class EventForm extends Component {
                     <main className="main-bg">
                         <Container>
                             <Form className="white-form" onSubmit={this.handleFormSubmit}>
-                                {this.props.location.pathname.includes("edit") ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
+                                {this.props.eventToEdit ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
                                 <Form.Group>
                                     <Form.Label className="color-text-black">Name</Form.Label>
                                     <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
@@ -163,7 +166,6 @@ class EventForm extends Component {
                                     </div>
                                 </Form.Group>
                                 <Form.Group>
-
                                     <Form.Label className="color-text-black">Theme of the event</Form.Label>
                                     <div class="small-input-container check">
                                         <Form.Label>Sport</Form.Label>
@@ -201,7 +203,6 @@ class EventForm extends Component {
                                         <Form.Label>Bussiness</Form.Label>
                                         <input onChange={this.handleInputChange} checked={this.state.theme.includes("bussiness")} value="bussiness" name="theme" type="checkbox" />
                                     </div>
-
                                 </Form.Group>
                                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                                 <Button variant="dark" type="submit">Submit</Button>

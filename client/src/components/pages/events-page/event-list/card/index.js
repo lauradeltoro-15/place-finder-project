@@ -4,6 +4,8 @@ import Col from 'react-bootstrap/esm/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import EventService from '../../../../../services/EventService'
+import UiModal from "../../../../ui/Modal"
+import EventForm from "../../event-form"
 
 import React, { Component } from 'react'
 
@@ -14,6 +16,7 @@ class EventCard extends Component {
             owner: undefined,
             ownerId: undefined,
             buttons: undefined,
+            showModal: false,
         }
         this.eventService = new EventService()
     }
@@ -25,6 +28,13 @@ class EventCard extends Component {
             .deleteEvent(eventId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventList())
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+    }
+
+    handleFormModal = status => this.setState({ showModal: status })
+
+    handleEventSubmit = () => {
+        this.handleFormModal(false)
+        this.props.updateEventList()
     }
 
     isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
@@ -46,9 +56,10 @@ class EventCard extends Component {
     leaveEvent = (eventId, userId) => {
         this.eventService
             .leaveEvent(eventId, userId)
-            .then(response => this.props.updateEventList())
+            .then(() => this.props.updateEventList())
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
+
     formatDate = date => {
         const newDate = new Date(date)
         const dd = String(newDate.getDate()).padStart(2, '0')
@@ -56,12 +67,14 @@ class EventCard extends Component {
         const yyyy = newDate.getFullYear()
         return `${dd}-${mm}-${yyyy}`
     }
+
     formatHour = date => {
         const newDate = new Date(date)
         const hh = String(newDate.getHours()).padStart(2, '0')
         const min = String(newDate.getMinutes()).padStart(2, '0')
         return `${hh}:${min}h`
     }
+
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
@@ -84,7 +97,7 @@ class EventCard extends Component {
                         {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner &&
                             <>
                                 <Button variant="danger" onClick={() => this.deleteEvent(this.props._id) && <Redirect to='/profile' />}>Delete</Button>
-                                <Link to={`/user/${this.props.loggedInUser._id}/event/edit/${this.props._id}`} ><Button variant="primary">Edit</Button></Link>
+                            <Button variant="primary" onClick={() => this.handleFormModal(true)}>Edit</Button>
                             </>
                         }
                         {this.props.loggedInUser && this.props.loggedInUser._id !== this.props.owner && this.props.loggedInUser.personDetails &&
@@ -96,7 +109,9 @@ class EventCard extends Component {
                             <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
                         }
                         {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
-
+                        <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
+                            <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
+                        </UiModal>
                     </Card.Body>
                 </Card>
             </Col>

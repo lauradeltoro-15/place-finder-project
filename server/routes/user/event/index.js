@@ -23,6 +23,7 @@ const handleErrors = (err, req, res, next) => res.status(500).json({ message: "O
 const isFormValidated = (event, res, eventId) => {
     return validationHandler.isNameUnique(Event, event.name, res, eventId)
         .then(isNameUnique => {
+            console.log("yey")
             return isNameUnique &&
                 validationHandler.areRequiredFieldsFilled(event, res, "name", "description", "startTime", "endTime", "city") &&
                 validationHandler.isFieldLongEnough(event.name, res, 2, "name") &&
@@ -31,7 +32,7 @@ const isFormValidated = (event, res, eventId) => {
                 validationHandler.isFieldTooLong(event.description, res, 500, "description") &&
                 validationHandler.isFutureDate(new Date(), event.startTime, res) &&
                 validationHandler.isFutureDate(new Date(event.startTime), event.endTime, res)
-        })
+        }).catch(err => next(err))
 }
 
 const deleteDetailsAndAssociatedOffers = (res, eventId) => {
@@ -140,16 +141,18 @@ router.get('/:userId/participant', (req, res, next) => {
 
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body, res)
-        .then(validated => validated &&
-            Event
-                .create(req.body)
-                .then(() => res.json(''))
-                .catch(err => next(err)))
+        .then(validated => {
+            if (validated) {
+                console.log(req.body)
+                Event
+                    .create(req.body)
+                    .then(() => res.json('created'))
+                    .catch(err => next(err))
+            }
+        })
         .catch(err => next(err))
-    
-    
-
 })
+
 
 //delete event
 router.delete('/delete/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
