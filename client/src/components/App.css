@@ -217,3 +217,23 @@ img {
 .row-login-container{
     margin: 0px !important;
 }
+
+/* form styles */
+
+
+
+.person-form-row{
+    background-color: #F4F7F6;
+}
+
+.person-form-row h1{
+    text-align: center
+}
+
+.person-form-col{
+    padding: 4rem;
+    margin: 3rem auto;
+    background-color: white;
+}
+
+
