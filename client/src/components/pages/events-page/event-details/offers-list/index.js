@@ -4,6 +4,10 @@ import OfferService from "../../../../../services/OfferService"
 
 import OfferCard from './card'
 import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import { Link } from 'react-router-dom'
+
+
 
 
 class OfferList extends Component {
@@ -26,12 +30,17 @@ class OfferList extends Component {
        
         return (
             <section>
+
            
                 <Row>
+                    {this.props.loggedInUser && this.state.offers.length > 1 &&<Col className='offer-title'><h2>Offer</h2></Col>}
+                        
                     {this.props.loggedInUser && this.state.offers.length > 0 && this.state.offers.map(offer =>
                         (this.props.loggedInUser._id == this.props.event.owner || 
                         this.props.loggedInUser._id == offer.local.owner._id) ?
+                        
                             <OfferCard event={this.props.event} updateEventOffers={this.updateEventOffers} loggedInUser={this.props.loggedInUser} offer={offer} handleToast={this.props.handleToast}/>
+                          
                         :
                         null)
                    }

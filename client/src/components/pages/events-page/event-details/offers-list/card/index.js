@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col'
 import './card.css'
 import OfferService from '../../../../../../services/OfferService'
 import Row from 'react-bootstrap/esm/Row'
+import { Link } from 'react-router-dom'
+
 
 class OfferCard extends Component {
     constructor (props){
@@ -32,8 +34,7 @@ class OfferCard extends Component {
 
     render () {
 
-        // setCircleImages = () => this.props.offer.local.avatar === 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595677113/avatar/local-icon.png.png' ? className='': className='avatar'
- 
+       
         return (
             <>  
                 
@@ -54,14 +55,16 @@ class OfferCard extends Component {
                     <span className="color-text-black">Comments: </span> {this.props.offer.description}
                         <br></br>
                         {!this.props.loggedInUser.companyDetails && this.props.event.owner == this.props.loggedInUser._id && this.props.offer.status == 'pending' &&
-                                <Button className='offer-btn' variant="primary" onClick={() => this.acceptOffer(this.props.offer._id, this.props.event._id)}>Accept Offer</Button>
+                                <><Button className='offer-btn' variant="primary" onClick={() => this.acceptOffer(this.props.offer._id, this.props.event._id)}>Accept Offer</Button>
+                                <Link to={`/user/${this.props.offer.local.owner._id}/local/${this.props.offer.local._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
+                                </>
                             }
                             {this.props.loggedInUser._id === this.props.offer.local.owner._id &&
                                 <Button className='offer-btn' variant="danger" onClick={() => this.deleteOffer(this.props.offer._id)}>Delete Offer</Button>
                         }
                     </Col>
                 </Row>
-                <hr></hr>
+                
                 
             
                     {/* <Card style={{ width: '18rem' }}>

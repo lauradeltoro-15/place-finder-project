@@ -11,8 +11,9 @@
     min-height: 20px;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #DFDFDF;
-    border-bottom: 1px solid #DFDFDF
+    border: 1px solid #DFDFDF;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .offer-det{
@@ -27,13 +28,16 @@
 .avatar{
     display: inline-block;
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     overflow: hidden;
     border-radius: 50%;
+    margin-left: 80px;
+
 }
 
 .avatar img{
    height: 100%;
+   object-fit: cover
 
 }

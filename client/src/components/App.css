@@ -181,3 +181,21 @@ img {
     border-radius: 0;
     z-index: 1000;
 }
+
+.offer-title{
+    padding: 20px;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    min-height: 20px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #DFDFDF;
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+.offer-title h2{
+    font-size: 2.5rem;
+    color: #49C5B6
+}
