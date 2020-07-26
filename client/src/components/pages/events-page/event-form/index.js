@@ -115,7 +115,6 @@ class EventForm extends Component {
             <>
                 {this.state.name == undefined ? <h1>cargando</h1> :
                     <main className="main-bg">
-                        <Container>
                             <Form className="white-form" onSubmit={this.handleFormSubmit}>
                                 {this.props.eventToEdit ? <h1>Edit Event</h1> : <h1>Create Event</h1>}
                                 <Form.Group>
@@ -207,7 +206,6 @@ class EventForm extends Component {
                                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                                 <Button variant="dark" type="submit">Submit</Button>
                             </Form>
-                        </Container>
                     </main>
                  
                 }

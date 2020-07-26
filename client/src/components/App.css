@@ -130,7 +130,6 @@ body {
 .white-form {
     padding: 50px 50px;
     background-color: white;
-    margin-bottom: 100px;
 }
 .main-bg {
     background-color: #F4F7F6;
@@ -208,4 +207,12 @@ img {
 .offer-title h2{
     font-size: 2.5rem;
     color: #49C5B6
+}
+.cross-simbol {
+    border: 1px solid #49C5B6;
+    background-color: #49C5B6;
+    color: white;
+    padding:4px 8px 8px;
+    text-align: center;
+
 }
