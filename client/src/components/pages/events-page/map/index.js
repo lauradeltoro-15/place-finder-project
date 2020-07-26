@@ -36,10 +36,11 @@ export class MapContainer extends Component {
     }
 
     render() {
-
+      const {google} = this.props
       return (
         <Map 
             google={this.props.google} 
+            
             zoom={14}
             styles={this.props.mapStyle}
             initialCenter={{lat: 40.416775, lng: -3.703790}}
@@ -48,6 +49,13 @@ export class MapContainer extends Component {
                 <Marker onClick={this.onMarkerClick}
                     key={event._id}
                     id={event._id}
+                    icon={
+                        {
+                        url:"https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png",
+                        anchor: new google.maps.Point(32,32),
+                        scaledSize: new google.maps.Size(32,40)
+                        }
+                    }
                     position={{
                         lat: event.acceptedOffer.local.location.coordinates.lat,
                         lng: event.acceptedOffer.local.location.coordinates.lng
