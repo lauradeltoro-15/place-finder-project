@@ -12,7 +12,7 @@ class UiModal extends Component {
     }
 
     render() {
-        console.log(this.props)
+ 
         return (
             <Modal size="lg" show={this.props.show} onHide={() => this.props.handleModal(false)}>
                 <Modal.Body>

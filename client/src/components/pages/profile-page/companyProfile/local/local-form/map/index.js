@@ -21,7 +21,7 @@ class LocationSearchInput extends Component {
                 this.setState({ address })
                 return getLatLng(results[0])
             })
-            .then(latLng => console.log('Success', latLng))
+            .then(latLng => this.props.handleAddressSelection({ ...latLng,address }))
             .catch(error => console.error('Error', error));
     };
 
@@ -34,12 +34,15 @@ class LocationSearchInput extends Component {
             >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div>
-                        <Form.Control
-                            {...getInputProps({
-                                placeholder: 'Search Places ...',
-                                className: 'location-search-input',
-                            })}
-                        />
+                        <Form.Group>
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                                {...getInputProps({
+                                    placeholder: 'Search your ...',
+                                    className: 'location-search-input',
+                                })}
+                            />
+                        </Form.Group>
                         <div className="autocomplete-dropdown-container">
                             {loading && <div>Loading...</div>}
                             {suggestions.map(suggestion => {

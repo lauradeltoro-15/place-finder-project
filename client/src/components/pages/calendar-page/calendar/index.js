@@ -63,7 +63,6 @@ class Calendar extends Component {
 
     render() {
         const formattedInfo = this.getEventsToRender()
-        console.log(this.props)
         return (
             <>
                 <FullCalendar

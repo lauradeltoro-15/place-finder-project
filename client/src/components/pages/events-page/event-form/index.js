@@ -65,19 +65,14 @@ class EventForm extends Component {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log(response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     enterUsernameStateValue = user => this.setState({ username: user.username })
 
-    handleInputChange = e => {
-        console.log(e.target.value, e.target.name)
-        e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
-            : this.handleCheckbox(e.target)
-    }
+    handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
+    : this.handleCheckbox(e.target)
+    
 
     handleCheckbox = (target) => {
         const stateToChange = [...this.state[target.name]]
@@ -113,7 +108,6 @@ class EventForm extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <>
                 {this.state.name == undefined ? <h1>cargando</h1> :

@@ -22,7 +22,6 @@ class CompanyProfile extends Component {
     isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId
     render() {
         const company = this.props.userDetails.companyDetails
-        console.log(company)
         const socialMedia = company.socialMedia.map(social => <li>{social.name}: <Link to={social.mediaUrl} />{social.mediaUrl}</li>)
         return (
             <>

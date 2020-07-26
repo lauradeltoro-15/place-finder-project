@@ -10,7 +10,6 @@ import AuthForm from './auth-form'
 
 const AuthPage = props => {
     const isSignup = props.location.pathname === "/signup"
-    console.log(isSignup)
     return (
         <main className='auth-container' as="main">
             <Row>

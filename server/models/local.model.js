@@ -37,7 +37,6 @@ const localSchema = new Schema({
         address: {
             type: String,
             required: true,
-            minLength: 8
         },
         coordinates: {
             lat: { type: Number },

@@ -24,11 +24,7 @@ class EventCard extends Component {
         this.eventService
             .deleteEvent(eventId, this.props.loggedInUser._id)
             .then(() => this.props.updateEventList())
-            .catch(err => {
-                console.log(err.response)
-                err.response && this.props.handleToast(true, err.response.data.message)
-            }
-            ) 
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     isUserTheProfileOwner = () => this.props.paramId ? this.props.loggedInUser._id === this.props.paramId : false
@@ -50,10 +46,7 @@ class EventCard extends Component {
     leaveEvent = (eventId, userId) => {
         this.eventService
             .leaveEvent(eventId, userId)
-            .then(response => {
-                console.log("response", response)
-                this.props.updateEventList()
-            })
+            .then(response => this.props.updateEventList())
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     formatDate = date => {
@@ -72,7 +65,6 @@ class EventCard extends Component {
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
-        console.log("estasson las props", this.props)
         const themes = this.props.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)
         return (
             <Col md={4}>

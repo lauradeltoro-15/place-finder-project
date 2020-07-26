@@ -24,10 +24,7 @@ class CalendarPage extends Component {
 
     getAllUserEvents = id => {
         this.eventService.getAllEventsUser(id)
-            .then(response => {
-                console.log(response.data)
-                this.setState({ events: response.data })
-            })
+            .then(response => this.setState({ events: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
@@ -39,7 +36,6 @@ class CalendarPage extends Component {
     }
 
     render() {
-        console.log(this.state.events)
         return (
             <>
                 {(this.state.events || this.state.offers) &&

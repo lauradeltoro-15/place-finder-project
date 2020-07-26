@@ -62,7 +62,6 @@ const updateDetails = (id, body, model) => {
 //edit username and password
 router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const { username, password, avatar } = req.body
-    console.log('el req body que me llega', req.body)
 
     User
         .findById(req.params.id)

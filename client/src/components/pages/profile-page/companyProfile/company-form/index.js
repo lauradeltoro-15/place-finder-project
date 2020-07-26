@@ -37,7 +37,6 @@ class CompanyForm extends Component {
     }
 
     updateStateFromApi = data => {
-        console.log(data)
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
@@ -76,10 +75,7 @@ class CompanyForm extends Component {
         uploadData.append("avatar", e.target.files[0])
 
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log('File upload: ', response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 

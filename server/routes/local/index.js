@@ -34,10 +34,6 @@ const mapLocal = (local, companyId) => {
     })
     return {
         ...local,
-        location: {
-            address: local.location,
-            
-        },
         availability: mapAvailability,
         owner: companyId
     }
@@ -47,7 +43,8 @@ const isFormValidated = (local, res) => {
     return validationHandler.areRequiredFieldsFilled(local, res, "name", "location", "capacity", "localType") &&
     validationHandler.isFieldLongEnough(local.name, res, 2, "name") &&
     validationHandler.isFieldTooLong(local.description, res, 500, "description") &&
-    validationHandler.isFieldValueTooSmall(Number(local.capacity), res, 10, "capacity")
+    validationHandler.isFieldValueTooSmall(Number(local.capacity), res, 10, "capacity") &&
+    validationHandler.isLocationSelected(local.location, res)
 }
 
 //Routes
@@ -74,8 +71,7 @@ router.get("/details/:localId", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/add/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {  
-
+router.post('/add/:id',, isLoggedIn, isTheUserAllowed, (req, res, next) => {  
     isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))

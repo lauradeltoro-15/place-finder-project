@@ -13,9 +13,14 @@ class LocalForm extends Component {
         super(props)
         this.state = {
             name: "",
-            pictures: "",
             description: "",
-            location: "",
+            location: {
+                address: "",
+                coordinates: {
+                    lat: "",
+                    lng: ""
+                }
+            },
             capacity: "",
             localType: "",
             services: [],
@@ -60,7 +65,7 @@ class LocalForm extends Component {
             name: data.name || "",
             pictures: data.pictures || "",
             description: data.description || "",
-            location: data.location.address || "",
+            location: data.location || "",
             localType: data.localType || "",
             capacity: data.capacity || "",
             services: data.services || [],
@@ -71,10 +76,7 @@ class LocalForm extends Component {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log(response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
@@ -118,10 +120,7 @@ class LocalForm extends Component {
     }
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
-            .then(response => {
-                console.log(response)
-                this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
-            })
+            .then(response => this.props.history.push(`/profile/${this.props.loggedInUser._id}`))
             .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message))
     }
@@ -134,7 +133,15 @@ class LocalForm extends Component {
             .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message))
     }
-
+    handleAddressSelection = ({ lat, lng, address }) => {
+        this.setState({location: {
+            address,
+            coordinates: {
+                lat,
+                lng
+            }
+        }})
+    }
     getAvailableForm = () => {
         const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         return weekDays.map(day =>
@@ -196,11 +203,7 @@ class LocalForm extends Component {
                         <Form.Control onChange={this.handleFileUpload} name="avatar" type="file" />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control onChange={this.handleInputChange} value={this.state.location} name="location" type="text" />
-                    </Form.Group>
-                    <Form.Group>
-                        <LocationSearchInput />
+                        <LocationSearchInput handleAddressSelection={this.handleAddressSelection}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Capacity</Form.Label>
