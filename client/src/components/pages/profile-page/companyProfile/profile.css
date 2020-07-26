@@ -40,3 +40,7 @@
 .local-btn{
     margin-bottom: 25px;
 }
+.small-icon {
+    width: 25px; 
+    margin: 0 10px 0 20px;
+}

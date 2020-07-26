@@ -22,6 +22,7 @@ import OfferForm from './pages/events-page/event-details/offers-list/form'
 import HomePage from './pages/home-page'
 import Footer from "./ui/Footer"
 
+
 class App extends Component {
   constructor (){
     super ()

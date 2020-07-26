@@ -32,37 +32,33 @@ const isUserFormValid = (model, body, res) => {
     if (model == Company && !validationHandler.isFieldTooLong(body.description, res, 500, "description")) {
         return false
     }
-    if (model == Company && !validationHandler.isFieldLongEnough(body.address, res, 8, "address")) {
-        return false
-    }  
     return true
 }
 const mapCompany = (modelData) => {
-    return {
+
+    const map =  {
         description: modelData.description || null,
-        phone: modelData.phone || null,
-        location: {
-            address: modelData.address || null
-        },
-        socialMedia: [
-            {name: "instagram", mediaUrl: modelData.instagram || null},
-            {name: "facebook", mediaUrl: modelData.facebook || null},
-            {name: "website", mediaUrl: modelData.website || null}
-        ]      
+        contact: {
+            phone: { value: parseInt(modelData.phone) || null },
+            instagram: { value: modelData.instagram || null },
+            facebook: { value: modelData.facebook || null },
+            website: { value: modelData.website || null }
+        }
     }
+    console.log(map)
+    return map
 }
 
-const updateDetails = (id, body, model) => {
+const updateDetails = (id, body, model, next) => {
     model.findByIdAndUpdate(id, obtainDetailsUpdate(body, model), { new: true })
         .then(response => response)
-        .catch(err => next(err))
+        .catch(err => console.log("este es el error", err))
 }
 
 //Endpoints
 //edit username and password
 router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const { username, password, avatar } = req.body
-    console.log('el req body que me llega', req.body)
 
     User
         .findById(req.params.id)
@@ -78,8 +74,9 @@ router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
         }) 
         .then(user => user.companyDetails ? { user, model: Company, id: user.companyDetails } : {user, model: Person, id: user.personDetails })
         .then(details => {
+            console.log(details)
             if (isUserFormValid(details.model, req.body, res)) {
-                updateDetails(details.id, req.body, details.model)
+                updateDetails(details.id, req.body, details.model, next)
                 return details.user
             }
         })

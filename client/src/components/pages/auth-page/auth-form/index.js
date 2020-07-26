@@ -25,7 +25,6 @@ class AuthForm extends Component {
 
     handleFormSubmit = e => {
         const authMethod = this.props.location.pathname === "/signup" ? "signup" : "login"
-       
         e.preventDefault()
         this.authService[authMethod](this.state)
             .then(response => {

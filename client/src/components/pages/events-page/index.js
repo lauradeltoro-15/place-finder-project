@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import EventList from "./event-list/"
 
+import SpinnerContainer from "../../ui/Spinner"
+
 import Map from './map'
 import "./main-page-event.css"
 
@@ -42,7 +44,7 @@ class EventPage extends Component {
         return (
             <>
                 {
-                    !this.state.events ? <h1>Cargando</h1> :
+                    !this.state.events ? <SpinnerContainer/> :
                         <main className="main-bg" style={{ height: this.state.height }}>
                             <Container className='event-page-container'>
                                 {/* {Aquí la searchbar TO-DO}  */}
@@ -65,7 +67,6 @@ class EventPage extends Component {
                         </main>
                 }
             </>
-
         )
     }
 }

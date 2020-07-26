@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/esm/Row'
 import Col from 'react-bootstrap/esm/Col'
 
+import SpinnerContainer from "../../../../ui/Spinner"
 
 class profilePerson extends Component {
 
@@ -68,34 +69,38 @@ class profilePerson extends Component {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log(response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     getInterests = () => {
         const interest = ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness']
-        return interest.map(interest =>
-            <Form.Group>
-                <label>{interest}</label>
-                <input onChange={this.handleInputChange} checked={this.state.interest.includes(interest)} value={interest} name="services" type="checkbox" />
-            </Form.Group>)
+        return <><h5 className='int-title'>Your interests</h5>
+
+                <div className='check'>
+                    {interest.map(interest =>
+                    <div className='interests'>
+                    <label>{interest}</label>
+                    <input onChange={this.handleInputChange} checked={this.state.interests.includes(interest)} value={interest} name="interests" type="checkbox" />
+                    </div>   
+                )}
+                </div>
+        </>
     }
 
     render () {
 
-        const interest = ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness']
+  
 
         return (
             <>
-            { this.state.interests == undefined ? <h1>cargando</h1>:
+            { this.state.interests == undefined ? <SpinnerContainer/>:
 
 
                 <Row className='person-form-row'>
+
                     <Col  className='person-form-col' md={{span: 6, offset: 3}}>
-                    <h1 className='color-text'>Edit your information</h1>
+                    <h1 className='color-text'>Edit your profile</h1>
                         <Form onSubmit={this.handleFormSubmit}>
 
                             <Form.Group>
@@ -118,35 +123,33 @@ class profilePerson extends Component {
                                 <Form.Control onChange={this.handleInputChange} value={this.state.age} name="age" type="number" />
                             </Form.Group>
 
-                            <Form.Group>
+                            <div className='check'>
+                                <div>
                                 <label>Male</label>
                                 <input onChange={this.handleInputChange} checked={this.state.genre === "Male"} value="Male" name="genre" type="radio" />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Female</Form.Label>
+                                </div>
+                                
+                          
+                                <div>
+                                <label>Female</label>
                                 <input onChange={this.handleInputChange} checked={this.state.genre === "Female"} value="Female" name="genre" type="radio" />
-                            </Form.Group>
+                                </div>
+                                
+                            </div>
+                                
 
                             <Form.Group>
-                            {interest.map(interest => 
-                                <>
-                                <Form.Label>{interest}</Form.Label>
-                                <input onChange={this.handleInputChange} checked={this.state.interests.includes({interest})} value={interest} name="interests" type="checkbox" />
-                                </>
-                            )}
+                            {this.getInterests()}
                             </Form.Group>
                            
 
                         
                                 {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
-                        <Button variant="dark" type="submit">Submit</Button>
+                        <Button className='submit-btn' variant="dark" type="submit">Submit</Button>
                     </Form>
                     </Col>
                 </Row>
                 
-                
-                
-  
             }
             </>
         )

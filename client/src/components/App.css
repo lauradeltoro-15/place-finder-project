@@ -130,7 +130,6 @@ body {
 .white-form {
     padding: 50px 50px;
     background-color: white;
-    margin-bottom: 100px;
 }
 .main-bg {
     background-color: #F4F7F6;
@@ -209,7 +208,21 @@ img {
     font-size: 2.5rem;
     color: #49C5B6
 }
+.cross-simbol {
+    border: 1px solid #49C5B6;
+    background-color: #49C5B6;
+    color: white;
+    padding:4px 8px 8px;
+    text-align: center;
 
+}
+.spinner-container {
+    min-height: 100vh;
+    background-color:#F4F7F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .row-card-container {
     margin-top: 1.5rem;
 }
@@ -232,8 +245,36 @@ img {
 
 .person-form-col{
     padding: 4rem;
-    margin: 3rem auto;
+    margin: 6rem auto;
     background-color: white;
+
+    
+}
+
+.check{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.check label {
+    margin-right: 0.05rem;
+
+}
+
+.interests{
+    margin-top: 1rem
+}
+
+.int-title{
+    text-align: center;
+    margin-top: 2rem
+}
+
+.submit-btn{
+    display: block;
+    
 }
 
 

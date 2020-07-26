@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -10,7 +9,6 @@ import AuthForm from './auth-form'
 
 const AuthPage = props => {
     const isSignup = props.location.pathname === "/signup"
-    console.log(isSignup)
     return (
         <main className='auth-container' as="main">
             <Row className='row-login-container'>

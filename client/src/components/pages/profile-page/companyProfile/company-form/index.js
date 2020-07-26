@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import SpinnerContainer from "../../../../ui/Spinner"
+
 class CompanyForm extends Component {
     constructor() {
         super()
@@ -19,7 +21,6 @@ class CompanyForm extends Component {
             website: "",
             username: "",
             password: "",
-            username: "",
             avatar: '',
             errorMsg: '',
         }
@@ -37,7 +38,6 @@ class CompanyForm extends Component {
     }
 
     updateStateFromApi = data => {
-        console.log(data)
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
@@ -76,17 +76,14 @@ class CompanyForm extends Component {
         uploadData.append("avatar", e.target.files[0])
 
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log('File upload: ', response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {
         return (
             <>
-            { this.state.username.length < 1 ? <h1>Cargando</h1> :
+                {this.state.username.length < 1 ? <SpinnerContainer/> :
                 <Container as="section">
                     <Form onSubmit={this.handleFormSubmit}>
                         <Form.Group>
@@ -108,10 +105,6 @@ class CompanyForm extends Component {
                         <Form.Group>
                             <Form.Label>Description</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control onChange={this.handleInputChange} value={this.state.address} name="address" type="text" />
                         </Form.Group>
                         <h5>Social Media</h5>
                         <Form.Group>

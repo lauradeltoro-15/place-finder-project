@@ -32,8 +32,10 @@ class Calendar extends Component {
     }
 
     handleEventSubmit = () => {
+        debugger
         this.handleFormModal(false)
-        this.updateEvents()
+        debugger
+        this.props.updateEvents()
     }
     
     obtainDateInFormat = date => {
@@ -59,15 +61,14 @@ class Calendar extends Component {
         this.props.events.length > 0 && this.props.events.map(event => {
             return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) }})
         :
-        this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
+        this.props.offers && this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
 
     render() {
         const formattedInfo = this.getEventsToRender()
-        console.log(this.props)
         return (
             <>
                 <FullCalendar
-                    businessHours={this.props.offers && this.props.offers.length > 0 ? this.props.offers[0].local.availability : ""}
+                    businessHours={ this.props.local && this.props.local.availability ? this.props.local.availability : ""}
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     selectable={true}
