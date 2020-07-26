@@ -235,15 +235,15 @@ img {
 
 
 
-.person-form-row{
+.profile-form-row{
     background-color: #F4F7F6;
 }
 
-.person-form-row h1{
+.profile-form-row h1{
     text-align: center
 }
 
-.person-form-col{
+.profile-form-col{
     padding: 4rem;
     margin: 6rem auto;
     background-color: white;

@@ -97,9 +97,9 @@ class profilePerson extends Component {
             { this.state.interests == undefined ? <SpinnerContainer/>:
 
 
-                <Row className='person-form-row'>
+                <Row className='profile-form-row'>
 
-                    <Col  className='person-form-col' md={{span: 6, offset: 3}}>
+                    <Col  className='profile-form-col' md={{span: 6, offset: 3}}>
                     <h1 className='color-text'>Edit your profile</h1>
                         <Form onSubmit={this.handleFormSubmit}>
 
