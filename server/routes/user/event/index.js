@@ -20,8 +20,8 @@ const isLoggedIn = (req, res, next) =>  req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
 const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later :" })
 
-const isFormValidated = (event, res) => {
-    return validationHandler.isNameUnique(Event, event.name, res)
+const isFormValidated = (event, res, eventId) => {
+    return validationHandler.isNameUnique(Event, event.name, res, eventId)
         .then(isNameUnique => {
             return isNameUnique &&
                 validationHandler.areRequiredFieldsFilled(event, res, "name", "description", "startTime", "endTime", "city") &&
@@ -184,7 +184,7 @@ router.get('/event/name/:eventName', (req, res, next) => {
 
 //update event
 router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-    isFormValidated(req.body, res)
+    isFormValidated(req.body, res, req.params.eventId)
         .then(validated => validated && 
             Event
                 .findByIdAndUpdate(req.params.eventId, req.body, { new: true })

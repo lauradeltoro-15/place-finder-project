@@ -71,7 +71,7 @@ router.get("/details/:localId", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/add/:id',, isLoggedIn, isTheUserAllowed, (req, res, next) => {  
+router.post('/add/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {  
     isFormValidated(req.body.newLocal, res) &&
     Local.create(mapLocal(req.body.newLocal, req.body.id))
         .then(newLocal => res.json(newLocal))
