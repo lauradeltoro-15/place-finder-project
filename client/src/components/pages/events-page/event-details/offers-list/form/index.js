@@ -14,7 +14,7 @@ class OfferForm extends Component {
         this.state = {
             price: undefined,
             local: undefined,
-            event: this.props.match.params.eventId,
+            event: this.props.event,
             description: '',
             userLocals: [],
         }
@@ -32,12 +32,12 @@ class OfferForm extends Component {
         e.preventDefault()
         this.offerService
             .createOffer(stateCopy, this.props.loggedInUser._id)
-            .then(() => this.props.history.push('/events'))
+            .then(() => this.props.handleEventSubmit())
             .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
                 : this.props.handleToast(true, err.response.data.message)) 
 
     }
-
+    
     setUserLocals = (userId) => {
         this.localService
             .getUserLocals(userId)
@@ -51,38 +51,27 @@ class OfferForm extends Component {
             <>
                 <Container>
                     <Form onSubmit={this.handleFormSubmit}>
-
                         <Form.Label><h1>New offer</h1></Form.Label>
                         <Form.Group>
                             <Form.Label>Price</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.price} name="price" type="number" />
                         </Form.Group>
-
                         <Form.Group>
                             <Form.Label>Local</Form.Label>
-
                             {!this.state.userLocals ? <h2>cargando</h2> : this.state.userLocals.map(local =>
-
                                 <Form.Group>
                                     <label>{local.name}</label>
                                     <input onChange={this.handleInputChange} value={local._id} name="local" type="radio" />
                                 </Form.Group>
-
                             )}
-
                         </Form.Group>
-
                         <Form.Group>
                             <Form.Label>Description</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
                         </Form.Group>
-
-
                         {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
-
                         <Button variant="dark" type="submit">Submit</Button>
                     </Form>
-
                 </Container>
             </>
         )

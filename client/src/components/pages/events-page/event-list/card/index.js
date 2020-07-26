@@ -3,9 +3,12 @@ import { Link, Redirect } from 'react-router-dom'
 import Col from 'react-bootstrap/esm/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+
 import EventService from '../../../../../services/EventService'
+
 import UiModal from "../../../../ui/Modal"
 import EventForm from "../../event-form"
+import OfferForm from "../../event-details/offers-list/form"
 
 import React, { Component } from 'react'
 
@@ -89,11 +92,8 @@ class EventCard extends Component {
                         <Card.Text></Card.Text>
                         <Card.Text><span className="color-text-black">City:</span> {this.props.city}   |   <span className="color-text-black">Local:</span> {this.props.typeOfLocal}</Card.Text>
                         <Card.Text> {this.formatDate(this.props.startTime)} from {this.formatHour(this.props.startTime)} to {this.formatHour(this.props.endTime)}</Card.Text>
-
                         <Card.Text>{themes}</Card.Text>
                         <hr></hr>
-
-
                         {this.props.loggedInUser && this.props.loggedInUser._id === this.props.owner &&
                             <>
                                 <Button variant="danger" onClick={() => this.deleteEvent(this.props._id) && <Redirect to='/profile' />}>Delete</Button>
@@ -106,11 +106,13 @@ class EventCard extends Component {
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">More</Button></Link>
 
                         {this.props.loggedInUser && this.props.loggedInUser.companyDetails && !this.props.acceptedOffer &&
-                            <Link to={`/user/${this.state.ownerId}/event/${this.props._id}/offer/add`} ><Button variant="primary">Add an offer</Button></Link>
+                            <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
                         }
                         {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
-                            <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
+                            {this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} /> : <OfferForm event={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
+                            }
+
                         </UiModal>
                     </Card.Body>
                 </Card>

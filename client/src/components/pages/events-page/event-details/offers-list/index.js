@@ -2,13 +2,10 @@ import React, { Component } from 'react'
 
 import OfferService from "../../../../../services/OfferService"
 
-import OfferCard from './card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { Link } from 'react-router-dom'
 
-
-
+import OfferCard from './card'
 
 class OfferList extends Component {
     constructor() {
