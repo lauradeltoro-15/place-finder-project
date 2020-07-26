@@ -4,7 +4,11 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 
+import './card.css'
 import OfferService from '../../../../../../services/OfferService'
+import Row from 'react-bootstrap/esm/Row'
+import { Link } from 'react-router-dom'
+
 
 class OfferCard extends Component {
     constructor (props){
@@ -29,14 +33,44 @@ class OfferCard extends Component {
     }
 
     render () {
- 
+
+       
         return (
-            <>           
-                <Col md={4}>
-                    <Card style={{ width: '18rem' }}>
+            <>  
+                
+                <Row className='offer-row'>
+                    <Col md={5} className='offer-Card'>
+                    <div className='avatar'>
+                        <img src={this.props.offer.local.avatar}></img>
+                    </div>
+                        
+                        <span>{this.props.offer.local.name}</span>
+
+
+                    </Col>
+
+                    <Col md={5} className='offer-det'>
+                    <span className="color-text-black">Price per person: </span>{this.props.offer.price}
+                    <br></br>
+                    <span className="color-text-black">Comments: </span> {this.props.offer.description}
+                        <br></br>
+                        {!this.props.loggedInUser.companyDetails && this.props.event.owner == this.props.loggedInUser._id && this.props.offer.status == 'pending' &&
+                                <><Button className='offer-btn' variant="primary" onClick={() => this.acceptOffer(this.props.offer._id, this.props.event._id)}>Accept Offer</Button>
+                                <Link to={`/user/${this.props.offer.local.owner._id}/local/${this.props.offer.local._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
+                                </>
+                            }
+                            {this.props.loggedInUser._id === this.props.offer.local.owner._id &&
+                                <Button className='offer-btn' variant="danger" onClick={() => this.deleteOffer(this.props.offer._id)}>Delete Offer</Button>
+                        }
+                    </Col>
+                </Row>
+                
+                
+            
+                    {/* <Card style={{ width: '18rem' }}>
                         <Card.Img variant="top" src="holder.js/100px180" />
                         <Card.Body>
-                            <Card.Title><h2>{this.props.offer.local.name}</h2></Card.Title>
+                            <Card.Title><h2></h2></Card.Title>
                             <Card.Subtitle>Owner: {this.props.offer.local.owner.username} </Card.Subtitle>
                             <Card.Text>Price per person: {this.props.offer.price}</Card.Text>
                             <Card.Text>Status: {this.props.offer.status}</Card.Text>
@@ -55,8 +89,8 @@ class OfferCard extends Component {
                             }
                             
                         </Card.Body>
-                    </Card>
-                </Col>
+                    </Card> */}
+             
             </>
         )
     }
