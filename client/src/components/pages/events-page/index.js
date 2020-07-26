@@ -48,8 +48,10 @@ class EventPage extends Component {
                                 {/* {Aquí la searchbar TO-DO}  */}
                                 <div>
                                     <Row className="maps">
-                                        <Col id="map-container">
-                                            <Map events={this.state.confirmedEvents}/>
+                                        <Col className="map-container">
+                                        <center>
+                                                <Map events={this.state.confirmedEvents}/>
+                                        </center>
                                         </Col>
                                     
                                     </Row>

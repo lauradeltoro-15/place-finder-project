@@ -60,15 +60,15 @@ export class MapContainer extends Component {
             )}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
                 {this.state.activeEvent.owner ? 
-                <div className='maps-card'>
+                <article className='maps-card'>
 
-                    <div><img src={this.state.activeEvent.avatar}></img></div>
+                    <article><img src={this.state.activeEvent.avatar}></img></article>
                     <h4>{this.state.activeEvent.name}</h4>
                     <span className="color-text-black">Creator:</span>  {this.state.activeEvent.owner.username}  |   <span className="color-text-black">Participants:</span>  {this.state.activeEvent.participants.length}<br></br><br></br>
                     <span className="color-text-black">City:</span>  {this.state.activeEvent.city}  |  <span className="color-text-black">Local:</span>  {this.state.activeEvent.acceptedOffer.local.name}
                     {/* <Link to={`/user/${this.state.activeEvent.owner._id}/events/${this.state.activeEvent._id}`} ><Button variant="primary">More</Button></Link> */}
                     
-                </div> 
+                </article> 
                 : <p>cargando</p>
                 }
                
