@@ -88,6 +88,14 @@ router.get('/getAllEvents', (req, res, next) => {
 router.get('/getAllFutureEvents', (req, res, next) => {
     Event
         .find({ startTime: { "$gt": new Date()}})
+        .populate({
+            path:'acceptedOffer',
+            populate:{
+                path:"local",
+                populate: 'owner'
+            }
+        })
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => next(err))
 
