@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+
+
 class CompanyForm extends Component {
     constructor() {
         super()
@@ -104,10 +106,6 @@ class CompanyForm extends Component {
                         <Form.Group>
                             <Form.Label>Description</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control onChange={this.handleInputChange} value={this.state.address} name="address" type="text" />
                         </Form.Group>
                         <h5>Social Media</h5>
                         <Form.Group>

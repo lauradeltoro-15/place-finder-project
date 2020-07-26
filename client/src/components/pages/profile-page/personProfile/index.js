@@ -67,7 +67,7 @@ class Profile extends Component {
                                 <p>You haven't created any events yet, why don't you <Link className="color-text" to={`/user/${this.props.loggedInUser._id}/event/create`} >try</Link>?</p>
                             }
                             <h3>Joined events</h3>
-                            {this.filterEvents("owner").length > 0 ?
+                            {this.filterEvents("participant").length > 0 ?
                                 <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("participant")} paramId={this.props.paramId} /> :
                                 <p style={{ marginBottom: "100px" }}>You haven't joined any future event. <Link className="color-text" to={`/events`} >Find yours</Link>!</p>
                             }

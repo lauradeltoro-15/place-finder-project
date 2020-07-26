@@ -3,8 +3,6 @@ import UserService from "../../../../services/UserService"
 
 import './profile.css'
 
-import instagram from './instagram-bosquejado.svg'
-
 import Button from 'react-bootstrap/Button'
 
 import LocalList from "./local/local-list"
@@ -22,23 +20,46 @@ class CompanyProfile extends Component {
     isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId
     render() {
         const company = this.props.userDetails.companyDetails
-        const socialMedia = company.socialMedia.map(social => <li>{social.name}: <Link to={social.mediaUrl} />{social.mediaUrl}</li>)
+        console.log(company)
         return (
             <>
             <section className="general-info">
 
                 <article className='desc-cont'>
-                    <span className = 'color-text'>Description : </span>
-                    <span>{company.description}</span>
+                    <p className='color-text'>Description : </p>
+                        {company.description ? <p>{company.description}</p> : <p>You don't have a description yet. Complete your profile and let us know about <Link className="color-text" to={`/profile/edit/company/${this.props.loggedInUser._id}`}>your company</Link>.</p>}    
+                    
                 </article>
 
                 <hr></hr>
                 <article className='desc-cont'>
-                    <span className='color-text'>Contact</span>
-                    <ul className='contact'>
-                        <li>phone: {company.phone}</li>
-                        {socialMedia}
-                    </ul>
+                        <p className='color-text'>Contact</p>
+                        {company.contact.phone.value && 
+                            <>
+                            <img alt="phone-icon" className="small-icon" src={company.contact.phone.image} />
+                            <span>{company.contact.phone.value}</span>
+                            </>
+                        }
+                        {company.contact.instagram.value &&
+                            <>
+                                <img alt="instagram-icon" className="small-icon" src={company.contact.instagram.image} />
+                                <span>{company.contact.instagram.value}</span>
+                            </>
+                        }
+                        {company.contact.facebook.value &&
+                            <>
+                                <img alt="instagram-icon" className="small-icon" src={company.contact.facebook.image} />
+                                <span>{company.contact.facebook.value}</span>
+                            </>
+                        }
+                        {company.contact.instagram.value &&
+                            <>
+                                <img alt="instagram-icon" className="small-icon" src={company.contact.website.image} />
+                                <span>{company.contact.website.value}</span>
+                            </>
+                        }
+                        {!company.contact.instagram.value && !company.contact.phone.value && !company.contact.facebook.value && !company.contact.website.value && <p>You don't have any contact information, <Link className="color-text" to={`/profile/edit/company/${this.props.loggedInUser._id}`}>fill it!</Link></p>}
+                        
                 </article>
 
                 <hr></hr>

@@ -6,6 +6,8 @@ import LocalCard from "./local-card"
 
 import LocalService from "../../../../../../services/LocalService"
 
+import { Link } from "react-router-dom"
+
 class LocalList extends Component {
     constructor (){
         super ()
@@ -29,6 +31,7 @@ class LocalList extends Component {
                         {this.state.locals.map(local => <LocalCard handleToast={this.props.handleToast} key={local._id} loggedInUser={this.props.loggedInUser} paramId={this.props.user} {...local} handleToast={this.props.handleToast} updateLocalList={this.updateLocalList}/>)}  
                     </Row>
                 }
+                {this.state.locals && this.state.locals.length === 0 && <p style={{ marginBottom: "100px" }}>You don't have any locals created. <Link className="color-text" to={`/user/${this.props.user}/local/add`}>Start adding yours!</Link></p>}
             </>
         )
     }

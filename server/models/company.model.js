@@ -6,30 +6,44 @@ const companySchema = new Schema({
         type: String,
         maxlength: 500
     },
-    phone: {
-        type: Number,
-    },
-    location: {
-        address: {
-            type: String,
-            minLength: 8
-        },
-        coordinates: {
-            lat: { type: Number },
-            lng: { type: Number }
-        },
-    },
-    socialMedia: {
-        type: [{
-            name: {
-                type: String,
-                enum: ["instagram", "facebook", "website"]
+    contact: {
+        phone: {
+            value: {
+                type: Number
             },
-            mediaUrl: {
-                type: String
+            image: {
+                type: String,
+                default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595763527/avatar/fainder-phone.png.png",
             }
-        }]
-    },
+        },
+        instagram: {
+            value: {
+                type: String
+            },
+            image: {
+                type: String,
+                default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595763469/avatar/fainder-instagram.png.png",
+            }
+        },
+        facebook: {
+            value: {
+                type: String
+            },
+            image: {
+                type: String,
+                default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595763497/avatar/fainder-facebook.png.png",
+            }
+        },
+        website: {
+            value: {
+                type: String
+            },
+            image: {
+                type: String,
+                default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595763513/avatar/fainder-website.png.png",
+            }
+        },
+    }
 }, {
     timestamps: true
 })
