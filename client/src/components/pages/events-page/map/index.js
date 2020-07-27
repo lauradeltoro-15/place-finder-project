@@ -45,26 +45,23 @@ export class MapContainer extends Component {
             styles={this.props.mapStyle}
             initialCenter={{lat: 40.416775, lng: -3.703790}}
             >
-            {this.props.events.map(event => 
+              {this.props.markers.map(marker => 
                 <Marker onClick={this.onMarkerClick}
-                    key={event._id}
-                    id={event._id}
+                    key={marker._id}
+                    id={marker._id}
                     icon={
                         {
                         url:"https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png",
                         anchor: new google.maps.Point(32,32),
-                        scaledSize: new google.maps.Size(32,40)
+                        scaledSize: new google.maps.Size(40,48)
                         }
                     }
                     position={{
-                        lat: event.acceptedOffer.local.location.coordinates.lat,
-                        lng: event.acceptedOffer.local.location.coordinates.lng
+                        lat: marker.acceptedOffer.local.location.coordinates.lat,
+                        lng: marker.acceptedOffer.local.location.coordinates.lng
                     }}
-                    // icon={{
-                    //     url: './marker-1.png',
-                        
-                    // }}
-                    name={event.acceptedOffer.local.name} />
+
+                    name={marker.acceptedOffer.local.name} />
             )}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
                 {this.state.activeEvent.owner ? 
@@ -74,7 +71,6 @@ export class MapContainer extends Component {
                     <h4>{this.state.activeEvent.name}</h4>
                     <span className="color-text-black">Creator:</span>  {this.state.activeEvent.owner.username}  |   <span className="color-text-black">Participants:</span>  {this.state.activeEvent.participants.length}<br></br><br></br>
                     <span className="color-text-black">City:</span>  {this.state.activeEvent.city}  |  <span className="color-text-black">Local:</span>  {this.state.activeEvent.acceptedOffer.local.name}
-                    {/* <Link to={`/user/${this.state.activeEvent.owner._id}/events/${this.state.activeEvent._id}`} ><Button variant="primary">More</Button></Link> */}
                     
                 </article> 
                 : <p>cargando</p>

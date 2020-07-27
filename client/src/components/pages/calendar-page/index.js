@@ -50,7 +50,7 @@ class CalendarPage extends Component {
             <>
                 {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container as="main">
-                        <Calendar events={this.state.events} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
+                        <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
                     </Container> : <SpinnerContainer />
                  
                 }

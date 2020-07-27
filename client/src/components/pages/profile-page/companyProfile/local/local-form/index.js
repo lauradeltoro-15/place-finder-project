@@ -125,8 +125,9 @@ class LocalForm extends Component {
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
             .then(() => this.props.handleFormSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
 
     setErrorMessage = errorMsg => this.setState({ errorMsg })
@@ -134,8 +135,9 @@ class LocalForm extends Component {
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.handleFormSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
     handleAddressSelection = ({ lat, lng, address }) => {
         this.setState({location: {

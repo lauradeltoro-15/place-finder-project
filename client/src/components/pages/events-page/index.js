@@ -52,7 +52,7 @@ class EventPage extends Component {
                                     <Row className="maps">
                                         <Col className="map-container">
                                         <center>
-                                                <Map events={this.state.confirmedEvents}/>
+                                                <Map markers={this.state.confirmedEvents}/>
                                         </center>
                                         </Col>
                                     

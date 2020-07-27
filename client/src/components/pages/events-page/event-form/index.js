@@ -98,14 +98,18 @@ class EventForm extends Component {
                 this.props.handleEventSubmit()
                 debugger
             })
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
 
     editEvent = (id, newEvent) => {
         this.eventService
             .editEvent(id, newEvent, this.props.loggedInUser._id)
             .then(() => this.props.handleEventSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {

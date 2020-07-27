@@ -26,18 +26,16 @@ class Calendar extends Component {
     handleFormModal = (status, e) => !this.props.events ? null :
         e ? this.setState({ showModal: status, calendarDate: `${e.dateStr}T00:00` }) :
             this.setState({ showModal: status })
-    
+
     handleEventDetailModal = status => {
-        this.setState({ showModal: status , calendarDate: undefined})
+        this.setState({ showModal: status, calendarDate: undefined })
     }
 
     handleEventSubmit = () => {
-        debugger
         this.handleFormModal(false)
-        debugger
         this.props.updateEvents()
     }
-    
+
     obtainDateInFormat = date => {
         const newDate = new Date(date)
         const hh = String(newDate.getHours()).padStart(2, '0')
@@ -54,21 +52,23 @@ class Calendar extends Component {
                 this.handleEventDetailModal(true)
                 this.setState({ eventDetail: response.data })
             })
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     getEventsToRender = () => this.props.events ?
         this.props.events.length > 0 && this.props.events.map(event => {
-            return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) }})
+            return { title: event.name, start: this.obtainDateInFormat(event.startTime), end: this.obtainDateInFormat(event.endTime) }
+        })
         :
         this.props.offers && this.props.offers.length > 0 && this.props.offers.map(offer => { return { title: offer.event.name, start: this.obtainDateInFormat(offer.event.startTime), end: this.obtainDateInFormat(offer.event.endTime) } })
 
     render() {
         const formattedInfo = this.getEventsToRender()
+        console.log(this.props)
         return (
             <>
                 <FullCalendar
-                    businessHours={ this.props.local && this.props.local.availability ? this.props.local.availability : ""}
+                    businessHours={this.props.local && this.props.local.availability ? this.props.local.availability : ""}
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     selectable={true}
@@ -79,9 +79,9 @@ class Calendar extends Component {
                 />
                 <Modal handleModal={this.handleFormModal} handleEventDetailModal={this.handleEventDetailModal} show={this.state.showModal} >
                     {this.state.calendarDate ?
-                        <EventForm calendarDate={this.state.calendarDate} {...this.props} loggedInUser={this.props.loggedInUser} handleEventSubmit={this.handleEventSubmit} /> : 
-                        this.state.eventDetail ? 
-                        <EventCard {...this.state.eventDetail} /> : null}       
+                        <EventForm calendarDate={this.state.calendarDate} {...this.props} loggedInUser={this.props.loggedInUser} handleEventSubmit={this.handleEventSubmit} /> :
+                        this.state.eventDetail ?
+                            <EventCard {...this.state.eventDetail} loggedInUser={this.props.loggedInUser} /> : null}
                 </Modal>
             </>
         )
