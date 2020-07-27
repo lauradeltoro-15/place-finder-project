@@ -4,6 +4,7 @@ import EventService from '../../../services/EventService'
 import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+
 import EventList from "./event-list/"
 
 import SpinnerContainer from "../../ui/Spinner"
@@ -27,25 +28,28 @@ class EventPage extends Component {
     componentDidMount = () => this.updateEventList()
    
     filterEvents = filters => {
-        console.log(filters)
         let eventsCopy = [...this.state.events]
         eventsCopy = filters.name ? eventsCopy.filter(event => event.name.toLowerCase().includes(filters.name.toLowerCase())) : eventsCopy
+        eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy
+        
         eventsCopy = filters.minParticipants ? eventsCopy.filter(event => event.participants.length >= filters.minParticipants) : eventsCopy
         eventsCopy = filters.maxParticipants ? eventsCopy.filter(event => event.participants.length <= filters.maxParticipants) : eventsCopy
-        eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy
-        eventsCopy = filters.acceptedOffer ? eventsCopy.filter(event => event.acceptedOffer) : eventsCopy
         eventsCopy = filters.minPrice ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.price >= filters.minPrice) : eventsCopy
         eventsCopy = filters.maxPrice ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.price <= filters.maxPrice) : eventsCopy
         eventsCopy = filters.minCapacity ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.capacity >= filters.minCapacity) : eventsCopy
         eventsCopy = filters.maxCapacity ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.capacity <= filters.maxCapacity) : eventsCopy
+        
+        eventsCopy = filters.acceptedOffer ? eventsCopy.filter(event => event.acceptedOffer) : eventsCopy
+
         eventsCopy = filters.localType ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.localType <= filters.localType) : eventsCopy
+        
         eventsCopy = filters.minDay && filters.maxDay ? eventsCopy.filter(event =>
             this.obtainDateInFormat(event.startTime) >= this.obtainDateInFormat(filters.minDay) && 
             this.obtainDateInFormat(event.startTime) <= this.obtainDateInFormat(filters.maxDay)
         ) : eventsCopy
+        
         eventsCopy = filters.theme.length > 0 ? eventsCopy.filter(event => filters.theme.every(filter => event.theme.includes(filter))) : eventsCopy
-        console.log(eventsCopy, "events copy")
-        this.setState({ filteredEvents: eventsCopy })
+        this.setState({ filteredEvents: eventsCopy, confirmedEvents: eventsCopy.filter(event => event.acceptedOffer) })
     }
 
     obtainDateInFormat = date => {
@@ -67,7 +71,6 @@ class EventPage extends Component {
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
-
     render() {
         
         return (
@@ -75,8 +78,8 @@ class EventPage extends Component {
                 {
                     !this.state.filteredEvents ? <SpinnerContainer/> :
                         <main className="main-bg" style={{ height: this.state.height }}>
+                            <SearchBar filterEvents={this.filterEvents} />
                             <Container className='event-page-container'>
-                                <SearchBar filterEvents={this.filterEvents} />
                                 <div>
                                     <Row className="maps">
                                         <Col className="map-container">

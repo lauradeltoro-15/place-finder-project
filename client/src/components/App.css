@@ -154,6 +154,8 @@ body {
     background-color: #F4F7F6;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .big-title {
     width: 100%;
