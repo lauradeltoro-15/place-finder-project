@@ -293,15 +293,14 @@ img {
 }
 
 .local-form-col{
-    background-color: #F4F7F6;
-    padding: 10%
+    padding: 10%;
+    background-color: white
 
 }
 
 .local-form-col h1{
     text-align:center
 }
-
 
 
 .checked label{

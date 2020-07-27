@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import './map.css'
+import '../../../../../events-page/map/map.css'
 import Button from 'react-bootstrap/Button'
 import { Link, Redirect } from 'react-router-dom'
+import './map.css'
 
-
-import googleMapStyles from "./maps-style"
+import googleMapStyles from '../../../../../events-page/map/maps-style'
 
 
 export class MapContainer extends Component {
@@ -15,16 +15,18 @@ export class MapContainer extends Component {
         this.state = {
             showingInfoWindow: false,
             activeMarker: {},
-            activeEvent: {}
+            activeLocal: {}
         }
     }
 
     onMarkerClick = (props, marker, e) => {
+
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true,
-            activeEvent: this.props.markers.filter(event => event._id == marker.id)[0]
+            activeLocal: this.props.local
         })
+
         
     };
 
@@ -40,15 +42,15 @@ export class MapContainer extends Component {
       return (
         <Map 
             google={this.props.google} 
-            
+            className='map-cont'
             zoom={14}
             styles={this.props.mapStyle}
-            initialCenter={{lat: 40.416775, lng: -3.703790}}
+            initialCenter={{lat: this.props.local.location.coordinates.lat, lng: this.props.local.location.coordinates.lng}}
             >
-              {this.props.markers.map(marker => 
+              
                 <Marker onClick={this.onMarkerClick}
-                    key={marker._id}
-                    id={marker._id}
+                    key={this.props.local._id}
+                    id={this.props.local._id}
                     icon={
                         {
                         url:"https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png",
@@ -57,25 +59,23 @@ export class MapContainer extends Component {
                         }
                     }
                     position={{
-                        lat: marker.acceptedOffer.local.location.coordinates.lat,
-                        lng: marker.acceptedOffer.local.location.coordinates.lng
+                        lat: this.props.local.location.coordinates.lat,
+                        lng: this.props.local.location.coordinates.lng
                     }}
 
-                    name={marker.acceptedOffer.local.name} />
-            )}
+                    name={this.props.local.name} />
+            
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
-                {this.state.activeEvent.owner ? 
+                
                 <article className='maps-card'>
 
-                    <article><img src={this.state.activeEvent.avatar}></img></article>
-                    <h4>{this.state.activeEvent.name}</h4>
-                    <span className="color-text-black">Creator:</span>  {this.state.activeEvent.owner.username}  |   <span className="color-text-black">Participants:</span>  {this.state.activeEvent.participants.length}<br></br><br></br>
-                    <span className="color-text-black">City:</span>  {this.state.activeEvent.city}  |  <span className="color-text-black">Local:</span>  {this.state.activeEvent.acceptedOffer.local.name}
+                    <article><img src={this.props.local.avatar}></img></article>
+                    <h4>{this.props.local.name}</h4>
+                    <span className="color-text-black">Owner:</span>  {this.props.local.owner.username}  |   <span className="color-text-black">Capacity:</span>  {this.props.local.capacity}<br></br><br></br>
+                    <span className="color-text-black">Address:</span>  {this.props.local.location.address}  |  <span className="color-text-black">Description:</span>  {this.props.local.description}
                     
                 </article> 
-                : <p>cargando</p>
-                }
-               
+            
             </InfoWindow>
         </Map>
       );
