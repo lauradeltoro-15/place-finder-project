@@ -36,13 +36,15 @@ class EventPage extends Component {
         eventsCopy = filters.acceptedOffer ? eventsCopy.filter(event => event.acceptedOffer) : eventsCopy
         eventsCopy = filters.minPrice ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.price >= filters.minPrice) : eventsCopy
         eventsCopy = filters.maxPrice ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.price <= filters.maxPrice) : eventsCopy
+        eventsCopy = filters.minCapacity ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.capacity >= filters.minCapacity) : eventsCopy
+        eventsCopy = filters.maxCapacity ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.capacity <= filters.maxCapacity) : eventsCopy
+        eventsCopy = filters.localType ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.localType <= filters.localType) : eventsCopy
         eventsCopy = filters.minDay && filters.maxDay ? eventsCopy.filter(event =>
             this.obtainDateInFormat(event.startTime) >= this.obtainDateInFormat(filters.minDay) && 
             this.obtainDateInFormat(event.startTime) <= this.obtainDateInFormat(filters.maxDay)
         ) : eventsCopy
         eventsCopy = filters.theme.length > 0 ? eventsCopy.filter(event => filters.theme.every(filter => event.theme.includes(filter))) : eventsCopy
         console.log(eventsCopy, "events copy")
-
         this.setState({ filteredEvents: eventsCopy })
     }
 

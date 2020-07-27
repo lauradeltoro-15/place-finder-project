@@ -14,17 +14,21 @@ class SearchBar extends Component {
             maxParticipants: null,
             minPrice: null,
             maxPrice: null, 
+            minCapacity: null,
+            maxCapacity: null, 
             acceptedOffer: false,
             theme: [],
             owner: "",
             startTime: undefined,
             activeTimeLabel: undefined,
+            localType: "",
         }
     }
     handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value })
         this.props.filterEvents({ ...this.state, [e.target.name]: e.target.value })
     }
+
     handleDateInputsChange = e => {
         e.target.value === "today" && this.sendOneDayValue(e, 0)
         e.target.value === "tomorrow" && this.sendOneDayValue(e, 1)
@@ -32,12 +36,14 @@ class SearchBar extends Component {
         e.target.value === "week" && this.sendWeekValue(e)
         this.setState({activeTimeLabel: e.target.value})
     }
+
     sendOneDayValue = (e, offset) => {
         let day = new Date()
         day = day.setDate(day.getDate() + offset)
         this.setState({ startTime: e.target.value })
         this.props.filterEvents({ ...this.state, minDay: day, maxDay: day })
     }
+
     sendWeekendValue = e => {
         let weekendDays = []
         for (let i = 0; i <= 6; i++) {
@@ -48,6 +54,7 @@ class SearchBar extends Component {
         this.setState({ startTime: e.target.value })
         this.props.filterEvents({ ...this.state, minDay: weekendDays[0], maxDay: weekendDays[1] })
     }
+
     sendWeekValue = e => {
         let weekDays = []
         for (let i = 0; i <= 6; i++) {
@@ -64,6 +71,7 @@ class SearchBar extends Component {
         e.target.classList.toggle("active")
         this.props.filterEvents({ ...this.state, [name]: !this.state[name] })
     }
+
     handleTags = e => {
         const stateToChange = [...this.state[e.target.name]]
         const index = stateToChange.indexOf(e.target.value)
@@ -71,10 +79,10 @@ class SearchBar extends Component {
         this.setState({ [e.target.name]: stateToChange })     
         this.props.filterEvents({ ...this.state, [e.target.name]: stateToChange })
     }
+
     getThemes = () => {
         const theme = ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness']
         return <><h5 className='int-title'>Theme</h5>
-
             <div className='check'>
                 {theme.map(theme =>
                     <Form.Group className='theme'>
@@ -85,6 +93,7 @@ class SearchBar extends Component {
             </div>
         </>
     }
+    
     render () {
         return (
             <Form>
@@ -97,20 +106,28 @@ class SearchBar extends Component {
                     <Form.Control onChange={this.handleInputChange} value={this.state.owner} name="owner" type="text" />
                 </Form.Group>    
                 <Form.Group>
-                    <Form.Label className="color-text-black">Max Participants</Form.Label>
+                    <Form.Label className="color-text-black">Max participants</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.maxParticipants} name="maxParticipants" type="number" />
                 </Form.Group>     
                 <Form.Group>
-                    <Form.Label className="color-text-black">Min Participants</Form.Label>
+                    <Form.Label className="color-text-black">Min participants</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.minParticipants} name="minParticipants" type="number" />
                 </Form.Group> 
                 <Form.Group>
-                    <Form.Label className="color-text-black">Min Price</Form.Label>
+                    <Form.Label className="color-text-black">Min price</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.minPrice} name="minPrice" type="number" />
                 </Form.Group> 
                 <Form.Group>
-                    <Form.Label className="color-text-black">Max Price</Form.Label>
+                    <Form.Label className="color-text-black">Max price</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.maxPrice} name="maxPrice" type="number" />
+                </Form.Group> 
+                <Form.Group>
+                    <Form.Label className="color-text-black">Min local capacity</Form.Label>
+                    <Form.Control onChange={this.handleInputChange} value={this.state.minCapacity} name="minCapacity" type="number" />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label className="color-text-black">Max local capacity</Form.Label>
+                    <Form.Control onChange={this.handleInputChange} value={this.state.maxCapacity} name="maxCapacity" type="number" />
                 </Form.Group> 
                 <Button onClick={e => this.toggleBooleanInputs(e, "acceptedOffer")} className="btn btn-black">Accepted Offer</Button>
                 <Form.Group>
@@ -122,6 +139,17 @@ class SearchBar extends Component {
                     <Form.Control className="hidden-radio" onChange={this.handleDateInputsChange} id="weekend" value="weekend" checked={this.state.startTime === "weekend"} name="startTime" type="radio" />
                     <Form.Label className={`btn btn-black btn-primary ${this.state.activeTimeLabel === "week" && "active"}`} htmlFor="week">This week</Form.Label>
                     <Form.Control className="hidden-radio" onChange={this.handleDateInputsChange} id="week" value="week" checked={this.state.startTime === "week"} name="startTime" type="radio" />
+                </Form.Group>
+                <Form.Group>
+                    <h5 className='int-title'>Local type</h5>
+                    <Form.Label className={`btn btn-black btn-primary ${this.state.localType === "restaurant" && "active"}`} htmlFor="restaurant">Restaurant</Form.Label>
+                    <Form.Control className="hidden-radio" onChange={this.handleInputChange} id="restaurant" value="restaurant" checked={this.state.localType === "restaurant"} name="localType" type="radio" />
+                    <Form.Label className={`btn btn-black btn-primary ${this.state.localType === "gym" && "active"}`} htmlFor="gym">Gym</Form.Label>
+                    <Form.Control className="hidden-radio" onChange={this.handleInputChange} id="gym" value="gym" checked={this.state.localType === "gym"} name="localType" type="radio" />
+                    <Form.Label className={`btn btn-black btn-primary ${this.state.localType === "hotel" && "active"}`} htmlFor="hotel">Hotel</Form.Label>
+                    <Form.Control className="hidden-radio" onChange={this.handleInputChange} id="hotel" value="hotel" checked={this.state.localType === "hotel"} name="localType" type="radio" />
+                    <Form.Label className={`btn btn-black btn-primary ${this.state.localType === "others" && "active"}`} htmlFor="others">Others</Form.Label>
+                    <Form.Control className="hidden-radio" onChange={this.handleInputChange} id="others" value="others" checked={this.state.localType === "others"} name="localType" type="radio" />
                 </Form.Group>
                 <Form.Group>
                     {this.getThemes()}
