@@ -13,7 +13,6 @@ class  EventList extends Component {
     constructor (props){
         super (props)
         this.state = {
-            events: this.props.events,
             offset: 0,
             elements: undefined,
             perPage: 9,
@@ -26,17 +25,18 @@ class  EventList extends Component {
     componentDidMount = () => this.setEvents()
 
     setEvents = () => {
-        this.setState({pageCount: Math.ceil(this.state.events.length/this.state.perPage)}, ()=>this.setElementsForCurrentPage())
+        this.setState({pageCount: Math.ceil(this.props.events.length/this.state.perPage)}, () => this.setElementsForCurrentPage())
     }
 
-
     setElementsForCurrentPage = () => {
-        let elements = this.state.events.slice(this.state.offset, this.state.offset + this.state.perPage).map((event, i) => {
+        let elements = this.props.events.slice(this.state.offset, this.state.offset + this.state.perPage).map((event, i) => {
             return (
                 <Col md={4}><EventCard key={i} {...this.props} updateEventList={this.props.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event} /></Col>)}
             )
         this.setState({elements: elements})
     }
+    componentDidUpdate = prevProps => this.props.events !== prevProps.events && this.setEvents()
+            
 
     handlePageClick = events => {
         const selectedPage = events.selected;
@@ -45,6 +45,7 @@ class  EventList extends Component {
     }
     
     render() {
+
         let paginationElement
         if(this.state.pageCount > 1) paginationElement = (
             <ReactPaginate

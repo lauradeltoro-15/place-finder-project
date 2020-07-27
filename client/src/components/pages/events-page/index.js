@@ -107,7 +107,7 @@ class EventPage extends Component {
     }
 
     render() {
-
+        console.log(this.state.filteredEvents, "Filtered events")
         return (
             <>
                 {
