@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-import Map from "../../../../events-page/map"
+import Map from "./map/index"
 
 import SpinnerContainer from "../../../../../ui/Spinner"
 
@@ -61,10 +61,10 @@ class LocalDetail extends Component {
                             </Col>
                         </Row>
                         <Row className="maps">
-                            <Col className="map-container">
-                                <center>
-                                    {/* <Map markers={this.state.confirmedEvents} /> */}
-                                </center>
+                            <Col md={{span: 8, offset: 2}} className="map-container">
+                                
+                                    <Map local={this.state.local} /> 
+                            
                             </Col>
                         </Row>
                         <Row>
