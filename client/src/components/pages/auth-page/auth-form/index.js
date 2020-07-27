@@ -34,8 +34,10 @@ class AuthForm extends Component {
                 response.data && this.props.handleToast(true, message)
                 this.props.history.push('/')
             })
-            .catch(err => err.response && err.response.status === 400 || err.response.status === 401 ? this.setState({ errorMsg: err.response.data.message })
-                    : this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => !err.response ? null :
+                (err.response.status === 400 || err.response.status === 401) ?
+                    this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
 
     render() {

@@ -56,9 +56,9 @@ class LocalForm extends Component {
     componentDidMount = () => {
         const id = this.props.localToEdit
         id &&
-        this.localService.getOneLocal(id)
-            .then(response => this.updateLocalState(response.data))
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+            this.localService.getOneLocal(id)
+                .then(response => this.updateLocalState(response.data))
+                .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
     updateLocalState = data => {
         this.setState({
@@ -80,7 +80,7 @@ class LocalForm extends Component {
                 console.log(response.data.secure_url)
                 this.setState({ avatar: response.data.secure_url })
             })
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
@@ -125,8 +125,9 @@ class LocalForm extends Component {
     createNewLocal = (id, state) => {
         this.localService.createNewLocal(id, state)
             .then(() => this.props.handleFormSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message))
     }
 
     setErrorMessage = errorMsg => this.setState({ errorMsg })
@@ -134,17 +135,20 @@ class LocalForm extends Component {
     editLocal = (id, state, localId) => {
         this.localService.editLocal(id, state, localId)
             .then(() => this.props.handleFormSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message))
     }
     handleAddressSelection = ({ lat, lng, address }) => {
-        this.setState({location: {
-            address,
-            coordinates: {
-                lat,
-                lng
+        this.setState({
+            location: {
+                address,
+                coordinates: {
+                    lat,
+                    lng
+                }
             }
-        }})
+        })
     }
     getAvailableForm = () => {
         const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -193,7 +197,7 @@ class LocalForm extends Component {
 
         return (
             <Container className='local-form-col' as="section">
-                <h1 className='color-text'>New local</h1>
+                <h1 className='color-text'>{this.props.localToEdit ? "Edit local" : "New local"}</h1>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
@@ -208,7 +212,7 @@ class LocalForm extends Component {
                         <Form.Control onChange={this.handleFileUpload} name="avatar" type="file" />
                     </Form.Group>
                     <Form.Group>
-                        <LocationSearchInput handleAddressSelection={this.handleAddressSelection}/>
+                        <LocationSearchInput handleAddressSelection={this.handleAddressSelection} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Capacity</Form.Label>

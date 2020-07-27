@@ -35,8 +35,9 @@ class OfferForm extends Component {
         this.offerService
             .createOffer(stateCopy, this.props.loggedInUser._id)
             .then(() => this.props.handleEventSubmit())
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400  ? this.setState({ errorMsg: err.response.data.message }) :
+                this.props.handleToast(true, err.response.data.message)) 
     }
 
     setUserLocals = (userId) => {

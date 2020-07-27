@@ -8,6 +8,8 @@ import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import Map from "../../../../events-page/map"
+
 import SpinnerContainer from "../../../../../ui/Spinner"
 
 class LocalDetail extends Component {
@@ -56,6 +58,13 @@ class LocalDetail extends Component {
                             </Col>
                             <Col className='img-local' md={{ span: 5, offset: 1 }}>
                                 <img src={this.state.local.avatar} />
+                            </Col>
+                        </Row>
+                        <Row className="maps">
+                            <Col className="map-container">
+                                <center>
+                                    {/* <Map markers={this.state.confirmedEvents} /> */}
+                                </center>
                             </Col>
                         </Row>
                         <Row>

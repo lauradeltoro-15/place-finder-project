@@ -67,8 +67,9 @@ class CompanyForm extends Component {
                 this.props.setTheUser(response.data)
                 this.props.history.push(`/profile/${this.props.loggedInUser._id}`)
             })
-            .catch(err => err.response && err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message })
-                : this.props.handleToast(true, err.response.data.message))
+            .catch(err => !err.response ? null :
+                err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
+                    this.props.handleToast(true, err.response.data.message)) 
     }
 
     enterUsernameStateValue = user => this.setState({ username: user.username })
