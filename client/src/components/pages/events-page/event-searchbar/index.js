@@ -12,6 +12,8 @@ class SearchBar extends Component {
             name: "",
             minParticipants: null,
             maxParticipants: null,
+            minPrice: null,
+            maxPrice: null, 
             acceptedOffer: false,
             theme: [],
             owner: "",
@@ -41,7 +43,6 @@ class SearchBar extends Component {
         for (let i = 0; i <= 6; i++) {
             let day = new Date()
             day = new Date(day.setDate(day.getDate() + i))
-
             if(day.getDay() === 0 || day.getDay() === 6) weekendDays.push(day) 
         }
         this.setState({ startTime: e.target.value })
@@ -65,9 +66,7 @@ class SearchBar extends Component {
     }
     handleTags = e => {
         const stateToChange = [...this.state[e.target.name]]
-        console.log(stateToChange)
         const index = stateToChange.indexOf(e.target.value)
-        console.log(index, e.target.value)
         index === -1 ? stateToChange.push(e.target.value) : stateToChange.splice(index, 1)
         this.setState({ [e.target.name]: stateToChange })     
         this.props.filterEvents({ ...this.state, [e.target.name]: stateToChange })
@@ -92,7 +91,11 @@ class SearchBar extends Component {
                 <Form.Group>
                     <Form.Label className="color-text-black">Name</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
-                </Form.Group>     
+                </Form.Group>  
+                <Form.Group>
+                    <Form.Label className="color-text-black">Creator</Form.Label>
+                    <Form.Control onChange={this.handleInputChange} value={this.state.owner} name="owner" type="text" />
+                </Form.Group>    
                 <Form.Group>
                     <Form.Label className="color-text-black">Max Participants</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.maxParticipants} name="maxParticipants" type="number" />
@@ -100,6 +103,14 @@ class SearchBar extends Component {
                 <Form.Group>
                     <Form.Label className="color-text-black">Min Participants</Form.Label>
                     <Form.Control onChange={this.handleInputChange} value={this.state.minParticipants} name="minParticipants" type="number" />
+                </Form.Group> 
+                <Form.Group>
+                    <Form.Label className="color-text-black">Min Price</Form.Label>
+                    <Form.Control onChange={this.handleInputChange} value={this.state.minPrice} name="minPrice" type="number" />
+                </Form.Group> 
+                <Form.Group>
+                    <Form.Label className="color-text-black">Max Price</Form.Label>
+                    <Form.Control onChange={this.handleInputChange} value={this.state.maxPrice} name="maxPrice" type="number" />
                 </Form.Group> 
                 <Button onClick={e => this.toggleBooleanInputs(e, "acceptedOffer")} className="btn btn-black">Accepted Offer</Button>
                 <Form.Group>
