@@ -25,6 +25,25 @@ body {
     color: #8EC3BD;
 }
 
+.btn.btn-black.btn.btn-primary {
+    background-color:transparent;
+    border-color: #666;
+    border-radius: 18px / 50%;
+    padding: .22rem .75rem;
+    margin: 5px 10px; 
+    font-size: 0.9em;
+    transition: all 0.6s;
+    color: #666;
+}
+.btn.btn-black.active.btn-primary, .btn.btn-black.btn.btn-primary:hover {
+    background-color:#666;
+    border-color: #666;
+   
+    transition: all 0.6s;
+    color: #fff;
+}
+
+
 .btn.btn-white {
     background-color:transparent;
     border-color: white;

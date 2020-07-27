@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import EventList from '../../../pages/events-page/event-list'
 import EventService from "../../../../services/EventService"
+import UserService from "../../../../services/UserService"
 import UiModal from "../../../ui/Modal" 
 import EventForm from "../../events-page/event-form"
 
@@ -18,17 +19,23 @@ class Profile extends Component {
         this.state = {
             events: undefined,
             showModal: false,
+            owner: undefined
         }
         this.eventService = new EventService()
+        this.UserService = new UserService()
     }
-    componentDidMount = () => this.updateEventList()
+    componentDidMount = () => this.updateEventInfo()
 
-    updateEventList = () => this.getProfileUserEvents(this.props.paramId)
+    updateEventInfo = () => {
+        this.getProfileUserEvents(this.props.paramId)
+        this.getUserDetails(this.props.loggedInUser._id)
+    }
+
     
     handleFormModal = status => this.setState({ showModal: status })
     handleEventSubmit = () => {
         this.handleFormModal(false)
-        this.updateEventList()
+        this.updateEventInfo()
     }
 
     getProfileUserEvents = userId => {
@@ -45,8 +52,13 @@ class Profile extends Component {
         this.state.events.filter(event => event.owner === this.props.paramId) :
         this.state.events.filter(event => event.participants.includes(this.props.paramId) && event.owner !== this.props.paramId) 
     
+    
+    getUserDetails = id => {
+        this.UserService.getUserDetails(id)
+            .then(response => this.setState({ owner: response.data }))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+    }
     render() {
-      
         return (
             <>
                 {!this.state.events ? <SpinnerContainer/> :
@@ -71,12 +83,12 @@ class Profile extends Component {
                             </article>
                             <h3>Created events</h3>
                             {this.filterEvents("owner").length > 0 ? 
-                                <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("owner")} paramId={this.props.paramId} /> :
+                                <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventInfo} {...this.props} events={this.filterEvents("owner")} owner={this.props.userDetails} paramId={this.props.paramId} /> :
                                 <p>You haven't created any events yet, why don't you <Link className="color-text" to={`/user/${this.props.loggedInUser._id}/event/create`} >try</Link>?</p>
                             }
                             <h3>Joined events</h3>
                             {this.filterEvents("participant").length > 0 ?
-                                <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventList} {...this.props} events={this.filterEvents("participant")} paramId={this.props.paramId} /> :
+                                <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventInfo} {...this.props} events={this.filterEvents("participant")} paramId={this.props.paramId} /> :
                                 <p style={{ marginBottom: "100px" }}>You haven't joined any future event. <Link className="color-text" to={`/events`} >Find yours</Link>!</p>
                             }
                         </article>

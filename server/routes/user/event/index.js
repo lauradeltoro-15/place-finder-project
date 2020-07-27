@@ -88,7 +88,7 @@ router.get('/getAllEvents', (req, res, next) => {
 //get all future events
 router.get('/getAllFutureEvents', (req, res, next) => {
     Event
-        .find({ startTime: { "$gt": new Date()}})
+        .find({ startTime: { "$gte": new Date()}})
         .populate({
             path:'acceptedOffer',
             populate:{

@@ -94,9 +94,7 @@ class EventForm extends Component {
         this.eventService
             .createEvent(this.state, this.props.loggedInUser._id)
             .then(() => {
-                debugger
                 this.props.handleEventSubmit()
-                debugger
             })
             .catch(err => !err.response ? null :
                 err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
