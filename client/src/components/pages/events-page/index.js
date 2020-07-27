@@ -30,9 +30,9 @@ class EventPage extends Component {
 
     componentDidMount = () => {
         this.updateEventList()
-
-   this.getGeoLocation()
-    
+        this.getGeoLocation()
+        
+        
     }
     
 
@@ -51,25 +51,35 @@ class EventPage extends Component {
     getGeoLocation = () => {
 
         navigator.geolocation.getCurrentPosition(
-                position => {
-                    console.log('entro', position.coords);
+                position => 
                     this.setState(prevState => ({
                         currentLatLng: {
                             ...prevState.currentLatLng,
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
-                        }
-                    }))
-                }
+                        }}))
             )
-  
     }
+
+    getKilometros = function(lat1,lon1,lat2,lon2)
+    {
+        console.log('coordenadas a evaluar', lat1,lon1,lat2,lon2)
+    const rad = (deg)  => deg* (Math.PI/180)
+    const R = 6378.137; //Radio de la tierra en km
+    const dLat = rad( lat2 - lat1 );
+    const dLong = rad( lon2 - lon1 );
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const d = R * c;
+    return d*1000 //distance in m!
+    }
+
 
 
     render() {
 
-        console.log('el estado', this.state)
-        
+        this.state.confirmedEvents && console.log(`la distancia entre los puntos es de: `, this.getKilometros(40.1, 3.7, 40.100002, 3.695)) 
+       
         return (
             <>
                 {

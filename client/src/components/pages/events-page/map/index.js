@@ -23,7 +23,7 @@ export class MapContainer extends Component {
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true,
-            activeEvent: this.props.events.filter(event => event._id == marker.id)[0]
+            activeEvent: this.props.markers.filter(event => event._id == marker.id)[0]
         })
         
     };
