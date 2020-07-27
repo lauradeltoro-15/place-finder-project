@@ -8,6 +8,7 @@ import EventList from "./event-list/"
 
 import SpinnerContainer from "../../ui/Spinner"
 
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import Map from './map'
 import "./main-page-event.css"
 
@@ -18,14 +19,21 @@ class EventPage extends Component {
         super(props)
         this.state = {
             events: undefined,
-            confirmedEvents: undefined
+            confirmedEvents: undefined,
+            currentLatLng: {
+                lat: undefined,
+                lng: undefined
+              },
         }
         this.eventService = new EventService()
     }
 
-    componentDidMount = () => this.updateEventList()
+    componentDidMount = () => {
+        this.updateEventList()
 
+   this.getGeoLocation()
     
+    }
     
 
     updateEventList = () => this.getAllFutureEvents()
@@ -39,7 +47,28 @@ class EventPage extends Component {
     }
 
 
+
+    getGeoLocation = () => {
+
+        navigator.geolocation.getCurrentPosition(
+                position => {
+                    console.log('entro', position.coords);
+                    this.setState(prevState => ({
+                        currentLatLng: {
+                            ...prevState.currentLatLng,
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        }
+                    }))
+                }
+            )
+  
+    }
+
+
     render() {
+
+        console.log('el estado', this.state)
         
         return (
             <>

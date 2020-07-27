@@ -60,10 +60,6 @@ export class MapContainer extends Component {
                         lat: event.acceptedOffer.local.location.coordinates.lat,
                         lng: event.acceptedOffer.local.location.coordinates.lng
                     }}
-                    // icon={{
-                    //     url: './marker-1.png',
-                        
-                    // }}
                     name={event.acceptedOffer.local.name} />
             )}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onClose={this.onInfoWindowClose}>
