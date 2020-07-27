@@ -100,7 +100,7 @@ class EventDetails extends Component {
                                     }
                                 </Col>
                             </Row>
-                            <OffersList loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast} />
+                            <OffersList className='offer-list' loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast} />
                         </Container>
                     </>
                 }

@@ -52,9 +52,9 @@ class OfferForm extends Component {
         return (
             <>
                 {!this.state.userLocals ? null :
-                    <Container>
+                    <Container className='local-form-col'>
                         <Form onSubmit={this.handleFormSubmit}>
-                            <Form.Label><h1>New offer</h1></Form.Label>
+                            <h1 className='color-text'>New offer</h1>
                             <Form.Group>
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.price} name="price" type="number" />
@@ -62,10 +62,12 @@ class OfferForm extends Component {
                             <Form.Group>
                                 <Form.Label>Local</Form.Label>
                                 {this.state.userLocals && this.state.userLocals.map(local =>
-                                    <Form.Group>
-                                        <label>{local.name}</label>
-                                        <input onChange={this.handleInputChange} value={local._id} name="local" type="radio" />
-                                    </Form.Group>
+                                    <div className='checked'>
+                                    <label>{local.name}</label>
+                                    <input onChange={this.handleInputChange} value={local._id} name="local" type="radio" />
+                                    </div>
+                                        
+                                    
                                 )}
                             </Form.Group>
                             <Form.Group>

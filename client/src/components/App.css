@@ -227,3 +227,77 @@ img {
 .row-login-container{
     margin: 0px !important;
 }
+
+/* form styles */
+
+
+
+.profile-form-row{
+    background-color: #F4F7F6;
+}
+
+.profile-form-row h1{
+    text-align: center
+}
+
+.profile-form-col{
+    padding: 4rem;
+    margin: 6rem auto;
+    background-color: white;
+}
+
+.check{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.check label {
+    margin-right: 0.05rem;
+
+}
+
+.interests{
+    margin-top: 1rem
+}
+
+.int-title{
+    text-align: center;
+    margin-top: 2rem
+}
+
+.submit-btn{
+    display: block;
+}
+
+.local-form-col{
+    background-color: #F4F7F6;
+    padding: 10%
+
+}
+
+.local-form-col h1{
+    text-align:center
+}
+
+
+
+.checked label{
+    margin-right: 0.2rem
+}
+
+
+.profile-container{
+    margin-top: 7rem;
+    margin-bottom: 7rem
+}
+
+.sub-profile-container{
+    margin-top: 2rem
+}
+
+.profile-image{
+    margin-top: 2rem
+}
+

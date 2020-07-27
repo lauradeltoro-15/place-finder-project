@@ -46,7 +46,7 @@ class Profile extends Component {
         this.state.events.filter(event => event.participants.includes(this.props.paramId) && event.owner !== this.props.paramId) 
     
     render() {
-        console.log(this.props)
+      
         return (
             <>
                 {!this.state.events ? <SpinnerContainer/> :

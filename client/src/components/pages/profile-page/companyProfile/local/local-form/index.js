@@ -166,26 +166,26 @@ class LocalForm extends Component {
     getLocalTypes = () => {
         const localTypes = ["restaurant", "gym", "hotel", "others"]
         return localTypes.map(local =>
-            <Form.Group>
+            <div className='checked'>
                 <label>{local}</label>
                 <input onChange={this.handleInputChange} checked={this.state.localType === local} value={local} name="localType" type="radio" />
-            </Form.Group>)
+            </div>)
     }
     getServices = () => {
         const services = ["staff", "food-service", "music", "others",]
         return services.map(service =>
-            <Form.Group>
+            <div className='checked'>
                 <label>{service}</label>
                 <input onChange={this.handleInputChange} checked={this.state.services.includes(service)} value={service} name="services" type="checkbox" />
-            </Form.Group>)
+            </div>)
     }
     getFacilities = () => {
         const facilities = ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", "audio equipment", "sport equipment", "conference room", "dance floor", "stage", "pit", "video equipment", "others"]
-        return facilities.map(facility =>
-            <Form.Group>
+        return <div className='checked'>{facilities.map(facility =>
+            <div >
                 <label>{facility}</label>
                 <input onChange={this.handleInputChange} checked={this.state.facilities.includes(facility)} value={facility} name="facilities" type="checkbox" />
-            </Form.Group>)
+            </div>)}</div>
     }
     render() {
         const availableForm = this.getAvailableForm()
@@ -194,7 +194,8 @@ class LocalForm extends Component {
         const facilities = this.getFacilities()
 
         return (
-            <Container as="section">
+            <Container className='local-form-col' as="section">
+                <h1 className='color-text'>New local</h1>
                 <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
@@ -216,16 +217,16 @@ class LocalForm extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.capacity} name="capacity" type="number" />
                     </Form.Group>
                     <hr></hr>
-                    <Form.Label><h2>LocalType</h2></Form.Label>
+                    <Form.Label><h5>LocalType</h5></Form.Label>
                     {localTypes}
                     <hr></hr>
-                    <Form.Label><h2>Services</h2></Form.Label>
+                    <Form.Label><h5>Services</h5></Form.Label>
                     {services}
                     <hr></hr>
-                    <Form.Label><h2>Facilities</h2></Form.Label>
+                    <Form.Label><h5>Facilities</h5></Form.Label>
                     {facilities}
                     <hr></hr>
-                    <Form.Label><h2>Availability</h2></Form.Label>
+                    <Form.Label><h5>Availability</h5></Form.Label>
                     {availableForm}
                     <hr></hr>
                     {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}

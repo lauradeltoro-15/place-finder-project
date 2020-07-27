@@ -6,6 +6,8 @@ import FileService from '../../../../../services/FilesService'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/esm/Row'
+import Col from 'react-bootstrap/esm/Col'
 
 import SpinnerContainer from "../../../../ui/Spinner"
 
@@ -85,7 +87,9 @@ class CompanyForm extends Component {
         return (
             <>
                 {this.state.username.length < 1 ? <SpinnerContainer/> :
-                <Container as="section">
+                <Row className='profile-form-row'>
+                    <Col className='profile-form-col' md={{span: 6, offset: 3}}>
+                    <h1 className='color-text'>Edit your profile</h1>
                     <Form onSubmit={this.handleFormSubmit}>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
@@ -107,7 +111,7 @@ class CompanyForm extends Component {
                             <Form.Label>Description</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
                         </Form.Group>
-                        <h5>Social Media</h5>
+                        <h5 className='int-title'>Social Media</h5>
                         <Form.Group>
                             <Form.Label>Instagram</Form.Label>
                             <Form.Control onChange={this.handleInputChange} value={this.state.instagram} name="instagram" type="text" />
@@ -123,7 +127,9 @@ class CompanyForm extends Component {
                             {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
                         <Button variant="dark" type="submit">Submit</Button>
                     </Form>
-                </Container>
+                    </Col>
+                </Row>
+                
             }
             </>
         )
