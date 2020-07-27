@@ -76,9 +76,19 @@ class EventDetails extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={{ span: 10, offset: 1 }} className='local'>
+
+                                    <Col md={{ span: 5, offset: 1 }} className='participants'>
+                                        {this.state.eventDetails.participants.map(user => 
+                                        <div>
+                                            <img src={user.avatar}></img>
+                                        </div>
+                                        
+                                        )} 
+
+                                    </Col>
+                                
                                     {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local ?
-                                        <>
+                                        <Col md={{ span: 5}} className='local'>
                                             <h2 className='color-text'>Local: {this.state.eventDetails.acceptedOffer.local.name}</h2>
                                             <br></br>
                                             <span className="color-text-black">Owner: </span> {this.state.eventDetails.acceptedOffer.local.owner.username}  |
@@ -94,11 +104,16 @@ class EventDetails extends Component {
                                             <br></br>
                                             <br></br>
                                             <Link to={`/user/${this.state.eventDetails.acceptedOffer.local.owner._id}/local/${this.state.eventDetails.acceptedOffer.local._id}`} ><Button className="btn btn-yellow" type="submit">See more</Button></Link>
-                                        </>
+                                        </Col>
+
                                         :
+                                        
+                                        <Col md={{span: 5}}>
                                         <h2>This event has no local confirmed yet</h2>
+                                        </Col>
+                                       
                                     }
-                                </Col>
+                                
                             </Row>
                             <OffersList className='offer-list' loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast} />
                         </Container>

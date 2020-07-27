@@ -154,7 +154,7 @@ class LocalForm extends Component {
         const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         return weekDays.map(day =>
             <Form.Group>
-                <Form.Label>{day}</Form.Label>
+                <Form.Label>{day}</Form.Label> &nbsp;
                 <input onChange={this.handleAvailability} checked={this.state.availability[day].available} value="1" name={`${day}`} type="checkbox" />
                 {this.state.availability[day].available &&
                     <>
@@ -167,24 +167,28 @@ class LocalForm extends Component {
     }
     getLocalTypes = () => {
         const localTypes = ["restaurant", "gym", "hotel", "others"]
-        return localTypes.map(local =>
-            <div className='checked'>
-                <label>{local}</label>
-                <input onChange={this.handleInputChange} checked={this.state.localType === local} value={local} name="localType" type="radio" />
-            </div>)
+        return <div className='checked check'>{localTypes.map(local =>
+            
+                <div className='theme'>
+                    <label>{local}</label>
+                    <input onChange={this.handleInputChange} checked={this.state.localType === local} value={local} name="localType" type="radio" />
+                </div>
+            )}</div>
     }
     getServices = () => {
         const services = ["staff", "food-service", "music", "others",]
-        return services.map(service =>
-            <div className='checked'>
-                <label>{service}</label>
-                <input onChange={this.handleInputChange} checked={this.state.services.includes(service)} value={service} name="services" type="checkbox" />
-            </div>)
+        return <div className='checked check'>{services.map(service =>
+            
+                <div className='theme'>
+                    <label>{service}</label>
+                    <input onChange={this.handleInputChange} checked={this.state.services.includes(service)} value={service} name="services" type="checkbox" />
+                </div>
+            )}</div>
     }
     getFacilities = () => {
         const facilities = ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", "audio equipment", "sport equipment", "conference room", "dance floor", "stage", "pit", "video equipment", "others"]
-        return <div className='checked'>{facilities.map(facility =>
-            <div >
+        return <div className='checked check'>{facilities.map(facility =>
+            <div className='theme'>
                 <label>{facility}</label>
                 <input onChange={this.handleInputChange} checked={this.state.facilities.includes(facility)} value={facility} name="facilities" type="checkbox" />
             </div>)}</div>
@@ -196,9 +200,9 @@ class LocalForm extends Component {
         const facilities = this.getFacilities()
 
         return (
-            <Container className='local-form-col' as="section">
+            <Container as="section">
+                <Form className='local-form-col' onSubmit={this.handleFormSubmit}>
                 <h1 className='color-text'>{this.props.localToEdit ? "Edit local" : "New local"}</h1>
-                <Form onSubmit={this.handleFormSubmit}>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
@@ -219,20 +223,30 @@ class LocalForm extends Component {
                         <Form.Control onChange={this.handleInputChange} value={this.state.capacity} name="capacity" type="number" />
                     </Form.Group>
                     <hr></hr>
-                    <Form.Label><h5>LocalType</h5></Form.Label>
-                    {localTypes}
+                    <Form.Group>
+                        <h5 className='int-title'>LocalType</h5>
+                        {localTypes}
+                    </Form.Group>
                     <hr></hr>
-                    <Form.Label><h5>Services</h5></Form.Label>
-                    {services}
+                    <Form.Group>
+                        <h5 className='int-title'>Services</h5>
+                        {services}
+                    </Form.Group>
                     <hr></hr>
-                    <Form.Label><h5>Facilities</h5></Form.Label>
-                    {facilities}
+                    <Form.Group>
+                        <h5 className='int-title'>Facilities</h5>
+                        {facilities}
+                    </Form.Group>
                     <hr></hr>
-                    <Form.Label><h5>Availability</h5></Form.Label>
-                    {availableForm}
+                    <Form.Group>
+                        <h5 className='int-title'>Availability</h5>
+                        {availableForm}
+                    </Form.Group>
                     <hr></hr>
                     {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
-                    <Button variant="dark" type="submit">Submit</Button>
+                    <div className="button-center">
+                        <Button variant="dark" type="submit">Submit</Button>
+                    </div>
                 </Form>
             </Container>
         )

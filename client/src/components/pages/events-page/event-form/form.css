@@ -16,3 +16,17 @@
 .check input {
     margin: 10px 30px 10px 8px;
 }
+
+.button-center  {
+    text-align: center;
+}
+
+.local-form-col-new-event {
+    padding: 5%;
+    background-color: white
+
+}
+
+.local-form-col-new-event h1{
+    text-align:center
+}

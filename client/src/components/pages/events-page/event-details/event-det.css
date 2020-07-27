@@ -96,3 +96,24 @@ box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
     margin-top: 6%;
     margin-bottom: 5%
 }
+
+.participants{
+    display: flex;
+    justify-content: center;
+}
+.participans div{
+    height: 5rem;
+    width: 5rem;
+
+}
+
+.participants div img{
+    
+    margin: 0.3rem;
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+ 
+ }
