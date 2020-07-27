@@ -41,7 +41,7 @@ class LocalCard extends Component {
         return (
             <Col md={4}>
                 <Card className="local-card">
-                    <Card.Img variant="top" src={this.props.avatar} />
+                    <Card.Img className='local-avatar' variant="top" src={this.props.avatar} />
                     <Card.Body>
                         <Card.Title className="local color-text">{this.props.name}</Card.Title>
                         <Card.Text><span className="color-text-black">Description: </span> {this.props.description}</Card.Text>

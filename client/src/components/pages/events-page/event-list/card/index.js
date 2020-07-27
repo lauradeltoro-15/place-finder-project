@@ -9,6 +9,7 @@ import EventService from '../../../../../services/EventService'
 import UiModal from "../../../../ui/Modal"
 import EventForm from "../../event-form"
 import OfferForm from "../../event-details/offers-list/form"
+import './card.css'
 
 import React, { Component } from 'react'
 
@@ -86,7 +87,7 @@ class EventCard extends Component {
         return (
 
                 <Card>
-                    <Card.Img variant="top" src={this.props.avatar} alt={this.props.name}/>
+                    <Card.Img className='event-card-img' variant="top" src={this.props.avatar} alt={this.props.name}/>
                     <Card.Body>
                         <Card.Title className="color-text">{this.props.name}</Card.Title>
                         <Card.Text><span className="color-text-black">Creator:</span>  {this.state.owner}  |   <span className="color-text-black">Participants:</span> {this.props.participants.length}</Card.Text>
