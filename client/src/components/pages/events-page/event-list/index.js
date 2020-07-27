@@ -48,27 +48,26 @@ class  EventList extends Component {
         let paginationElement
         if(this.state.pageCount > 1) paginationElement = (
             <ReactPaginate
-              previousLabel={"← Prev.Page"}
-              nextLabel={"Next-Page →"}
+              previousLabel={"Prev.Page"}
+              nextLabel={"Next-Page"}
               breakLabel={<span className="gap">...</span>}
               pageCount={this.state.pageCount}
               onPageChange={this.handlePageClick}
               forcePage={this.state.currentPage}
-              containerClassName={"pagination justify-content-right align-items-center color-black"}
+              containerClassName={"paginate"}
               pageClassName={"page-link"}
-              previousClassName={"page-link"}
+              previousClassName={"next-prev"}
               previousLinkClassName={"page-item"}
-              nextClassName={"page-link"}
-              nextLinkClassName={"page-item"}
-              disabledClassName={"disabled"}
-              activeClassName={"page-item active"}
+              nextClassName={"next-prev"}
+              nextLinkClassName={"next-prev"}
+              disabledClassName={"inactive"}
+              activeClassName={"Lactive"}
               activeLinkClassName={"page-link"}
             />
           ) 
 
     return (
         <>
-            {paginationElement}
             <Row>    
 
                 {this.state.elements}

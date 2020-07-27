@@ -87,6 +87,11 @@ class EventPage extends Component {
                         <main className="main-bg" style={{ height: this.state.height }}>
                             <Container className='event-page-container'>
                                 {/* {Aquí la searchbar TO-DO}  */}
+
+                                <div>
+                                <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast}/>
+                                </div>
+
                                 <div>
                                     <Row className="maps">
                                         <Col className="map-container">
@@ -96,11 +101,6 @@ class EventPage extends Component {
                                         </Col>
                                     
                                     </Row>
-                                </div>
-
-
-                                <div>
-                                <EventList events={this.state.events} updateEventList={this.updateEventList} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast}/>
                                 </div>
                             </Container>
                         </main>
