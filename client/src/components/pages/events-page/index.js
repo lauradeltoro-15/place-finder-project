@@ -36,6 +36,7 @@ class EventPage extends Component {
     }
 
     filterEvents = filters => {
+        console.log(this.state.events)
         let eventsCopy = [...this.state.events]
         eventsCopy = filters.name ? eventsCopy.filter(event => event.name.toLowerCase().includes(filters.name.toLowerCase())) : eventsCopy
         eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy
@@ -57,6 +58,12 @@ class EventPage extends Component {
         ) : eventsCopy
 
         eventsCopy = filters.theme.length > 0 ? eventsCopy.filter(event => filters.theme.every(filter => event.theme.includes(filter))) : eventsCopy
+        eventsCopy = filters.distanceFromLocation ? eventsCopy.filter(event => event.acceptedOffer && this.getKilometers(
+            this.state.currentLatLng.lat,
+            this.state.currentLatLng.lng,
+            event.acceptedOffer.local.location.coordinates.lat,
+            event.acceptedOffer.local.location.coordinates.lng
+        ) <= parseInt(filters.distanceFromLocation)) : eventsCopy
         this.setState({ filteredEvents: eventsCopy, confirmedEvents: eventsCopy.filter(event => event.acceptedOffer) })
     }
 
@@ -81,7 +88,6 @@ class EventPage extends Component {
     }
 
     getGeoLocation = () => {
-
         navigator.geolocation.getCurrentPosition(
             position =>
                 this.setState(prevState => ({
@@ -94,7 +100,7 @@ class EventPage extends Component {
         )
     }
 
-    getKilometros = function (lat1, lon1, lat2, lon2) {
+    getKilometers = (lat1, lon1, lat2, lon2) => {
         console.log('coordenadas a evaluar', lat1, lon1, lat2, lon2)
         const rad = (deg) => deg * (Math.PI / 180)
         const R = 6378.137; //Radio de la tierra en km
@@ -103,11 +109,10 @@ class EventPage extends Component {
         const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const d = R * c;
-        return d * 1000 //distance in m!
+        return d //Return distance in km
     }
 
     render() {
-        console.log(this.state.filteredEvents, "Filtered events")
         return (
             <>
                 {
