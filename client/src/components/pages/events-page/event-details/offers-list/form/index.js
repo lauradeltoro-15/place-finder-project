@@ -51,7 +51,7 @@ class OfferForm extends Component {
 
         return (
             <>
-                {!this.state.userLocals ? null :
+                {!this.state.userLocals ? <SpinnerContainer /> :
                     <Container className='local-form-col'>
                         <Form onSubmit={this.handleFormSubmit}>
                             <h1 className='color-text'>New offer</h1>

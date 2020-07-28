@@ -64,7 +64,6 @@ class Calendar extends Component {
 
     render() {
         const formattedInfo = this.getEventsToRender()
-        console.log(this.props)
         return (
             <>
                 <FullCalendar
@@ -81,7 +80,7 @@ class Calendar extends Component {
                     {this.state.calendarDate ?
                         <EventForm calendarDate={this.state.calendarDate} {...this.props} loggedInUser={this.props.loggedInUser} handleEventSubmit={this.handleEventSubmit} /> :
                         this.state.eventDetail ?
-                            <EventCard {...this.state.eventDetail} loggedInUser={this.props.loggedInUser} /> : null}
+                        <EventCard {...this.state.eventDetail} loggedInUser={this.props.loggedInUser} /> : null}
                 </Modal>
             </>
         )

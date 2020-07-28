@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import './map.css'
-import Button from 'react-bootstrap/Button'
-import { Link, Redirect } from 'react-router-dom'
-
+import SpinnerContainer from '../../../ui/Spinner'
 
 import googleMapStyles from "./maps-style"
 
@@ -37,13 +35,15 @@ export class MapContainer extends Component {
 
     render() {
       const {google} = this.props
+
+      const center = this.props.currentLocation.lat ? this.props.currentLocation : {lat: 40.416775, lng: -3.703790}
       return (
         <Map 
             google={this.props.google} 
             
             zoom={14}
             styles={this.props.mapStyle}
-            initialCenter={{lat: 40.416775, lng: -3.703790}}
+            initialCenter={center}
             >
               {this.props.markers.map(marker => 
                 <Marker onClick={this.onMarkerClick}
@@ -73,7 +73,7 @@ export class MapContainer extends Component {
                     <span className="color-text-black">City:</span>  {this.state.activeEvent.city}  |  <span className="color-text-black">Local:</span>  {this.state.activeEvent.acceptedOffer.local.name}
                     
                 </article> 
-                : <p>cargando</p>
+                : <SpinnerContainer />
                 }
                
             </InfoWindow>

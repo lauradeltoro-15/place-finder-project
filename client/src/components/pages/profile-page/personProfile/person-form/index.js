@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 
 import UserService from '../../../../../services/UserService'
 import FilesService from '../../../../../services/FilesService'
+import '../profile.css'
 
 //Bootstrap
-import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/esm/Row'
@@ -146,7 +146,7 @@ class profilePerson extends Component {
 
                         
                                 {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
-                        <Button className='submit-btn' variant="dark" type="submit">Submit</Button>
+                        <div className="button-center"><Button className='submit-btn' variant="dark" type="submit">Submit</Button></div>
                     </Form>
                     </Col>
                 </Row>

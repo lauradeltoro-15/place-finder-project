@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -9,25 +9,23 @@ import "./navbar.css"
 
 import { Link, NavLink } from 'react-router-dom'
 
-class Navigation extends Component {
+const Navigation = (props) => {
 
-    constructor(props) {
-        super(props)
-        this.AuthService = new AuthService()
-    }
+    const authService = new AuthService()
 
-    logout = () => {
-        this.AuthService
+
+    const logout = () => {
+        authService
             .logout()
             .then(() => {
-                this.props.setTheUser(false)
-                this.props.handleToast(true, 'See you soon!')
+                props.setTheUser(false)
+                props.handleToast(true, 'See you soon!')
             })
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+            .catch(err => err.response && props.handleToast(true, err.response.data.message))
 
     }
 
-    render() {
+
         return (
             <Navbar className='nav' bg="light" variant="light" expand="lg" sticky="top" >
                 <Navbar.Brand>
@@ -41,10 +39,10 @@ class Navigation extends Component {
                         </Nav.Link>
                 
 
-                        {this.props.loggedInUser ?
+                        {props.loggedInUser ?
                             (
                                 <Nav.Link as="span">
-                                    <span onClick={this.logout}>Log out</span>
+                                    <span onClick={logout}>Log out</span>
                                 </Nav.Link>
                             ) : (
                                 <>
@@ -58,8 +56,8 @@ class Navigation extends Component {
                             )
                         }
                         <Nav.Link as="span">
-                            {this.props.loggedInUser ?
-                                <NavLink to={`/profile/${this.props.loggedInUser._id}`} activeStyle={{ color: 'black', fontWeight: 300 }}> Hi, {this.props.loggedInUser.username}</NavLink> :
+                            {props.loggedInUser ?
+                                <NavLink to={`/profile/${props.loggedInUser._id}`} activeStyle={{ color: 'black', fontWeight: 300 }}> Hi, {props.loggedInUser.username}</NavLink> :
                                 <NavLink to={`/login`} >Hi, friend</NavLink>
                             }
                         </Nav.Link>
@@ -71,7 +69,7 @@ class Navigation extends Component {
                 </Navbar.Collapse>
             </Navbar>
         )
-    }
+    
 }
 
 export default Navigation
