@@ -7,9 +7,14 @@ class Chatbotcontainer extends Component {
         super ()
         this.state = {}
     }
-    componentDidUpdate = prevProps => this.props.loggedInUser !== prevProps.loggedInUser && this.render()
+    componentDidUpdate = prevProps => {
+        console.log(prevProps, this.props)
+        this.props.loggedInUser !== prevProps.loggedInUser && this.render()
+    }
     render() {
-        console.log(this.props.loggedInUser)
+        console.log("en el render", this.props.loggedInUser)
+        const message = this.props.loggedInUser ? "Hi {previousValue}, nice to meet you! I'm here to help you, what can I do for you?" : "NOLOG"
+        console.log("el mensaje", message)
         return (
             <>
                 <ChatBot floating="true"
@@ -22,11 +27,11 @@ class Chatbotcontainer extends Component {
                         {
                             id: '2',
                             user: true,
-                            trigger: '3',
+                            trigger: 3
                         },
                         {
                             id: '3',
-                            message: "Hi {previousValue}, nice to meet you! I'm here to help you, what can I do for you?",
+                            message: message,
                             trigger: '4',
                         },
                         {
@@ -50,6 +55,11 @@ class Chatbotcontainer extends Component {
                         {
                             id: '7',
                             message: "These are your plans for the week",
+                            end: true
+                        },
+                        {
+                            id: '8',
+                            message: '{previousValue}',
                             end: true
                         }
                             
