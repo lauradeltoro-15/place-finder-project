@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import UserService from "../../../../services/UserService"
+
+
 
 import './profile.css'
 
@@ -15,9 +16,7 @@ class CompanyProfile extends Component {
     constructor() {
         super()
         this.state = {
-            user: undefined
         }
-        this.userService = new UserService()
     }
 
     isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId
@@ -26,7 +25,7 @@ class CompanyProfile extends Component {
 
     handleFormSubmit = () => {
         this.handleFormModal(false)
-        this.props.updateUserDetails()
+        this.props.updateUserDetails(this.props.paramId)
     }
 
     render() {
@@ -80,7 +79,7 @@ class CompanyProfile extends Component {
                 </section>
                 <section className='local-section'>
                     <h3>Locals</h3>
-                    <LocalList handleToast={this.props.handleToast} user={this.props.userDetails._id} loggedInUser={this.props.loggedInUser} />
+                    <LocalList handleToast={this.props.handleToast} handleModal={this.handleFormModal} user={this.props.userDetails._id} locals={this.props.locals} loggedInUser={this.props.loggedInUser} updateUserDetails={this.props.updateUserDetails}/>
                 </section>
                 <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
                     <LocalForm loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleFormSubmit={this.handleFormSubmit} />

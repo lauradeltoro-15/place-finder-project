@@ -9,29 +9,42 @@ import Container from 'react-bootstrap/esm/Container'
 import SpinnerContainer from "../../ui/Spinner"
 
 import UserService from '../../../services/UserService'
+import LocalService from '../../../services/LocalService'
+
 
 class ProfilePage extends Component {
     constructor (props){
         super (props)
         this.state = {
-            userDetails: undefined
+            userDetails: undefined,
+            locals: undefined,
         }
 
         this.UserService = new UserService()
+        this.localService = new LocalService()
     }
     componentDidMount = () => this.updateUserDetails(this.props.match.params.userId)
  
     updateUserDetails = id => {
         this.UserService
             .getUserDetails(id)
-            .then((response) => this.setState({ userDetails: response.data }))
+            .then((response) => {
+                this.setState({ userDetails: response.data })
+                response.data.companyDetails && this.updateLocalList(id)
+            })
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+    }
+    updateLocalList = id => {
+        this.localService.getUserLocals(id)
+            .then(response => this.setState({ locals: response.data }))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
     getProfile = () => {
         if (this.state.userDetails) {
-            return this.state.userDetails.companyDetails ?
-                <CompanyProfile updateUserDetails={this.updateUserDetails} handleToast={this.props.handleToast} userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
-                : <PersonProfile handleToast={this.props.handleToast} userDetails={this.state.userDetails} {...this.props} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />
+            return !this.state.userDetails.companyDetails ?
+                <PersonProfile handleToast={this.props.handleToast} userDetails={this.state.userDetails} {...this.props} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} /> : 
+                !this.state.locals ? null:
+                <CompanyProfile updateUserDetails={this.updateUserDetails} locals={this.state.locals} handleToast={this.props.handleToast} userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />  
         }
     }
     render() {
