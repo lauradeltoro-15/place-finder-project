@@ -35,7 +35,10 @@ class CompanyForm extends Component {
         const id = this.props.match.params.id
         this.userService
             .getUserDetails(id)
-            .then(response => this.updateStateFromApi(response.data))
+            .then(response => {
+                console.log(response)
+                this.updateStateFromApi(response.data)
+            })
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
@@ -43,13 +46,14 @@ class CompanyForm extends Component {
         this.setState({
             username: data.username,
             description: data.companyDetails.description,
-            phone: data.companyDetails.phone,
+            phone: data.companyDetails.contact.phone.value,
             address: data.companyDetails.location ? data.companyDetails.location.address : '',
-            facebook: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "facebook"),
-            instagram: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "instagram"),
-            website: this.mapSocialMediaInfo(data.companyDetails.socialMedia, "website"),
+            facebook: data.companyDetails.contact.facebook.value,
+            instagram: data.companyDetails.contact.instagram.value,
+            website: data.companyDetails.contact.website.value,
             avatar: data.avatar
         })
+        console.log("he llegado")
     }
 
     mapSocialMediaInfo = (socialMedia, name) => socialMedia.filter(social => social.name === name).map(social => social.mediaUrl)[0]
@@ -84,6 +88,7 @@ class CompanyForm extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <>
                 {this.state.username.length < 1 ? <SpinnerContainer/> :

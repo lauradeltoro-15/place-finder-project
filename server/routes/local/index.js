@@ -40,11 +40,11 @@ const mapLocal = (local, companyId) => {
 }
 
 const isFormValidated = (local, res) => {
-    return validationHandler.areRequiredFieldsFilled(local, res, "name", "location", "capacity", "localType") &&
-    validationHandler.isFieldLongEnough(local.name, res, 2, "name") &&
+    return validationHandler.isLocationSelected(local.location, res) &&
+    validationHandler.areRequiredFieldsFilled(local, res, "name", "location", "capacity", "localType") &&
     validationHandler.isFieldTooLong(local.description, res, 500, "description") &&
     validationHandler.isFieldValueTooSmall(Number(local.capacity), res, 10, "capacity") &&
-    validationHandler.isLocationSelected(local.location, res)
+    validationHandler.isFieldLongEnough(local.name, res, 2, "name") 
 }
 
 //Routes

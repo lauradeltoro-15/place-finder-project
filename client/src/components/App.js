@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+
 import AuthService from "../services/AuthService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -21,6 +22,7 @@ import EventsPage from './pages/events-page'
 import OfferForm from './pages/events-page/event-details/offers-list/form'
 import HomePage from './pages/home-page'
 import Footer from "./ui/Footer"
+import ChatbotContainer from "./ui/Chatbot"
 
 
 class App extends Component {
@@ -68,7 +70,7 @@ class App extends Component {
 
           <Route exact path="/user/:id/local/add" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm loggedInUser={this.state.loggedInUser} handleToast={this.handleToast} {...props}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId/edit/" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
-          <Route path="/user/:id/local/:localId" render={props => this.state.loggedInUser ? <LocalDetails {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
+          <Route path="/user/:id/local/:localId" render={props => <LocalDetails {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> } />
           
           <Route exact path="/user/:id/event/create" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
           <Route exact path="/user/:id/event/edit/:eventId" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
@@ -83,7 +85,8 @@ class App extends Component {
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
-        <CustomToast {...this.state.toast} handleToast={this.handleToast}/>
+        <CustomToast {...this.state.toast} handleToast={this.handleToast} />
+        <ChatbotContainer loggedInUser={this.state.loggedInUser}/>
         <Footer />
       </>
     )

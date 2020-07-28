@@ -95,6 +95,7 @@ class LocalForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         const id = this.props.loggedInUser._id
+        console.log(id)
         const localId = this.props.localToEdit
         this.props.localToEdit ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
     }
@@ -123,6 +124,7 @@ class LocalForm extends Component {
         })
     }
     createNewLocal = (id, state) => {
+        console.log("we are here")
         this.localService.createNewLocal(id, state)
             .then(() => this.props.handleFormSubmit())
             .catch(err => !err.response ? null :

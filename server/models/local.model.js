@@ -8,7 +8,6 @@ const localSchema = new Schema({
         minlength: 2
     },
     owner: { type: Schema.Types.ObjectId, ref: "User" },
-    pictures: String,
     avatar: {
         type: String,
         default: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595677113/avatar/local-icon.png.png'

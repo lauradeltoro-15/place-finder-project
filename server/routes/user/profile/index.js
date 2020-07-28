@@ -59,16 +59,17 @@ const updateDetails = (id, body, model, next) => {
 //edit username and password
 router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const { username, password, avatar } = req.body
-
+    
     User
         .findById(req.params.id)
         .then(user => {
             user.username = username
-            user.avatar = avatar
+            avatar !== null ? user.avatar =  avatar : null
             if(password !== ""){
                 const salt = bcrypt.genSaltSync(bcryptSalt)
                 user.password = bcrypt.hashSync(password, salt)
             }
+            console.log(user)
             user.save()
             return user
         }) 

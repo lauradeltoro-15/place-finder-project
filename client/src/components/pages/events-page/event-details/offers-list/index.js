@@ -23,13 +23,18 @@ class OfferList extends Component {
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     isAnOfferAccepted = () => this.state.offers.some(offer => offer.status === "accepted")
-    
+    isEventOwnerOrOfferOwner = () => {
+        if (this.state.offers.length > 0) {
+            return this.state.offers.some(offer => this.props.loggedInUser._id == this.props.event.owner ||
+                this.props.loggedInUser._id == offer.local.owner._id)    
+        }
+    }
     render() {
-       
+       console.log(this.state.offers)
         return (
             <section className='offers'>
                 <Row >
-                    {this.props.loggedInUser && this.state.offers.length > 0 && !this.isAnOfferAccepted() &&<Col className='offer-title'><p>OFFERS</p></Col>}
+                    {this.props.loggedInUser && this.isEventOwnerOrOfferOwner() && !this.isAnOfferAccepted() &&<Col className='offer-title'><h2>Offers</h2></Col>}
                     {this.props.loggedInUser && this.state.offers.length > 0 && !this.isAnOfferAccepted() && this.state.offers.map(offer =>
 
                         (this.props.loggedInUser._id == this.props.event.owner || 
