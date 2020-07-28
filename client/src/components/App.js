@@ -4,6 +4,7 @@ import './App.css'
 
 
 import AuthService from "../services/AuthService"
+import EventService from "../services/EventService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 import CustomToast from './ui/Toast'
@@ -33,9 +34,11 @@ class App extends Component {
       toast: {
         visible: false,
         text: ''
-      }
+      },
+      loggedInUserEvents: null, 
     }
     this.AuthService = new AuthService()
+    this.EventService = new EventService()
   }
 
   setTheUser = user => {
@@ -57,9 +60,14 @@ class App extends Component {
     toastCopy = { visible, text }
     this.setState({ toast: toastCopy })
   }
-  componentDidUpdate = (prevProps, prevState) => this.state.loggedInUser !== prevState.loggedInUser && this.render()
-  
-  
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.loggedInUser !== prevState.loggedInUser) {
+      this.EventService.getAllFutureUserEvents(this.state.loggedInUser._id)
+        .then(response => this.setState({ loggedInUserEvents: response.data }))
+        .catch(err => console.log(err))
+    }
+    this.state.loggedInUserEvents !== prevState.loggedInUserEvents && this.render()
+  }
 
   render() {
     this.fetchUser()
@@ -91,7 +99,7 @@ class App extends Component {
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
-        {this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
+        {this.state.loggedInUser && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
         {!this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
         <Footer />
       </>

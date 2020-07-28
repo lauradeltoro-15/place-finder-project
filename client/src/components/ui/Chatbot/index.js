@@ -9,48 +9,59 @@ class Chatbotcontainer extends Component {
             stepsLogged: [
                 {
                     id: '1',
-                    message: "LOGGED",
+                    message: `Hi ${this.props.loggedInUser && this.props.loggedInUser.username}! My name is Faindy. Nice to see you here! How do you feel today? `,
+           
                     trigger: '2',
                 },
                 {
                     id: '2',
-                    user: true,
-                    trigger: '3',
+                    user: true, 
+                    trigger: '3'
                 },
                 {
                     id: '3',
-                    message: "Hi {previousValue}, nice to meet you! I'm here to help you, what can I do for you?",
-                    trigger: '4',
+                    message: 'So you are feeling {previousValue} ? Maybe I can do something your!',
+                    trigger: '4'
                 },
                 {
                     id: '4',
                     options: [
-                        { value: 1, label: 'What events are near me?', trigger: '5' },
-                        { value: 2, label: 'Suggest me an event', trigger: '6' },
-                        { value: 3, label: 'What are my plans for this week?', trigger: '7' },
+                        { value: 1, label: 'What are my events?', trigger: '5' },
                     ],
                 },
                 {
                     id: '5',
-                    message: "These are the events near you",
-                    end: true
+                    component: this.getAllMyEvents(),
+                    trigger: "6"
                 },
                 {
                     id: '6',
-                    message: "This is my suggestion",
-                    end: true
+                    message: "I'm sure you will enjoy them a lot", 
+                    trigger: "7"
                 },
                 {
                     id: '7',
-                    message: "These are your plans for the week",
-                    end: true
-                }
-                    
+                    message: "Can I do something more for you?",
+                    trigger: "8"
+                },
+                 {
+                    id: '8',
+                    options: [
+                        { value: true, label: 'Yes', trigger: '4' },
+                        { value: false, label: 'No', trigger: '9' }
+                    ],
+                },
+                {
+                    id: '9',
+                    message: `Have a great day ${this.props.loggedInUser && this.props.loggedInUser.username}, see you soon!`
+
+                },
+                
             ], 
             stepsNoLogged: [
                 {
                     id: '1',
-                    message: "Hi! My name is Faindy. What is your name?",
+                    message: "la arme",
                     trigger: '2',
                 },
                 {
@@ -90,14 +101,20 @@ class Chatbotcontainer extends Component {
             ]
         }
     }
+    getAllMyEvents = () => {
+    return (
+        <div>
+            {this.props.events && this.props.events.map(event => <div>{event.name}</div>)}
+        </div>
+ )
+   
+    }
 
     render() {
-        
+        console.log(this.props)
         return (
- 
                 <ChatBot floating="true"
                     steps={this.props.loggedInUser ? this.state.stepsLogged: this.state.stepsNoLogged}
-                    
                 />
         )
     }
