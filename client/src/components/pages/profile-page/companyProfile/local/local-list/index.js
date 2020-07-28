@@ -4,9 +4,6 @@ import Row from 'react-bootstrap/Row'
 
 import LocalCard from "./local-card"
 
-import LocalService from "../../../../../../services/LocalService"
-
-import { Link } from "react-router-dom"
 
 import SpinnerContainer from "../../../../../ui/Spinner"
 
