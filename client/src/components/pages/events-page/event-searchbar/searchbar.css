@@ -1,22 +1,45 @@
 .hidden-radio {
     display: none;
 }
-.main-search-bar {
+.main-search-bar.form-group {
+    margin-left: 0;
+    width: 100%;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 8.3vh;;
+    text-align: center;
+    min-height: 8.3vh;
     border-bottom: 1px solid #eee;
+    margin-bottom: 0;
 }
+.show-filter-button {
+    margin:0;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: black;
+    font-weight:400;
+    transition: all 0.5s;
+}
+.show-filter-button.inactive {
+    color: #666;
+}
+.main-search-bar.form-group .show-filter-button:hover {
+    font-size: 0.85em;
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+
 .main-search-bar input {
-    margin: 0 80px;
+    width: 80%;
     border: none;
 }
 input::placeholder {
   text-transform: uppercase;
   font-family: "Lato", sans-serif;
   font-weight: 300;
+  font-size: 0.8em;
 }
 .main-input.form-control:focus {
     color: #495057;
@@ -25,4 +48,58 @@ input::placeholder {
     border-color: #eee;
     outline: 0;
     box-shadow: none;
+}
+form {
+    width: 100%;
+}
+.nav.nav-tabs{
+    background-color: white;
+    min-height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    align-items: center;
+    text-transform: uppercase;
+    padding-left: 50px;
+
+}
+.bottom-tap-container {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+.nav.nav-tabs a {
+    color: black;
+    font-size: 0.8em;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: black;
+    font-weight: 500;
+    background-color: #fff;
+    border: none;
+    transition: all 0.5s;
+    font-size: 0.85em;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover {
+    border:none;
+    font-size: 0.85em;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:focus {
+    box-shadow: none;
+    border:none;
+    outline-color: transparent;
+}
+
+.tab-container {
+    position: relative;
+    background-color: white;
+}
+.tab-button {
+    position: absolute;
+    right: 80px;
+    top:  3.4vh;
+    cursor: pointer
 }
