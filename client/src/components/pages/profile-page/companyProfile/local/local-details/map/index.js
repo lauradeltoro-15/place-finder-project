@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import '../../../../../events-page/map/map.css'
-import Button from 'react-bootstrap/Button'
-import { Link, Redirect } from 'react-router-dom'
 import './map.css'
 
 import googleMapStyles from '../../../../../events-page/map/maps-style'

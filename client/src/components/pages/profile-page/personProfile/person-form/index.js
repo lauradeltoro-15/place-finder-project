@@ -4,7 +4,6 @@ import UserService from '../../../../../services/UserService'
 import FilesService from '../../../../../services/FilesService'
 
 //Bootstrap
-import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/esm/Row'

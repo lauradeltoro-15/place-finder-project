@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
@@ -9,57 +9,51 @@ import Row from 'react-bootstrap/esm/Row'
 import { Link } from 'react-router-dom'
 
 
-class OfferCard extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-        this.offerService = new OfferService()
-    }
+const OfferCard = (props) => {
 
-    acceptOffer = (offerId, eventId) => {
+    const offerService = new OfferService()
+
+    const acceptOffer = (offerId, eventId) => {
         this.offerService
-            .acceptOffer(offerId, eventId, this.props.loggedInUser._id)
-            .then(() => this.props.updateEventOffers(this.props.event._id))
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+            .acceptOffer(offerId, eventId, props.loggedInUser._id)
+            .then(() => props.updateEventOffers(this.props.event._id))
+            .catch(err => err.response && props.handleToast(true, err.response.data.message))
     }
 
-    deleteOffer = offerId => {
+    const deleteOffer = offerId => {
         this.offerService
             .deleteOffer(offerId, this.props.loggedInUser._id)
-            .then(() => this.props.updateEventOffers(this.props.event._id))
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+            .then(() => this.props.updateEventOffers(props.event._id))
+            .catch(err => err.response && props.handleToast(true, err.response.data.message))
     }
-
-    render() {
 
         return (
             <>
                 <Row className='offer-row'>
                     <Col md={5} className='offer-Card'>
                         <div className='avatar'>
-                            <img src={this.props.offer.local.avatar}></img>
+                            <img src={props.offer.local.avatar}></img>
                         </div>
-                        <span>{this.props.offer.local.name}</span>
+                        <span>{props.offer.local.name}</span>
                     </Col>
                     <Col md={5} className='offer-det'>
-                        <span className="color-text-black">Price per person: </span>{this.props.offer.price}
+                        <span className="color-text-black">Price per person: </span>{props.offer.price}
                         <br></br>
-                        <span className="color-text-black">Comments: </span> {this.props.offer.description}
+                        <span className="color-text-black">Comments: </span> {props.offer.description}
                         <br></br>
-                        {!this.props.loggedInUser.companyDetails && this.props.event.owner == this.props.loggedInUser._id && this.props.offer.status == 'pending' &&
-                            <><Button className='offer-btn' variant="primary" onClick={() => this.acceptOffer(this.props.offer._id, this.props.event._id)}>Accept Offer</Button>
-                                <Link to={`/user/${this.props.offer.local.owner._id}/local/${this.props.offer.local._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
+                        {!props.loggedInUser.companyDetails && props.event.owner == props.loggedInUser._id && props.offer.status == 'pending' &&
+                            <><Button className='offer-btn' variant="primary" onClick={() => this.acceptOffer(props.offer._id, props.event._id)}>Accept Offer</Button>
+                                <Link to={`/user/${props.offer.local.owner._id}/local/${props.offer.local._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
                             </>
                         }
-                        {this.props.loggedInUser._id === this.props.offer.local.owner._id &&
-                            <Button className='offer-btn' variant="danger" onClick={() => this.deleteOffer(this.props.offer._id)}>Delete Offer</Button>
+                        {props.loggedInUser._id === props.offer.local.owner._id &&
+                            <Button className='offer-btn' variant="danger" onClick={() => this.deleteOffer(props.offer._id)}>Delete Offer</Button>
                         }
                     </Col>
                 </Row>
             </>
         )
-    }
+    
 }
 
 export default OfferCard

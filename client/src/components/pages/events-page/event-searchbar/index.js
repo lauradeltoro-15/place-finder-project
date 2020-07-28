@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
@@ -187,8 +186,6 @@ class SearchBar extends Component {
                                 </Form.Group>
                             </Tab>
                         </Tabs>
-
-
                      
                     </div>
                 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import Form from 'react-bootstrap/Form'
 
