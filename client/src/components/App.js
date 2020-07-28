@@ -57,7 +57,9 @@ class App extends Component {
     toastCopy = { visible, text }
     this.setState({ toast: toastCopy })
   }
-  componentDidUpdate = prevProps => this.loggedInUser !== prevProps.loggedInUser && this.render()
+  componentDidUpdate = (prevProps, prevState) => this.state.loggedInUser !== prevState.loggedInUser && this.render()
+  
+  
 
   render() {
     this.fetchUser()
@@ -89,7 +91,8 @@ class App extends Component {
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
-        {this.props.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
+        {this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
+        {!this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
         <Footer />
       </>
     )
