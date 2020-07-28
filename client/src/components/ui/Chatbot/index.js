@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
-import ChatBot from 'react-simple-chatbot';
+import SmallCard from "./smallChatBotCard"
 
+import ChatBot from 'react-simple-chatbot';
+import EventService from "../../../services/EventService"
 class Chatbotcontainer extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +23,7 @@ class Chatbotcontainer extends Component {
                 },
                 {
                     id: '3',
-                    message: 'So you are feeling {previousValue} ? Maybe I can do something your!',
+                    message: 'So you are feeling {previousValue} ? Maybe I can do something you!',
                     trigger: '4'
                 },
                 {
@@ -112,13 +114,15 @@ class Chatbotcontainer extends Component {
                 }
 
             ]
-        }
+            
+
+        } 
+        this.eventService = new EventService()
     }
-    getAllMyEvents = (events) => {
-        
+    getAllMyEvents = (events) => {  
         return (
             <div>
-                {events.map(event => <div>{event.name}</div>)}
+                {events.map(event => <SmallCard event={event}/>)}
             </div>
         )
     }
@@ -128,6 +132,11 @@ class Chatbotcontainer extends Component {
             this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
         return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
     }
+    // seeDetailsOfAnEvent = name => {
+    //     const index = this.props.events && this.props.events.indexOf(event => event.name === name)
+    //     index === -1 ? <p>You don't have any event with that name, are you sure you write it wright?</p> : 
+    // }
+    
 
     obtainDateInFormat = date => {
         const newDate = new Date(date)
