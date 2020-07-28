@@ -38,3 +38,8 @@ h1 {
 .general-info{
     margin-top: 0
 }
+
+.button-center{
+    display: flex;
+    justify-content: center;
+}

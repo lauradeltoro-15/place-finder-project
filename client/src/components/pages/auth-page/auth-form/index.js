@@ -52,7 +52,7 @@ class AuthForm extends Component {
                     <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                 </Form.Group>
                 {this.props.isSignup &&
-                    <Form.Group className='check'>
+                    <Form.Group className='checked'>
                         <Form.Label>Are you a company? </Form.Label>
                         <input type="checkbox" onChange={this.handleInputChange} name="isCompany" ckecked={this.state.isCompany} />
                     </Form.Group>

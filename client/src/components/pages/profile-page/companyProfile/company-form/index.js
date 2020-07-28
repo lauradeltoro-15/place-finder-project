@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/esm/Row'
 import Col from 'react-bootstrap/esm/Col'
+import '../profile.css'
 
 import SpinnerContainer from "../../../../ui/Spinner"
 
@@ -124,7 +125,7 @@ class CompanyForm extends Component {
                             <Form.Control onChange={this.handleInputChange} value={this.state.website} name="website" type="text" />
                             </Form.Group>
                             {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
-                        <Button variant="dark" type="submit">Submit</Button>
+                        <div className='button-center'><Button variant="dark" type="submit">Submit</Button></div>
                     </Form>
                     </Col>
                 </Row>
