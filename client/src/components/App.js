@@ -61,6 +61,7 @@ class App extends Component {
 
   render() {
     this.fetchUser()
+    console.log("LOGGED USER, RERENDERING", this.state)
     return (
       <>
         <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} handleToast={this.handleToast}/>

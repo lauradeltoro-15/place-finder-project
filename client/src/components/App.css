@@ -63,10 +63,11 @@ body {
     border-color: #49C5B6;
     border-radius: 18px / 50%;
     padding: .22rem .75rem;
-    margin: 5px 10px; 
+    margin: 0.45rem auto; 
     font-size: 0.9em;
     transition: all 0.6s;
     color: #fff;
+    width: 12rem
 } 
 .btn.btn-primary.large {
     padding: .5rem 2rem;
@@ -167,7 +168,7 @@ body {
     border-radius: 0;
     margin: 20px 10px;
     padding: 15px 35px;
-    font-weight: 100;
+    font-weight: 350;
     text-transform: uppercase;
     font-size: 0.9em;
     transition: all 0.5s;
@@ -215,11 +216,15 @@ img {
     width: 100%;
     background-color: white;
     min-height: 20px;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #DFDFDF;
+    justify-content: flex-start;
+    border-bottom: 1px solid #DFDFDF;
+    border-top: 1px solid #DFDFDF;
     margin-left: 150px;
     margin-right: 150px;
+}
+.offer-title p{
+    margin: 0;
+    padding: 1rem;
 }
 
 

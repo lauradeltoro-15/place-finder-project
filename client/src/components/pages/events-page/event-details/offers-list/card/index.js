@@ -31,7 +31,7 @@ const OfferCard = (props) => {
             <>
                 <Row className='offer-row'>
                     <Col md={5} className='offer-Card'>
-                        <div className='avatar'>
+                        <div  className='avatar'>
                             <img src={props.offer.local.avatar}></img>
                         </div>
                         <span>{props.offer.local.name}</span>

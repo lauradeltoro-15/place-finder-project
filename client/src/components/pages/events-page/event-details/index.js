@@ -77,18 +77,22 @@ class EventDetails extends Component {
                             </Row>
                             <Row>
 
-                                    <Col md={{ span: 5, offset: 1 }} className='participants'>
+                                    <Col className='container-local-participants' md={{ span: 5, offset: 1 }} >
+
+                                        <h4 className='participants-title'>Participants</h4>
+                                        <div className='participants'>
                                         {this.state.eventDetails.participants.map(user => 
                                         <div>
-                                            <img src={user.avatar}></img>
+                                            <Link to= {`/profile/${user._id}`}><img src={user.avatar}></img></Link>
                                         </div>
-                                        
                                         )} 
+                                        </div>
+
 
                                     </Col>
                                 
                                     {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local ?
-                                        <Col md={{ span: 5}} className='local'>
+                                        <Col md={{ span: 5}} className=' container-local-participants local'>
                                             <h2 className='color-text'>Local: {this.state.eventDetails.acceptedOffer.local.name}</h2>
                                             <br></br>
                                             <span className="color-text-black">Owner: </span> {this.state.eventDetails.acceptedOffer.local.owner.username}  |
@@ -108,8 +112,10 @@ class EventDetails extends Component {
 
                                         :
                                         
-                                        <Col md={{span: 5}}>
-                                        <h2>This event has no local confirmed yet</h2>
+                                        <Col className='no-local-title' md={{span: 5}}>
+                                        <div className='title-div'>
+                                            <h2>This event has no local confirmed yet</h2>  
+                                        </div>
                                         </Col>
                                        
                                     }

@@ -92,7 +92,7 @@ class EventCard extends Component {
                         <Card.Title className="color-text">{this.props.name}</Card.Title>
                         <Card.Text><span className="color-text-black">Creator:</span>  {this.state.owner}  |   <span className="color-text-black">Participants:</span> {this.props.participants.length}</Card.Text>
                         <Card.Text></Card.Text>
-                        <Card.Text><span className="color-text-black">City:</span> {this.props.city}   |   <span className="color-text-black">Local:</span> {this.props.typeOfLocal}</Card.Text>
+                        <Card.Text><span className="color-text-black">City:</span> {this.props.city}</Card.Text>
                         <Card.Text> {this.formatDate(this.props.startTime)} from {this.formatHour(this.props.startTime)} to {this.formatHour(this.props.endTime)}</Card.Text>
                         <Card.Text>{themes}</Card.Text>
                         <hr></hr>

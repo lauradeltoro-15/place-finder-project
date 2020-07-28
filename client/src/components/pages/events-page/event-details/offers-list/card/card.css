@@ -11,7 +11,7 @@
     min-height: 20px;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
     margin-left: 9rem;
     margin-right: 9rem;
  
@@ -29,8 +29,8 @@
 .avatar{
     display: inline-block;
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     overflow: hidden;
     border-radius: 50%;
     margin-left: 6rem;
@@ -48,9 +48,9 @@
     margin-right: 9rem;
 }
 
-.offer-title h2{
-    font-size: 1.8rem;
-    color: #49C5B6
+.offer-title p{
+    font-size: 1.2rem;
+    margin-left:5rem
 }
 
 .offers{
