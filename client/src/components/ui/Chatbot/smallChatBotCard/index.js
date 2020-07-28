@@ -11,17 +11,14 @@ const SmallCard = ({ event }) => {
         return `${dd}-${mm}-${yyyy}`
     }
     return (
-        <article class="small-card">
+        <article className="small-card">
             <div className="image-container-small">
                 <img src={event.avatar} />
             </div>
             <div>
-                <p class="small-card-info">{event.name}</p>
+                <p className="small-card-info">{event.name}</p>
                 <small>{obtainDateInFormat(event.startTime)}</small>
             </div>
-                
-
-            
         </article>
     )
 }

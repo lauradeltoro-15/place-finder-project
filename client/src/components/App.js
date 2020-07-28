@@ -62,6 +62,7 @@ class App extends Component {
   }
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.loggedInUser !== prevState.loggedInUser) {
+      this.state.loggedInUser.personDetails && 
       this.EventService.getAllFutureUserEvents(this.state.loggedInUser._id)
         .then(response => this.setState({ loggedInUserEvents: response.data }))
         .catch(err => console.log(err))
@@ -100,7 +101,6 @@ class App extends Component {
         </Switch>
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
         {this.state.loggedInUser && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
-        {!this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
         <Footer />
       </>
     )

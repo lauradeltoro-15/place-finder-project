@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 
 import SmallCard from "./smallChatBotCard"
+import DetailedCard from "./bigChatBotCard"
+
+import { Link } from "react-router-dom"
 
 import ChatBot from 'react-simple-chatbot';
 import EventService from "../../../services/EventService"
@@ -12,26 +15,28 @@ class Chatbotcontainer extends Component {
                 {
                     id: '1',
                     message: `Hi ${this.props.loggedInUser && this.props.loggedInUser.username}! My name is Faindy. Nice to see you here! How do you feel today? `,
-    
+
                     trigger: '2',
                 },
                 {
                     id: '2',
                     user: true,
-                    placeholder:"i.e: fine, sad, happy, angry...",
+                    placeholder: "i.e: ok, sad, happy, angry...",
                     trigger: '3'
                 },
                 {
                     id: '3',
-                    message: 'So you are feeling {previousValue} ? Maybe I can do something you!',
+                    message: 'So you are feeling {previousValue} ? Maybe I can do something for you!',
                     trigger: '4'
                 },
                 {
                     id: '4',
                     options: [
-                        { value: 1, label: 'What are my events?', trigger: '5' },
-                        { value: 2, label: 'Do I have any event today?', trigger: '11' },
-                        { value: 3, label: "I'm fine, thank you", trigger: '9' }
+                        { value: 1, label: 'Show me all my events', trigger: '5' },
+                        { value: 2, label: "Show me today's events", trigger: '11' },
+                        { value: 3, label: "Where can I see all Fainder's events?", trigger: '12' },
+                        { value: 4, label: "Where can I see my profile?", trigger: '13' },
+                        { value: 5, label: "I'm fine, thank you", trigger: '9' }
                     ],
                 },
                 {
@@ -42,7 +47,7 @@ class Chatbotcontainer extends Component {
                 {
                     id: '6',
                     message: "I'm sure you will enjoy them a lot",
-                    trigger: "7"
+                    trigger: "14"
                 },
                 {
                     id: '7',
@@ -69,74 +74,72 @@ class Chatbotcontainer extends Component {
                 {
                     id: '11',
                     component: this.getMyEventsOfToday(),
-                    end:true
+                    end: true
 
                 },
-            ],
-            stepsNoLogged: [
                 {
-                    id: '1',
-                    message: "la arme",
-                    trigger: '2',
+                    id: '12',
+                    component: <p>You can find them <Link to='/events'>here</Link> </p>,
+                    trigger: "7"
+
                 },
                 {
-                    id: '2',
-                    user: true,
-                    trigger: '3',
+                    id: '13',
+                    component: <p>You can find it <Link to={`/profile/${this.props.loggedInUser._id}`}>here</Link> </p>,
+                    trigger: "7"
+
                 },
                 {
-                    id: '3',
-                    message: "tonta",
-                    trigger: '4',
+                    id: '14',
+                    message: "Do you wanna see the details of any of them?",
+                    trigger: "15"
                 },
                 {
-                    id: '4',
+                    id: '15',
                     options: [
-                        { value: 1, label: 'What events are near me?', trigger: '5' },
-                        { value: 2, label: 'Suggest me an event', trigger: '6' },
-                        { value: 3, label: 'What are my plans for this week?', trigger: '7' },
+                        { value: true, label: 'Yes', trigger: '16' },
+                        { value: false, label: 'No', trigger: '7' }
                     ],
                 },
                 {
-                    id: '5',
-                    message: "These are the events near you",
-                    end: true
+                    id: '16',
+                    message: "Type the name of the event",
+                    trigger: '17'
                 },
                 {
-                    id: '6',
-                    message: "This is my suggestion",
-                    end: true
+                    id: '17',
+                    user: true,
+                    trigger: '18'
                 },
                 {
-                    id: '7',
-                    message: "These are your plans for the week",
-                    end: true
+                    id: '18',
+                    component: (previousStep) => this.seeDetailsOfAnEvent(previousStep),
+                    trigger: "7"
                 }
-
             ]
-            
-
-        } 
+        }
         this.eventService = new EventService()
     }
-    getAllMyEvents = (events) => {  
+    getAllMyEvents = (events) => {
         return (
             <div>
-                {events.map(event => <SmallCard event={event}/>)}
+                {events.map(event => <SmallCard event={event} />)}
             </div>
         )
     }
-    getMyEventsOfToday= () => {
+    getMyEventsOfToday = () => {
         const today = new Date()
         const todayEvents = this.props.events && this.props.events.filter(event =>
             this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
         return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
     }
-    // seeDetailsOfAnEvent = name => {
-    //     const index = this.props.events && this.props.events.indexOf(event => event.name === name)
-    //     index === -1 ? <p>You don't have any event with that name, are you sure you write it wright?</p> : 
-    // }
-    
+    seeDetailsOfAnEvent = previousStep => {
+        console.log(previousStep)
+        // const index = this.props.events && this.props.events.findIndex(event => event.name === name)
+        // console.log(index)
+        // return index === -1 ? <p>You don't have any event with that name, try to write it again</p> : this.props.events[index]
+    }
+
 
     obtainDateInFormat = date => {
         const newDate = new Date(date)
@@ -147,10 +150,11 @@ class Chatbotcontainer extends Component {
     }
 
     render() {
+
         return (
-            <ChatBot floating="true"
-                steps={this.props.loggedInUser ? this.state.stepsLogged : this.state.stepsNoLogged}
-            />
+
+            <ChatBot floating="true" steps={this.state.stepsLogged} />
+
         )
     }
 }
