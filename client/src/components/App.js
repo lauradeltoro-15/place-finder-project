@@ -23,7 +23,7 @@ import EventsPage from './pages/events-page'
 import OfferForm from './pages/events-page/event-details/offers-list/form'
 import HomePage from './pages/home-page'
 import Footer from "./ui/Footer"
-import ChatbotContainer from "./ui/Chatbot"
+import ChatBotStyled from "./ui/Chatbot/Theme/"
 
 
 class App extends Component {
@@ -71,7 +71,6 @@ class App extends Component {
 
   render() {
     this.fetchUser()
-    console.log("LOGGED USER, RERENDERING", this.state)
     return (
       <>
         <NavBar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} handleToast={this.handleToast}/>
@@ -99,8 +98,8 @@ class App extends Component {
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
-        {this.state.loggedInUser && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
-        {!this.state.loggedInUser && <ChatbotContainer loggedInUser={this.state.loggedInUser} />}
+        {this.state.loggedInUser && this.state.loggedInUserEvents && <ChatBotStyled loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
+        {!this.state.loggedInUser && <ChatBotStyled loggedInUser={this.state.loggedInUser} />}
         <Footer />
       </>
     )
