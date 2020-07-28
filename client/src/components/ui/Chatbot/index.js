@@ -1,21 +1,22 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import ChatBot from 'react-simple-chatbot';
 
 class Chatbotcontainer extends Component {
-    constructor (props){
-        super (props)
+    constructor(props) {
+        super(props)
         this.state = {
             stepsLogged: [
                 {
                     id: '1',
                     message: `Hi ${this.props.loggedInUser && this.props.loggedInUser.username}! My name is Faindy. Nice to see you here! How do you feel today? `,
-           
+    
                     trigger: '2',
                 },
                 {
                     id: '2',
-                    user: true, 
+                    user: true,
+                    placeholder:"i.e: fine, sad, happy, angry...",
                     trigger: '3'
                 },
                 {
@@ -27,16 +28,18 @@ class Chatbotcontainer extends Component {
                     id: '4',
                     options: [
                         { value: 1, label: 'What are my events?', trigger: '5' },
+                        { value: 2, label: 'Do I have any event today?', trigger: '11' },
+                        { value: 3, label: "I'm fine, thank you", trigger: '9' }
                     ],
                 },
                 {
                     id: '5',
-                    component: this.getAllMyEvents(),
+                    component: this.props.events && this.getAllMyEvents(this.props.events),
                     trigger: "6"
                 },
                 {
                     id: '6',
-                    message: "I'm sure you will enjoy them a lot", 
+                    message: "I'm sure you will enjoy them a lot",
                     trigger: "7"
                 },
                 {
@@ -44,7 +47,7 @@ class Chatbotcontainer extends Component {
                     message: "Can I do something more for you?",
                     trigger: "8"
                 },
-                 {
+                {
                     id: '8',
                     options: [
                         { value: true, label: 'Yes', trigger: '4' },
@@ -56,8 +59,18 @@ class Chatbotcontainer extends Component {
                     message: `Have a great day ${this.props.loggedInUser && this.props.loggedInUser.username}, see you soon!`
 
                 },
-                
-            ], 
+                {
+                    id: '10',
+                    message: `Have a great day ${this.props.loggedInUser && this.props.loggedInUser.username}, see you soon!`
+
+                },
+                {
+                    id: '11',
+                    component: this.getMyEventsOfToday(),
+                    end:true
+
+                },
+            ],
             stepsNoLogged: [
                 {
                     id: '1',
@@ -97,25 +110,38 @@ class Chatbotcontainer extends Component {
                     message: "These are your plans for the week",
                     end: true
                 }
-                    
+
             ]
         }
     }
-    getAllMyEvents = () => {
-    return (
-        <div>
-            {this.props.events && this.props.events.map(event => <div>{event.name}</div>)}
-        </div>
- )
-   
+    getAllMyEvents = (events) => {
+        
+        return (
+            <div>
+                {events.map(event => <div>{event.name}</div>)}
+            </div>
+        )
+    }
+    getMyEventsOfToday= () => {
+        const today = new Date()
+        const todayEvents = this.props.events && this.props.events.filter(event =>
+            this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
+        return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
+    }
+
+    obtainDateInFormat = date => {
+        const newDate = new Date(date)
+        let dd = String(newDate.getDate()).padStart(2, '0')
+        let mm = String(newDate.getMonth() + 1).padStart(2, '0')
+        let yyyy = newDate.getFullYear()
+        return `${yyyy}-${mm}-${dd}`
     }
 
     render() {
-        console.log(this.props)
         return (
-                <ChatBot floating="true"
-                    steps={this.props.loggedInUser ? this.state.stepsLogged: this.state.stepsNoLogged}
-                />
+            <ChatBot floating="true"
+                steps={this.props.loggedInUser ? this.state.stepsLogged : this.state.stepsNoLogged}
+            />
         )
     }
 }
