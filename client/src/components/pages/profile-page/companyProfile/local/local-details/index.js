@@ -29,7 +29,7 @@ class LocalDetail extends Component {
             .then(response => this.setState({ local: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
-    isUserOwner = () => this.props.match.params.id === this.props.loggedInUser._id
+    isUserOwner = () => this.props.loggedInUser && this.props.match.params.id === this.props.loggedInUser._id
     render() {
         return (
             <>

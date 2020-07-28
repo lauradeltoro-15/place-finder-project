@@ -68,7 +68,7 @@ class App extends Component {
 
           <Route exact path="/user/:id/local/add" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm loggedInUser={this.state.loggedInUser} handleToast={this.handleToast} {...props}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId/edit/" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
-          <Route path="/user/:id/local/:localId" render={props => this.state.loggedInUser ? <LocalDetails {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
+          <Route path="/user/:id/local/:localId" render={props => <LocalDetails {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> } />
           
           <Route exact path="/user/:id/event/create" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
           <Route exact path="/user/:id/event/edit/:eventId" render={props => this.state.loggedInUser ? <EventForm loggedInUser={this.state.loggedInUser} {...props} personDetails={this.state.loggedInUser.personDetails} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
