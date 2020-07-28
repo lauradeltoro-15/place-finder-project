@@ -206,11 +206,11 @@ class LocalForm extends Component {
                 <Form className='local-form-col' onSubmit={this.handleFormSubmit}>
                 <h1 className='color-text'>{this.props.localToEdit ? "Edit local" : "New local"}</h1>
                     <Form.Group>
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Name*</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label>Description*</Form.Label>
                         <Form.Control type="textarea" onChange={this.handleInputChange} value={this.state.description} name="description" />
                     </Form.Group>
                     <Form.Group>
@@ -221,12 +221,12 @@ class LocalForm extends Component {
                         <LocationSearchInput handleAddressSelection={this.handleAddressSelection} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Capacity</Form.Label>
+                        <Form.Label>Capacity*</Form.Label>
                         <Form.Control onChange={this.handleInputChange} value={this.state.capacity} name="capacity" type="number" />
                     </Form.Group>
                     <hr></hr>
                     <Form.Group>
-                        <h5 className='int-title'>LocalType</h5>
+                        <h5 className='int-title'>LocalType*</h5>
                         {localTypes}
                     </Form.Group>
                     <hr></hr>

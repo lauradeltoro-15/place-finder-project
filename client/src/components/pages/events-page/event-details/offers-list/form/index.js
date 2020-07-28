@@ -56,11 +56,11 @@ class OfferForm extends Component {
                         <Form onSubmit={this.handleFormSubmit}>
                             <h1 className='color-text'>New offer</h1>
                             <Form.Group>
-                                <Form.Label>Price</Form.Label>
+                                <Form.Label>Price*</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.price} name="price" type="number" />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Local</Form.Label>
+                                <Form.Label>Local*</Form.Label>
                                 {this.state.userLocals && this.state.userLocals.map(local =>
                                     <div className='checked'>
                                     <label>{local.name}</label>
@@ -71,7 +71,7 @@ class OfferForm extends Component {
                                 )}
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Description</Form.Label>
+                                <Form.Label>Description*</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.description} name="description" type="textarea" />
                             </Form.Group>
                             {this.state.errorMsg && <p>{this.state.errorMsg}</p>}
