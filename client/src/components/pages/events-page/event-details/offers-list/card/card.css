@@ -11,7 +11,7 @@
     min-height: 20px;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
     margin-left: 9rem;
     margin-right: 9rem;
  
@@ -48,9 +48,8 @@
     margin-right: 9rem;
 }
 
-.offer-title h2{
-    font-size: 1.8rem;
-    color: #49C5B6
+.offer-title p{
+    font-size: 1.2rem;
 }
 
 .offers{
