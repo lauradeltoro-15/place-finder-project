@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+
 import AuthService from "../services/AuthService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -21,6 +22,7 @@ import EventsPage from './pages/events-page'
 import OfferForm from './pages/events-page/event-details/offers-list/form'
 import HomePage from './pages/home-page'
 import Footer from "./ui/Footer"
+import ChatbotContainer from "./ui/Chatbot"
 
 
 class App extends Component {
@@ -83,7 +85,8 @@ class App extends Component {
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
-        <CustomToast {...this.state.toast} handleToast={this.handleToast}/>
+        <CustomToast {...this.state.toast} handleToast={this.handleToast} />
+        <ChatbotContainer loggedInUser={this.state.loggedInUser}/>
         <Footer />
       </>
     )
