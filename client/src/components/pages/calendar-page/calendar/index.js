@@ -64,6 +64,7 @@ class Calendar extends Component {
 
     render() {
         const formattedInfo = this.getEventsToRender()
+        console.log('el estado en el modal', this.state.showModal)
         return (
             <>
                 <FullCalendar
