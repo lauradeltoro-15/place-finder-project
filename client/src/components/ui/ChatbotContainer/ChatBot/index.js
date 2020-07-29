@@ -128,8 +128,8 @@ class Chatbotcontainer extends Component {
                     options: [
                         { value: 1, label: 'Share my local', trigger: '8' },
                         { value: 2, label: "Attend and create events", trigger: '11' },
-                    ],
-                    delay: 3000
+                    ]
+        
                 },
                 {
                     id: '8',
@@ -158,7 +158,7 @@ class Chatbotcontainer extends Component {
     getAllMyEvents = (events) => {
         return (
             <div>
-                {events.map(event => <SmallCard event={event} />)}
+                {events.map(event => <SmallCard key={event._id} event={event} />)}
             </div>
         )
     }
@@ -168,6 +168,7 @@ class Chatbotcontainer extends Component {
             this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
         return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
     }
+
 
     obtainDateInFormat = date => {
         const newDate = new Date(date)

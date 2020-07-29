@@ -31,7 +31,7 @@ class  EventList extends Component {
     setElementsForCurrentPage = () => {
         let elements = this.props.events.slice(this.state.offset, this.state.offset + this.state.perPage).map((event, i) => {
             return (
-                <Col md={4}><EventCard key={i} {...this.props} updateEventList={this.props.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event} /></Col>)}
+                <Col md={4} key={i} ><EventCard key={i} {...this.props} updateEventList={this.props.updateEventList} loggedInUser={this.props.loggedInUser} key={event._id} {...event} /></Col>)}
             )
         this.setState({elements: elements})
     }

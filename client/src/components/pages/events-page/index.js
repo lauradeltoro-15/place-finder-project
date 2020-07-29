@@ -36,6 +36,7 @@ class EventPage extends Component {
 
     filterEvents = filters => {
         let eventsCopy = [...this.state.events]
+       
         eventsCopy = filters.name ? eventsCopy.filter(event => event.name.toLowerCase().includes(filters.name.toLowerCase())) : eventsCopy
         eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy
 
@@ -48,7 +49,7 @@ class EventPage extends Component {
 
         eventsCopy = filters.acceptedOffer ? eventsCopy.filter(event => event.acceptedOffer) : eventsCopy
 
-        eventsCopy = filters.localType ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.localType <= filters.localType) : eventsCopy
+        eventsCopy = filters.localType && filters.localType !== "allTypes" ? eventsCopy.filter(event => event.acceptedOffer && event.acceptedOffer.local.localType === filters.localType) : eventsCopy
 
         eventsCopy = filters.minDay && filters.maxDay ? eventsCopy.filter(event =>
             this.obtainDateInFormat(event.startTime) >= this.obtainDateInFormat(filters.minDay) &&
@@ -56,7 +57,7 @@ class EventPage extends Component {
         ) : eventsCopy
 
         eventsCopy = filters.theme.length > 0 ? eventsCopy.filter(event => filters.theme.every(filter => event.theme.includes(filter))) : eventsCopy
-        eventsCopy = filters.distanceFromLocation ? eventsCopy.filter(event => event.acceptedOffer && this.getKilometers(
+        eventsCopy = filters.distanceFromLocation && filters.distanceFromLocation !== "allDistance" ? eventsCopy.filter(event => event.acceptedOffer && this.getKilometers(
             this.state.currentLatLng.lat,
             this.state.currentLatLng.lng,
             event.acceptedOffer.local.location.coordinates.lat,

@@ -30,7 +30,6 @@ class OfferList extends Component {
         }
     }
     render() {
-       console.log(this.state.offers)
         return (
             <section className='offers'>
                 <Row >

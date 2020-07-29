@@ -326,3 +326,6 @@ img {
 .checked .check{
     justify-content: center;
 }
+.pointer {
+    cursor: pointer
+}

@@ -12,8 +12,8 @@ const HomePage = () => {
                 <h1 className="title">Great plans?</h1>
                 <Link to="/signup" ><p className="btn btn-primary large">Find the perfect place for them</p></Link>
             </div>
-            <div class="bottom-message">
-                <p class="footer-text">Do you have a local to share?</p>
+            <div className="bottom-message">
+                <p className="footer-text">Do you have a local to share?</p>
                 <Link to="/signup" ><p className="btn btn-white">Join us</p></Link>
             </div>
         </main>

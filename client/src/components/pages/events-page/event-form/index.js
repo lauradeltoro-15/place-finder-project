@@ -98,7 +98,7 @@ class EventForm extends Component {
             })
             .catch(err => !err.response ? null :
                 err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
-                    this.props.handleToast(true, err.response.data.message)) 
+                    this.props.handleToast(true, err.response.data.message))
     }
 
     editEvent = (id, newEvent) => {
@@ -107,21 +107,21 @@ class EventForm extends Component {
             .then(() => this.props.handleEventSubmit())
             .catch(err => !err.response ? null :
                 err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
-                    this.props.handleToast(true, err.response.data.message)) 
+                    this.props.handleToast(true, err.response.data.message))
     }
 
     getThemes = () => {
         const theme = ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness']
         return <><h5 className='int-title'>Theme</h5>
 
-                <div className='check checked'>
-                    {theme.map(theme =>
-                    <div className='theme'>
-                    <label>{theme}</label>
-                    <input onChange={this.handleInputChange} checked={this.state.theme.includes(theme)} value={theme} name="theme" type="checkbox" />
-                    </div>   
+            <div className='check checked'>
+                {theme.map((theme,i) =>
+                    <div className='theme' key={i}>
+                        <label>{theme}</label>
+                        <input onChange={this.handleInputChange} checked={this.state.theme.includes(theme)} value={theme} name="theme" type="checkbox" />
+                    </div>
                 )}
-                </div>
+            </div>
         </>
     }
 
@@ -155,8 +155,8 @@ class EventForm extends Component {
                                 </Form.Group>
                             </div>
                             <Form.Group className="col">
-                                    <Form.Label className="color-text-black">City*</Form.Label>
-                                    <Form.Control className="small-input" onChange={this.handleInputChange} value={this.state.city} name="city" type="text" />
+                                <Form.Label className="color-text-black">City*</Form.Label>
+                                <Form.Control className="small-input" onChange={this.handleInputChange} value={this.state.city} name="city" type="text" />
                             </Form.Group>
                             <Form.Group className="col-md-12">
                                 <Form.Label className="color-text-black">Type of local</Form.Label>
@@ -179,15 +179,15 @@ class EventForm extends Component {
                                     </Form.Group>
                                 </div>
                             </Form.Group>
-                                
-                                    <Form.Group>
-                                    {this.getThemes()}
-                                    </Form.Group>
-                            
+
+                            <Form.Group>
+                                {this.getThemes()}
+                            </Form.Group>
+
                             {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                             <div className="button-center">
                                 <Button variant="dark" type="submit">Submit</Button>
-                            </div> 
+                            </div>
                         </Form>
                     </main>
 

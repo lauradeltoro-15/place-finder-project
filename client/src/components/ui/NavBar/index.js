@@ -42,7 +42,7 @@ const Navigation = (props) => {
                         {props.loggedInUser ?
                             (
                                 <Nav.Link as="span">
-                                    <span onClick={logout}>Log out</span>
+                                    <span className="pointer" onClick={logout}>Log out</span>
                                 </Nav.Link>
                             ) : (
                                 <>

@@ -6,9 +6,10 @@ footer {
     background-color: black;
     bottom: 0;
     width: 100%;
+    justify-content: center;
 
 }
 .footer-text {
     font-weight: 100;
-    margin-left: 30px;
+    text-align: center;
 }
