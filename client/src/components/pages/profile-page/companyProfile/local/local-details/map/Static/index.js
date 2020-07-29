@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import '../../../../../events-page/map/map.css'
-import './map.css'
+import '../../../../../../events-page/map/map.css'
+import '../map.css'
 
-import googleMapStyles from '../../../../../events-page/map/maps-style'
+import googleMapStyles from '../../../../../../events-page/map/maps-style'
 
 
 export class MapContainer extends Component {
@@ -37,6 +37,8 @@ export class MapContainer extends Component {
 
     render() {
       const {google} = this.props
+
+      console.log('google de static: ', google)
       return (
         <Map 
             google={this.props.google} 

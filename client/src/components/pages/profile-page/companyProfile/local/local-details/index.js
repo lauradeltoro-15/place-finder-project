@@ -1,3 +1,5 @@
+/*global google*/
+
 import React, { Component } from 'react'
 
 import LocalService from "../../../../../../services/LocalService"
@@ -7,8 +9,10 @@ import './local-det.css'
 import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
-import Map from "./map/index"
+import Map from "./map/Static/index"
+import Directions from './map/Directions'
 
 import SpinnerContainer from "../../../../../ui/Spinner"
 
@@ -16,21 +20,75 @@ class LocalDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            local: undefined
+            directions: undefined,
+            local: undefined,
+            showDirections: false,
+            travelMode: undefined,
+            currentLatLng: {
+                lat: undefined,
+                lng: undefined
+            }
         }
         this.localService = new LocalService()
     }
     componentDidMount = () => {
         const id = this.props.match.params.localId
         this.getLocalDetails(id)
+        this.getGeoLocation()
     }
+
+    componentDidUpdate = (prevProps, prevState)  =>{
+        this.state.travelMode !== prevState.travelMode && this.render()
+    }
+
     getLocalDetails = id => {
         this.localService.getOneLocal(id)
             .then(response => this.setState({ local: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
     isUserOwner = () => this.props.loggedInUser && this.props.match.params.id === this.props.loggedInUser._id
+
+    setDirections = (showDirections, travelMode) => {
+        const directionsService = new google.maps.DirectionsService();
+        directionsService.route(
+            {
+                origin: new google.maps.LatLng(this.state.currentLatLng.lat, this.state.currentLatLng.lng),
+                destination: new google.maps.LatLng(this.state.local.location.coordinates.lat, this.state.local.location.coordinates.lng),
+                travelMode: google.maps.TravelMode[travelMode]
+            },
+            (result, status) => {
+
+                if (status ===  google.maps.DirectionsStatus.OK) {
+                    this.setState({
+                        directions: result,
+                        travelMode: travelMode,
+                        showDirections: showDirections
+                    })
+
+                } else {
+                    console.error(`error fetching directions ${result}`)
+                }
+            }
+        )
+    }
+
+    getGeoLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                this.setState(prevState => ({
+                    currentLatLng: {
+                        ...prevState.currentLatLng,
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }
+                }))
+            }
+        )
+    }
+
     render() {
+        
+        console.log('rendedirng local details')
         return (
             <>
                 {!this.state.local ? <SpinnerContainer/> :
@@ -60,10 +118,20 @@ class LocalDetail extends Component {
                                 <img src={this.state.local.avatar} />
                             </Col>
                         </Row>
+                        <Row>
+                            <Col>
+                                    <Button onClick={()=>this.setDirections(false, undefined)}>Local</Button>
+                                    <Button onClick={()=>this.setDirections(true, 'WALKING')}>Walking</Button>
+                                    <Button onClick={()=>this.setDirections(true, 'TRANSIT')}>Public transport</Button>
+                                    <Button onClick={()=>this.setDirections(true, 'DRIVING')}>Driving</Button>
+    
+                            </Col>
+                        </Row>
                         <Row className="maps">
                             <Col md={{span: 8, offset: 2}} className="map-container">
-                                
-                                    <Map local={this.state.local} /> 
+                                    {!this.state.showDirections && <Map local={this.state.local} />}
+                                    {this.state.directions && this.state.showDirections && this.state.currentLatLng.lat && <Directions directions={this.state.directions} location={this.state.currentLatLng} local={this.state.local} travelMode={this.state.travelMode}/>}  
+                            
                             
                             </Col>
                         </Row>
