@@ -5,7 +5,8 @@ import {
     withGoogleMap,
     withScriptjs,
     GoogleMap,
-    DirectionsRenderer
+    DirectionsRenderer,
+    Marker
   } from "react-google-maps";
 
 import '../../../../../../events-page/map/map.css'
@@ -27,37 +28,7 @@ class Directions extends Component {
         }
     }
 
-    // getTravelMode = () => {
-
-    //     let travelModeAux
-    //     if(this.props.travelMode == "WALKING") {
-    //         travelModeAux = google.maps.TravelMode.WALKING
-    //     } else if (this.props.travelMode == 'TRANSIT') {
-    //         travelModeAux = google.maps.TravelMode.TRANSIT
-    //     } else{
-    //         travelModeAux = google.maps.TravelMode.DRIVING
-    //     }
-    //     return travelModeAux
-    // }
-
-    // getGeoLocation = () => {
-    //     navigator.geolocation.getCurrentPosition(
-    //         position => {
-    //             this.setState(prevState => ({
-    //                 currentLatLng: {
-    //                     ...prevState.currentLatLng,
-    //                     lat: position.coords.latitude,
-    //                     lng: position.coords.longitude
-    //                 }
-    //             }))
-    //         }
-    //     )
-    // }
-
-
     render() {
-            console.log("RERENDERING", this.props)
-            console.log('el estado', this.state)
             
             const GoogleMapExample = 
                 withGoogleMap(
@@ -70,7 +41,31 @@ class Directions extends Component {
                     >
                         <DirectionsRenderer 
                             directions={this.props.directions}
+                            options={{
+                                suppressMarkers: true,
+                                polylineOptions: {
+                                        strokeColor: '#49B5C5',
+                                        strokeWeight: 4
+                                    }
+                            }}
+                        />    
+                        <Marker
+                            icon={{
+                                anchor: new google.maps.Point(32,32),
+                                scaledSize: new google.maps.Size(40,48),
+                                url: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png'
+                                
+                            }}
+                            position={this.props.local.location.coordinates}
                         />
+                        <Marker
+                            icon={{
+                                anchor: new google.maps.Point(32,32),
+                                scaledSize: new google.maps.Size(40,48),
+                                url: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1596050590/avatar/marker-person_ymc8up.png'
+                            }}
+                            position={this.props.location}
+                        />                    
                     </GoogleMap>
             ))
             
