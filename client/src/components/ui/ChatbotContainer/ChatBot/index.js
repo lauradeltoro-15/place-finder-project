@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 
 import SmallCard from "./smallChatBotCard"
-import DetailedCard from "./bigChatBotCard"
 
 import { Link } from "react-router-dom"
 
 import ChatBot from 'react-simple-chatbot';
-import EventService from "../../../services/EventService"
+
 class Chatbotcontainer extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +20,7 @@ class Chatbotcontainer extends Component {
                 {
                     id: '2',
                     user: true,
-                    placeholder: "i.e: ok, sad, happy, angry...",
+                    placeholder: "i.e: nervous, sad, happy, angry...",
                     trigger: '3'
                 },
                 {
@@ -67,51 +66,94 @@ class Chatbotcontainer extends Component {
 
                 },
                 {
-                    id: '10',
-                    message: `Have a great day ${this.props.loggedInUser && this.props.loggedInUser.username}, see you soon!`
-
-                },
-                {
                     id: '11',
                     component: this.getMyEventsOfToday(),
-                    end: true
+                    trigger: "7"
 
                 },
                 {
                     id: '12',
-                    component: <p>You can find them <Link to='/events'>here</Link> </p>,
+                    component: <p>You can find them <Link className="color-text" to='/events'>here</Link> </p>,
                     trigger: "7"
 
                 },
                 {
                     id: '13',
-                    component: <p>You can find it <Link to={`/profile/${this.props.loggedInUser._id}`}>here</Link> </p>,
+                    component: <p>You can find it <Link className="color-text" to={`/profile/${this.props.loggedInUser && this.props.loggedInUser._id}`}>here</Link> </p>,
                     trigger: "7"
 
                 },
                 {
                     id: '14',
                     message: "You can see the details on an event by clicking on its name",
-                    trigger: "15"
-                },
-                {
-                    id: '15',
-                    message: "Type the name of the event",
-                    trigger: '16'
-                },
-                {
-                    id: '16',
-                    user: true,
-                    trigger: '17'
-                },
-                {
-                    id: '17',
-                    component: (previousStep) => this.seeDetailsOfAnEvent(previousStep),
                     trigger: "7"
                 }
-            ]
+            ],
+            stepsNoLogged: [
+                {
+                    id: '1',
+                    message: `Hi, friend! What is your name? `,
+                    trigger: '2',
+                },
+                {
+                    id: '2',
+                    user: true,
+                    trigger: '3'
+                },
+                {
+                    id: '3',
+                    message: `Nice to meet you {previousValue}, welcome to Fainder!`,
+                    trigger: '4',
+                },
+                {
+                    id: '4',
+                    message: "Fainder is an app designed to share events so people can find where to hold it",
+                    trigger: '5',
+                    delay: 3000
+                },
+                {
+                    id: '5',
+                    component: <p>You can find them <Link className="color-text" to='/events'>here</Link> </p>,
+                    trigger: '6',
+                    delay: 3000
+                },
+                {
+                    id: '6',
+                    message: "Would you like to share your local or to attend/create events?",
+                    trigger: '7',
+                    delay: 3000
+                },
+                {
+                    id: '7',
+                    options: [
+                        { value: 1, label: 'Share my local', trigger: '8' },
+                        { value: 2, label: "Attend and create events", trigger: '11' },
+                    ],
+                    delay: 3000
+                },
+                {
+                    id: '8',
+                    message: "Good idea! You should sign up as a company, you can create as many locals as you want!",
+                    trigger: '9',
+                },
+                {
+                    id: '9',
+                    component: <p>You can start <Link className="color-text" to='/signup'>here</Link>.</p>,
+                    trigger: '10',
+                },
+                {
+                    id: '10',
+                    message: "Talk to me again when you are logged in! I still have some surprises for you!",
+                    end: true,
+                },
+                {
+                    id: '11',
+                    message: "I am sure you will enjoy all our events! And go to the best locals in town!",
+                    trigger: '9',
+                },
+
+            ],
         }
-        this.eventService = new EventService()
     }
     getAllMyEvents = (events) => {
         return (
@@ -138,7 +180,7 @@ class Chatbotcontainer extends Component {
     render() {
 
         return (
-            <ChatBot floating="true" steps={this.state.stepsLogged} />
+            <ChatBot floating="true" steps={this.props.loggedInUser ? this.state.stepsLogged : this.state.stepsNoLogged} />
         )
     }
 }

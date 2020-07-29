@@ -9,7 +9,6 @@ import EventList from "./event-list/"
 
 import SpinnerContainer from "../../ui/Spinner"
 
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import Map from './map'
 import "./main-page-event.css"
 import SearchBar from "./event-searchbar"
@@ -36,7 +35,6 @@ class EventPage extends Component {
     }
 
     filterEvents = filters => {
-        console.log(this.state.events)
         let eventsCopy = [...this.state.events]
         eventsCopy = filters.name ? eventsCopy.filter(event => event.name.toLowerCase().includes(filters.name.toLowerCase())) : eventsCopy
         eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy

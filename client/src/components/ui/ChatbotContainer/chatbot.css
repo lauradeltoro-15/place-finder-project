@@ -1,0 +1,17 @@
+.btn-chatbot {
+    background-image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgoogle%2Fmaterial-design-icons&psig=AOvVaw3Fpo7qyK-_-RgBSSliPzBY&ust=1596045757144000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICR7_XD8OoCFQAAAAAdAAAAABAD";
+}
+ul.rsc-os-options {
+    max-width: 350px;
+    flex-wrap: wrap;
+
+}
+ul.rsc-os-options li {
+    margin: 40px 20px
+}
+.rsc-os-option-element {
+    margin: 50px,
+}
+.center-elements {
+    text-align: center;
+}

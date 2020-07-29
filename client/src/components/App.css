@@ -323,3 +323,6 @@ img {
     margin-top: 2rem;
 }
 
+.checked .check{
+    justify-content: center;
+}

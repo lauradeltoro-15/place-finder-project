@@ -35,7 +35,7 @@ class LocationSearchInput extends Component {
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div>
                         <Form.Group>
-                            <Form.Label>Address</Form.Label>
+                            <Form.Label>Address*</Form.Label>
                             <Form.Control
                                 {...getInputProps({
                                     placeholder: 'Search your ...',

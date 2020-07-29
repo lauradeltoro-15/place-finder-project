@@ -1,9 +1,7 @@
 .small-card {
     display: flex;
     width: 100%;
-    margin: 10px;
-    border: 1px solid #eee;
-    padding:10px 
+
 
 }
 .small-card img {
@@ -32,5 +30,19 @@
     font-family: "Lato", sans-serif;
 }
 .small-card-info {
-word-wrap: break-word;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+.small-cont {
+    margin: 10px;
+    border: 1px solid #eee;
+    padding:10px 
+}
+.small-text-expanded {
+    text-align: center;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-size: 0.8em;
+    text-transform: uppercase;
+
 }

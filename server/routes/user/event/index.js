@@ -125,10 +125,7 @@ router.get('/:userId/owned', (req, res, next) => {
 router.get('/:userId/all/future', (req, res, next) => {
     Event
         .find({ startTime: { "$gt": new Date() }, participants: { $in: [req.params.userId] } })
-        .then(response => {
-            console.log(response)
-            res.json(response)
-        })
+        .then(response => res.json(response))
         .catch(err => next(err))
 })
 
