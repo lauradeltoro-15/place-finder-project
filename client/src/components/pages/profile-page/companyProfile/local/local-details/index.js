@@ -97,7 +97,6 @@ class LocalDetail extends Component {
 
     render() {
 
-        console.log('rendedirng local details')
         return (
             <>
                 {!this.state.local ? <SpinnerContainer /> :
