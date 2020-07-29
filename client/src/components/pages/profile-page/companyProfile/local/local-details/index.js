@@ -38,7 +38,7 @@ class LocalDetail extends Component {
         this.getGeoLocation()
     }
 
-    componentDidUpdate = (prevProps, prevState)  =>{
+    componentDidUpdate = (prevProps, prevState) => {
         this.state.travelMode !== prevState.travelMode && this.render()
     }
 
@@ -50,6 +50,14 @@ class LocalDetail extends Component {
     isUserOwner = () => this.props.loggedInUser && this.props.match.params.id === this.props.loggedInUser._id
 
     setDirections = (showDirections, travelMode) => {
+        if (!showDirections) {
+            this.setState({
+                showDirections,
+                travelMode,
+                directions: undefined
+            })
+            return
+        }
         const directionsService = new google.maps.DirectionsService();
         directionsService.route(
             {
@@ -59,11 +67,11 @@ class LocalDetail extends Component {
             },
             (result, status) => {
 
-                if (status ===  google.maps.DirectionsStatus.OK) {
+                if (status === google.maps.DirectionsStatus.OK) {
                     this.setState({
                         directions: result,
-                        travelMode: travelMode,
-                        showDirections: showDirections
+                        travelMode,
+                        showDirections
                     })
 
                 } else {
@@ -88,11 +96,11 @@ class LocalDetail extends Component {
     }
 
     render() {
-        
+
         console.log('rendedirng local details')
         return (
             <>
-                {!this.state.local ? <SpinnerContainer/> :
+                {!this.state.local ? <SpinnerContainer /> :
                     <Container fluid as="main" className='main-cont' >
                         <Row>
                             <Col md={{ span: 5, offset: 1 }} className='content'>
@@ -116,24 +124,35 @@ class LocalDetail extends Component {
                                 {this.state.local.services.map((service, i) => <small className="btn btn-grey" key={i}>{service}</small>)}
                             </Col>
                             <Col className='img-local' md={{ span: 5, offset: 1 }}>
-                                <img src={this.state.local.avatar} alt={ this.state.local.name }/>
+                                <img src={this.state.local.avatar} alt={this.state.local.name} />
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
-                                    <Button onClick={()=>this.setDirections(false, undefined)}>Local</Button>
-                                    <Button onClick={()=>this.setDirections(true, 'WALKING')}>Walking</Button>
-                                    <Button onClick={()=>this.setDirections(true, 'TRANSIT')}>Public transport</Button>
-                                    <Button onClick={()=>this.setDirections(true, 'DRIVING')}>Driving</Button>
-    
+                            <Col className="container-icon-img-travel">
+                                <div className={`small-icon ${this.state.travelMode !== "WALKING" && "inactive"}`} onClick={() => this.setDirections(true, 'WALKING')} >
+
+                                    <img className="travel-mode-icon" src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047458/avatar/walking_zkzfgq.png" alt="walking icon" />
+                                </div>
+                                <div className={`small-icon ${this.state.travelMode !== "TRANSIT" && "inactive"}`} onClick={() => this.setDirections(true, 'TRANSIT')}>
+                                    <img className="travel-mode-icon"  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047461/avatar/tram_qzyhjh.png" alt="transit icon" />
+                                </div>
+                                <div className={`small-icon ${this.state.travelMode !== "DRIVING" && "inactive"}`} onClick={() => this.setDirections(true, 'DRIVING')}>
+                                    <img className="travel-mode-icon"  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047466/avatar/car_ml3raz.png" alt="car icon" />
+                                </div>
+
+                                <div className={`big-icon ${this.state.travelMode !== undefined && "inactive"}`}onClick={() => this.setDirections(false, undefined)}>
+                                    <img className="travel-mode-icon "  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047463/avatar/local_exfiaw.png" alt="local icon" />
+                                </div>
+
+
                             </Col>
                         </Row>
                         <Row className="maps">
-                            <Col md={{span: 8, offset: 2}} className="map-container">
-                                    {!this.state.showDirections && <Map local={this.state.local} />}
-                                    {this.state.directions && this.state.showDirections && this.state.currentLatLng.lat && <Directions directions={this.state.directions} location={this.state.currentLatLng} local={this.state.local} travelMode={this.state.travelMode}/>}  
-                            
-                            
+                            <Col md={{ span: 8, offset: 2 }} className="map-container">
+                                {!this.state.showDirections && <Map local={this.state.local} />}
+                                {this.state.directions && this.state.showDirections && this.state.currentLatLng.lat && <Directions directions={this.state.directions} location={this.state.currentLatLng} local={this.state.local} travelMode={this.state.travelMode} />}
+
+
                             </Col>
                         </Row>
                         <Row>

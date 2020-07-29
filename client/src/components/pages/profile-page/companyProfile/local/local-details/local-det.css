@@ -47,3 +47,50 @@ box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
 .local-btn{
     padding: 30px;
 }
+.small-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    padding:10px;
+    margin: 0;
+    background-color: #49C5B6;
+    cursor: pointer;
+    transition: all 0.5s;
+    border: 1px solid #fff
+}
+.big-icon img {
+    cursor: pointer;
+}
+.small-icon img {
+    cursor: pointer;
+}
+.big-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #49C5B6;
+    padding: 10px 40px;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.5s;
+    border: 1px solid #fff
+}
+.container-icon-img-travel {
+    display: flex;
+}
+.big-icon img {
+    height: 20px;
+    width: 22px;
+}
+.big-icon.inactive, .small-icon.inactive {
+    background-color: #9fd0ca;
+}
+.container-icon-img-travel.col {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px
+}
