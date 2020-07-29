@@ -93,10 +93,7 @@ class EventDetails extends Component {
                                             </div>
                                         )} 
                                         </div>
-
-
                                     </Col>
-                                
                                     {this.state.eventDetails.acceptedOffer && this.state.eventDetails.acceptedOffer.local ?
                                         <Col md={{ span: 5}} className=' container-local-participants local'>
                                             <h2 className='color-text'>Local: {this.state.eventDetails.acceptedOffer.local.name}</h2>

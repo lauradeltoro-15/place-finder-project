@@ -50,9 +50,7 @@ class App extends Component {
   fetchUser = () => {
     this.AuthService
       .isLoggedIn()
-      .then(response => {
-        this.state.loggedInUser === null && this.setState({ loggedInUser: response.data })
-      })
+      .then(response => this.state.loggedInUser === null && this.setState({ loggedInUser: response.data }))
       .catch(err => console.log({ err }))
   }
   handleToast = (visible, text = '') => {
