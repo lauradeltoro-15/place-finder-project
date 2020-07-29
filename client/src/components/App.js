@@ -99,7 +99,7 @@ class App extends Component {
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
-        {this.state.loggedInUser && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
+        {this.state.loggedInUser && this.state.loggedInUser.personDetails && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
         {!this.state.loggedInUser && <ChatbotContainer />} 
         <Footer />
       </>

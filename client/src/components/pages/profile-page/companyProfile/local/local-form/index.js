@@ -76,10 +76,7 @@ class LocalForm extends Component {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
         this.filesService.handleUpload(uploadData)
-            .then(response => {
-                console.log(response.data.secure_url)
-                this.setState({ avatar: response.data.secure_url })
-            })
+            .then(response => this.setState({ avatar: response.data.secure_url }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
@@ -95,7 +92,6 @@ class LocalForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         const id = this.props.loggedInUser._id
-        console.log(id)
         const localId = this.props.localToEdit
         this.props.localToEdit ? this.editLocal(id, this.state, localId) : this.createNewLocal(id, this.state)
     }
@@ -124,7 +120,6 @@ class LocalForm extends Component {
         })
     }
     createNewLocal = (id, state) => {
-        console.log("we are here")
         this.localService.createNewLocal(id, state)
             .then(() => this.props.handleFormSubmit())
             .catch(err => !err.response ? null :

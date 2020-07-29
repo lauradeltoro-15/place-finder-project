@@ -30,7 +30,7 @@ class SmallCard extends Component {
             <div className="small-cont">
                 <article className="small-card">
                     <div className="image-container-small">
-                        <img src={this.props.event.avatar} />
+                        <img src={this.props.event.avatar} alt={ this.props.event.name }/>
                     </div>
                     <div>
                         <p

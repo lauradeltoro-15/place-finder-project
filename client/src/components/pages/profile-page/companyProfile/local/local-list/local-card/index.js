@@ -24,11 +24,7 @@ class LocalCard extends Component {
 
     deleteCard = (localId) => {
         this.localService.deleteLocal(localId, this.props.loggedInUser._id)
-            .then(response => {
-                console.log("eleleele", this.props)
-                this.props.updateUserDetails(this.props.loggedInUser._id)
-            }
-            )
+            .then(response => this.props.updateUserDetails(this.props.loggedInUser._id))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 

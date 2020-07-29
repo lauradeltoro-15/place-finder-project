@@ -16,7 +16,10 @@ const OfferCard = props => {
     const acceptOffer = (offerId, eventId) => {
         offerService
             .acceptOffer(offerId, eventId, props.loggedInUser._id)
-            .then(() => props.updateEventOffers(props.event._id))
+            .then(() => {
+                props.updateMainPage()
+                props.updateEventOffers(props.event._id)
+            })
             .catch(err => err.response && props.handleToast(true, err.response.data.message))
     }
 
@@ -32,7 +35,7 @@ const OfferCard = props => {
                 <Row className='offer-row'>
                     <Col md={5} className='offer-Card'>
                         <div  className='avatar'>
-                            <img src={props.offer.local.avatar}></img>
+                            <img src={props.offer.local.avatar} alt={props.offer.local.name}></img>
                         </div>
                         <span>{props.offer.local.name}</span>
                     </Col>
@@ -41,7 +44,7 @@ const OfferCard = props => {
                         <br></br>
                         <span className="color-text-black">Comments: </span> {props.offer.description}
                         <br></br>
-                        {!props.loggedInUser.companyDetails && props.event.owner == props.loggedInUser._id && props.offer.status == 'pending' &&
+                        {!props.loggedInUser.companyDetails && props.event.owner === props.loggedInUser._id && props.offer.status === 'pending' &&
                             <><Button className='offer-btn' variant="primary" onClick={() => acceptOffer(props.offer._id, props.event._id)}>Accept Offer</Button>
                                 <Link to={`/user/${props.offer.local.owner._id}/local/${props.offer.local._id}`} ><Button className=" btn btn-yellow" type="submit">See more</Button></Link>
                             </>

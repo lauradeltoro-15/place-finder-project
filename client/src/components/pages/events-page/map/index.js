@@ -22,7 +22,7 @@ export class MapContainer extends Component {
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true,
-            activeEvent: this.props.markers.filter(event => event._id == marker.id)[0]
+            activeEvent: this.props.markers.filter(event => event._id === marker.id)[0]
         })
         
     };
@@ -68,7 +68,7 @@ export class MapContainer extends Component {
                 {this.state.activeEvent.owner ? 
                 <article className='maps-card'>
 
-                    <article><img src={this.state.activeEvent.avatar}></img></article>
+                          <article><img src={this.state.activeEvent.avatar} alt={this.state.activeEvent.name }></img></article>
                     <h4>{this.state.activeEvent.name}</h4>
                     <span className="color-text-black">Creator:</span>  {this.state.activeEvent.owner.username}  |   <span className="color-text-black">Participants:</span>  {this.state.activeEvent.participants.length}<br></br><br></br>
                     <span className="color-text-black">City:</span>  {this.state.activeEvent.city}  |  <span className="color-text-black">Local:</span>  {this.state.activeEvent.acceptedOffer.local.name}

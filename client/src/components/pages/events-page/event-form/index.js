@@ -128,7 +128,7 @@ class EventForm extends Component {
     render() {
         return (
             <>
-                {this.state.name == undefined ? null :
+                {this.state.name === undefined ? null :
                     <main className="main-bg">
                         <Form className="local-form-col-new-event" onSubmit={this.handleFormSubmit}>
                             {this.props.eventToEdit ? <h1 className='color-text'>Edit Event</h1> : <h1 className='color-text'>Create Event</h1>}
@@ -144,7 +144,7 @@ class EventForm extends Component {
                                 <Form.Label>Main image</Form.Label>
                                 <Form.Control onChange={this.handleFileUpload} name="avatar" type="file" />
                             </Form.Group>
-                            <div class="small-input-container">
+                            <div className="small-input-container">
                                 <Form.Group className="col-md-6">
                                     <Form.Label className="color-text-black">Start time*</Form.Label>
                                     <Form.Control className="small-input" onChange={this.handleInputChange} type="datetime-local" name="startTime" value={this.state.startTime} />
@@ -160,7 +160,7 @@ class EventForm extends Component {
                             </Form.Group>
                             <Form.Group className="col-md-12">
                                 <Form.Label className="color-text-black">Type of local</Form.Label>
-                                <div class="small-input-container check">
+                                <div className="small-input-container check">
                                     <Form.Group>
                                         <Form.Label>Restaurant</Form.Label>
                                         <input onChange={this.handleInputChange} checked={this.state.typeOfLocal === "restaurant"} value="restaurant" name="typeOfLocal" type="radio" />

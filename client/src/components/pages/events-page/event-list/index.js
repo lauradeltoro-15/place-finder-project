@@ -22,7 +22,10 @@ class  EventList extends Component {
         this.eventService = new EventService()
     }
 
-    componentDidMount = () => this.setEvents()
+    componentDidMount = () => {
+        window.scrollTo(0, 0)
+        this.setEvents()
+    }
 
     setEvents = () => {
         this.setState({pageCount: Math.ceil(this.props.events.length/this.state.perPage)}, () => this.setElementsForCurrentPage())

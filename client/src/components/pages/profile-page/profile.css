@@ -43,3 +43,7 @@ h1 {
     display: flex;
     justify-content: center;
 }
+.main-profile {
+    min-height: 100vh;
+    margin-top: 0;
+}

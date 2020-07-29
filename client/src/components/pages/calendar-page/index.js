@@ -20,7 +20,10 @@ class CalendarPage extends Component {
         this.offerService = new OfferService()
         this.localService = new LocalService()
     }
-    componentDidMount = () => this.updateEvents()
+    componentDidMount = () => {
+        window.scrollTo(0, 0)
+        this.updateEvents()
+    }
 
     updateEvents = () => this.props.match.params.userId ? this.getAllUserEvents(this.props.match.params.userId) :
         this.getLocalInfo(this.props.match.params.localId)

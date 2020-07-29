@@ -26,10 +26,12 @@ class EventPage extends Component {
                 lng: undefined
             },
         }
+        this.myRef = React.createRef()
         this.eventService = new EventService()
     }
 
     componentDidMount = () => {
+        window.scrollTo(0, 0)
         this.updateEventList()
         this.getGeoLocation()
     }
@@ -100,7 +102,6 @@ class EventPage extends Component {
     }
 
     getKilometers = (lat1, lon1, lat2, lon2) => {
-        console.log('coordenadas a evaluar', lat1, lon1, lat2, lon2)
         const rad = (deg) => deg * (Math.PI / 180)
         const R = 6378.137; //Radio de la tierra en km
         const dLat = rad(lat2 - lat1);

@@ -33,7 +33,6 @@ class SearchBar extends Component {
     }
 
     handleDateInputsChange = e => {
-        console.log(e.target.value)
         e.target.value === "today" && this.sendOneDayValue(e, 0)
         e.target.value === "tomorrow" && this.sendOneDayValue(e, 1)
         e.target.value === "weekend" && this.sendWeekendValue(e)
@@ -112,7 +111,7 @@ class SearchBar extends Component {
             <Form>
 
                 <Form.Group className="main-search-bar">
-                    <span>&#128269;</span>
+                    <span role="img" aria-label="magnifying glass">&#128269;</span>
                     <Form.Control placeholder="Enter the name of an event" onChange={this.handleInputChange} value={this.state.name} name="name" type="text" className="main-input" />
                     <p className="show-filter-button" onClick={() => this.setState({ showFilters: !this.state.showFilters })}>Show Filters</p>
                 </Form.Group>

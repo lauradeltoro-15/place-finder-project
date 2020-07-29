@@ -21,6 +21,7 @@ class LocalDetail extends Component {
         this.localService = new LocalService()
     }
     componentDidMount = () => {
+        window.scrollTo(0, 0)
         const id = this.props.match.params.localId
         this.getLocalDetails(id)
     }
@@ -57,7 +58,7 @@ class LocalDetail extends Component {
                                 {this.state.local.services.map((service, i) => <small className="btn btn-grey" key={i}>{service}</small>)}
                             </Col>
                             <Col className='img-local' md={{ span: 5, offset: 1 }}>
-                                <img src={this.state.local.avatar} />
+                                <img src={this.state.local.avatar} alt={ this.state.local.name }/>
                             </Col>
                         </Row>
                         <Row className="maps">

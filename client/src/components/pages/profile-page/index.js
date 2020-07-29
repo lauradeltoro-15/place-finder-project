@@ -23,7 +23,10 @@ class ProfilePage extends Component {
         this.UserService = new UserService()
         this.localService = new LocalService()
     }
-    componentDidMount = () => this.updateUserDetails(this.props.match.params.userId)
+    componentDidMount = () => {
+        window.scrollTo(0, 0)
+        this.updateUserDetails(this.props.match.params.userId)
+    }
  
     updateUserDetails = id => {
         this.UserService
@@ -48,10 +51,11 @@ class ProfilePage extends Component {
         }
     }
     render() {
+        const profile = this.state.userDetails && this.getProfile()
         return (
             <>
-                {!this.state.userDetails ? <SpinnerContainer/>:
-                    <main className="main-bg">
+                {this.state.userDetails && profile ?
+                    <main className="main-bg main-profile">
                         <Container className="profile-container">
                             <h1 className="big-title">{this.state.userDetails.username}'s profile</h1>
                             <div className="sub-profile-container">
@@ -60,10 +64,12 @@ class ProfilePage extends Component {
                                     <img className="profile-image" alt={this.state.userDetails.username} src={this.state.userDetails.avatar} />
                                 </div>
                             </div>
-                          
-                            {this.getProfile()}
+
+                            {profile}
                         </Container>
-                </main>
+                    </main>
+                : <SpinnerContainer/>
+
             }
             </>     
         )
