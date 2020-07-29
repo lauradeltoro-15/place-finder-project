@@ -91,28 +91,21 @@ class Chatbotcontainer extends Component {
                 },
                 {
                     id: '14',
-                    message: "Do you wanna see the details of any of them?",
+                    message: "You can see the details on an event by clicking on its name",
                     trigger: "15"
                 },
                 {
                     id: '15',
-                    options: [
-                        { value: true, label: 'Yes', trigger: '16' },
-                        { value: false, label: 'No', trigger: '7' }
-                    ],
+                    message: "Type the name of the event",
+                    trigger: '16'
                 },
                 {
                     id: '16',
-                    message: "Type the name of the event",
+                    user: true,
                     trigger: '17'
                 },
                 {
                     id: '17',
-                    user: true,
-                    trigger: '18'
-                },
-                {
-                    id: '18',
                     component: (previousStep) => this.seeDetailsOfAnEvent(previousStep),
                     trigger: "7"
                 }
@@ -133,13 +126,6 @@ class Chatbotcontainer extends Component {
             this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
         return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
     }
-    seeDetailsOfAnEvent = previousStep => {
-        console.log(previousStep)
-        // const index = this.props.events && this.props.events.findIndex(event => event.name === name)
-        // console.log(index)
-        // return index === -1 ? <p>You don't have any event with that name, try to write it again</p> : this.props.events[index]
-    }
-
 
     obtainDateInFormat = date => {
         const newDate = new Date(date)
@@ -152,9 +138,7 @@ class Chatbotcontainer extends Component {
     render() {
 
         return (
-
             <ChatBot floating="true" steps={this.state.stepsLogged} />
-
         )
     }
 }
