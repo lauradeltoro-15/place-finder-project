@@ -88,7 +88,7 @@ router.get('/getAllEvents', (req, res, next) => {
 //get all future events
 router.get('/getAllFutureEvents', (req, res, next) => {
     Event
-        .find({ startTime: { "$gte": new Date()}})
+        .find({ endTime: { "$gte": new Date()}})
         .populate({
             path:'acceptedOffer',
             populate:{
@@ -204,6 +204,33 @@ router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next)
                 .catch(err => next(err))       
         )
         .catch(err => next(err))
+})
+// Update event pictures
+router.get('/live/comments/:eventId', isLoggedIn, (req, res, next) => {
+    Event
+        .findById(req.params.eventId, { comments: 1, _id: 0 })
+        .populate("comments")
+        .then(response => res.json(response))
+        .catch(err => next(err))
+})
+router.put('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
+    Event
+        .findById(req.params.eventId)
+        .then(event => {
+            event.pictures.push(req.body.picture)
+            event.save()
+            return event
+        }
+        )
+        .then(response => res.json(response))
+        .catch(err => next(err))
+
+})
+router.get('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
+    Event
+        .findById(req.params.eventId, { pictures: 1 , _id: 0})
+            .then(response => res.json(response))
+            .catch(err => next(err))
 })
 
 // add offer to an event

@@ -15,6 +15,16 @@ const eventSchema = new Schema({
         type: String,
         default: "https://res.cloudinary.com/dlsnvevxk/image/upload/v1595615463/avatar/calendar_icon_hrzahj.png"
     },
+    comments: {
+        type: [{
+            message: String,
+            owner: { type: Schema.Types.ObjectId, ref: "User" }
+        }]
+    },
+    pictures: {
+        type: [String],
+        default: []
+    },
     description: {
         type: String,
         required: true,
