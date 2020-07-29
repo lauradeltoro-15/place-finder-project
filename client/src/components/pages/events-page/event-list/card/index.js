@@ -77,7 +77,22 @@ class EventCard extends Component {
         const min = String(newDate.getMinutes()).padStart(2, '0')
         return `${hh}:${min}h`
     }
-
+    obtainDateInFormat = date => {
+        const newDate = new Date(date)
+        const hh = String(newDate.getHours()).padStart(2, '0')
+        const min = String(newDate.getMinutes()).padStart(2, '0')
+        let dd = String(newDate.getDate()).padStart(2, '0')
+        let mm = String(newDate.getMonth() + 1).padStart(2, '0')
+        let yyyy = newDate.getFullYear()
+        return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`
+    }
+    isLive = () => {
+        const today = new Date() 
+        const todayFormatted = this.obtainDateInFormat(today)
+        const startTime = this.obtainDateInFormat(this.props.startTime)
+        const endTime = this.obtainDateInFormat(this.props.endTime)
+        return startTime <= todayFormatted && endTime >= todayFormatted
+    }
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
@@ -110,7 +125,11 @@ class EventCard extends Component {
                         {this.props.loggedInUser && this.props.loggedInUser.companyDetails && !this.props.acceptedOffer &&
                             <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
                         }
-                        {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
+                    {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
+                    {this.props.loggedInUser && this.props.acceptedOffer && this.isParticipating() && this.isLive() &&
+                        <Link to={`/live/${this.props._id}`} ><Button variant="primary">LIVE!</Button></Link>
+
+                    }
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
                             {this.props.loggedInUser && this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
                             : <OfferForm event={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
