@@ -94,9 +94,9 @@ class CalendarPage extends Component {
                     <Container fluid as="main">
 
                         <Row >
-                        <Col className='recommendations-container' md={{span: 5, offset: 0}}>
+                        <Col className='recommendations' md={{span: 5, offset: 0}}>
                         <h3>For you <img  className='logo-heart' src='https://res.cloudinary.com/dlsnvevxk/image/upload/v1596120541/avatar/fainder-love_bz4ic5.png'></img> by <span className='logo'>fainder</span></h3>
-                           {this.state.recommendations && 
+                          <div className='recommendations-container' > {this.state.recommendations && 
                             this.state.recommendations.map((event, i) => 
                                 <div className='row'>
                                 <div className='events-calendar'>
@@ -116,16 +116,16 @@ class CalendarPage extends Component {
                                     {this.props.loggedInUser.personDetails && 
                                         <Button variant='primary' onClick={() => this.joinEvent(event._id, this.props.loggedInUser._id) }> Join event </Button>
                                     }
-
                                     </div>
                                     
                                 </div>
                                 </div>
                                 )
                             } 
+                            </div>
                         </Col>
 
-                        <Col md={{span: 7}}>
+                        <Col className='calendar' md={{span: 6}}>
                           <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
                         </Col>
                         

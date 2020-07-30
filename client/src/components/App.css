@@ -351,14 +351,20 @@ img {
 }
 
 .recommendations-container{
+    padding: 2rem;
     background-color: #F4F7F6;
+    margin-left: 2rem
     
 }
 
-.recommendations-container h3{
+.recommendations h3{
     margin: 2rem;
     text-align: center
 }
 .logo-heart{
     width: 50px;
+}
+
+.calendar{
+    margin: 3rem
 }

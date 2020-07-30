@@ -69,7 +69,7 @@ class Calendar extends Component {
         
         return (
             <>
-                <FullCalendar
+                <FullCalendar className='calendar'
                     businessHours={this.props.local && this.props.local.availability ? this.props.local.availability : ""}
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
