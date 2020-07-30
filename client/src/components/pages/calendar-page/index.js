@@ -32,7 +32,11 @@ class CalendarPage extends Component {
         window.scrollTo(0, 0)
         this.updateEvents()
     }
-
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.state.events !== prevState.events || this.state.offers !== prevState.offers || this.state.recommendations !== prevState.recommendations) {
+            this.render()
+        }
+    }
     updateEvents = () => {
         if (this.props.match.params.userId) {
             this.getPersonRecommendations(this.props.match.params.userId)
