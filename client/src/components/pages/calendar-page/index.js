@@ -90,13 +90,12 @@ class CalendarPage extends Component {
                 {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container fluid as="main">
                         <Row >
-                            <Col className='recommendations' md={{ span: 5, offset: 0 }}>
+                            <Col className='recommendations' md={{ span: 4, offset: 0 }}>
                                 <RecommendationList updateEvents={this.updateEvents} handleToast={this.props.handleToast} recommendations={this.state.recommendations} loggedInUser={this.props.loggedInUser} />
                             </Col>
                             <Col className='calendar' md={{ span: 6 }}>
                                 <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
                             </Col>
-
                         </Row>
 
                     </Container> : <SpinnerContainer />
