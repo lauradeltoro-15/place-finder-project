@@ -28,5 +28,7 @@ export default class EventService {
     leaveEvent = (eventId, id) => this.service.put(`/leave/${eventId}/${id}`)
     updateLiveEventPictures = (eventId, picture) => this.service.put(`/live/pictures/${eventId}`, { picture })
     getAllPicturesEvent = (eventId) => this.service.get(`/live/pictures/${eventId}`)
+    getRecommendations = (userId) => this.service.get(`/${userId}/getUserRecommendations`)
+    getLocalRecommendations = (localId) => this.service.get(`/${localId}/getLocalRecommendations`)
 
 }

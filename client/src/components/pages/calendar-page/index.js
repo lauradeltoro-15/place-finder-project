@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Calendar from "./calendar"
+import Button from 'react-bootstrap/Button'
 
 import EventService from "../../../services/EventService"
 import OfferService from "../../../services/OfferService"
@@ -14,7 +18,8 @@ class CalendarPage extends Component {
         super(props)
         this.state = {
             events: undefined,
-            offers: undefined
+            offers: undefined,
+            recommendations: undefined,
         }
         this.eventService = new EventService()
         this.offerService = new OfferService()
@@ -25,8 +30,17 @@ class CalendarPage extends Component {
         this.updateEvents()
     }
 
-    updateEvents = () => this.props.match.params.userId ? this.getAllUserEvents(this.props.match.params.userId) :
-        this.getLocalInfo(this.props.match.params.localId)
+    updateEvents = () => {
+
+        if(this.props.match.params.userId ){
+            this.getPersonRecommendations(this.props.match.params.userId)
+            this.getAllUserEvents(this.props.match.params.userId)
+        }
+        else{
+            this.getLocalInfo(this.props.match.params.localId)
+            this.getLocalRecommendations(this.props.match.params.localId)
+        }
+    }
 
     getAllUserEvents = id => {
         this.eventService.getAllEventsUser(id)
@@ -49,12 +63,74 @@ class CalendarPage extends Component {
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
+    getPersonRecommendations = (userId) => {
+        this.eventService
+            .getRecommendations(userId)
+            .then(response => this.setState({ recommendations: response.data }))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+    }
+
+    getLocalRecommendations = (localId) => {
+        this.eventService
+            .getLocalRecommendations(localId)
+            .then(response => this.setState({ recommendations: response.data }))
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
+
+    }
+
+    joinEvent = (eventId, userId) => {
+        this.eventService
+            .joinEvent(eventId, userId)
+            .then(() => this.updateEvents())
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+    }
+
     render() {
+
+        console.log('las recomendaciones', this.state.recommendations)
         return (
             <>
                 {(this.state.events || (this.state.offers && this.state.local)) ?
-                    <Container as="main">
-                        <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
+                    <Container fluid as="main">
+
+                        <Row >
+                        <Col className='recommendations-container' md={{span: 5, offset: 0}}>
+                        <h3>For you <img  className='logo-heart' src='https://res.cloudinary.com/dlsnvevxk/image/upload/v1596120541/avatar/fainder-love_bz4ic5.png'></img> by <span className='logo'>fainder</span></h3>
+                           {this.state.recommendations && 
+                            this.state.recommendations.map((event, i) => 
+                                <div className='row'>
+                                <div className='events-calendar'>
+                                    <div className='col-md-2'><img src={event.avatar}></img></div>
+                                    <div className='col-md-6'>
+                                    <h6 className='color-text'>{event.name}</h6>
+                                    {event.acceptedOffer ? <span className='color-text-black'>Confirmed </span> : <span className='color-text-black'>Not confirmed </span>}    |     
+                                    
+                                    <span className='color-text-black'> Participants: </span>{event.participants.length}
+                                    
+                                    <p><span className='color-text-black'>Theme: </span>{event.theme.map(theme => <span className='btn btn-grey'>{theme}</span>)}</p>
+                                    </div>
+                                    <div className='col-md-4'>
+                                    {this.props.loggedInUser.companyDetails &&
+                                        <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
+                                    }
+                                    {this.props.loggedInUser.personDetails && 
+                                        <Button variant='primary' onClick={() => this.joinEvent(event._id, this.props.loggedInUser._id) }> Join event </Button>
+                                    }
+
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                                )
+                            } 
+                        </Col>
+
+                        <Col md={{span: 7}}>
+                          <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
+                        </Col>
+                        
+                        </Row>
+                        
                     </Container> : <SpinnerContainer />
                  
                 }
