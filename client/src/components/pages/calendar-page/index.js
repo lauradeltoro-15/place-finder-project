@@ -88,29 +88,27 @@ class CalendarPage extends Component {
     }
 
     render() {
-
-        console.log('las recomendaciones', this.state.recommendations)
         return (
             <>
                 {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container fluid as="main">
                         <Row >
-                        <Col className='recommendations' md={{span: 5, offset: 0}}>
+                        <Col className='recommendations' md={{span: 4, offset: 0}}>
                         <h3>For you <img  className='logo-heart' src='https://res.cloudinary.com/dlsnvevxk/image/upload/v1596120541/avatar/fainder-love_bz4ic5.png'></img> by <span className='logo'>fainder</span></h3>
                           <div className='recommendations-container' > {this.state.recommendations && 
                             this.state.recommendations.map((event, i) => 
                                 <div className='row'>
                                 <div className='events-calendar'>
                                     <div className='col-md-2'><img src={event.avatar}></img></div>
-                                    <div className='col-md-6'>
+                                    <div className='col-md-7'>
                                     <h6 className='color-text'>{event.name}</h6>
-                                    {event.acceptedOffer ? <span className='color-text-black'>Confirmed </span> : <span className='color-text-black'>Not confirmed </span>}    |     
+                                    {event.acceptedOffer ? <span className='text-black'>Confirmed </span> : <span className='text-black'>Not confirmed </span>}    |     
                                     
-                                    <span className='color-text-black'> Participants: </span>{event.participants.length}
+                                    <span className='text-black'> Participants: </span><span className='text-small'>{event.participants.length}</span>
                                     
-                                    <p><span className='color-text-black'>Theme: </span>{event.theme.map(theme => <span className='btn btn-grey'>{theme}</span>)}</p>
+                                    <p className='text-small'><span className='text-black'>Theme: </span>{event.theme.map(theme => <span className='btn btn-grey'>{theme}</span>)}</p>
                                     </div>
-                                    <div className='col-md-4'>
+                                    <div className='col-md-3'>
                                     {this.props.loggedInUser.companyDetails &&
                                         <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
                                     }

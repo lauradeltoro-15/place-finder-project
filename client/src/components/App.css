@@ -340,8 +340,9 @@ img {
     margin: 0 auto;
     width: 90%;
     background-color: white;
-    padding: 1rem;
-    border: 1px solid #49C5B6;
+    padding: 0.3rem;
+    margin-bottom: 2rem;
+
 }
 
 
@@ -353,7 +354,8 @@ img {
 .recommendations-container{
     padding: 2rem;
     background-color: #F4F7F6;
-    margin-left: 2rem
+    margin-left: 2rem;
+    height: 80%
     
 }
 
@@ -366,5 +368,14 @@ img {
 }
 
 .calendar{
-    margin: 3rem
+    margin: 3rem auto
+}
+
+.text-black{
+    font-size: 0.7rem;
+    font-weight: bold
+}
+
+.text-small{
+    font-size: 0.7rem;
 }

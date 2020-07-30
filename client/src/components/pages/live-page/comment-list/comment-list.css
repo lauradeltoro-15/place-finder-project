@@ -1,6 +1,94 @@
 .comments {
-    margin: 50px 150px;
+    margin: 0px 150px;
 }
 .comment-form {
     margin-bottom: 0;
 }
+
+.page-item{
+    text-decoration: none;
+    color: #49C5B6
+}
+
+.inactive:hover{
+    color: grey
+}
+
+.Lactive{
+    background-color: #49C5B6;
+    color: white
+}
+
+.Lactive a:not([href]){
+    background-color: inherit;
+    border: none;
+    color: white;
+
+}
+
+a:not([href]){
+    color: #49C5B6;
+    padding: 0rem 0.3rem
+}
+
+
+.upload-file-container{
+    padding-bottom: 0rem
+}
+
+.paginate li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit
+}
+.paginate{
+    text-align: center;
+ 
+}
+
+.next{
+    border: 1px solid #F4F7F6
+}
+
+.next-prev{
+    background-color: white;
+    width: 100px;
+    
+}
+
+.comments-col{
+    justify-content: center;
+}
+
+.comment-form{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 3rem;
+    margin-bottom: 5rem
+}
+
+.paginate{
+    margin-left: 9rem;
+    justify-content: flex-start;
+
+}
+
+.paginate ul{
+    margin-top: 0;
+    margin-bottom: 3rem;
+}
+.page-link {
+    padding: 0
+}
+
+li{
+    height: 2rem;
+    width: 3rem
+}
+
+ul{
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
