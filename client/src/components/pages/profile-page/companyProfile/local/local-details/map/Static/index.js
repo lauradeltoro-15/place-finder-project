@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import React, { Component } from 'react'
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import '../../../../../../events-page/map/map.css'
 import '../map.css'
 
@@ -32,13 +32,14 @@ export class MapContainer extends Component {
     }
 
     render() {
-      const {google} = this.props
-      return (
-        <Map 
-            className='map-cont'
-            zoom={14}
-            styles={this.props.mapStyle}
-            initialCenter={{lat: this.props.local.location.coordinates.lat, lng: this.props.local.location.coordinates.lng}}
+        const { google } = this.props
+        return (
+            <Map
+                className='map-cont'
+                google={this.props.google}  
+                zoom={14}
+                styles={this.props.mapStyle}
+                initialCenter={{ lat: this.props.local.location.coordinates.lat, lng: this.props.local.location.coordinates.lng }}
             >
                 <Marker onClick={this.onMarkerClick}
                     key={this.props.local._id}
@@ -79,4 +80,3 @@ MapContainer.defaultProps = googleMapStyles
 export default GoogleApiWrapper({
     apiKey: "AIzaSyDY0ca9uUtMtAtYBETgl9AYh-slo_gl9eg"
 })(MapContainer)
-
