@@ -3,8 +3,8 @@
     object-fit: cover;
 }
 .live-button.btn.btn-primary {
-    border: 2px solid #f78fa2 ;
-    background-color: #f78fa2;
+    border: 2px solid #f9cb67 ;
+    background-color: #f9cb67;
     color:#fff;
     font-size: 1em;
 	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;

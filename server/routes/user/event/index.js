@@ -40,8 +40,8 @@ const deleteDetailsAndAssociatedOffers = (res, eventId) => {
 }
 
 const getRandomInterest = interests => {
-    console.log(interests[Math.floor(Math.random()* interests.length)])
-    return interests[Math.floor(Math.random()* interests.length)]
+    console.log(interests[Math.floor(Math.random() * interests.length)])
+    return interests[Math.floor(Math.random() * interests.length)]
 
 }
 
@@ -52,20 +52,20 @@ router.get('/:id/getUserRecommendations', isLoggedIn, isTheUserAllowed, (req, re
         .findById(req.params.id)
         .populate('personDetails')
         .then(user => {
-            if (user.personDetails.interests.length === 0){
-                return Event.find({ startTime: { "$gte": new Date() }, participants: {$nin: req.params.id}}).limit(10)
+            if (user.personDetails.interests.length === 0) {
+                return Event.find({ startTime: { "$gte": new Date() }, participants: { $nin: req.params.id } }).limit(10)
             }
-            else{
-                return Event.find({theme: { $in: [getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests) ] }, startTime: { "$gte": new Date() }, participants: {$nin: req.params.id}}).limit(10)
+            else {
+                return Event.find({ theme: { $in: [getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests)] }, startTime: { "$gte": new Date() }, participants: { $nin: req.params.id } }).limit(10)
             }
         })
         .then(events => res.json(events))
         .catch(err => next(err))
 })
 
-router.get('/:localId/getLocalRecommendations', (req, res, next) => {    
+router.get('/:localId/getLocalRecommendations', (req, res, next) => {
     Promise
-        .all([Event.find(), Offer.find({local: req.params.localId}), Local.findById(req.params.localId)])
+        .all([Event.find(), Offer.find({ local: req.params.localId }), Local.findById(req.params.localId)])
         .then((response) => {
             let events = response[0]
             let offersByTheLocal = response[1]
@@ -74,7 +74,7 @@ router.get('/:localId/getLocalRecommendations', (req, res, next) => {
                 events.filter((event, i) =>
                     offersByTheLocal.every(offer => JSON.stringify(offer.event) != JSON.stringify(event._id)) &&
                     local.localType == event.typeOfLocal && !event.acceptedOffer)
-                .slice(0, 10))
+                    .slice(0, 10))
         })
         .catch(err => next(err))
 })
@@ -156,7 +156,7 @@ router.get('/:userId/owned', (req, res, next) => {
 // get all events of a user
 router.get('/:userId/all/future', (req, res, next) => {
     Event
-        .find({ startTime: { "$gt": new Date() }, participants: { $in: [req.params.userId] } })
+        .find({ endTime: { "$gte": new Date() }, participants: { $in: [req.params.userId] } })
         .then(response => res.json(response))
         .catch(err => next(err))
 })

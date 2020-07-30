@@ -46,7 +46,7 @@ class EventDetails extends Component {
     render() {
         return (
             <>
-                {!this.state.eventDetails && this.state.owner ? <SpinnerContainer /> :
+                {this.state.eventDetails && this.state.owner ? 
                     <>
                         <Container fluid className='main-cont'>
                             <Row>
@@ -117,7 +117,7 @@ class EventDetails extends Component {
                             </Row>
                             <OffersList className='offer-list' updateMainPage={this.updateState} loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast} />
                         </Container>
-                    </>
+                    </> : <SpinnerContainer /> 
                 }
             </>
         )
