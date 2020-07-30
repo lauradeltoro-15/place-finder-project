@@ -36,7 +36,6 @@ export class MapContainer extends Component {
 
     render() {
       const {google} = this.props
-        console.log(this.props.markers,"markers")
       const center = this.props.currentLocation.lat ? this.props.currentLocation : this.state.defaultLocation
       return (
         <Map 

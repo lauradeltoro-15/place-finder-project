@@ -16,7 +16,7 @@ const isAnOfferWithThisLocal = (offers, event, local) =>  offers.some(offer => o
 const createAnOffer = (res, offer) => {
     return Offer.create(offer)
         .then(offer => res.json(offer))
-        .catch(err => next(err))
+        .catch(err => console.log(err))
 }
 
 //Endpoints

@@ -38,10 +38,8 @@ export class MapContainer extends Component {
     render() {
       const {google} = this.props
 
-      console.log('google de static: ', google)
       return (
         <Map 
-            google={this.props.google} 
             className='map-cont'
             zoom={14}
             styles={this.props.mapStyle}

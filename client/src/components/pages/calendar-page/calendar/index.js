@@ -24,7 +24,7 @@ class Calendar extends Component {
     }
 
     handleFormModal = (status, e) => {
-        console.log(e)
+
         if (this.props.events || this.props.offers) {
             e ? this.setState({ showModal: status, calendarDate: `${e.dateStr}T00:00` }) : this.setState({ showModal: status })
         }
@@ -68,7 +68,6 @@ class Calendar extends Component {
 
     render() {
         const formattedInfo = this.getEventsToRender()
-        console.log(this.props, "las props")
         return (
             <>
                 <FullCalendar

@@ -16,7 +16,6 @@ class CommentForm extends Component {
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value }) 
     handleFormSubmit = e => {
         e.preventDefault()
-        console.log(this.state.comment, this.props.eventId, "id y comentario")
         this.eventService.postAComment(this.props.eventId, this.state.comment, this.props.loggedInUser._id)
             .then(() => {
                 this.setState({comment: ""})
