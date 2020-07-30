@@ -226,7 +226,9 @@ img {
     margin: 0;
     padding: 1rem;
 }
-
+.offer-title h6 {
+    padding: 0.5rem
+}
 
 .cross-simbol {
     border: 1px solid #49C5B6;
@@ -354,8 +356,9 @@ img {
 .recommendations-container{
     padding: 2rem;
     background-color: #F4F7F6;
-    margin-left: 2rem;
-    height: 80%
+    margin-left: 1rem;
+    height: 80%;
+    overflow: auto;
     
 }
 
@@ -378,4 +381,22 @@ img {
 
 .text-small{
     font-size: 0.7rem;
+}
+
+.recommendations {
+    margin-left: 4rem;
+}
+
+.recommendations-button-div {
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.img-participants {
+    width: 100px;
+    height: 100px;
+}
+
+.img-participants img{
+    border: 1px solid #49C5B6
 }

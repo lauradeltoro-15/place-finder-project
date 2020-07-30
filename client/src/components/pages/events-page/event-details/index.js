@@ -84,7 +84,7 @@ class EventDetails extends Component {
                                         <h4 className='participants-title'>Participants</h4>
                                         <div className='participants'>
                                         {this.state.eventDetails.participants.map(user => 
-                                            <div key={user._id}>
+                                            <div className='img-participants' key={user._id}>
                                                 <Link to={`/profile/${user._id}`}><img src={user.avatar} alt={user.username}></img></Link>
                                             </div>
                                         )} 
