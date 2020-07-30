@@ -118,7 +118,7 @@ class EventDetails extends Component {
                                         :    
                                         <Col className='no-local-title' md={{span: 5}}>
                                         <div className='title-div'>
-                                            <h2>This event has no local confirmed yet</h2>  
+                                            <h5>This event has no local confirmed yet</h5>  
                                         </div>
                                         </Col> 
                                     } 
