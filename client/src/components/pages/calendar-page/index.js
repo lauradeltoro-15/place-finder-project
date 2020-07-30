@@ -93,7 +93,7 @@ class CalendarPage extends Component {
                 {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container fluid as="main">
                         <Row >
-                        <Col className='recommendations' md={{span: 4, offset: 0}}>
+                        <Col className='recommendations' md={{span: 4}}>
                         <h3>For you <img  className='logo-heart' src='https://res.cloudinary.com/dlsnvevxk/image/upload/v1596120541/avatar/fainder-love_bz4ic5.png'></img> by <span className='logo'>fainder</span></h3>
                           <div className='recommendations-container' > {this.state.recommendations && 
                             this.state.recommendations.map((event, i) => 
@@ -108,7 +108,7 @@ class CalendarPage extends Component {
                                     
                                     <p className='text-small'><span className='text-black'>Theme: </span>{event.theme.map(theme => <span className='btn btn-grey'>{theme}</span>)}</p>
                                     </div>
-                                    <div className='col-md-3'>
+                                    <div className='col-md-3 recommendations-button-div'>
                                     {this.props.loggedInUser.companyDetails &&
                                         <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
                                     }

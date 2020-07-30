@@ -64,8 +64,8 @@ a:not([href]){
 .comment-form{
     width: 60%;
     margin: 0 auto;
-    margin-top: 3rem;
-    margin-bottom: 5rem
+    margin-top: 6rem;
+    margin-bottom: 6rem
 }
 
 .paginate{
