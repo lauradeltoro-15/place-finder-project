@@ -30,5 +30,8 @@ export default class EventService {
     getAllPicturesEvent = eventId => this.service.get(`/live/pictures/${eventId}`)
     getAllCommentsEvent = eventId => this.service.get(`/live/comments/${eventId}`)
     postAComment = (eventId, comment, id) => this.service.post(`/live/comments/${eventId}/${id}`, {comment})
+    getAllPicturesEvent = (eventId) => this.service.get(`/live/pictures/${eventId}`)
+    getRecommendations = (userId) => this.service.get(`/${userId}/getUserRecommendations`)
+    getLocalRecommendations = (localId) => this.service.get(`/${localId}/getLocalRecommendations`)
 
 }

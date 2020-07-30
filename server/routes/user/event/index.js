@@ -11,6 +11,7 @@ const User = require('../../../models/user.model')
 const Person = require('../../../models/person.model')
 const Event = require('../../../models/event.model')
 const Offer = require("../../../models/offer.model")
+const Local = require('../../../models/local.model')
 
 
 //Helper functions 
@@ -41,7 +42,50 @@ const deleteDetailsAndAssociatedOffers = (res, eventId) => {
         .catch(err => next(err))
 }
 
+const getRandomInterest = interests => {
+    console.log(interests[Math.floor(Math.random()* interests.length)])
+    return interests[Math.floor(Math.random()* interests.length)]
+
+}
+
 //Endpoints
+
+//get Recommendations
+
+router.get('/:id/getUserRecommendations', isLoggedIn, isTheUserAllowed, (req, res, next) => {
+
+    User
+        .findById(req.params.id)
+        .populate('personDetails')
+        .then(user => {
+            if (user.personDetails.interests.length === 0){
+                return Event.find({ startTime: { "$gte": new Date() }, participants: {$nin: req.params.id}}).limit(10)
+            }
+            else{
+                return Event.find({theme: { $in: [getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests), getRandomInterest(user.personDetails.interests) ] }, startTime: { "$gte": new Date() }, participants: {$nin: req.params.id}}).limit(10)
+            }
+        })
+        .then(events => res.json(events))
+        .catch(err => next(err))
+})
+
+router.get('/:localId/getLocalRecommendations', (req, res, next) => {
+    
+    Promise
+        .all([Event.find(), Offer.find({local: req.params.localId}), Local.findById(req.params.localId)])
+        .then((response) => {
+            let events = response[0]
+            let offers = response[1]
+            let local = response[2]
+            return res.json(
+                events.filter(event => 
+                    offers.some(offer => offer.event !== event._id ) && 
+                    local.localType == event.typeOfLocal)
+                .slice(0, 10))
+        })
+        .catch(err => next(err))
+})
+
 
 //join event
 
@@ -193,6 +237,7 @@ router.get('/event/name/:eventName', (req, res, next) => {
         .catch(err => next(err))
 })
 
+
 //update event
 router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body, res, req.params.eventId)
@@ -205,6 +250,7 @@ router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next)
         .catch(err => next(err))
 })
 // Get event comments
+
 router.get('/live/comments/:eventId', isLoggedIn, (req, res, next) => {
     Event
         .findById(req.params.eventId, { comments: 1, _id: 0 })
@@ -241,6 +287,8 @@ router.get('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+
+
 
 // add offer to an event
 router.put('/:eventId/offer/add/:offerId', isLoggedIn, (req, res, next) => {

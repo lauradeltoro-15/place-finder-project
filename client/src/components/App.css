@@ -329,3 +329,42 @@ img {
 .pointer {
     cursor: pointer
 }
+
+.event-calendar{
+    border: 1px solid black
+}
+.events-calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 90%;
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #49C5B6;
+}
+
+
+.logo{
+    font-family: 'Oleo Script', cursive;
+    text-transform: lowercase;
+}
+
+.recommendations-container{
+    padding: 2rem;
+    background-color: #F4F7F6;
+    margin-left: 2rem
+    
+}
+
+.recommendations h3{
+    margin: 2rem;
+    text-align: center
+}
+.logo-heart{
+    width: 50px;
+}
+
+.calendar{
+    margin: 3rem
+}
