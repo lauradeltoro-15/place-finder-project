@@ -23,6 +23,7 @@ class OfferList extends Component {
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
     isAnOfferAccepted = () => this.state.offers.some(offer => offer.status === "accepted")
+
     isEventOwnerOrOfferOwner = () => {
         if (this.state.offers.length > 0) {
             return this.state.offers.some(offer => this.props.loggedInUser._id === this.props.event.owner ||
@@ -37,7 +38,6 @@ class OfferList extends Component {
                 <Row >
                     {this.props.loggedInUser && this.isEventOwnerOrOfferOwner() && !this.isAnOfferAccepted() &&<Col className='offer-title'><h2>Offers</h2></Col>}
                     {this.props.loggedInUser && this.state.offers.length > 0 && !this.isAnOfferAccepted() && this.state.offers.map(offer =>
-
                         (this.props.loggedInUser._id === this.props.event.owner || 
                         this.props.loggedInUser._id === offer.local.owner._id) ?
                             <OfferCard event={this.props.event} updateMainPage={this.props.updateMainPage} key={offer._id} updateEventOffers={this.updateEventOffers} loggedInUser={this.props.loggedInUser} offer={offer} handleToast={this.props.handleToast}/>

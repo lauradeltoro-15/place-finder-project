@@ -155,6 +155,7 @@ class Chatbotcontainer extends Component {
             ],
         }
     }
+    
     getAllMyEvents = (events) => {
         return (
             <div>
@@ -162,13 +163,13 @@ class Chatbotcontainer extends Component {
             </div>
         )
     }
+
     getMyEventsOfToday = () => {
         const today = new Date()
         const todayEvents = this.props.events && this.props.events.filter(event =>
             this.obtainDateInFormat(event.startTime) === this.obtainDateInFormat(today))
         return todayEvents && todayEvents.length > 0 ? this.getAllMyEvents(todayEvents) : <p>You don't have any events today</p>
     }
-
 
     obtainDateInFormat = date => {
         const newDate = new Date(date)
@@ -179,7 +180,6 @@ class Chatbotcontainer extends Component {
     }
 
     render() {
-
         return (
             <ChatBot floating="true" steps={this.props.loggedInUser ? this.state.stepsLogged : this.state.stepsNoLogged} />
         )

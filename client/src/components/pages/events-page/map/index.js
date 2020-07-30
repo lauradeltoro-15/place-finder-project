@@ -5,9 +5,7 @@ import SpinnerContainer from '../../../ui/Spinner'
 
 import googleMapStyles from "./maps-style"
 
-
 export class MapContainer extends Component {
-
     constructor (props){
         super (props)
         this.state = {
@@ -24,8 +22,7 @@ export class MapContainer extends Component {
             showingInfoWindow: true,
             activeEvent: this.props.markers.filter(event => event._id === marker.id)[0]
         })
-        
-    };
+    }
 
     onInfoWindowClose = () => {
         this.setState({
@@ -39,12 +36,10 @@ export class MapContainer extends Component {
       const center = this.props.currentLocation.lat ? this.props.currentLocation : this.state.defaultLocation
       return (
         <Map 
-            google={this.props.google} 
-            
+            google={this.props.google}  
             zoom={14}
             styles={this.props.mapStyle}
-            initialCenter={center}
-            >
+            initialCenter={center}>
               {this.props.markers.map(marker => 
                 <Marker onClick={this.onMarkerClick}
                     key={marker._id}
@@ -78,7 +73,7 @@ export class MapContainer extends Component {
                
             </InfoWindow>
         </Map>
-      );
+      )
     }
   }
 

@@ -11,7 +11,6 @@ export default class EventService {
     }
 
     //events
-
     getAllEventsUser = userId => this.service.get(`/${userId}/all`)
     getAllFutureUserEvents = userId => this.service.get(`/${userId}/all/future`)
     createEvent = (event,id) => this.service.post(`/create/${id}`, event)

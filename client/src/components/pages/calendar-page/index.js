@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -35,11 +34,11 @@ class CalendarPage extends Component {
     }
 
     updateEvents = () => {
-        if(this.props.match.params.userId ){
+        if (this.props.match.params.userId) {
             this.getPersonRecommendations(this.props.match.params.userId)
             this.getAllUserEvents(this.props.match.params.userId)
         }
-        else{
+        else {
             this.getLocalInfo(this.props.match.params.localId)
             this.getLocalRecommendations(this.props.match.params.localId)
         }
@@ -48,8 +47,9 @@ class CalendarPage extends Component {
     getAllUserEvents = id => {
         this.eventService.getAllEventsUser(id)
             .then(response => {
-                this.setState({ events: response.data })})
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+                this.setState({ events: response.data })
+            })
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     getLocalInfo = id => {
@@ -60,7 +60,7 @@ class CalendarPage extends Component {
     getAllLocalOffers = id => {
         this.offerService.getAllLocalOffers(id)
             .then(response => this.setState({ offers: response.data }))
-            .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
+            .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
 
     getLocalDetails = id => {
@@ -84,26 +84,22 @@ class CalendarPage extends Component {
 
     }
 
-
-
     render() {
         return (
             <>
                 {(this.state.events || (this.state.offers && this.state.local)) ?
                     <Container fluid as="main">
                         <Row >
-                        <Col className='recommendations' md={{span: 5, offset: 0}}>
-                                <RecommendationList updateEvents={this.updateEvents} handleToast={this.props.handleToast} recommendations={this.state.recommendations} loggedInUser={this.props.loggedInUser}/>
-                        </Col>
+                            <Col className='recommendations' md={{ span: 5, offset: 0 }}>
+                                <RecommendationList updateEvents={this.updateEvents} handleToast={this.props.handleToast} recommendations={this.state.recommendations} loggedInUser={this.props.loggedInUser} />
+                            </Col>
+                            <Col className='calendar' md={{ span: 6 }}>
+                                <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
+                            </Col>
 
-                        <Col className='calendar' md={{span: 6}}>
-                          <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
-                        </Col>
-                        
                         </Row>
-                        
+
                     </Container> : <SpinnerContainer />
-                 
                 }
             </>
         )

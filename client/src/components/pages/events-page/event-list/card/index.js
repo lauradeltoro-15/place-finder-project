@@ -33,8 +33,7 @@ class EventCard extends Component {
                 this.props.updateEventList && this.props.updateEventList()
                 this.props.updateCalendarEvents && this.props.updateCalendarEvents()
                 this.props.handleModal && this.props.handleModal(false)
-            }
-            )
+            })
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
 
@@ -86,6 +85,7 @@ class EventCard extends Component {
         const min = String(newDate.getMinutes()).padStart(2, '0')
         return `${hh}:${min}h`
     }
+
     obtainDateInFormat = date => {
         const newDate = new Date(date)
         const hh = String(newDate.getHours()).padStart(2, '0')
@@ -95,6 +95,7 @@ class EventCard extends Component {
         let yyyy = newDate.getFullYear()
         return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`
     }
+
     isLive = () => {
         const today = new Date() 
         const todayFormatted = this.obtainDateInFormat(today)
@@ -102,14 +103,14 @@ class EventCard extends Component {
         const endTime = this.obtainDateInFormat(this.props.endTime)
         return startTime <= todayFormatted && endTime >= todayFormatted
     }
+
     isParticipating = () => this.props.loggedInUser && this.props.participants.includes(this.props.loggedInUser._id)
 
     render() {
         const ownerId = this.props.owner && this.props.owner._id ? this.props.owner._id : this.props.owner
-
         const themes = this.props.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)
-        return (
 
+        return (
                 <Card>
                     <Card.Img className='event-card-img' variant="top" src={this.props.avatar} alt={this.props.name}/>
                     <Card.Body>
@@ -130,14 +131,12 @@ class EventCard extends Component {
                             <Button variant={this.isParticipating() ? "danger" : "primary"} onClick={() => { this.isParticipating() ? this.leaveEvent(this.props._id, this.props.loggedInUser._id) : this.joinEvent(this.props._id, this.props.loggedInUser._id) }}>{this.isParticipating() ? "Leave event" : "Join event"} </Button>
                         }
                         <Link to={`/user/${this.state.ownerId}/events/${this.props._id}`} ><Button variant="primary">More</Button></Link>
-
                         {this.props.loggedInUser && this.props.loggedInUser.companyDetails && !this.props.acceptedOffer &&
                             <Button onClick={() => this.handleFormModal(true)} variant="primary">Add an offer</Button>
                         }
                     {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
                     {this.props.loggedInUser && this.props.acceptedOffer && this.isParticipating() && this.isLive() &&
                         <Link to={`/live/${this.props._id}`} ><Button className="live-button" variant="primary">LIVE!</Button></Link>
-
                     }
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
                             {this.props.loggedInUser && this.props.loggedInUser.personDetails ? <EventForm eventToEdit={this.props._id} loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />

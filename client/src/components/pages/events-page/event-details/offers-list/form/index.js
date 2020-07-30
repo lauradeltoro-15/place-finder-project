@@ -22,8 +22,8 @@ class OfferForm extends Component {
         }
         this.localService = new LocalService()
         this.offerService = new OfferService()
-
     }
+
     componentDidMount = () => this.setUserLocals(this.props.loggedInUser._id)
 
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -51,7 +51,6 @@ class OfferForm extends Component {
     }
 
     render() {
-
         return (
             <>
                 {!this.state.userLocals ? <SpinnerContainer /> :
@@ -68,9 +67,7 @@ class OfferForm extends Component {
                                     <div className='checked'>
                                     <label>{local.name}</label>
                                     <input onChange={this.handleInputChange} value={local._id} name="local" type="radio" />
-                                    </div>
-                                        
-                                    
+                                    </div>   
                                 )}
                             </Form.Group>
                             <Form.Group>

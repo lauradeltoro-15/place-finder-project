@@ -74,7 +74,6 @@ class EventForm extends Component {
     handleInputChange = e => e.target.type !== "checkbox" ? this.setState({ [e.target.name]: e.target.value })
         : this.handleCheckbox(e.target)
 
-
     handleCheckbox = (target) => {
         const stateToChange = [...this.state[target.name]]
         const index = stateToChange.indexOf(target.value)
@@ -116,8 +115,8 @@ class EventForm extends Component {
 
     getThemes = () => {
         const theme = ["sport", "music", "learning", 'technology', 'health and wellness', 'kids', 'adults', 'photography', 'art', 'food', 'languajes', 'culture', 'cinema', 'games', 'fashion', 'dance', 'bussiness']
-        return <><h5 className='int-title'>Theme</h5>
-
+        return <>
+            <h5 className='int-title'>Theme</h5>
             <div className='check checked'>
                 {theme.map((theme,i) =>
                     <div className='theme' key={i}>
@@ -183,18 +182,15 @@ class EventForm extends Component {
                                     </Form.Group>
                                 </div>
                             </Form.Group>
-
                             <Form.Group>
                                 {this.getThemes()}
                             </Form.Group>
-
                             {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
                             <div className="button-center">
                                 <Button variant="dark" type="submit">Submit</Button>
                             </div>
                         </Form>
                     </main>
-
                 }
             </>
         )

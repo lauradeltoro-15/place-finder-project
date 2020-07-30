@@ -19,10 +19,10 @@ class ProfilePage extends Component {
             userDetails: undefined,
             locals: undefined,
         }
-
         this.UserService = new UserService()
         this.localService = new LocalService()
     }
+
     componentDidMount = () => {
         window.scrollTo(0, 0)
         this.updateUserDetails(this.props.match.params.userId)
@@ -37,11 +37,13 @@ class ProfilePage extends Component {
             })
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message)) 
     }
+
     updateLocalList = id => {
         this.localService.getUserLocals(id)
             .then(response => this.setState({ locals: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
+
     getProfile = () => {
         if (this.state.userDetails) {
             return !this.state.userDetails.companyDetails ?
@@ -50,6 +52,7 @@ class ProfilePage extends Component {
                 <CompanyProfile updateUserDetails={this.updateUserDetails} locals={this.state.locals} handleToast={this.props.handleToast} userDetails={this.state.userDetails} loggedInUser={this.props.loggedInUser} paramId={this.props.match.params.userId} />  
         }
     }
+
     render() {
         const profile = this.state.userDetails && this.getProfile()
         return (
@@ -64,12 +67,10 @@ class ProfilePage extends Component {
                                     <img className="profile-image" alt={this.state.userDetails.username} src={this.state.userDetails.avatar} />
                                 </div>
                             </div>
-
                             {profile}
                         </Container>
                     </main>
                 : <SpinnerContainer/>
-
             }
             </>     
         )

@@ -7,10 +7,7 @@ import "./carrousel.css"
 export default class extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-   
-        }
-  
+        this.state = {}
     }
 
     createSlideContainers = pictures => {
@@ -22,8 +19,8 @@ export default class extends React.Component {
             return acc
         }, []).map((slideContent, i) => <Slide index={i}><div className="images-slide-cotainer">{slideContent}</div></Slide>)
     }
+
     render() {
-        
         return (
             <CarouselProvider
                 naturalSlideWidth={100}

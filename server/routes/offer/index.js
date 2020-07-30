@@ -21,9 +21,6 @@ const createAnOffer = (res, offer) => {
 
 //Endpoints
 
-
-//create
-
 router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     const {event, local} = req.body
     Offer.find()

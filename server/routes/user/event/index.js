@@ -13,9 +13,7 @@ const Event = require('../../../models/event.model')
 const Offer = require("../../../models/offer.model")
 const Local = require('../../../models/local.model')
 
-
 //Helper functions 
-
 const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
 const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later :" })
@@ -23,7 +21,6 @@ const handleErrors = (err, req, res, next) => res.status(500).json({ message: "O
 const isFormValidated = (event, res, eventId) => {
     return validationHandler.isNameUnique(Event, event.name, res, eventId)
         .then(isNameUnique => {
-            console.log("yey")
             return isNameUnique &&
                 validationHandler.areRequiredFieldsFilled(event, res, "name", "description", "startTime", "endTime", "city") &&
                 validationHandler.isFieldLongEnough(event.name, res, 2, "name") &&
@@ -49,11 +46,8 @@ const getRandomInterest = interests => {
 }
 
 //Endpoints
-
 //get Recommendations
-
 router.get('/:id/getUserRecommendations', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-
     User
         .findById(req.params.id)
         .populate('personDetails')
@@ -69,8 +63,7 @@ router.get('/:id/getUserRecommendations', isLoggedIn, isTheUserAllowed, (req, re
         .catch(err => next(err))
 })
 
-router.get('/:localId/getLocalRecommendations', (req, res, next) => {
-    
+router.get('/:localId/getLocalRecommendations', (req, res, next) => {    
     Promise
         .all([Event.find(), Offer.find({local: req.params.localId}), Local.findById(req.params.localId)])
         .then((response) => {
@@ -86,9 +79,7 @@ router.get('/:localId/getLocalRecommendations', (req, res, next) => {
         .catch(err => next(err))
 })
 
-
 //join event
-
 router.put('/join/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Event
         .findById(req.params.eventId, { participants: 1 })
@@ -104,7 +95,6 @@ router.put('/join/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) 
 })
 
 //leave event
-
 router.put('/leave/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Event
         .findById(req.params.eventId, { participants: 1 })
@@ -144,7 +134,6 @@ router.get('/getAllFutureEvents', (req, res, next) => {
         .catch(err => next(err))
 
 })
-
 
 // get event owner
 router.get('/getOwner/:eventId', (req, res, next) => {
@@ -204,7 +193,6 @@ router.post('/create/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
         .catch(err => next(err))
 })
 
-
 //delete event
 router.delete('/delete/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     Event.findById(req.params.eventId)
@@ -237,7 +225,6 @@ router.get('/event/name/:eventName', (req, res, next) => {
         .catch(err => next(err))
 })
 
-
 //update event
 router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body, res, req.params.eventId)
@@ -249,8 +236,8 @@ router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next)
         )
         .catch(err => next(err))
 })
-// Get event comments
 
+// Get event comments
 router.get('/live/comments/:eventId', isLoggedIn, (req, res, next) => {
     Event
         .findById(req.params.eventId, { comments: 1, _id: 0 })
@@ -258,8 +245,8 @@ router.get('/live/comments/:eventId', isLoggedIn, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+
 router.post('/live/comments/:eventId/:id', isLoggedIn, (req, res, next) => {
-    console.log(req.body)
     Event
         .findById(req.params.eventId)
         .then(event => Event.findByIdAndUpdate(req.params.eventId, { comments: [...event.comments, { message: req.body.comment, owner: req.params.id }] })
@@ -288,11 +275,8 @@ router.get('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
-
-
 // add offer to an event
 router.put('/:eventId/offer/add/:offerId', isLoggedIn, (req, res, next) => {
-
     Event
         .findById(req.params.eventId)
         .then(event => {

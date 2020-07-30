@@ -5,7 +5,6 @@ import '../map.css'
 
 import googleMapStyles from '../../../../../../events-page/map/maps-style'
 
-
 export class MapContainer extends Component {
 
     constructor(props) {
@@ -18,14 +17,11 @@ export class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
-
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true,
             activeLocal: this.props.local
         })
-
-
     };
 
     onInfoWindowClose = () => {
@@ -37,7 +33,6 @@ export class MapContainer extends Component {
 
     render() {
       const {google} = this.props
-
       return (
         <Map 
             className='map-cont'
@@ -45,7 +40,6 @@ export class MapContainer extends Component {
             styles={this.props.mapStyle}
             initialCenter={{lat: this.props.local.location.coordinates.lat, lng: this.props.local.location.coordinates.lng}}
             >
-
                 <Marker onClick={this.onMarkerClick}
                     key={this.props.local._id}
                     id={this.props.local._id}

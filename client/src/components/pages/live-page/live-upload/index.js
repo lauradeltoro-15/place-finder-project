@@ -15,6 +15,7 @@ class FileUploader extends Component {
         this.fileService = new FileService()
         this.eventService = new EventService()
     }
+
     handleFileUpload = e => {
         const uploadData = new FormData()
         uploadData.append("avatar", e.target.files[0])
@@ -27,9 +28,9 @@ class FileUploader extends Component {
             })
             .catch(err => console.log(err) /*err.response && this.props.handleToast(true, err.response.data.message)*/)
     }
+
     handleFormSubmit = e => {
         e.preventDefault()
-        console.log(this.state.picture)
         this.state.picture && 
             this.eventService.updateLiveEventPictures(this.props.eventId, this.state.picture)
             .then(() => {
@@ -40,6 +41,7 @@ class FileUploader extends Component {
             })
             .catch(err => console.log(err))
     }
+    
     render () {
         return (
             <Form onSubmit={this.handleFormSubmit}>

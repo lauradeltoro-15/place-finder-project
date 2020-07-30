@@ -8,7 +8,6 @@ import OfferService from '../../../../../../services/OfferService'
 import Row from 'react-bootstrap/esm/Row'
 import { Link } from 'react-router-dom'
 
-
 const OfferCard = props => {
 
     const offerService = new OfferService()
@@ -55,8 +54,7 @@ const OfferCard = props => {
                     </Col>
                 </Row>
             </>
-        )
-    
+        )  
 }
 
 export default OfferCard

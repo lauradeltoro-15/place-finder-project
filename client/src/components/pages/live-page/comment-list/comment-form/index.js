@@ -13,7 +13,9 @@ class CommentForm extends Component {
         }
         this.eventService = new EventService()
     }
+
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value }) 
+
     handleFormSubmit = e => {
         e.preventDefault()
         this.eventService.postAComment(this.props.eventId, this.state.comment, this.props.loggedInUser._id)
@@ -23,6 +25,7 @@ class CommentForm extends Component {
             })
             .catch(err => console.log(err))
     }
+    
     render () {
         return (
             <Form onSubmit={this.handleFormSubmit}>

@@ -18,6 +18,7 @@ const associateDetail = (Model, propertyValue) => {
         .catch(err => next(err))
 }
 
+//Routes
 router.post('/signup', (req, res, next) => {
     const { username, password, isCompany } = req.body
 

@@ -17,13 +17,16 @@ class RecommendationCard extends Component {
         this.eventService = new EventService()
         this.offerService = new OfferService()
     }
+
     joinEvent = (eventId, userId) => {
         this.eventService
             .joinEvent(eventId, userId)
             .then(() => this.props.updateEvents())
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
+
     handleFormModal = (status, e) => this.setState({ showModal: status })
+
     handleEventSubmit = () => {
         this.handleFormModal(false)
         this.props.updateEvents()
@@ -51,7 +54,7 @@ class RecommendationCard extends Component {
                     </div>
                 </div>
                 <Modal handleModal={this.handleFormModal} show={this.state.showModal} >
-                    <OfferForm event={this.props._id} updateCalendarOffers={this.props.updateEvents} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} loggedInUser={this.props.loggedInUser}/>
+                    <OfferForm event={this.props._id} updateCalendarOffers={this.props.updateEvents} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} loggedInUser={this.props.loggedInUser} />
                 </Modal>
             </div>
         )
