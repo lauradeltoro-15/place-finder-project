@@ -68,12 +68,12 @@ router.get('/:localId/getLocalRecommendations', (req, res, next) => {
         .all([Event.find(), Offer.find({local: req.params.localId}), Local.findById(req.params.localId)])
         .then((response) => {
             let events = response[0]
-            let offers = response[1]
+            let offersByTheLocal = response[1]
             let local = response[2]
             return res.json(
-                events.filter(event => 
-                    offers.some(offer => offer.event !== event._id ) && 
-                    local.localType == event.typeOfLocal)
+                events.filter((event, i) =>
+                    offersByTheLocal.every(offer => JSON.stringify(offer.event) != JSON.stringify(event._id)) &&
+                    local.localType == event.typeOfLocal && !event.acceptedOffer)
                 .slice(0, 10))
         })
         .catch(err => next(err))
