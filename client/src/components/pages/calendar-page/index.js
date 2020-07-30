@@ -9,6 +9,8 @@ import LocalService from "../../../services/LocalService"
 
 import SpinnerContainer from "../../ui/Spinner"
 
+import "./calendar-page.css"
+
 class CalendarPage extends Component {
     constructor(props) {
         super(props)
@@ -48,13 +50,12 @@ class CalendarPage extends Component {
             .then(response => this.setState({ local: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
-
     render() {
         return (
             <>
                 {(this.state.events || (this.state.offers && this.state.local)) ?
-                    <Container as="main">
-                        <Calendar events={this.state.events} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
+                    <Container as="main" className="calendar-bg">
+                        <Calendar events={this.state.events} updateCalendarEvents={this.updateEvents} loggedInUser={this.props.loggedInUser} local={this.state.local} handleToast={this.props.handleToast} offers={this.state.offers} updateEvents={this.updateEvents} {...this.props} />
                     </Container> : <SpinnerContainer />
                  
                 }

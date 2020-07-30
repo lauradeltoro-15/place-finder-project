@@ -128,18 +128,18 @@ class LocalDetail extends Component {
                         </Row>
                         <Row>
                             <Col className="container-icon-img-travel">
-                                <div className={`small-icon ${this.state.travelMode !== "WALKING" && "inactive"}`} onClick={() => this.setDirections(true, 'WALKING')} >
+                                <div className={`small-icon-move ${this.state.travelMode !== "WALKING" && "inactive"}`} onClick={() => this.setDirections(true, 'WALKING')} >
 
                                     <img className="travel-mode-icon" src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047458/avatar/walking_zkzfgq.png" alt="walking icon" />
                                 </div>
-                                <div className={`small-icon ${this.state.travelMode !== "TRANSIT" && "inactive"}`} onClick={() => this.setDirections(true, 'TRANSIT')}>
+                                <div className={`small-icon-move ${this.state.travelMode !== "TRANSIT" && "inactive"}`} onClick={() => this.setDirections(true, 'TRANSIT')}>
                                     <img className="travel-mode-icon"  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047461/avatar/tram_qzyhjh.png" alt="transit icon" />
                                 </div>
-                                <div className={`small-icon ${this.state.travelMode !== "DRIVING" && "inactive"}`} onClick={() => this.setDirections(true, 'DRIVING')}>
+                                <div className={`small-icon-move ${this.state.travelMode !== "DRIVING" && "inactive"}`} onClick={() => this.setDirections(true, 'DRIVING')}>
                                     <img className="travel-mode-icon"  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047466/avatar/car_ml3raz.png" alt="car icon" />
                                 </div>
 
-                                <div className={`big-icon ${this.state.travelMode !== undefined && "inactive"}`}onClick={() => this.setDirections(false, undefined)}>
+                                <div className={`big-icon-move ${this.state.travelMode !== undefined && "inactive"}`}onClick={() => this.setDirections(false, undefined)}>
                                     <img className="travel-mode-icon "  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047463/avatar/local_exfiaw.png" alt="local icon" />
                                 </div>
 

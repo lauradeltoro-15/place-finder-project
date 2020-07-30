@@ -47,7 +47,7 @@ box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
 .local-btn{
     padding: 30px;
 }
-.small-icon{
+.small-icon-move{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +67,7 @@ box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
 .small-icon img {
     cursor: pointer;
 }
-.big-icon {
+.big-icon-move {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,11 +82,11 @@ box-shadow: 200px 3px 0px 50px rgba(187,226,223,1);
 .container-icon-img-travel {
     display: flex;
 }
-.big-icon img {
+.big-icon-move img {
     height: 20px;
     width: 22px;
 }
-.big-icon.inactive, .small-icon.inactive {
+.big-icon-move.inactive, .small-icon-move.inactive {
     background-color: #9fd0ca;
 }
 .container-icon-img-travel.col {

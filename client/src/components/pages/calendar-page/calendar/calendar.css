@@ -5,30 +5,25 @@
 
 }
 .fc .fc-button-primary:not(:disabled).fc-button-active {
-    color: #49C5B6;
-    background-color: #fff;
-    border-color: #49C5B6;
+    color: #fff;
+    background-color: #49C5B6;
+    border-color: #fff;
 
 }
 .fc .fc-button {
     border-radius: 0;
 }
 .fc-event-main-frame {
-    border-color: #49C5B6;
-    background-color: #49C5B6;
+
     border-radius: 0;
 }
 
 .fc-daygrid-event {
     border-radius: 0;
 }
-.fc-event-main {
-    border-color: #49C5B6;
-}
+
 .fc-h-event {
     border: none
 }
-.fc-daygrid-event-dot {
-    border-color: #49C5B6;
-    background-color: #49C5B6;
-}
+
+

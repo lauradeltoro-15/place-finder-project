@@ -248,7 +248,6 @@ router.put('/:eventId/offer/add/:offerId',isLoggedIn, (req, res, next) => {
 })
 
 //get all events of a person
-
 router.get('/:userId', (req, res, next) => {
     Event
         .find({ owner: req.params.userId })
