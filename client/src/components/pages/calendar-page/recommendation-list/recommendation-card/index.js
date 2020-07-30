@@ -36,7 +36,7 @@ class RecommendationCard extends Component {
         return (
             <div className='row'>
                 <div className='events-calendar'>
-                    <div className='col-md-2'><img src={this.props.avatar}></img></div>
+                    <div className='col-md-2 img-recom-div'><img src={this.props.avatar}></img></div>
                     <div className='col-md-7'>
                         <h6 className='color-text'>{this.props.name}</h6>
                         {this.props.acceptedOffer ? <span className='text-black'>Confirmed </span> :

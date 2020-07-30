@@ -400,3 +400,17 @@ img {
 .img-participants img{
     border: 1px solid #49C5B6
 }
+
+.img-recom-div {
+    width: 45px;
+    height: 45px;
+
+    
+}
+
+.img-recom-div img{
+    border-radius: 50%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #49C5B6
+}
