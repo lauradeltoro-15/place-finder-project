@@ -9,7 +9,6 @@ class CommentCard extends Component {
     }
 
     render() {
-        console.log(this.props, "las props de la carta")
         return (
             <>
                 <article className="comment-card">

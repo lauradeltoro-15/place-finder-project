@@ -31,8 +31,6 @@ class EventDetails extends Component {
         this.updateState()
     }
 
-    
-
     updateState = () => {
         this.eventService
             .getOneEvent(this.props.match.params.eventId)
@@ -44,11 +42,11 @@ class EventDetails extends Component {
             .then((response) => this.setState({ owner: response.data.owner.username }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
+
     render() {
         return (
-
             <>
-                {!this.state.eventDetails ? <SpinnerContainer /> :
+                {!this.state.eventDetails && this.state.owner ? <SpinnerContainer /> :
                     <>
                         <Container fluid className='main-cont'>
                             <Row>
@@ -74,7 +72,6 @@ class EventDetails extends Component {
                                     <br></br>
                                     <hr></hr>
                                     <h5>Theme</h5>
-
                                     {this.state.eventDetails.theme.map((theme, i) => <small className="btn btn-grey" key={i}>{theme}</small>)}
                                 </Col>
                                 <Col className='img-event' md={{ span: 5, offset: 1 }}>
@@ -82,7 +79,6 @@ class EventDetails extends Component {
                                 </Col>
                             </Row>
                             <Row>
-
                                     <Col className='container-local-participants' md={{ span: 5, offset: 1 }} >
 
                                         <h4 className='participants-title'>Participants</h4>
@@ -102,7 +98,6 @@ class EventDetails extends Component {
                                         <span className="color-text-black"> City: </span> {this.state.eventDetails.city}
                                             <br></br>
                                             <br></br>
-
                                             <span className="color-text-black">Description: </span> {this.state.eventDetails.name}
                                             <br></br>
                                             <br></br>
@@ -112,17 +107,13 @@ class EventDetails extends Component {
                                             <br></br>
                                             <Link to={`/user/${this.state.eventDetails.acceptedOffer.local.owner._id}/local/${this.state.eventDetails.acceptedOffer.local._id}`} ><Button className="btn btn-yellow" type="submit">See more</Button></Link>
                                         </Col>
-
-                                        :
-                                        
+                                        :    
                                         <Col className='no-local-title' md={{span: 5}}>
                                         <div className='title-div'>
                                             <h2>This event has no local confirmed yet</h2>  
                                         </div>
-                                        </Col>
-                                       
-                                    }
-                                
+                                        </Col> 
+                                    } 
                             </Row>
                             <OffersList className='offer-list' updateMainPage={this.updateState} loggedInUser={this.props.loggedInUser} event={this.state.eventDetails} eventId={this.props.match.params.eventId} handleToast={this.props.handleToast} />
                         </Container>

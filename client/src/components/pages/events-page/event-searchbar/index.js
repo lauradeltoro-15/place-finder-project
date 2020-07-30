@@ -44,12 +44,10 @@ class SearchBar extends Component {
     sendOneDayValue = (e, offset) => {
         let day = new Date()
         day = day.setDate(day.getDate() + offset)
-
         this.setState({ startTime: e.target.value })
         this.props.filterEvents({ ...this.state, minDay: day, maxDay: day })
     }
     sendEmptyValue = e => this.props.filterEvents({ ...this.state, minDay: null, maxDay: null })
-
 
     sendWeekendValue = e => {
         let weekendDays = []
@@ -109,15 +107,11 @@ class SearchBar extends Component {
     render() {
         return (
             <Form>
-
                 <Form.Group className="main-search-bar">
                     <span role="img" aria-label="magnifying glass">&#128269;</span>
                     <Form.Control placeholder="Enter the name of an event" onChange={this.handleInputChange} value={this.state.name} name="name" type="text" className="main-input" />
                     <p className="show-filter-button" onClick={() => this.setState({ showFilters: !this.state.showFilters })}>Show Filters</p>
                 </Form.Group>
-
-
-
                 {this.state.showFilters &&
                     <div className="tab-container">
                         <p onClick={e => this.toggleBooleanInputs(e, "acceptedOffer")} className="show-filter-button tab-button inactive">Accepted Offer</p>
@@ -206,14 +200,11 @@ class SearchBar extends Component {
                                 </div>
                             </Tab>
                             <Tab eventKey="about" title="About" >
-
                                 {this.getThemes()}
                             </Tab>
                         </Tabs>
-
                     </div>
                 }
-
             </Form>
         )
     }

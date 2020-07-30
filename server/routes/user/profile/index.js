@@ -35,7 +35,6 @@ const isUserFormValid = (model, body, res) => {
     return true
 }
 const mapCompany = (modelData) => {
-
     const map =  {
         description: modelData.description || null,
         contact: {
@@ -45,7 +44,6 @@ const mapCompany = (modelData) => {
             website: { value: modelData.website || null }
         }
     }
-    console.log(map)
     return map
 }
 
@@ -58,8 +56,7 @@ const updateDetails = (id, body, model, next) => {
 //Endpoints
 //edit username and password
 router.put('/edit/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
-    const { username, password, avatar } = req.body
-    
+    const { username, password, avatar } = req.body    
     User
         .findById(req.params.id)
         .then(user => {

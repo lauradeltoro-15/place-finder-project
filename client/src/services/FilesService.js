@@ -8,6 +8,5 @@ export default class Services {
             withCredentials: true
         })
     }
-
     handleUpload = theFile => this.service.post('/upload', theFile)
 }

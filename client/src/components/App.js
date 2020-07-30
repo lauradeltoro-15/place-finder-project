@@ -7,24 +7,27 @@ import AuthService from "../services/AuthService"
 import EventService from "../services/EventService"
 
 import { Switch, Route, Redirect } from 'react-router-dom'
-import CustomToast from './ui/Toast'
 
-import AuthPage from "./pages/auth-page/"
+import CustomToast from './ui/Toast'
 import NavBar from "./ui/NavBar"
-import ProfilePage from './pages/profile-page'
-import LocalForm from "./pages/profile-page/companyProfile/local/local-form"
-import PersonEdit from './pages/profile-page/personProfile/person-form'
-import CompanyEdit from "./pages/profile-page/companyProfile/company-form"
-import LocalDetails from "./pages/profile-page/companyProfile/local/local-details"
-import EventForm from './pages/events-page/event-form'
-import EventDetails from './pages/events-page/event-details'
-import CalendarPage from "./pages/calendar-page"
-import EventsPage from './pages/events-page'
-import OfferForm from './pages/events-page/event-details/offers-list/form'
-import HomePage from './pages/home-page'
 import Footer from "./ui/Footer"
 import ChatbotContainer from "./ui/ChatbotContainer"
+
+import AuthPage from "./pages/auth-page/"
+import ProfilePage from './pages/profile-page'
+import CalendarPage from "./pages/calendar-page"
+import EventsPage from './pages/events-page'
+import HomePage from './pages/home-page'
 import LivePage from "./pages/live-page"
+
+import LocalDetails from "./pages/profile-page/companyProfile/local/local-details"
+import EventDetails from './pages/events-page/event-details'
+
+import CompanyForm from "./pages/profile-page/companyProfile/company-form"
+import LocalForm from "./pages/profile-page/companyProfile/local/local-form"
+import PersonForm from './pages/profile-page/personProfile/person-form'
+import EventForm from './pages/events-page/event-form'
+import OfferForm from './pages/events-page/event-details/offers-list/form'
 
 class App extends Component {
   constructor (){
@@ -53,17 +56,19 @@ class App extends Component {
       .then(response => this.state.loggedInUser === null && this.setState({ loggedInUser: response.data }))
       .catch(err => console.log({ err }))
   }
+
   handleToast = (visible, text = '') => {
     let toastCopy = { ...this.state.toast }
     toastCopy = { visible, text }
     this.setState({ toast: toastCopy })
   }
+
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.loggedInUser !== prevState.loggedInUser) {
       this.state.loggedInUser.personDetails && 
       this.EventService.getAllFutureUserEvents(this.state.loggedInUser._id)
         .then(response => this.setState({ loggedInUserEvents: response.data }))
-        .catch(err => console.log(err))
+        .catch(err => err)
     }
     this.state.loggedInUserEvents !== prevState.loggedInUserEvents && this.render()
   }
@@ -88,17 +93,20 @@ class App extends Component {
           <Route exact path="/events" render={props => <EventsPage loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/>} />
           <Route exact path="/user/:userId/events/:eventId" render={props => <EventDetails loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/>} />
 
-          <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id) ? <CompanyEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}></Route>
-          <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id) ? <PersonEdit setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/>: <Redirect to='/login' />}></Route>
-          <Route path="/profile/local/:localId/calendar" render={props => <CalendarPage loggedInUser={this.state.loggedInUser} {...props} />} />
+          <Route path="/profile/edit/company/:id" render={props => this.isTheUserAllowed(props.match.params.id) ? <CompanyForm setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}></Route>
+          <Route path="/profile/edit/:id" render={props => this.isTheUserAllowed(props.match.params.id) ? <PersonForm setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/>: <Redirect to='/login' />}></Route>
+          <Route path="/profile/local/:localId/calendar" render={props => <CalendarPage handleToast={this.handleToast} loggedInUser={this.state.loggedInUser} {...props} />} />
           <Route path="/profile/:userId/calendar" render={props => this.isTheUserAllowed(props.match.params.userId) ? <CalendarPage loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
           <Route exact path="/profile/:userId" render={props => this.state.loggedInUser ? <ProfilePage loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
 
           <Route path='/user/:id/event/:eventId/offer/add' render={props => this.state.loggedInUser ? <OfferForm loggedInUser={this.state.loggedInUser} {...props} handleToast={this.handleToast}/> : <Redirect to='/login' />}/>
         </Switch>
+        
         <CustomToast {...this.state.toast} handleToast={this.handleToast} />
-        {this.state.loggedInUser && this.state.loggedInUser.personDetails && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents}/>}
+        
+        {this.state.loggedInUser && this.state.loggedInUser.personDetails && this.state.loggedInUserEvents && <ChatbotContainer loggedInUser={this.state.loggedInUser} events={this.state.loggedInUserEvents} />}
         {!this.state.loggedInUser && <ChatbotContainer />} 
+        
         <Footer />
       </>
     )

@@ -136,6 +136,7 @@ class LocalForm extends Component {
                 err.response.status === 400 ? this.setState({ errorMsg: err.response.data.message }) :
                     this.props.handleToast(true, err.response.data.message))
     }
+
     handleAddressSelection = ({ lat, lng, address }) => {
         this.setState({
             location: {
@@ -147,6 +148,7 @@ class LocalForm extends Component {
             }
         })
     }
+
     getAvailableForm = () => {
         const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         return weekDays.map(day =>
@@ -162,6 +164,7 @@ class LocalForm extends Component {
                     </>}
             </Form.Group>)
     }
+
     getLocalTypes = () => {
         const localTypes = ["restaurant", "gym", "hotel", "others"]
         return <div className='checked check'>{localTypes.map(local =>
@@ -172,6 +175,7 @@ class LocalForm extends Component {
                 </div>
             )}</div>
     }
+
     getServices = () => {
         const services = ["staff", "food-service", "music", "others",]
         return <div className='checked check'>{services.map(service =>
@@ -182,6 +186,7 @@ class LocalForm extends Component {
                 </div>
             )}</div>
     }
+
     getFacilities = () => {
         const facilities = ["kitchen", "bathrooms", "dinning-hall", "terrace", "garden", "pool", "audio equipment", "sport equipment", "conference room", "dance floor", "stage", "pit", "video equipment", "others"]
         return <div className='checked check'>{facilities.map(facility =>
@@ -190,6 +195,7 @@ class LocalForm extends Component {
                 <input onChange={this.handleInputChange} checked={this.state.facilities.includes(facility)} value={facility} name="facilities" type="checkbox" />
             </div>)}</div>
     }
+    
     render() {
         const availableForm = this.getAvailableForm()
         const localTypes = this.getLocalTypes()

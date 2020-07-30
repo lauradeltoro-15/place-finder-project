@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import EventList from '../../../pages/events-page/event-list'
 import EventService from "../../../../services/EventService"
 import UserService from "../../../../services/UserService"
-import UiModal from "../../../ui/Modal" 
-import EventForm from "../../events-page/event-form"
 
+import UiModal from "../../../ui/Modal"
+import EventList from '../../../pages/events-page/event-list'
+import EventForm from "../../events-page/event-form"
 import SpinnerContainer from "../../../ui/Spinner"
 
-//Boostrap
 import Button from 'react-bootstrap/Button'
 
 import "./profile.css"
+
 class Profile extends Component {
     constructor(props) {
         super(props)
@@ -31,8 +31,8 @@ class Profile extends Component {
         this.getUserDetails(this.props.loggedInUser._id)
     }
 
-    
     handleFormModal = status => this.setState({ showModal: status })
+
     handleEventSubmit = () => {
         this.handleFormModal(false)
         this.updateEventInfo()
@@ -49,19 +49,19 @@ class Profile extends Component {
 
     filterEvents = role =>
         !this.state.events ? null : role === "owner" ?
-        this.state.events.filter(event => event.owner === this.props.paramId) :
-        this.state.events.filter(event => event.participants.includes(this.props.paramId) && event.owner !== this.props.paramId) 
-    
-    
+            this.state.events.filter(event => event.owner === this.props.paramId) :
+            this.state.events.filter(event => event.participants.includes(this.props.paramId) && event.owner !== this.props.paramId)
+
     getUserDetails = id => {
         this.UserService.getUserDetails(id)
             .then(response => this.setState({ owner: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
+
     render() {
         return (
             <>
-                {!this.state.events ? <SpinnerContainer/> :
+                {!this.state.events ? <SpinnerContainer /> :
                     <section className="general-info">
                         <div className="age-genre-cont">
                             <p className="profile-data"><span className="color-text">Age: </span>{this.props.userDetails.personDetails.age || "?"}</p>
@@ -76,13 +76,13 @@ class Profile extends Component {
                                 {this.isUserTheProfileOwner() &&
                                     <>
                                         <Link to={`/profile/edit/${this.props.loggedInUser._id}`} ><Button variant="dark" type="submit">Edit</Button></Link>
-                                    <Button variant="dark" type="submit" onClick={()=> this.handleFormModal(true)}>Create a new event</Button>
+                                        <Button variant="dark" type="submit" onClick={() => this.handleFormModal(true)}>Create a new event</Button>
                                         <Link to={`/profile/${this.props.loggedInUser._id}/calendar`} ><Button variant="dark" type="submit">See your calendar</Button></Link>
                                     </>
                                 }
                             </article>
                             <h3>Created events</h3>
-                            {this.filterEvents("owner").length > 0 ? 
+                            {this.filterEvents("owner").length > 0 ?
                                 <EventList loggedInUser={this.props.loggedInUser} updateEventList={this.updateEventInfo} {...this.props} events={this.filterEvents("owner")} owner={this.props.userDetails} paramId={this.props.paramId} /> :
                                 <p>You haven't created any events yet, why don't you <span className="color-text pointer" onClick={() => this.handleFormModal(true)}>try</span>?</p>
                             }
@@ -93,7 +93,7 @@ class Profile extends Component {
                             }
                         </article>
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >
-                            <EventForm loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit}/>
+                            <EventForm loggedInUser={this.props.loggedInUser} handleToast={this.props.handleToast} handleEventSubmit={this.handleEventSubmit} />
                         </UiModal>
                     </section>
                 }

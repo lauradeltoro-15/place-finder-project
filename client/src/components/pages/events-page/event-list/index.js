@@ -18,7 +18,6 @@ class  EventList extends Component {
             perPage: 9,
             currentPage: 0
         }
-
         this.eventService = new EventService()
     }
 
@@ -27,9 +26,9 @@ class  EventList extends Component {
         this.setEvents()
     }
 
-    setEvents = () => {
-        this.setState({pageCount: Math.ceil(this.props.events.length/this.state.perPage)}, () => this.setElementsForCurrentPage())
-    }
+    componentDidUpdate = prevProps => this.props.events !== prevProps.events && this.setEvents()
+
+    setEvents = () => this.setState({pageCount: Math.ceil(this.props.events.length/this.state.perPage)}, () => this.setElementsForCurrentPage())
 
     setElementsForCurrentPage = () => {
         let elements = this.props.events.slice(this.state.offset, this.state.offset + this.state.perPage).map((event, i) => {
@@ -38,9 +37,7 @@ class  EventList extends Component {
             )
         this.setState({elements: elements})
     }
-    componentDidUpdate = prevProps => this.props.events !== prevProps.events && this.setEvents()
-            
-
+    
     handlePageClick = events => {
         const selectedPage = events.selected;
         const offset = selectedPage * this.state.perPage;

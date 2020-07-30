@@ -15,8 +15,7 @@ import { Link } from "react-router-dom"
 class CompanyProfile extends Component {
     constructor() {
         super()
-        this.state = {
-        }
+        this.state = {}
     }
 
     isUserTheProfileOwner = () => this.props.loggedInUser._id === this.props.paramId

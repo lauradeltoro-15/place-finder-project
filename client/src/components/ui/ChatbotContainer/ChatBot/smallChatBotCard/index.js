@@ -1,6 +1,8 @@
 
 import React, { Component } from "react"
+
 import "./smallChatBotCard.css"
+
 import Collapse from 'react-bootstrap/Collapse'
 
 class SmallCard extends Component {
@@ -23,6 +25,7 @@ class SmallCard extends Component {
         let yyyy = newDate.getFullYear()
         return `${dd}-${mm}-${yyyy}`
     }
+
     render() {
         const { open } = this.state
         const themes = this.props.event.theme.map((elem, i) => <small className="btn btn-grey" key={i}>{elem}</small>)

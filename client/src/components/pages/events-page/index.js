@@ -38,7 +38,7 @@ class EventPage extends Component {
 
     filterEvents = filters => {
         let eventsCopy = [...this.state.events]
-       
+
         eventsCopy = filters.name ? eventsCopy.filter(event => event.name.toLowerCase().includes(filters.name.toLowerCase())) : eventsCopy
         eventsCopy = filters.owner ? eventsCopy.filter(event => event.owner.username.toLowerCase().includes(filters.owner.toLowerCase())) : eventsCopy
 
@@ -103,13 +103,13 @@ class EventPage extends Component {
 
     getKilometers = (lat1, lon1, lat2, lon2) => {
         const rad = (deg) => deg * (Math.PI / 180)
-        const R = 6378.137; //Radio de la tierra en km
+        const R = 6378.137; 
         const dLat = rad(lat2 - lat1);
         const dLong = rad(lon2 - lon1);
         const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const d = R * c;
-        return d //Return distance in km
+        return d 
     }
 
     render() {
@@ -127,7 +127,7 @@ class EventPage extends Component {
                                     <Row className="maps">
                                         <Col className="map-container">
                                             <center>
-                                                <Map currentLocation ={this.state.currentLatLng} markers={this.state.confirmedEvents} />
+                                                <Map currentLocation={this.state.currentLatLng} markers={this.state.confirmedEvents} />
                                             </center>
                                         </Col>
 

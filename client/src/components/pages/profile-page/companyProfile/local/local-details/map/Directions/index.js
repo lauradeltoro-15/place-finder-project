@@ -24,12 +24,10 @@ class Directions extends Component {
                 lng: undefined
             },
             directions: undefined,
-
         }
     }
 
-    render() {
-            
+    render() {       
             const GoogleMapExample = 
                 withGoogleMap(
                     (props) => (
@@ -53,8 +51,7 @@ class Directions extends Component {
                             icon={{
                                 anchor: new google.maps.Point(32,32),
                                 scaledSize: new google.maps.Size(40,48),
-                                url: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png'
-                                
+                                url: 'https://res.cloudinary.com/dlsnvevxk/image/upload/v1595786555/avatar/marker-1_ymeqx7.png'        
                             }}
                             position={this.props.local.location.coordinates}
                         />
@@ -69,7 +66,6 @@ class Directions extends Component {
                     </GoogleMap>
             ))
             
-
       return (
           <>
           {!this.props.directions ? <h2>cargando</h2> :
@@ -79,13 +75,10 @@ class Directions extends Component {
                 }
                 mapElement={<div style={{ height: `100%` }} />}
               />
-                
             }
             </>
-      )
-      
+      )   
     }
-
   }
   Directions.defaultProps = mapStyle
 

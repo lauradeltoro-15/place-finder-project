@@ -13,7 +13,6 @@ const UiModal = (props) =>  {
                         props.handleModal(false)
                     }}>&#10006;</span>
                 </div>
-        
                 {props.children}
             </Modal.Body>
         </Modal>

@@ -31,6 +31,7 @@ class LocalDetail extends Component {
         }
         this.localService = new LocalService()
     }
+
     componentDidMount = () => {
         window.scrollTo(0, 0)
         const id = this.props.match.params.localId
@@ -47,6 +48,7 @@ class LocalDetail extends Component {
             .then(response => this.setState({ local: response.data }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
+
     isUserOwner = () => this.props.loggedInUser && this.props.match.params.id === this.props.loggedInUser._id
 
     setDirections = (showDirections, travelMode) => {
@@ -142,16 +144,12 @@ class LocalDetail extends Component {
                                 <div className={`big-icon-move ${this.state.travelMode !== undefined && "inactive"}`}onClick={() => this.setDirections(false, undefined)}>
                                     <img className="travel-mode-icon "  src="https://res.cloudinary.com/dlsnvevxk/image/upload/v1596047463/avatar/local_exfiaw.png" alt="local icon" />
                                 </div>
-
-
                             </Col>
                         </Row>
                         <Row className="maps">
                             <Col md={{ span: 8, offset: 2 }} className="map-container">
                                 {!this.state.showDirections && <Map local={this.state.local} />}
                                 {this.state.directions && this.state.showDirections && this.state.currentLatLng.lat && <Directions directions={this.state.directions} location={this.state.currentLatLng} local={this.state.local} travelMode={this.state.travelMode} />}
-
-
                             </Col>
                         </Row>
                         <Row>

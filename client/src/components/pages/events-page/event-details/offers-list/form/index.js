@@ -22,8 +22,8 @@ class OfferForm extends Component {
         }
         this.localService = new LocalService()
         this.offerService = new OfferService()
-
     }
+
     componentDidMount = () => this.setUserLocals(this.props.loggedInUser._id)
 
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -34,7 +34,10 @@ class OfferForm extends Component {
         e.preventDefault()
         this.offerService
             .createOffer(stateCopy, this.props.loggedInUser._id)
-            .then(() => this.props.handleEventSubmit())
+            .then(() => {
+                this.props.handleEventSubmit()
+                this.props.updateCalendarOffers && this.props.updateCalendarOffers()
+            })
             .catch(err => !err.response ? null :
                 err.response.status === 400  ? this.setState({ errorMsg: err.response.data.message }) :
                 this.props.handleToast(true, err.response.data.message)) 
@@ -48,7 +51,6 @@ class OfferForm extends Component {
     }
 
     render() {
-
         return (
             <>
                 {!this.state.userLocals ? <SpinnerContainer /> :
@@ -65,9 +67,7 @@ class OfferForm extends Component {
                                     <div className='checked'>
                                     <label>{local.name}</label>
                                     <input onChange={this.handleInputChange} value={local._id} name="local" type="radio" />
-                                    </div>
-                                        
-                                    
+                                    </div>   
                                 )}
                             </Form.Group>
                             <Form.Group>
