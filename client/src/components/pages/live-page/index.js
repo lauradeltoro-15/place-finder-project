@@ -24,10 +24,10 @@ class LivePage extends Component {
         return (
             <>
                 {!this.state.pictures ? <SpinnerContainer /> :
-                <main>
+                    <main className="live-event-main">
+                        <h1>See the event in LIVE!</h1>
                         <Carrusel pictures={this.state.pictures} eventId={this.props.match.params.eventId}/>
                         <PictureUploader updateEventInfo={this.updateEventInfo} eventId={this.props.match.params.eventId} />
-
                 </main>
                 
                 }

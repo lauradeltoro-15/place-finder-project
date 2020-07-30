@@ -1,0 +1,38 @@
+.btn-carr {
+    margin: 10px 0 20px;
+    border:none;
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    transition: all 0.5s;
+}
+.btn-carr:hover {
+    color:white;
+    background-color: #000;
+}
+.btn-carr.left {
+    margin-left: 50px;
+}
+.img-carrousel-container {
+    width: 30%;
+    margin: 30px;
+    object-fit: contain;
+}
+.img-carrousel-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.images-slide-cotainer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+.live-event-main {
+    padding-top: 100px;
+    text-align: center;
+    background-color: #F4F7F6;
+}
