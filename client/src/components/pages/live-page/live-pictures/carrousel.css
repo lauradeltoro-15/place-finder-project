@@ -11,9 +11,7 @@
     color:white;
     background-color: #000;
 }
-.btn-carr.left {
-    margin-left: 50px;
-}
+
 .img-carrousel-container {
     width: 30%;
     margin: 30px;
@@ -35,4 +33,49 @@
     padding-top: 100px;
     text-align: center;
     background-color: #F4F7F6;
+}
+.picture-file-input.form-control-file {
+    display: none;
+}
+.picture-file-label {
+    margin-top: 50px;
+    border: 1px solid #49C5B6;
+    padding: 15px 30px;
+    background-color: #49C5B6;
+    color:white;
+    font-size: 1em;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+}
+.upload-file-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+.btn.btn-primary.picture-file-label{
+    margin-left: 10px;
+    margin-top: 50px;
+    border: 1px solid #49C5B6;
+    padding: 15px 30px;
+    background-color: #49C5B6;
+    color:white;
+    border-radius: 0;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+}
+.upload-icon {
+    width: 25px;
+}
+/* background-color: #9fd0ca; */
+
+.btn.btn-primary.picture-file-label.inactive {
+    background-color: #9fd0ca;
+    border-color: #9fd0ca;
+       cursor: not-allowed;
+}
+.picture-file-label.inactive {
+    background-color: #9fd0ca;
+    border-color: #9fd0ca;
 }

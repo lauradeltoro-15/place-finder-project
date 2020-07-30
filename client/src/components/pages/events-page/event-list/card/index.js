@@ -136,7 +136,7 @@ class EventCard extends Component {
                         }
                     {this.props.acceptedOffer && <p className="btn-active-colored">Confirmed!</p>}
                     {this.props.loggedInUser && this.props.acceptedOffer && this.isParticipating() && this.isLive() &&
-                        <Link to={`/live/${this.props._id}`} ><Button variant="primary">LIVE!</Button></Link>
+                        <Link to={`/live/${this.props._id}`} ><Button className="live-button" variant="primary">LIVE!</Button></Link>
 
                     }
                         <UiModal handleModal={this.handleFormModal} show={this.state.showModal} >

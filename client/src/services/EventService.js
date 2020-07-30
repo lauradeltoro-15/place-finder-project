@@ -27,6 +27,8 @@ export default class EventService {
     joinEvent = (eventId, id) =>  this.service.put(`/join/${eventId}/${id}`)
     leaveEvent = (eventId, id) => this.service.put(`/leave/${eventId}/${id}`)
     updateLiveEventPictures = (eventId, picture) => this.service.put(`/live/pictures/${eventId}`, { picture })
-    getAllPicturesEvent = (eventId) => this.service.get(`/live/pictures/${eventId}`)
+    getAllPicturesEvent = eventId => this.service.get(`/live/pictures/${eventId}`)
+    getAllCommentsEvent = eventId => this.service.get(`/live/comments/${eventId}`)
+    postAComment = (eventId, comment, id) => this.service.post(`/live/comments/${eventId}/${id}`, {comment})
 
 }

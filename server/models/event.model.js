@@ -19,7 +19,8 @@ const eventSchema = new Schema({
         type: [{
             message: String,
             owner: { type: Schema.Types.ObjectId, ref: "User" }
-        }]
+        }],
+        default:[]
     },
     pictures: {
         type: [String],

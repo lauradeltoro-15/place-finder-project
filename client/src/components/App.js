@@ -78,7 +78,7 @@ class App extends Component {
           <Route path="/signup" render={props => <AuthPage setTheUser={this.setTheUser} {...props} handleToast={this.handleToast}/>}></Route>
           <Route path="/login" render={props => <AuthPage setTheUser={this.setTheUser} {...props} handleToast={this.handleToast}/>}></Route>
           <Route exact path="/" render={() => <HomePage />}/>
-          <Route exact path="/live/:eventId" render={props => <LivePage {...props}/>} />
+          <Route exact path="/live/:eventId" render={props => this.state.loggedInUser ? <LivePage {...props} loggedInUser={this.state.loggedInUser}  />: <Redirect to='/login' />} />
           <Route exact path="/user/:id/local/add" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm loggedInUser={this.state.loggedInUser} handleToast={this.handleToast} {...props}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId/edit/" render={props => this.isTheUserAllowed(props.match.params.id) ? <LocalForm {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> : <Redirect to='/login' />} />
           <Route path="/user/:id/local/:localId" render={props => <LocalDetails {...props} loggedInUser={this.state.loggedInUser} handleToast={this.handleToast}/> } />

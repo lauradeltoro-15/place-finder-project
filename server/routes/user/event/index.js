@@ -3,7 +3,6 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const passport = require("passport")
 
-
 const ValidationHandler = require("../../../validationHandler")
 const validationHandler = new ValidationHandler()
 
@@ -16,7 +15,7 @@ const Offer = require("../../../models/offer.model")
 
 //Helper functions 
 
-const isLoggedIn = (req, res, next) =>  req.isAuthenticated() ? next() : null
+const isLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : null
 const isTheUserAllowed = (req, res, next) => req.user.id === req.params.id ? next() : null
 const handleErrors = (err, req, res, next) => res.status(500).json({ message: "Oops, something went wrong... try it later :" })
 
@@ -40,7 +39,7 @@ const deleteDetailsAndAssociatedOffers = (res, eventId) => {
         .then(() => Offer.deleteMany({ event: eventId }))
         .then(deleteDetails => res.json(deleteDetails))
         .catch(err => next(err))
-} 
+}
 
 //Endpoints
 
@@ -88,11 +87,11 @@ router.get('/getAllEvents', (req, res, next) => {
 //get all future events
 router.get('/getAllFutureEvents', (req, res, next) => {
     Event
-        .find({ endTime: { "$gte": new Date()}})
+        .find({ endTime: { "$gte": new Date() } })
         .populate({
-            path:'acceptedOffer',
-            populate:{
-                path:"local",
+            path: 'acceptedOffer',
+            populate: {
+                path: "local",
                 populate: 'owner'
             }
         })
@@ -132,7 +131,7 @@ router.get('/:userId/all/future', (req, res, next) => {
 // get all events of a user
 router.get('/:userId/all', (req, res, next) => {
     Event
-        .find({ participants: { $in: [req.params.userId] } } )
+        .find({ participants: { $in: [req.params.userId] } })
         .then(response => res.json(response))
         .catch(err => next(err))
 })
@@ -176,9 +175,9 @@ router.get('/event/:userId', (req, res, next) => {
         .findById(req.params.userId)
         .populate('participants')
         .populate({
-            path:'acceptedOffer',
-            populate:{
-                path:"local",
+            path: 'acceptedOffer',
+            populate: {
+                path: "local",
                 populate: 'owner'
             }
         })
@@ -191,28 +190,38 @@ router.get('/event/name/:eventName', (req, res, next) => {
     Event
         .findOne({ name: req.params.eventName })
         .then(response => res.json(response))
-        .catch(err => next(err))  
+        .catch(err => next(err))
 })
 
 //update event
 router.put('/event/:eventId/:id', isLoggedIn, isTheUserAllowed, (req, res, next) => {
     isFormValidated(req.body, res, req.params.eventId)
-        .then(validated => validated && 
+        .then(validated => validated &&
             Event
                 .findByIdAndUpdate(req.params.eventId, req.body, { new: true })
                 .then(response => res.json(response))
-                .catch(err => next(err))       
+                .catch(err => next(err))
         )
         .catch(err => next(err))
 })
-// Update event pictures
+// Get event comments
 router.get('/live/comments/:eventId', isLoggedIn, (req, res, next) => {
     Event
         .findById(req.params.eventId, { comments: 1, _id: 0 })
-        .populate("comments")
+        .populate("comments.owner")
         .then(response => res.json(response))
         .catch(err => next(err))
 })
+router.post('/live/comments/:eventId/:id', isLoggedIn, (req, res, next) => {
+    console.log(req.body)
+    Event
+        .findById(req.params.eventId)
+        .then(event => Event.findByIdAndUpdate(req.params.eventId, { comments: [...event.comments, { message: req.body.comment, owner: req.params.id }] })
+            .then(response => res.json(response))
+            .catch(err => next(err))
+        )
+})
+
 router.put('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
     Event
         .findById(req.params.eventId)
@@ -228,13 +237,13 @@ router.put('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
 })
 router.get('/live/pictures/:eventId', isLoggedIn, (req, res, next) => {
     Event
-        .findById(req.params.eventId, { pictures: 1 , _id: 0})
-            .then(response => res.json(response))
-            .catch(err => next(err))
+        .findById(req.params.eventId, { pictures: 1, _id: 0 })
+        .then(response => res.json(response))
+        .catch(err => next(err))
 })
 
 // add offer to an event
-router.put('/:eventId/offer/add/:offerId',isLoggedIn, (req, res, next) => {
+router.put('/:eventId/offer/add/:offerId', isLoggedIn, (req, res, next) => {
 
     Event
         .findById(req.params.eventId)
