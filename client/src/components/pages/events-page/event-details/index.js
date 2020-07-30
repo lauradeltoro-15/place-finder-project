@@ -42,7 +42,15 @@ class EventDetails extends Component {
             .then((response) => this.setState({ owner: response.data.owner.username }))
             .catch(err => err.response && this.props.handleToast(true, err.response.data.message))
     }
-
+    obtainDateInFormat = date => {
+        const newDate = new Date(date)
+        const hh = String(newDate.getHours()).padStart(2, '0')
+        const min = String(newDate.getMinutes()).padStart(2, '0')
+        let dd = String(newDate.getDate()).padStart(2, '0')
+        let mm = String(newDate.getMonth() + 1).padStart(2, '0')
+        let yyyy = newDate.getFullYear()
+        return `${dd}-${mm}-${yyyy} ${hh}:${min}`
+    }
     render() {
         return (
             <>
@@ -55,11 +63,11 @@ class EventDetails extends Component {
                                     <span className="color-text-black">Creator: </span> {this.state.owner}
                                     <br></br>
                                     <br></br>
-                                    <span className="color-text-black">Start Time: </span> {this.state.eventDetails.startTime}  |
-                                    <span className="color-text-black">  End Time: </span> {this.state.eventDetails.endTime}
+                                    <span className="color-text-black">Start Time: </span> {this.obtainDateInFormat(this.state.eventDetails.startTime)}  |
+                                    <span className="color-text-black">  End Time: </span> {this.obtainDateInFormat(this.state.eventDetails.endTime)}
                                     <br></br>
                                     <br></br>
-                                    <span className="color-text-black">Description: </span> {this.state.eventDetails.name}
+                                    <span className="color-text-black">Description: </span> {this.state.eventDetails.description}
                                     <br></br>
                                     <br></br>
                                     <span className="color-text-black">City: </span> {this.state.eventDetails.city}
