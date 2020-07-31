@@ -71,6 +71,7 @@ a:not([href]){
 .paginate{
     margin-left: 9rem;
     justify-content: flex-start;
+    display: flex;
 
 }
 

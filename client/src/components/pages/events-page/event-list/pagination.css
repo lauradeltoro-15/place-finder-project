@@ -1,11 +1,11 @@
- ul{
+ .paginate-1 {
     padding:0;
     display: flex;
     align-items: center;
     color: black;
     margin-top: 2rem
 }
-li {
+.paginate-1 li {
     display: flex;
     color: black;
     height: 60px;
@@ -13,50 +13,74 @@ li {
     border: 1px solid #F4F7F6
 }
 
-.page-item{
+.page-item-1{
     text-decoration: none;
-    color: black
+    color: black!important;
+    
 }
 
 .inactive:hover{
     color: grey
 }
 
-.Lactive{
+.paginate-1 .Lactive-1{
     background-color: black;
-    color: white
+    color: black
 }
 
-.Lactive a:not([href]){
+.Lactive-1 a:not([href]){
     background-color: inherit;
     border: none;
     color: white;
 
 }
+.page-link-1 a:not([href]){
+    background-color: inherit;
+    border: none;
+    color: black;
 
-a:not([href]){
+}
+ .page-link-1 a{
     color: black;
     padding: 0rem 1rem
 }
 
-.next-prev{
-    background-color: white;
-    width: 150px;
-    
+
+ .Lactive-1.page-link-1 a:not([href]){
+    color: white;
+    padding: 0rem 1rem
 }
 
-.paginate li{
+.next-prev-1{
+    background-color: white;
+    width: 150px!important;
+    color: black!important;
+    
+}
+.page-link-1 {
+    background-color:white;
+    color:black
+} 
+.paginate-1 li{
     display: flex;
     align-items: center;
     justify-content: center;
     font: inherit
 }
-.paginate{
+.paginate-1{
     text-align: center;
  
 }
 
-.next{
+.paginate-1 .next{
     border: 1px solid #F4F7F6
 }
+.Lactive-1 .page-link-1{
+    color:white
+}
 
+.Lactive-1{
+    color: white;
+    border: none;
+    background-color: inherit
+}

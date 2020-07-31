@@ -55,15 +55,15 @@ class  EventList extends Component {
               pageCount={this.state.pageCount}
               onPageChange={this.handlePageClick}
               forcePage={this.state.currentPage}
-              containerClassName={"paginate"}
-              pageClassName={"page-link"}
-              previousClassName={"next-prev"}
-              previousLinkClassName={"page-item"}
-              nextClassName={"next-prev"}
-              nextLinkClassName={"next-prev"}
+              containerClassName={"paginate-1"}
+              pageClassName={"page-link-1"}
+              previousClassName={"next-prev-1"}
+              previousLinkClassName={"page-item-1"}
+              nextClassName={"next-prev-1"}
+              nextLinkClassName={"next-prev-1"}
               disabledClassName={"inactive"}
-              activeClassName={"Lactive"}
-              activeLinkClassName={"page-link"}
+              activeClassName={"Lactive-1"}
+              activeLinkClassName={"page-link-1"}
             />
           ) 
 
