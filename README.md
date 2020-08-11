@@ -52,7 +52,7 @@ With Fainder you have the following features:
 
 Id // Method // Path                                            //  Description
 ----------------------------------------------------------------------------------------------------------
-1    |   post  |  /signup                                     |        Register a new user
+|1    |   post  |  /signup                                     |        Register a new user|
 2       post    /login                                              Signin
 3       post    /logout                                             Sign out
 4       get     /loggedin                                           Check if an user is logged in                          
